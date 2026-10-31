@@ -20,7 +20,8 @@ const tokens = JSON.parse(readFileSync(join(root, 'tokens.json'), 'utf8'))
 const out = join(root, 'dist')
 mkdirSync(out, { recursive: true })
 
-const HEADER = '/* @sympauthy/design — generated from tokens.json by scripts/build-theme.mjs. Do not edit. */\n'
+const HEADER =
+  '/* @sympauthy/design — generated from tokens.json by scripts/build-theme.mjs. Do not edit. */\n'
 const themes = tokens.color.themes.map((t) => t.id)
 const [first] = themes
 

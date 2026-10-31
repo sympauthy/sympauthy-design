@@ -31,13 +31,13 @@ Each key can also be set as an environment variable (`UI_DISPLAY_NAME`, `UI_THEM
 
 ### What can be changed
 
-| Key | What it colors |
-| --- | --- |
+| Key                                      | What it colors                                          |
+| ---------------------------------------- | ------------------------------------------------------- |
 | `primary`, `primary-hover`, `on-primary` | the main button, links, the focus ring, the current tab |
-| `primary-subtle`, `on-primary-subtle` | tinted boxes: a consent summary, a selection |
-| `ground`, `surface` | the page behind the cards, and the cards themselves |
-| `ink-50` … `ink-900` | the grays: borders, labels, text |
-| `accent`, `nav-*` (light only) | the admin sidebar |
+| `primary-subtle`, `on-primary-subtle`    | tinted boxes: a consent summary, a selection            |
+| `ground`, `surface`                      | the page behind the cards, and the cards themselves     |
+| `ink-50` … `ink-900`                     | the grays: borders, labels, text                        |
+| `accent`, `nav-*` (light only)           | the admin sidebar                                       |
 
 Status colors (errors, warnings, tags) are not configurable: red means a failure whatever the brand.
 

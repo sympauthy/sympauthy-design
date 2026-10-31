@@ -3,7 +3,18 @@
  * variable each one sets in the apps. Everything not listed here stays SympAuthy's: status colors
  * keep their meaning whatever the brand.
  */
-export const INK_STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const
+export const INK_STEPS = [
+  '50',
+  '100',
+  '200',
+  '300',
+  '400',
+  '500',
+  '600',
+  '700',
+  '800',
+  '900'
+] as const
 
 /** The roles the sign-in pages read, in both themes. */
 export const FLOW_ROLES = [

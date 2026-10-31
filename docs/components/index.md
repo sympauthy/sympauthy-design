@@ -23,4 +23,3 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [Tag](./tag)
 - [ActionsDropdown](./actions-dropdown)
 - [ConfirmDialog](./confirm-dialog)
-

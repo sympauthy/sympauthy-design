@@ -17,6 +17,7 @@ The one card of both apps: a flat `surface` box with a 1px `ink-200` border and 
 **In the apps**: the admin's `CommonCard` (`rounded-lg border border-gray-200 bg-white`, with `p-4 sm:p-6` when `padded`) is the reference. The flow's `BaseCard` becomes the same classes: one card, two copies of the component until the apps share a package.
 
 **Built on it**:
+
 - Flow: `AuthCard` (adds a width of `auth-card-width` or `auth-card-width-large`, stacks its content at `space-4`, sets `flow-body`), and `ConfirmRequest`, which is an auth card.
 - Admin: `SummaryCard`, a `DetailSection`'s box, the box around a `Table`, and a `ConfirmDialog` (a padded card on a scrim).
 

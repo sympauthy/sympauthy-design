@@ -23,6 +23,7 @@ import { dangerColoredButton, outlineColoredButton, secondaryColoredButton } fro
 The one button of both apps: `CommonButton` with a `ButtonStyle`, filled Bordeaux for what the screen is for and quieter styles for everything beside it.
 
 **Use**
+
 - `primary`: the one action a screen or card exists for. One per card in the flow; one per collection toolbar or dialog in the admin.
 - `secondary` (admin): everything beside it, such as Refresh or Cancel. `ink-100` fill, `ink-200` border, `ink-700` text.
 - `outline` (flow): the alternative path inside an auth card, such as "No, cancel" or an identity provider. Transparent, `primary` border and text, `primary-subtle` on hover.

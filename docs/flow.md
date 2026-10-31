@@ -23,17 +23,17 @@ The page is `ground` with `space-8` above the header and a `space-6` gap between
 
 ## Page by page
 
-| Page | Card | Primary action | Notes |
-| --- | --- | --- | --- |
-| Sign in | default | Continue | Providers, divider, email/password, "Forgot password?", then "Don't have an account? Sign up" under the card |
-| Sign up | default | Continue | Same shape; "Already have an account? Sign in" |
-| Collect claims | large (680px) | Continue | Title "Before you continue"; claim groups (identity, address) as fieldsets with a `flow-label` legend |
-| Validate claims | default | Verify | Explains where the code was sent ("by email"); code input; resend link with its countdown |
-| MFA selection | default | (choice) | Each method a full-width outline button with its icon; "Skip" as a link when enrollment is optional |
-| TOTP enroll | default | Confirm | QR code on `surface` with a 1px `ink-200` frame; the manual key in `font-mono` with a copy button; then the code input |
-| TOTP challenge | default | Verify | Code input only |
-| Confirm | default | Yes, continue | Request summary box, re-authentication notice, warning sentence; "No, cancel" outline under it |
-| Error | default | none | `danger` alert with the description; details in `flow-small` |
+| Page            | Card          | Primary action | Notes                                                                                                                  |
+| --------------- | ------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Sign in         | default       | Continue       | Providers, divider, email/password, "Forgot password?", then "Don't have an account? Sign up" under the card           |
+| Sign up         | default       | Continue       | Same shape; "Already have an account? Sign in"                                                                         |
+| Collect claims  | large (680px) | Continue       | Title "Before you continue"; claim groups (identity, address) as fieldsets with a `flow-label` legend                  |
+| Validate claims | default       | Verify         | Explains where the code was sent ("by email"); code input; resend link with its countdown                              |
+| MFA selection   | default       | (choice)       | Each method a full-width outline button with its icon; "Skip" as a link when enrollment is optional                    |
+| TOTP enroll     | default       | Confirm        | QR code on `surface` with a 1px `ink-200` frame; the manual key in `font-mono` with a copy button; then the code input |
+| TOTP challenge  | default       | Verify         | Code input only                                                                                                        |
+| Confirm         | default       | Yes, continue  | Request summary box, re-authentication notice, warning sentence; "No, cancel" outline under it                         |
+| Error           | default       | none           | `danger` alert with the description; details in `flow-small`                                                           |
 
 ## Themes
 

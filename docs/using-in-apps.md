@@ -70,14 +70,14 @@ See [Branding a deployment](./branding) for the configuration it reads.
 - **Disabled buttons** read `gray-500` on a `gray-100` fill (5.3:1) instead of white on `gray-400` (2.5:1).
 - **Flow clean-ups.** `src/assets/base.css` and `src/assets/main.css` are the Vue starter's files and nothing imports them: delete them. The `btn` utility gives way to `CommonButton`.
 
-| Was | Now |
-| --- | --- |
-| `--color-primary: blue-800` / hover `blue-900` | Bordeaux `#7b1e3a` / `#631530` |
-| Tailwind gray (cool) | the warm ink scale, under the same `gray-*` names |
-| admin sidebar `bg-gray-800`, active `bg-gray-900` | `bg-nav`, active `bg-nav-active` with a `gold` left rule |
-| flow `--color-body: gray-100` | Ivory `#fbf7f4` |
-| system font | Plus Jakarta Sans, JetBrains Mono |
-| flow `rounded-sm` controls, admin `rounded-md` | `rounded-md` in both |
-| admin fields 38px/14px, flow 44px/16px with a halo | 44px/16px in both, no halo |
-| flow card `rounded-xl shadow-lg`, admin card `rounded-lg border` | `CommonCard` in both |
-| danger button `bg-red-600 text-white` | `border-red-200 bg-red-50 text-red-700` |
+| Was                                                              | Now                                                      |
+| ---------------------------------------------------------------- | -------------------------------------------------------- |
+| `--color-primary: blue-800` / hover `blue-900`                   | Bordeaux `#7b1e3a` / `#631530`                           |
+| Tailwind gray (cool)                                             | the warm ink scale, under the same `gray-*` names        |
+| admin sidebar `bg-gray-800`, active `bg-gray-900`                | `bg-nav`, active `bg-nav-active` with a `gold` left rule |
+| flow `--color-body: gray-100`                                    | Ivory `#fbf7f4`                                          |
+| system font                                                      | Plus Jakarta Sans, JetBrains Mono                        |
+| flow `rounded-sm` controls, admin `rounded-md`                   | `rounded-md` in both                                     |
+| admin fields 38px/14px, flow 44px/16px with a halo               | 44px/16px in both, no halo                               |
+| flow card `rounded-xl shadow-lg`, admin card `rounded-lg border` | `CommonCard` in both                                     |
+| danger button `bg-red-600 text-white`                            | `border-red-200 bg-red-50 text-red-700`                  |
