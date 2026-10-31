@@ -1,0 +1,56 @@
+{
+  "name": "@sympauthy/design",
+  "version": "0.1.0",
+  "description": "The SympAuthy design system: tokens, Tailwind theme, shared Vue components and branding helpers for sympauthy-flow and sympauthy-admin.",
+  "license": "GPL-3.0-only",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sympauthy/sympauthy-design.git"
+  },
+  "homepage": "https://sympauthy.github.io/sympauthy-design/",
+  "files": [
+    "dist",
+    "src",
+    "logos",
+    "tokens.json"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme.css": "./dist/theme.css",
+    "./theme-dark.css": "./dist/theme-dark.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./components.css": "./src/components.css",
+    "./fonts.css": "./src/fonts.css",
+    "./tokens.json": "./tokens.json",
+    "./logos/*": "./logos/*"
+  },
+  "scripts": {
+    "build": "node scripts/build-theme.mjs",
+    "type-check": "vue-tsc --noEmit -p tsconfig.json",
+    "docs:dev": "npm run build && vitepress dev docs",
+    "docs:build": "npm run build && vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "format": "prettier --write src docs scripts",
+    "format:check": "prettier --check src docs scripts",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/plus-jakarta-sans": "^5.3.0"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.2.1",
+    "vue": "^3.3.11"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "@vue/tsconfig": "^0.9.0",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^4.2.1",
+    "typescript": "~6.0.0",
+    "vitepress": "^2.0.0-alpha.15",
+    "vue": "^3.5.0",
+    "vue-tsc": "^3.0.0"
+  }
+}

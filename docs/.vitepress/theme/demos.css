@@ -1,0 +1,51 @@
+/*
+ * Tailwind for the live demos only. No preflight: VitePress styles the pages, and the demos get
+ * exactly the theme and utilities the apps get.
+ */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import '../../../dist/theme.css';
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import '../../../src/components.css';
+@source '../../../src';
+@source '../../components';
+
+/* The box a demo is drawn in: the apps' ground, the apps' text. */
+.demo {
+  margin: 16px 0 24px;
+  padding: 24px;
+  border: 1px solid var(--ink-200);
+  border-radius: var(--radius-lg);
+  background: var(--ground);
+  color: var(--ink-900);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.demo .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.demo .stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 420px;
+}
+
+.vp-doc .demo p {
+  margin: 0;
+  line-height: 20px;
+}
+
+.vp-doc .caps-note {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}

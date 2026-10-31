@@ -1,0 +1,4 @@
+/* The two faces, self-hosted from the package's own dependencies: a sign-in page must not call a
+   third-party font host. theme.css names them first in --font-sans and --font-mono. */
+@import '@fontsource-variable/plus-jakarta-sans';
+@import '@fontsource-variable/jetbrains-mono';

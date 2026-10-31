@@ -1,0 +1,83 @@
+/**
+ * The shared rules every component of both apps is drawn with, moved here from sympauthy-admin's
+ * global stylesheet. Import it after Tailwind and the theme:
+ *
+ *   @import 'tailwindcss';
+ *   @import '@sympauthy/design/theme.css';
+ *   @import '@sympauthy/design/components.css';
+ */
+@layer components {
+  /**
+   * One box for every control: an input, a select, a textarea, a button, a dropdown trigger. Its
+   * border is stated (gray-400, 3:1 on white) rather than inherited from the gray-200 every other
+   * border takes, which is too faint to find a field by.
+   */
+  .control {
+    @apply min-h-9.5 rounded-md border border-gray-400 px-3 py-2 text-sm;
+  }
+
+  /** The name above a value, wherever a value is read. */
+  .field-label {
+    @apply text-xs font-medium tracking-wider text-gray-500 uppercase;
+  }
+
+  /** The one focus ring. */
+  .control-focus {
+    @apply focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none;
+  }
+
+  /** The same ring, for a control made of more than one focusable part. */
+  .control-focus-within {
+    @apply focus-within:border-primary focus-within:ring-1 focus-within:ring-primary;
+  }
+
+  /** A menu an overlay drops. Flat: a border, no shadow. */
+  .menu {
+    @apply z-10 rounded-md border border-gray-200 bg-white;
+  }
+
+  .menu-item {
+    @apply flex w-full cursor-pointer items-center gap-2 px-4 py-2 text-left text-sm outline-none first:rounded-t-md last:rounded-b-md;
+  }
+
+  /** The surface an overlay explains or asks something on. A card's radius, no shadow. */
+  .popover {
+    @apply rounded-lg border border-gray-200 bg-white;
+  }
+}
+
+/** The one motion: an overlay arriving from just above what opened it. */
+.overlay-animated[data-state='open'],
+.overlay-animated[data-state='delayed-open'],
+.overlay-animated[data-state='instant-open'] {
+  animation: sympauthy-overlay-in 120ms ease-out;
+}
+.overlay-animated[data-state='closed'] {
+  animation: sympauthy-overlay-out 100ms ease-in;
+}
+
+@keyframes sympauthy-overlay-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sympauthy-overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay-animated {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<title>SympAuthy Theme Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a two-column tool (controls left, live previews right), the export underneath. Chrome uses SympAuthy's own tokens; previews use the derived palette. */
+:root {
+  --bg: #fbf7f4; --card: #ffffff; --line: #dfd5d9; --field: #9b8c92;
+  --fg: #1f1418; --muted: #6b5a60; --soft: #45363c;
+  --accent: #7b1e3a; --accent-hover: #631530; --on-accent: #ffffff; --subtle: #f6e3e8; --on-subtle: #7b1e3a;
+  --pass: #166534; --pass-bg: #dcfce7; --fail: #b91c1c; --fail-bg: #fef2f2; --warn: #92400e; --warn-bg: #fffbeb; --warn-line: #fde68a;
+  --code-bg: #1f1418; --code-fg: #f3d9df; --code-key: #e89aae; --code-str: #e9b949; --code-muted: #b9a7ae;
+  --sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #171013; --card: #1f1418; --line: #44353b; --field: #7d6b71;
+  --fg: #fbf7f4; --muted: #b9a7ae; --soft: #e3d7da;
+  --accent: #e89aae; --accent-hover: #f0b5c4; --on-accent: #1f1418; --subtle: #4a1f2d; --on-subtle: #f3d9df;
+  --pass: #86efac; --pass-bg: #0f2a1a; --fail: #fca5a5; --fail-bg: #3b1416; --warn: #fcd34d; --warn-bg: #33240c; --warn-line: #78350f;
+  --code-bg: #120c0e; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #171013; --card: #1f1418; --line: #44353b; --field: #7d6b71;
+  --fg: #fbf7f4; --muted: #b9a7ae; --soft: #e3d7da;
+  --accent: #e89aae; --accent-hover: #f0b5c4; --on-accent: #1f1418; --subtle: #4a1f2d; --on-subtle: #f3d9df;
+  --pass: #86efac; --pass-bg: #0f2a1a; --fail: #fca5a5; --fail-bg: #3b1416; --warn: #fcd34d; --warn-bg: #33240c; --warn-line: #78350f;
+  --code-bg: #120c0e; color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 14px/20px var(--sans); }
+.page { max-width: 1320px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 24px; }
+header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.top h1 { margin: 0; font-size: 28px; line-height: 36px; font-weight: 800; letter-spacing: -0.02em; text-wrap: balance; }
+.top h1 span { font-weight: 500; }
+.top p { margin: 4px 0 0; color: var(--muted); max-width: 62ch; }
+.layout { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+.controls { flex: 1 1 340px; max-width: 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.previews { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+@media (max-width: 760px) { .controls { max-width: none; } }
+.box { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.box h2 { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; }
+.caps { font: 500 12px/16px var(--sans); letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+.field { display: flex; flex-direction: column; gap: 6px; }
+/* Fields follow the design system's Field: label 14px/500 ink-700, 44px control with 16px text, 14px help, a 1px ring on focus and no halo. */
+.field > label, .field > .lbl { font: 500 14px/20px var(--sans); color: var(--soft); }
+.help { font-size: 12px; line-height: 16px; color: var(--muted); }
+.field > .help { font-size: 14px; line-height: 20px; }
+input[type="text"], input[type="url"] { min-height: 44px; width: 100%; padding: 9px 12px; border: 1px solid var(--field); border-radius: 6px; background: var(--card); color: var(--fg); font: 400 16px/24px var(--sans); }
+input.mono { font-family: var(--mono); }
+input:focus-visible, button:focus-visible, select:focus-visible, .seg input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+input[type="text"]:focus, input[type="url"]:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+input[aria-invalid="true"] { border-color: var(--fail); }
+.color-row { display: flex; gap: 8px; align-items: center; }
+.color-row input[type="color"] { width: 44px; height: 44px; padding: 2px; border: 1px solid var(--field); border-radius: 6px; background: var(--card); cursor: pointer; flex: 0 0 auto; }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 4px 10px 4px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--soft); font: 500 12px/16px var(--sans); cursor: pointer; }
+.chip i { width: 18px; height: 18px; border-radius: 4px; display: block; }
+.chip[aria-pressed="true"] { border-color: var(--accent); color: var(--fg); }
+.seg { display: inline-flex; border: 1px solid var(--field); border-radius: 6px; overflow: hidden; }
+.seg label { position: relative; }
+.seg input { position: absolute; opacity: 0; inset: 0; }
+.seg span { display: block; padding: 8px 12px; font-weight: 500; color: var(--soft); cursor: pointer; }
+.seg input:checked + span { background: var(--accent); color: var(--on-accent); }
+.seg label + label span { border-left: 1px solid var(--field); }
+.file-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--soft); font: 500 14px/20px var(--sans); cursor: pointer; }
+.btn:hover { border-color: var(--field); color: var(--fg); }
+.btn.primary { background: var(--accent); border-color: transparent; color: var(--on-accent); }
+.btn.primary:hover { background: var(--accent-hover); }
+.notice { padding: 12px; border: 1px solid var(--warn-line); border-radius: 6px; background: var(--warn-bg); color: var(--warn); font-size: 13px; line-height: 18px; }
+.swatches { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.sw { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.sw i { display: block; height: 32px; border-radius: 4px; border: 1px solid var(--line); }
+.sw b { font: 500 11px/14px var(--mono); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sw.big { grid-column: span 5; flex-direction: row; align-items: center; gap: 10px; }
+.sw.big i { width: 40px; height: 40px; flex: 0 0 auto; }
+.sw.big b { font-size: 12px; }
+.checks { display: flex; flex-direction: column; }
+.check { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto auto; align-items: center; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+.check:first-child { border-top: 0; }
+.check .aa { height: 28px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; border: 1px solid var(--line); }
+.check .ratio { font: 500 12px/16px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.badge { font: 600 11px/14px var(--sans); padding: 2px 6px; border-radius: 4px; }
+.badge.ok { background: var(--pass-bg); color: var(--pass); }
+.badge.no { background: var(--fail-bg); color: var(--fail); }
+.pv-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.pv-label { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.export-tabs { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.tabs button { border: 0; background: none; padding: 8px 12px; border-bottom: 2px solid transparent; margin-bottom: -1px; font: 500 14px/20px var(--sans); color: var(--muted); cursor: pointer; }
+.tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.code { margin: 0; padding: 16px; border-radius: 6px; background: var(--code-bg); color: var(--code-fg); font: 400 12.5px/1.6 var(--mono); overflow-x: auto; max-height: 520px; white-space: pre; }
+.code .k { color: var(--code-key); } .code .s { color: var(--code-str); } .code .c { color: var(--code-muted); }
+.copied { font-size: 12px; color: var(--pass); }
+footer.note { color: var(--muted); font-size: 12px; line-height: 18px; max-width: 80ch; }
+
+/* ---------- Preview frames: everything inside reads the derived --p-* palette ---------- */
+.pv { border-radius: 8px; border: 1px solid var(--line); overflow: hidden; background: var(--p-ground); color: var(--p-ink-900); font: 400 16px/24px var(--sans); }
+.pv-flow { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 28px 16px; }
+.pv-brand { display: flex; align-items: center; gap: 10px; font-size: 24px; line-height: 32px; font-weight: 800; letter-spacing: -0.02em; color: var(--p-ink-900); text-align: center; }
+.pv-brand img { max-height: 36px; max-width: 160px; }
+.pv-brand .sym { font-weight: 500; }
+.pv-card { width: 100%; max-width: 380px; background: var(--p-surface); border: 1px solid var(--p-ink-200); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.pv-card h3 { margin: 0; text-align: center; font-size: 20px; line-height: 28px; font-weight: 800; color: var(--p-ink-900); }
+.pv-btn { display: flex; align-items: center; justify-content: center; min-height: 42px; border-radius: 6px; font: 600 15px/22px var(--sans); border: 1px solid transparent; width: 100%; cursor: default; }
+.pv-btn.fill { background: var(--p-primary); color: var(--p-on-primary); }
+.pv-btn.fill:hover { background: var(--p-primary-hover); }
+.pv-btn.line { background: transparent; border-color: var(--p-primary); color: var(--p-primary); }
+.pv-div { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--p-ink-500); }
+.pv-div::before, .pv-div::after { content: ""; flex: 1; height: 1px; background: var(--p-ink-200); }
+.pv-field { display: flex; flex-direction: column; gap: 6px; }
+.pv-field span { font-size: 13px; line-height: 18px; font-weight: 500; color: var(--p-ink-700); }
+.pv-input { min-height: 42px; padding: 9px 12px; border: 1px solid var(--p-ink-400); border-radius: 6px; background: var(--p-surface); color: var(--p-ink-900); font-size: 15px; }
+.pv-input.focus { border-color: var(--p-primary); box-shadow: 0 0 0 1px var(--p-primary); }
+.pv-input.ph { color: var(--p-ink-500); }
+.pv-link { color: var(--p-primary); text-decoration: underline; text-underline-offset: 2px; }
+.pv-small { font-size: 13px; line-height: 18px; color: var(--p-ink-500); text-align: center; }
+.pv-consent { display: flex; gap: 8px; padding: 10px 12px; border-radius: 6px; background: var(--p-primary-subtle); color: var(--p-on-primary-subtle); font-size: 13px; line-height: 18px; }
+.pv-admin { display: flex; min-height: 300px; font-size: 13px; line-height: 18px; }
+.pv-nav { flex: 0 0 168px; background: var(--p-nav-ground); color: var(--p-nav-text); display: flex; flex-direction: column; }
+.pv-nav .hd { display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 14px; border-bottom: 1px solid var(--p-nav-divider); font-size: 15px; font-weight: 800; color: #ffffff; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.pv-nav .hd img { max-height: 22px; max-width: 60px; }
+.pv-nav .sec { padding: 10px 14px 4px; font-size: 10px; line-height: 14px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; color: var(--p-nav-muted); }
+.pv-nav a { display: block; padding: 6px 14px; border-left: 3px solid transparent; color: var(--p-nav-text); text-decoration: none; }
+.pv-nav a.on { background: var(--p-nav-active); border-left-color: var(--p-accent); color: #ffffff; font-weight: 600; }
+.pv-nav a.off { color: var(--p-nav-disabled); }
+.pv-main { flex: 1; min-width: 0; padding: 14px; display: flex; flex-direction: column; gap: 12px; background: var(--p-ground); }
+.pv-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pv-bar b { font-size: 15px; color: var(--p-ink-900); }
+.pv-sbtn { display: inline-flex; align-items: center; min-height: 32px; padding: 0 10px; border-radius: 6px; font-weight: 500; font-size: 13px; }
+.pv-sbtn.fill { background: var(--p-primary); color: var(--p-on-primary); }
+.pv-sbtn.sec { background: var(--p-ink-100); border: 1px solid var(--p-ink-200); color: var(--p-ink-700); }
+.pv-table { background: var(--p-surface); border: 1px solid var(--p-ink-200); border-radius: 8px; overflow: hidden; }
+.pv-table .tr { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 9px 12px; border-top: 1px solid var(--p-ink-200); color: var(--p-ink-500); }
+.pv-table .tr:first-child { border-top: 0; background: var(--p-ink-50); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+.pv-table .tr span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pv-table .tr strong { color: var(--p-ink-900); font-weight: 500; }
+.pv-tab { display: flex; gap: 4px; border-bottom: 1px solid var(--p-ink-200); }
+.pv-tab span { padding: 6px 10px; color: var(--p-ink-500); font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.pv-tab span.on { color: var(--p-primary); border-bottom-color: var(--p-primary); }
+.tag { display: inline-block; padding: 1px 6px; border-radius: 6px; font-size: 11px; line-height: 16px; font-weight: 500; }
+.tag.g { background: #dcfce7; color: #166534; } .tag.r { background: #fee2e2; color: #991b1b; }
+.mono { font-family: var(--mono); }
+@media (max-width: 520px) { .pv-nav { flex-basis: 120px; } .pv-table .tr { grid-template-columns: minmax(0, 1fr) auto; } .pv-table .tr span:nth-child(2) { display: none; } }
+@media (prefers-reduced-motion: no-preference) { .pv, .pv * { transition: background-color .15s, color .15s, border-color .15s; } }
+</style>
+
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <p style="flex-basis: 100%; margin: 0"><a href="../branding.html" style="color: var(--accent)">← Branding a deployment</a></p>
+    <div>
+      <h1><span>Symp</span>Authy theme builder</h1>
+      <p>Pick your brand color. The builder derives a full, accessible palette for the sign-in pages and the admin panel, previews it, and writes the configuration for your SympAuthy server.</p>
+    </div>
+    <button type="button" class="btn" id="reset">Reset to SympAuthy</button>
+  </header>
+
+  <div class="layout">
+    <section class="controls" aria-label="Branding">
+      <div class="box">
+        <h2>Brand</h2>
+        <div class="field">
+          <label for="name">Display name</label>
+          <input id="name" type="text" value="SympAuthy" autocomplete="off">
+          <span class="help">Shown above the sign-in card and in the admin sidebar (<span class="mono">ui.display-name</span>).</span>
+        </div>
+        <div class="field">
+          <span class="lbl" id="logo-lbl">Logo</span>
+          <div class="file-row">
+            <input id="logo-file" type="file" accept="image/*" aria-labelledby="logo-lbl" class="sr" style="max-width: 100%">
+            <button type="button" class="btn" id="logo-clear">Remove</button>
+          </div>
+          <input id="logo-url" type="url" class="mono" placeholder="https://auth.example.com/branding/logo.svg" aria-label="Logo URL for the configuration">
+          <span class="help">The preview uses the file you pick. The configuration needs the URL your users' browsers will load it from.</span>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>Color</h2>
+        <div class="field">
+          <label for="hex">Primary color</label>
+          <div class="color-row">
+            <input id="picker" type="color" value="#7b1e3a" aria-label="Pick a primary color">
+            <input id="hex" type="text" class="mono" value="#7b1e3a" spellcheck="false" autocomplete="off" aria-describedby="hex-help">
+          </div>
+          <span class="help" id="hex-help">Buttons, links, the focus ring and the current tab. Any hex color.</span>
+        </div>
+        <div class="presets" role="group" aria-label="Examples">
+          <button type="button" class="chip" data-hex="#7b1e3a"><i style="background:#7b1e3a"></i>Bordeaux</button>
+          <button type="button" class="chip" data-hex="#0f766e"><i style="background:#0f766e"></i>Teal</button>
+          <button type="button" class="chip" data-hex="#4338ca"><i style="background:#4338ca"></i>Indigo</button>
+          <button type="button" class="chip" data-hex="#15803d"><i style="background:#15803d"></i>Green</button>
+          <button type="button" class="chip" data-hex="#f59e0b"><i style="background:#f59e0b"></i>Amber</button>
+          <button type="button" class="chip" data-hex="#334155"><i style="background:#334155"></i>Slate</button>
+        </div>
+        <div class="notice" id="adjust" hidden></div>
+        <div class="field">
+          <span class="lbl" id="tint-lbl">Grays</span>
+          <div class="seg" role="radiogroup" aria-labelledby="tint-lbl">
+            <label><input type="radio" name="tint" value="tinted" checked><span>Tinted with my color</span></label>
+            <label><input type="radio" name="tint" value="neutral"><span>Neutral</span></label>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl" id="dark-lbl">Dark mode on the sign-in pages</span>
+          <div class="seg" role="radiogroup" aria-labelledby="dark-lbl">
+            <label><input type="radio" name="dark" value="auto" checked><span>Follow the device</span></label>
+            <label><input type="radio" name="dark" value="off"><span>Always light</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>Palette</h2>
+        <div class="swatches" id="swatches"></div>
+      </div>
+
+      <div class="box">
+        <div class="pv-label"><h2>Contrast</h2><span class="help" id="check-sum"></span></div>
+        <div class="checks" id="checks"></div>
+      </div>
+    </section>
+
+    <section class="previews" aria-label="Preview">
+      <div class="pv-row">
+        <div class="box" style="padding: 16px; gap: 10px">
+          <div class="pv-label"><span class="caps">Sign in · light</span></div>
+          <div class="pv" id="pv-light"></div>
+        </div>
+        <div class="box" style="padding: 16px; gap: 10px" id="dark-box">
+          <div class="pv-label"><span class="caps">Confirm · dark</span></div>
+          <div class="pv" id="pv-dark"></div>
+        </div>
+      </div>
+      <div class="box" style="padding: 16px; gap: 10px">
+        <div class="pv-label"><span class="caps">Admin panel</span><span class="help">The admin stays light.</span></div>
+        <div class="pv" id="pv-admin"></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="box" aria-label="Configuration">
+    <div class="export-tabs">
+      <h2>Configuration</h2>
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span class="copied" id="copied" role="status"></span>
+        <button type="button" class="btn primary" id="copy">Copy</button>
+      </div>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Format">
+      <button type="button" role="tab" aria-selected="true" data-tab="yaml" id="tab-yaml">application.yml</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="env" id="tab-env">Environment variables</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="css" id="tab-css">CSS variables</button>
+    </div>
+    <p class="help" id="tab-help" style="margin: 0"></p>
+    <pre class="code" id="code" tabindex="0" aria-label="Generated configuration"></pre>
+  </section>
+
+  <footer class="note">SympAuthy reads <span class="mono">ui.display-name</span> today. The <span class="mono">ui.logo-url</span> and <span class="mono">ui.theme</span> keys are the proposed contract for branding: the server hands them to the sign-in pages and the admin, which set the CSS variables on load, so a deployment is rebranded without rebuilding either app.</footer>
+</div>
+
+<script>
+(function () {
+  // ---------- Color math: OKLCH <-> sRGB ----------
+  const toLin = c => c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  const toGam = c => c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055;
+  function hexToRgb(h) { h = h.replace('#', ''); if (h.length === 3) h = h.split('').map(x => x + x).join(''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) / 255); }
+  function rgbToOklch(rgb) {
+    const [r, g, b] = rgb.map(toLin);
+    let l = 0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b;
+    let m = 0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b;
+    let s = 0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b;
+    l = Math.cbrt(l); m = Math.cbrt(m); s = Math.cbrt(s);
+    const L = 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s;
+    const A = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s;
+    const B = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s;
+    return { L, C: Math.hypot(A, B), H: ((Math.atan2(B, A) * 180 / Math.PI) + 360) % 360 };
+  }
+  function oklchRaw(L, C, H) {
+    const a = C * Math.cos(H * Math.PI / 180), b = C * Math.sin(H * Math.PI / 180);
+    const l = Math.pow(L + 0.3963377774 * a + 0.2158037573 * b, 3);
+    const m = Math.pow(L - 0.1055613458 * a - 0.0638541728 * b, 3);
+    const s = Math.pow(L - 0.0894841775 * a - 1.2914855480 * b, 3);
+    return [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s, -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s].map(toGam);
+  }
+  const inGamut = rgb => rgb.every(v => v >= -0.0005 && v <= 1.0005);
+  function hex(L, C, H) {
+    L = Math.min(1, Math.max(0, L));
+    let rgb = oklchRaw(L, C, H);
+    if (!inGamut(rgb)) { let lo = 0, hi = C; for (let i = 0; i < 24; i++) { const mid = (lo + hi) / 2; if (inGamut(oklchRaw(L, mid, H))) lo = mid; else hi = mid; } rgb = oklchRaw(L, lo, H); }
+    return '#' + rgb.map(v => Math.round(Math.min(1, Math.max(0, v)) * 255).toString(16).padStart(2, '0')).join('');
+  }
+  const lum = h => { const [r, g, b] = hexToRgb(h).map(toLin); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+  const contrast = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+  function towards(c, bg, min, dir) { let L = c.L, out = hex(L, c.C, c.H); for (let i = 0; i < 200 && contrast(out, bg) < min && L > 0.02 && L < 0.99; i++) { L += 0.005 * dir; out = hex(L, c.C, c.H); } return { L, C: c.C, H: c.H, hex: out }; }
+
+  // ---------- SympAuthy's own palette, returned exactly for Bordeaux ----------
+  const CANON = {
+    light: { 'primary': '#7b1e3a', 'primary-hover': '#631530', 'on-primary': '#ffffff', 'primary-subtle': '#f6e3e8', 'on-primary-subtle': '#7b1e3a', 'ground': '#fbf7f4', 'surface': '#ffffff',
+      'ink-50': '#f6f2f4', 'ink-100': '#ede6e9', 'ink-200': '#dfd5d9', 'ink-300': '#c3b7bc', 'ink-400': '#9b8c92', 'ink-500': '#6b5a60', 'ink-600': '#574850', 'ink-700': '#45363c', 'ink-800': '#33242a', 'ink-900': '#1f1418',
+      'accent': '#e9b949', 'nav-ground': '#1f1418', 'nav-text': '#f3d9df', 'nav-muted': '#b9a7ae', 'nav-disabled': '#7d6b71', 'nav-hover': '#33242a', 'nav-active': '#4a1f2d', 'nav-divider': '#33242a' },
+    dark: { 'primary': '#e89aae', 'primary-hover': '#f0b5c4', 'on-primary': '#1f1418', 'primary-subtle': '#4a1f2d', 'on-primary-subtle': '#f3d9df', 'ground': '#171013', 'surface': '#1f1418',
+      'ink-50': '#2a1e23', 'ink-100': '#33262b', 'ink-200': '#44353b', 'ink-300': '#5c4b51', 'ink-400': '#7d6b71', 'ink-500': '#b9a7ae', 'ink-600': '#cdbec3', 'ink-700': '#e3d7da', 'ink-800': '#f0e8ea', 'ink-900': '#fbf7f4' }
+  };
+  // Lightness and chroma of each gray step, measured on SympAuthy's scale; the hue follows the brand.
+  const STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
+  const INK_L = { light: [[.965, .005], [.931, .0085], [.882, .0122], [.791, .0152], [.655, .0198], [.486, .0239], [.42, .0238], [.351, .0234], [.281, .0249], [.207, .0194]],
+                  dark: [[.252, .0206], [.286, .0213], [.348, .0235], [.432, .0247], [.547, .0243], [.746, .0229], [.815, .0182], [.89, .0138], [.938, .009], [.978, .0059]] };
+  const FLOW_ROLES = ['primary', 'primary-hover', 'on-primary', 'primary-subtle', 'on-primary-subtle', 'ground', 'surface', ...STEPS.map(s => 'ink-' + s)];
+  const NAV_ROLES = ['accent', 'nav-ground', 'nav-text', 'nav-muted', 'nav-disabled', 'nav-hover', 'nav-active', 'nav-divider'];
+
+  function derive(input, tint) {
+    if (input === '#7b1e3a' && tint === 'tinted') return { light: { ...CANON.light }, dark: { ...CANON.dark }, adjusted: null };
+    const p = rgbToOklch(hexToRgb(input));
+    const k = tint === 'neutral' ? 0 : Math.min(p.C / 0.128, 1.2);
+    const hi = (p.H + 348) % 360;
+    const ink = mode => Object.fromEntries(STEPS.map((s, i) => ['ink-' + s, hex(INK_L[mode][i][0], INK_L[mode][i][1] * k, hi)]));
+    const L = {}, D = {};
+    Object.assign(L, ink('light')); Object.assign(D, ink('dark'));
+    L.ground = hex(.981, .004 * k, hi); L.surface = '#ffffff';
+    D.ground = hex(.183, .013 * k, hi); D.surface = hex(.207, .0194 * k, hi);
+
+    // Light: the color must carry white labels and read as a link on white.
+    let prim = { ...p, hex: hex(p.L, p.C, p.H) };
+    let adjusted = null;
+    if (contrast(prim.hex, '#ffffff') < 4.5) { const before = contrast(prim.hex, '#ffffff'); prim = towards(prim, '#ffffff', 4.6, -1); adjusted = { from: input, to: prim.hex, ratio: before }; }
+    L.primary = prim.hex; L['on-primary'] = '#ffffff';
+    L['primary-hover'] = hex(prim.L - .057, prim.C * .875, prim.H);
+    L['primary-subtle'] = hex(.932, Math.min(prim.C * .17, .03), prim.H);
+    L['on-primary-subtle'] = contrast(prim.hex, L['primary-subtle']) >= 4.8 ? prim.hex : towards(prim, L['primary-subtle'], 4.8, -1).hex;
+
+    // Dark: a light tint of the color, with dark labels on it.
+    let dp = towards({ L: .769, C: Math.min(p.C * .75, .12), H: p.H }, D.surface, 4.6, 1);
+    D.primary = dp.hex; D['on-primary'] = L['ink-900'];
+    if (contrast(D['on-primary'], D.primary) < 4.5) D['on-primary'] = '#000000';
+    D['primary-hover'] = hex(Math.min(dp.L + .062, .95), dp.C * .74, dp.H);
+    D['primary-subtle'] = hex(.306, Math.min(p.C * .53, .07), p.H);
+    D['on-primary-subtle'] = hex(.908, Math.min(p.C * .23, .03), p.H);
+
+    // Admin sidebar (light only): dark ground built from the grays, the dark tint as its accent.
+    L.accent = D.primary; L['nav-ground'] = L['ink-900']; L['nav-text'] = D['on-primary-subtle'];
+    L['nav-muted'] = D['ink-500']; L['nav-disabled'] = D['ink-400']; L['nav-hover'] = L['ink-800'];
+    L['nav-active'] = D['primary-subtle']; L['nav-divider'] = L['ink-800'];
+    return { light: L, dark: D, adjusted };
+  }
+
+  // ---------- State ----------
+  const $ = id => document.getElementById(id);
+  const state = { name: 'SympAuthy', hex: '#7b1e3a', tint: 'tinted', dark: 'auto', logoUrl: '', logoData: '', tab: 'yaml' };
+  try { const saved = JSON.parse(localStorage.getItem('sa-theme') || '{}'); ['name', 'hex', 'tint', 'dark', 'logoUrl', 'tab'].forEach(k => { if (typeof saved[k] === 'string') state[k] = saved[k]; }); } catch (e) {}
+  const save = () => { try { const { logoData, ...rest } = state; localStorage.setItem('sa-theme', JSON.stringify(rest)); } catch (e) {} };
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const normHex = v => { v = v.trim().toLowerCase(); if (!v.startsWith('#')) v = '#' + v; if (/^#[0-9a-f]{3}$/.test(v)) v = '#' + v.slice(1).split('').map(x => x + x).join(''); return /^#[0-9a-f]{6}$/.test(v) ? v : null; };
+
+  // ---------- Rendering ----------
+  const MARK = (size) => `<svg width="${size}" height="${size}" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7b1e3a"/><g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 15C19 15 18.5 18 18.5 23v4c0 3-1.5 5-5 5 3.5 0 5 2 5 5v4c0 5 .5 8 5.5 8"/><path d="M40 15c5 0 5.5 3 5.5 8v4c0 3 1.5 5 5 5-3.5 0-5 2-5 5v4c0 5-.5 8-5.5 8"/></g><circle cx="32" cy="28.5" r="4.5" fill="#e9b949"/><path d="M30 31.5 28.8 38.5h6.4L34 31.5z" fill="#e9b949"/></svg>`;
+  function logoHtml(size) {
+    if (state.logoData) return `<img src="${state.logoData}" alt="">`;
+    if (state.name.trim() === 'SympAuthy' && state.hex === '#7b1e3a') return MARK(size);
+    return '';
+  }
+  function nameHtml() { const n = state.name.trim() || 'Your service'; return n === 'SympAuthy' ? '<span class="sym">Symp</span>Authy' : esc(n); }
+  function applyVars(el, pal) { Object.entries(pal).forEach(([k, v]) => el.style.setProperty('--p-' + k, v)); }
+
+  function render() {
+    const pal = derive(state.hex, state.tint);
+    const flowName = nameHtml();
+    // Light sign-in
+    const pl = $('pv-light'); applyVars(pl, pal.light);
+    pl.innerHTML = `<div class="pv-flow"><div class="pv-brand">${logoHtml(36)}<span>${flowName}</span></div>
+      <div class="pv-card"><h3>Login to your account</h3>
+        <div class="pv-btn line">Continue with Google</div>
+        <div class="pv-div">or</div>
+        <div class="pv-field"><span>Email</span><div class="pv-input focus">ada@example.com</div></div>
+        <div class="pv-field"><span>Password</span><div class="pv-input ph">••••••••</div></div>
+        <div class="pv-btn fill">Continue</div>
+        <div class="pv-small">Don't have an account? <span class="pv-link">Sign up</span></div>
+      </div><div class="pv-small">Powered by <span class="pv-link">SympAuthy</span>.</div></div>`;
+    // Dark confirm
+    const pd = $('pv-dark');
+    if (state.dark === 'auto') {
+      applyVars(pd, pal.dark);
+      pd.innerHTML = `<div class="pv-flow"><div class="pv-brand">${logoHtml(36)}<span>${flowName}</span></div>
+        <div class="pv-card"><h3>Verify this request</h3>
+          <div class="pv-consent"><span><strong>Billing dashboard</strong> has requested to set up two-factor authentication on your account.</span></div>
+          <div class="pv-small" style="text-align: left; color: var(--p-ink-700)">To protect your account, do not continue unless you initiated this request.</div>
+          <div class="pv-btn fill">Yes, continue</div><div class="pv-btn line">No, cancel</div>
+        </div><div class="pv-small">Powered by <span class="pv-link">SympAuthy</span>.</div></div>`;
+    } else {
+      applyVars(pd, pal.light);
+      pd.innerHTML = `<div class="pv-flow"><div class="pv-small" style="padding: 48px 8px">Dark mode is off: the sign-in pages stay light on every device.</div></div>`;
+    }
+    $('dark-box').querySelector('.caps').textContent = state.dark === 'auto' ? 'Confirm · dark' : 'Dark mode';
+    // Admin
+    const pa = $('pv-admin'); applyVars(pa, pal.light);
+    const adminName = state.name.trim() || 'Your service';
+    pa.innerHTML = `<div class="pv-admin"><div class="pv-nav"><div class="hd">${state.logoData ? `<img src="${state.logoData}" alt="">` : (adminName === 'SympAuthy' && state.hex === '#7b1e3a' ? MARK(22) : '')}<span>${esc(adminName)}</span></div>
+      <div class="sec">Users</div><a class="on">Users</a><a>Grants</a><a>Invitations</a>
+      <div class="sec">Configuration</div><a>Clients</a><a>Claims</a><a class="off">Scopes</a></div>
+      <div class="pv-main"><div class="pv-bar"><b>Users</b><span class="pv-sbtn fill">Invite user</span></div>
+        <div class="pv-tab"><span class="on">All</span><span>Invited</span></div>
+        <div class="pv-table"><div class="tr"><span>Email</span><span>User ID</span><span>Status</span></div>
+          <div class="tr"><span><strong>ada@example.com</strong></span><span class="mono">c3f1e0a2</span><span class="tag g">Active</span></div>
+          <div class="tr"><span><strong>alan@example.com</strong></span><span class="mono">9b07d1ce</span><span class="tag r">Disabled</span></div></div>
+        <div><span class="pv-sbtn sec">Refresh</span></div></div></div>`;
+
+    // Adjustment notice
+    const adj = $('adjust');
+    if (pal.adjusted) { adj.hidden = false; adj.textContent = `${pal.adjusted.from} gives white labels only ${pal.adjusted.ratio.toFixed(1)}:1, under the 4.5:1 that text needs. Buttons and links use ${pal.adjusted.to}, a darker shade of it; your logo keeps your color.`; }
+    else adj.hidden = true;
+
+    // Swatches
+    const sw = (k, v, big) => `<div class="sw${big ? ' big' : ''}"><i style="background:${v}"></i><b title="${k} ${v}">${big ? k + ' · ' : ''}${v}</b></div>`;
+    $('swatches').innerHTML = sw('primary', pal.light.primary, true) + sw('primary-subtle', pal.light['primary-subtle'], true)
+      + (state.dark === 'auto' ? sw('primary (dark)', pal.dark.primary, true) : '')
+      + STEPS.map(s => sw('ink-' + s, pal.light['ink-' + s])).join('');
+
+    // Contrast checks
+    const rows = [
+      ['Button label', pal.light['on-primary'], pal.light.primary, 4.5],
+      ['Link on a card', pal.light.primary, pal.light.surface, 4.5],
+      ['Text on the page', pal.light['ink-900'], pal.light.ground, 4.5],
+      ['Label on the page', pal.light['ink-500'], pal.light.ground, 4.5],
+      ['Label in a table header', pal.light['ink-500'], pal.light['ink-50'], 4.5],
+      ['Text on a tint', pal.light['on-primary-subtle'], pal.light['primary-subtle'], 4.5],
+      ['Field border', pal.light['ink-400'], pal.light.surface, 3],
+      ['Sidebar entry', pal.light['nav-text'], pal.light['nav-ground'], 4.5],
+      ['Sidebar current entry', '#ffffff', pal.light['nav-active'], 4.5]
+    ];
+    if (state.dark === 'auto') rows.push(
+      ['Dark · button label', pal.dark['on-primary'], pal.dark.primary, 4.5],
+      ['Dark · link on a card', pal.dark.primary, pal.dark.surface, 4.5],
+      ['Dark · label', pal.dark['ink-500'], pal.dark.ground, 4.5],
+      ['Dark · text on a tint', pal.dark['on-primary-subtle'], pal.dark['primary-subtle'], 4.5]);
+    let fails = 0;
+    $('checks').innerHTML = rows.map(([label, fg, bg, min]) => { const r = contrast(fg, bg), ok = r >= min; if (!ok) fails++;
+      return `<div class="check"><span class="aa" style="background:${bg};color:${fg}">Aa</span><span>${label}</span><span class="ratio">${r.toFixed(1)}:1</span><span class="badge ${ok ? 'ok' : 'no'}">${ok ? 'Pass' : 'Fails ' + min + ':1'}</span></div>`; }).join('');
+    $('check-sum').textContent = fails ? `${fails} pair${fails > 1 ? 's' : ''} below the minimum` : `All ${rows.length} pairs pass WCAG AA`;
+
+    renderExport(pal);
+    document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.hex === state.hex)));
+    save();
+  }
+
+  // ---------- Export ----------
+  const TW = { 'primary': '--color-primary', 'primary-hover': '--color-primary-hover', 'on-primary': '--color-on-primary', 'primary-subtle': '--color-primary-subtle', 'on-primary-subtle': '--color-on-primary-subtle', 'ground': '--color-body', 'surface': '--color-white', 'accent': '--color-gold', 'nav-ground': '--color-nav', 'nav-text': '--color-nav-text', 'nav-muted': '--color-nav-muted', 'nav-disabled': '--color-nav-disabled', 'nav-hover': '--color-nav-hover', 'nav-active': '--color-nav-active', 'nav-divider': '--color-nav-divider' };
+  STEPS.forEach(s => TW['ink-' + s] = '--color-gray-' + s);
+  let plainText = '';
+  function renderExport(pal) {
+    const name = state.name.trim() || 'Your service';
+    const url = state.logoUrl.trim();
+    const lightKeys = [...FLOW_ROLES, ...NAV_ROLES];
+    let html = '', text = '';
+    const line = (h, t) => { html += h + '\n'; text += t + '\n'; };
+    if (state.tab === 'yaml') {
+      $('tab-help').textContent = 'Merge into your application.yml (or a file of an environment you enable with MICRONAUT_ENVIRONMENTS).';
+      line('<span class="k">ui</span>:', 'ui:');
+      line(`  <span class="k">display-name</span>: <span class="s">${esc(name)}</span>`, `  display-name: ${name}`);
+      if (url) line(`  <span class="k">logo-url</span>: <span class="s">${esc(url)}</span>`, `  logo-url: ${url}`);
+      else line(`  <span class="c"># logo-url: https://auth.example.com/branding/logo.svg</span>`, `  # logo-url: https://auth.example.com/branding/logo.svg`);
+      line('  <span class="k">theme</span>:', '  theme:');
+      line(`    <span class="k">dark-mode</span>: <span class="s">${state.dark}</span>  <span class="c"># auto: follow the device · off: always light</span>`, `    dark-mode: ${state.dark}  # auto: follow the device · off: always light`);
+      line('    <span class="k">light</span>:', '    light:');
+      lightKeys.forEach(k => line(`      <span class="k">${k}</span>: <span class="s">"${pal.light[k]}"</span>`, `      ${k}: "${pal.light[k]}"`));
+      if (state.dark === 'auto') {
+        line('    <span class="k">dark</span>:  <span class="c"># sign-in pages only</span>', '    dark:  # sign-in pages only');
+        FLOW_ROLES.forEach(k => line(`      <span class="k">${k}</span>: <span class="s">"${pal.dark[k]}"</span>`, `      ${k}: "${pal.dark[k]}"`));
+      }
+    } else if (state.tab === 'env') {
+      $('tab-help').textContent = 'For Docker, Compose or Kubernetes. Micronaut maps each variable onto the matching ui.* key.';
+      const env = (k, v) => line(`<span class="k">${k}</span>=<span class="s">"${esc(v)}"</span>`, `${k}="${v}"`);
+      const up = s => s.toUpperCase().replace(/[-.]/g, '_');
+      env('UI_DISPLAY_NAME', name);
+      if (url) env('UI_LOGO_URL', url);
+      env('UI_THEME_DARK_MODE', state.dark);
+      lightKeys.forEach(k => env('UI_THEME_LIGHT_' + up(k), pal.light[k]));
+      if (state.dark === 'auto') FLOW_ROLES.forEach(k => env('UI_THEME_DARK_' + up(k), pal.dark[k]));
+    } else {
+      $('tab-help').textContent = 'What the sign-in pages and the admin set on :root at load, under the Tailwind names both apps use. Useful to try a theme in the browser devtools.';
+      line('<span class="k">:root</span> {', ':root {');
+      lightKeys.forEach(k => line(`  <span class="k">${TW[k]}</span>: <span class="s">${pal.light[k]}</span>;`, `  ${TW[k]}: ${pal.light[k]};`));
+      line('}', '}');
+      if (state.dark === 'auto') {
+        line('<span class="c">/* sign-in pages only */</span>', '/* sign-in pages only */');
+        line('<span class="k">@media (prefers-color-scheme: dark)</span> {', '@media (prefers-color-scheme: dark) {');
+        line('  <span class="k">:root</span> {', '  :root {');
+        FLOW_ROLES.forEach(k => line(`    <span class="k">${TW[k]}</span>: <span class="s">${pal.dark[k]}</span>;`, `    ${TW[k]}: ${pal.dark[k]};`));
+        line('  }', '  }'); line('}', '}');
+      }
+    }
+    $('code').innerHTML = html.trimEnd();
+    plainText = text.trimEnd() + '\n';
+    document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === state.tab)));
+  }
+
+  // ---------- Wiring ----------
+  const setHex = (v, from) => { const h = normHex(v); $('hex').setAttribute('aria-invalid', h ? 'false' : 'true'); if (!h) return; state.hex = h; if (from !== 'hex') $('hex').value = h; if (from !== 'picker') $('picker').value = h; render(); };
+  $('picker').addEventListener('input', e => setHex(e.target.value, 'picker'));
+  $('hex').addEventListener('input', e => setHex(e.target.value, 'hex'));
+  $('hex').addEventListener('blur', () => { $('hex').value = state.hex; $('hex').setAttribute('aria-invalid', 'false'); });
+  document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => setHex(c.dataset.hex)));
+  $('name').addEventListener('input', e => { state.name = e.target.value; render(); });
+  $('logo-url').addEventListener('input', e => { state.logoUrl = e.target.value; render(); });
+  document.querySelectorAll('input[name="tint"]').forEach(r => r.addEventListener('change', e => { state.tint = e.target.value; render(); }));
+  document.querySelectorAll('input[name="dark"]').forEach(r => r.addEventListener('change', e => { state.dark = e.target.value; render(); }));
+  $('logo-file').addEventListener('change', e => { const f = e.target.files && e.target.files[0]; if (!f) return; const rd = new FileReader(); rd.onload = () => { state.logoData = String(rd.result); render(); }; rd.readAsDataURL(f); });
+  $('logo-clear').addEventListener('click', () => { state.logoData = ''; $('logo-file').value = ''; render(); });
+  document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => { state.tab = b.dataset.tab; render(); }));
+  $('reset').addEventListener('click', () => { Object.assign(state, { name: 'SympAuthy', hex: '#7b1e3a', tint: 'tinted', dark: 'auto', logoUrl: '', logoData: '' }); syncInputs(); render(); });
+  $('copy').addEventListener('click', () => {
+    const done = () => { $('copied').textContent = 'Copied'; setTimeout(() => { $('copied').textContent = ''; }, 1800); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents($('code')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $('copied').textContent = 'Selected: press Ctrl+C or ⌘C'; };
+    try { navigator.clipboard.writeText(plainText).then(done, fallback); } catch (e) { fallback(); }
+  });
+  function syncInputs() {
+    $('name').value = state.name; $('hex').value = state.hex; $('picker').value = state.hex; $('logo-url').value = state.logoUrl; $('logo-file').value = '';
+    document.querySelectorAll('input[name="tint"]').forEach(r => r.checked = r.value === state.tint);
+    document.querySelectorAll('input[name="dark"]').forEach(r => r.checked = r.value === state.dark);
+  }
+  syncInputs(); render();
+})();
+</script>
+</body>
+</html>
