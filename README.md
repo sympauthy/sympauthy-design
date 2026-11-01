@@ -8,12 +8,12 @@ documents them.
 
 - **Docs:** https://sympauthy.github.io/sympauthy-design/
 - **Theme builder:** https://sympauthy.github.io/sympauthy-design/theme-builder/
-- **Package:** `@sympauthy/design`
+- **Package:** `@sympauthy/design`, installed from this repository (it is not on npm)
 
 ## Use it in an app
 
 ```sh
-npm install @sympauthy/design
+npm install github:sympauthy/sympauthy-design#v0.1.0
 ```
 
 ```css
@@ -46,7 +46,8 @@ docs/                    the VitePress site, deployed to GitHub Pages
   public/theme-builder/  the theme builder, a standalone page
 ```
 
-`dist/` is generated: edit `tokens.json` and run `npm run build`, never the CSS.
+`dist/` is generated and not committed: edit `tokens.json` and run `npm run build`, never the CSS.
+The `prepare` script builds it when an app installs the package.
 
 ## Develop
 
@@ -63,8 +64,9 @@ npm run format
 1. Bump `version` in `package.json` and merge.
 2. `git tag v0.2.0 && git push --tags`.
 
-The Publish workflow builds the theme and publishes to npm (it needs an `NPM_TOKEN` secret with
-publish rights on the `@sympauthy` scope). Renovate in both apps opens the version bump.
+The tag is the release: the package is internal to SympAuthy, so nothing is published to a registry,
+and `private` in `package.json` makes `npm publish` refuse. Renovate in both apps opens the version
+bump.
 
 ## Not done yet
 

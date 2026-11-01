@@ -5,8 +5,10 @@
 ## Install
 
 ```sh
-npm install @sympauthy/design
+npm install github:sympauthy/sympauthy-design#v0.1.0
 ```
+
+The package is internal to SympAuthy, so it is not on npm: the apps install it from this repository by version tag, with no token. npm builds `dist/` on install through the `prepare` script, so do not install with `--ignore-scripts`.
 
 ## Stylesheet
 

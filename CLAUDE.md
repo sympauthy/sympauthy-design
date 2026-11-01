@@ -36,6 +36,12 @@ npm run format
 - **`src/theme/derive.ts` and `docs/public/theme-builder/index.html` carry the same derivation.**
   Change both, or neither.
 
+## Releases
+
+- **Never published to npm.** The package is internal to SympAuthy: `private` stays `true`, and the
+  apps install it by tag (`github:sympauthy/sympauthy-design#v0.2.0`). A release is a version bump
+  merged to `main`, then the tag.
+
 ## Pull requests
 
 Squash-merged, branch deleted on both sides:
