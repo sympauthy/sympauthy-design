@@ -13,7 +13,8 @@ export {
   secondaryColoredButton
 } from './components/ButtonStyle'
 
-// Branding: a deployment's colors, applied at load.
+// Branding: what the server answers under /branding, and a theme tried in the page before it is.
+export { brandingUrls, fetchBrand, type Brand, type BrandingUrls } from './theme/brand'
 export { applyTheme, themeToCss, type ApplyThemeOptions, type UiTheme } from './theme/apply'
 export {
   contrast,
@@ -26,7 +27,7 @@ export {
 export {
   FLOW_ROLES,
   NAV_ROLES,
-  TAILWIND_VARIABLE,
+  tokenVariable,
   type FlowRole,
   type NavRole,
   type Role

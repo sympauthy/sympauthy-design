@@ -1,13 +1,14 @@
 // Generates the stylesheets of the package from tokens.json, the one source of every value.
 //
-//   dist/tokens.css      every token as a plain CSS variable (--primary, --ink-200…), light on :root,
-//                        dark under .dark (VitePress) and [data-theme="dark"]. For pages that are not
-//                        Tailwind: the docs site, the theme builder.
-//   dist/theme.css       the Tailwind v4 @theme both apps import: Tailwind's gray scale redefined as
-//                        the ink scale, and the roles the apps already name (primary, body, nav…).
-//   dist/theme-dark.css  the dark overrides, under prefers-color-scheme. The flow imports it; the admin
-//                        does not. A deployment that turns dark mode off sets data-dark-mode="off" on
-//                        <html> (applyTheme does), which this file respects.
+//   dist/tokens.css        every token as a plain CSS variable (--primary, --ink-200…), light on :root,
+//                          dark under prefers-color-scheme and [data-theme="dark"]; a page pinning
+//                          data-theme="light" stays light. What the server answers at
+//                          /branding/tokens.css, the deployment's colors written after it.
+//   dist/tokens-light.css  the same without the dark roles: what the server starts from under
+//                          ui.theme.dark-mode: off.
+//   dist/theme.css         the Tailwind v4 @theme both apps import: Tailwind's gray scale redefined as
+//                          the ink scale, and the roles the apps already name (primary, body, nav…),
+//                          each reading its token so the stylesheet above reaches every utility.
 //
 // Run with `npm run build`. Nothing here is written by hand: edit tokens.json and rebuild.
 
@@ -24,6 +25,8 @@ const HEADER =
   '/* @sympauthy/design — generated from tokens.json by scripts/build-theme.mjs. Do not edit. */\n'
 const themes = tokens.color.themes.map((t) => t.id)
 const [first] = themes
+// tokens.css has a rule for each: a theme added to tokens.json needs one here.
+if (themes.join() !== 'light,dark') throw new Error(`Unexpected themes: ${themes.join(', ')}`)
 
 /** The value of a color token in one theme; a token without one inherits the first theme's. */
 function valueIn(token, theme) {
@@ -39,31 +42,34 @@ const color = (name, theme) => {
   const t = colors.find((c) => c.name === name)
   if (!t) throw new Error(`tokens.json has no color "${name}"`)
   let v = valueIn(t, theme)
-  // Resolve aliases to literals for theme.css, which Tailwind reads at build time.
+  // Resolve aliases to literals, for theme.css's fallbacks.
   for (let i = 0; i < 16 && /^\{(.+)\}$/.test(v); i++) v = color(v.slice(1, -1), theme)
   return v
 }
 
-// ---------- tokens.css ----------
-let tokensCss = HEADER
-for (const theme of themes) {
-  const sel =
-    theme === first
-      ? `:root, [data-theme="${theme}"]`
-      : theme === 'dark'
-        ? `.dark, [data-theme="dark"]`
-        : `[data-theme="${theme}"]`
-  const lines = colors
-    .filter((t) => theme === first || (typeof t.value === 'object' && t.value[theme]))
-    .map((t) => `  --${esc(t.name)}: ${css(valueIn(t, theme))};`)
-  tokensCss += `${sel} {\n${lines.join('\n')}\n}\n`
-}
+// ---------- tokens.css, tokens-light.css ----------
+/** A theme's colors; only a token with its own value in that theme is restated past the first. */
+const declarations = (theme, indent) =>
+  [
+    ...colors
+      .filter((t) => theme === first || (typeof t.value === 'object' && t.value[theme]))
+      .map((t) => `--${esc(t.name)}: ${css(valueIn(t, theme))};`),
+    `color-scheme: ${theme};`
+  ]
+    .map((line) => indent + line)
+    .join('\n')
+const lightCss = `:root, [data-theme="light"] {\n${declarations('light', '  ')}\n}\n`
+const darkCss =
+  `@media (prefers-color-scheme: dark) {\n  :root:not([data-theme="light"]) {\n${declarations('dark', '    ')}\n  }\n}\n` +
+  // :root raises it above the deployment's light values, written after it for a page pinned dark.
+  `:root[data-theme="dark"], [data-theme="dark"] {\n${declarations('dark', '  ')}\n}\n`
+let restCss = ''
 const scalars = ['spacing', 'radius', 'size'].flatMap((f) => tokens[f]?.tokens ?? [])
-tokensCss += `:root {\n${scalars.map((t) => `  --${esc(t.name)}: ${t.value};`).join('\n')}\n`
+restCss += `:root {\n${scalars.map((t) => `  --${esc(t.name)}: ${t.value};`).join('\n')}\n`
 for (const [key, stack] of Object.entries(tokens.type.families)) {
-  tokensCss += `  --font-${key}: ${fontStack(key, stack)};\n`
+  restCss += `  --font-${key}: ${fontStack(key, stack)};\n`
 }
-tokensCss += '}\n'
+restCss += '}\n'
 for (const group of tokens.type.groups) {
   for (const s of group.styles) {
     const fam = s.family ?? group.family
@@ -74,7 +80,7 @@ for (const group of tokens.type.groups) {
       `font-weight: ${s.fontWeight};`,
       s.letterSpacing ? `letter-spacing: ${s.letterSpacing};` : ''
     ].filter(Boolean)
-    tokensCss += `.${s.name} { ${decl.join(' ')} }\n`
+    restCss += `.${s.name} { ${decl.join(' ')} }\n`
   }
 }
 
@@ -90,6 +96,8 @@ const STEPS = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '90
 const TAILWIND = [
   ...STEPS.map((s) => [`--color-gray-${s}`, `ink-${s}`]),
   ['--color-body', 'ground'],
+  // The apps' cards are bg-white: white is the surface, which is what lets it turn dark.
+  ['--color-white', 'surface'],
   ['--color-primary', 'primary'],
   ['--color-primary-hover', 'primary-hover'],
   ['--color-on-primary', 'on-primary'],
@@ -109,7 +117,9 @@ const TAILWIND = [
 ]
 const size = (name) => tokens.size.tokens.find((t) => t.name === name).value
 let themeCss = HEADER + '@theme {\n'
-themeCss += TAILWIND.map(([v, role]) => `  ${v}: ${color(role, first)};`).join('\n') + '\n\n'
+// The literal is the fallback: a page whose stylesheet did not load still draws SympAuthy's light.
+themeCss +=
+  TAILWIND.map(([v, role]) => `  ${v}: var(--${role}, ${color(role, first)});`).join('\n') + '\n\n'
 themeCss += `  --font-sans: ${fontStack('sans', tokens.type.families.sans)};\n`
 themeCss += `  --font-mono: ${fontStack('mono', tokens.type.families.mono)};\n\n`
 themeCss += `  --container-page: ${size('page-width')};\n`
@@ -119,16 +129,7 @@ themeCss += `  --container-card-large: ${size('auth-card-width-large')};\n\n`
 themeCss += `  --spacing-control: ${size('control-height')};\n`
 themeCss += '}\n'
 
-// ---------- theme-dark.css (flow only) ----------
-const darkRoles = TAILWIND.filter(([, role]) => !role.startsWith('nav-') && role !== 'gold')
-let darkCss = HEADER
-darkCss += '@media (prefers-color-scheme: dark) {\n  :root:not([data-dark-mode="off"]) {\n'
-darkCss += darkRoles.map(([v, role]) => `    ${v}: ${color(role, 'dark')};`).join('\n') + '\n'
-// The flow's cards are bg-white: white itself becomes the dark surface.
-darkCss += `    --color-white: ${color('surface', 'dark')};\n`
-darkCss += '    color-scheme: dark;\n  }\n}\n'
-
-writeFileSync(join(out, 'tokens.css'), tokensCss)
+writeFileSync(join(out, 'tokens.css'), HEADER + lightCss + darkCss + restCss)
+writeFileSync(join(out, 'tokens-light.css'), HEADER + lightCss + restCss)
 writeFileSync(join(out, 'theme.css'), themeCss)
-writeFileSync(join(out, 'theme-dark.css'), darkCss)
-console.log('Wrote dist/tokens.css, dist/theme.css, dist/theme-dark.css')
+console.log('Wrote dist/tokens.css, dist/tokens-light.css, dist/theme.css')

@@ -19,8 +19,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./theme.css": "./dist/theme.css",
-    "./theme-dark.css": "./dist/theme-dark.css",
     "./tokens.css": "./dist/tokens.css",
+    "./tokens-light.css": "./dist/tokens-light.css",
     "./components.css": "./src/components.css",
     "./fonts.css": "./src/fonts.css",
     "./tokens.json": "./tokens.json",

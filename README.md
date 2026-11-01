@@ -19,14 +19,13 @@ npm install github:sympauthy/sympauthy-design#v0.1.0
 ```css
 @import 'tailwindcss';
 @import '@sympauthy/design/theme.css';
-@import '@sympauthy/design/theme-dark.css'; /* sympauthy-flow only */
 @import '@sympauthy/design/components.css';
 @source '../../node_modules/@sympauthy/design/src';
 ```
 
 ```ts
 import '@sympauthy/design/fonts.css'
-import { applyTheme, CommonButton } from '@sympauthy/design'
+import { CommonButton, fetchBrand } from '@sympauthy/design'
 ```
 
 The full guide is [Using in the apps](docs/using-in-apps.md).
@@ -35,10 +34,10 @@ The full guide is [Using in the apps](docs/using-in-apps.md).
 
 ```
 tokens.json              every value of the system, the one source
-scripts/build-theme.mjs  tokens.json → dist/theme.css, theme-dark.css, tokens.css
+scripts/build-theme.mjs  tokens.json → dist/theme.css, tokens.css, tokens-light.css
 src/
   components/            the Common components (Card, Button, Field, Alert, Spinner)
-  theme/                 branding: derivePalette, applyTheme, the overridable roles
+  theme/                 branding: /branding, applyTheme, derivePalette, the overridable roles
   components.css         .control, .menu, .popover… shared by both apps
   fonts.css              self-hosted Plus Jakarta Sans and JetBrains Mono
 logos/                   the mark: SVG, favicons, app icons
@@ -70,8 +69,8 @@ bump.
 
 ## Not done yet
 
-- **Server support for branding.** SympAuthy reads `ui.display-name`; `ui.logo-url` and `ui.theme`
-  need exposing to the apps, and both apps need to call `applyTheme`.
+- **Server support for branding.** SympAuthy reads `ui.display-name`; the server answering `/branding`
+  is [sympauthy#200](https://github.com/sympauthy/sympauthy/issues/200), and both apps then link it.
 - **The theme builder carries its own copy of the derivation** (it is one standalone HTML page).
   Keep it in step with `src/theme/derive.ts`, or port it to a Vue page that imports it.
 - **Flow and Admin components** are specified in the docs but implemented in each app; only the

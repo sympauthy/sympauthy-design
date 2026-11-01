@@ -843,7 +843,7 @@
               >
             </div>
             <div class="field">
-              <span class="lbl" id="logo-lbl">Logo</span>
+              <span class="lbl" id="logo-lbl">Logo for the preview</span>
               <div class="file-row">
                 <input
                   id="logo-file"
@@ -855,16 +855,42 @@
                 />
                 <button type="button" class="btn" id="logo-clear">Remove</button>
               </div>
+              <span class="help">The file you pick is only for the preview.</span>
+            </div>
+            <div class="field">
+              <label for="logo">Logo (<span class="mono">ui.logo</span>)</label>
               <input
-                id="logo-url"
-                type="url"
+                id="logo"
+                type="text"
                 class="mono"
-                placeholder="https://auth.example.com/branding/logo.svg"
-                aria-label="Logo URL for the configuration"
+                placeholder="/etc/sympauthy/branding/logo.svg"
+                autocomplete="off"
+              />
+            </div>
+            <div class="field">
+              <label for="logo-dark"
+                >Logo for dark grounds (<span class="mono">ui.logo-dark</span>)</label
+              >
+              <input
+                id="logo-dark"
+                type="text"
+                class="mono"
+                placeholder="https://cdn.example.com/logo-dark.svg"
+                autocomplete="off"
+              />
+            </div>
+            <div class="field">
+              <label for="icon">Icon (<span class="mono">ui.icon</span>)</label>
+              <input
+                id="icon"
+                type="text"
+                class="mono"
+                placeholder="/etc/sympauthy/branding/icon.svg"
+                autocomplete="off"
               />
               <span class="help"
-                >The preview uses the file you pick. The configuration needs the URL your users'
-                browsers will load it from.</span
+                >A file path or a URL, to an SVG or a PNG of at most 1 MiB. The server reads each
+                one at startup and answers it itself, so browsers never ask the host.</span
               >
             </div>
           </div>
@@ -996,10 +1022,12 @@
       </section>
 
       <footer class="note">
-        SympAuthy reads <span class="mono">ui.display-name</span> today. The
-        <span class="mono">ui.logo-url</span> and <span class="mono">ui.theme</span> keys are the
-        proposed contract for branding: the server hands them to the sign-in pages and the admin,
-        which set the CSS variables on load, so a deployment is rebranded without rebuilding either
+        SympAuthy reads <span class="mono">ui.display-name</span> today. The other keys are the
+        contract of
+        <a href="https://github.com/sympauthy/sympauthy/issues/200" style="color: var(--accent)"
+          >sympauthy#200</a
+        >: the server will answer a stylesheet of the design system's tokens with these colors
+        written over them, and the images, so a deployment is rebranded without rebuilding either
         app.
       </footer>
     </div>
@@ -1249,13 +1277,15 @@
           hex: '#7b1e3a',
           tint: 'tinted',
           dark: 'auto',
-          logoUrl: '',
+          logo: '',
+          logoDark: '',
+          icon: '',
           logoData: '',
           tab: 'yaml'
         }
         try {
           const saved = JSON.parse(localStorage.getItem('sa-theme') || '{}')
-          ;['name', 'hex', 'tint', 'dark', 'logoUrl', 'tab'].forEach((k) => {
+          ;['name', 'hex', 'tint', 'dark', 'logo', 'logoDark', 'icon', 'tab'].forEach((k) => {
             if (typeof saved[k] === 'string') state[k] = saved[k]
           })
         } catch (e) {}
@@ -1406,28 +1436,15 @@
         }
 
         // ---------- Export ----------
-        const TW = {
-          primary: '--color-primary',
-          'primary-hover': '--color-primary-hover',
-          'on-primary': '--color-on-primary',
-          'primary-subtle': '--color-primary-subtle',
-          'on-primary-subtle': '--color-on-primary-subtle',
-          ground: '--color-body',
-          surface: '--color-white',
-          accent: '--color-gold',
-          'nav-ground': '--color-nav',
-          'nav-text': '--color-nav-text',
-          'nav-muted': '--color-nav-muted',
-          'nav-disabled': '--color-nav-disabled',
-          'nav-hover': '--color-nav-hover',
-          'nav-active': '--color-nav-active',
-          'nav-divider': '--color-nav-divider'
-        }
-        STEPS.forEach((s) => (TW['ink-' + s] = '--color-gray-' + s))
+        const tokenVar = (role) => (role === 'accent' ? '--gold' : '--' + role)
         let plainText = ''
         function renderExport(pal) {
           const name = state.name.trim() || 'Your service'
-          const url = state.logoUrl.trim()
+          const images = [
+            ['icon', state.icon.trim(), '/etc/sympauthy/branding/icon.svg'],
+            ['logo', state.logo.trim(), '/etc/sympauthy/branding/logo.svg'],
+            ['logo-dark', state.logoDark.trim(), 'https://cdn.example.com/logo-dark.svg']
+          ]
           const lightKeys = [...FLOW_ROLES, ...NAV_ROLES]
           let html = '',
             text = ''
@@ -1443,20 +1460,18 @@
               `  <span class="k">display-name</span>: <span class="s">${esc(name)}</span>`,
               `  display-name: ${name}`
             )
-            if (url)
-              line(
-                `  <span class="k">logo-url</span>: <span class="s">${esc(url)}</span>`,
-                `  logo-url: ${url}`
-              )
-            else
-              line(
-                `  <span class="c"># logo-url: https://auth.example.com/branding/logo.svg</span>`,
-                `  # logo-url: https://auth.example.com/branding/logo.svg`
-              )
+            images.forEach(([k, v, example]) => {
+              if (v)
+                line(
+                  `  <span class="k">${k}</span>: <span class="s">${esc(v)}</span>`,
+                  `  ${k}: ${v}`
+                )
+              else line(`  <span class="c"># ${k}: ${example}</span>`, `  # ${k}: ${example}`)
+            })
             line('  <span class="k">theme</span>:', '  theme:')
             line(
-              `    <span class="k">dark-mode</span>: <span class="s">${state.dark}</span>  <span class="c"># auto: follow the device · off: always light</span>`,
-              `    dark-mode: ${state.dark}  # auto: follow the device · off: always light`
+              `    <span class="k">dark-mode</span>: <span class="s">"${state.dark}"</span>  <span class="c"># auto: follow the device · off: always light</span>`,
+              `    dark-mode: "${state.dark}"  # auto: follow the device · off: always light`
             )
             line('    <span class="k">light</span>:', '    light:')
             lightKeys.forEach((k) =>
@@ -1484,36 +1499,41 @@
               line(`<span class="k">${k}</span>=<span class="s">"${esc(v)}"</span>`, `${k}="${v}"`)
             const up = (s) => s.toUpperCase().replace(/[-.]/g, '_')
             env('UI_DISPLAY_NAME', name)
-            if (url) env('UI_LOGO_URL', url)
+            images.forEach(([k, v]) => {
+              if (v) env('UI_' + up(k), v)
+            })
             env('UI_THEME_DARK_MODE', state.dark)
             lightKeys.forEach((k) => env('UI_THEME_LIGHT_' + up(k), pal.light[k]))
             if (state.dark === 'auto')
               FLOW_ROLES.forEach((k) => env('UI_THEME_DARK_' + up(k), pal.dark[k]))
           } else {
             $('tab-help').textContent =
-              'What the sign-in pages and the admin set on :root at load, under the Tailwind names both apps use. Useful to try a theme in the browser devtools.'
-            line('<span class="k">:root</span> {', ':root {')
-            lightKeys.forEach((k) =>
-              line(
-                `  <span class="k">${TW[k]}</span>: <span class="s">${pal.light[k]}</span>;`,
-                `  ${TW[k]}: ${pal.light[k]};`
+              'What the server writes after its tokens, and what applyTheme sets to try a theme without it. Paste it in the browser devtools, on a page that links the tokens.'
+            const roles = (indent, keys, palette) =>
+              keys.forEach((k) =>
+                line(
+                  `${indent}<span class="k">${tokenVar(k)}</span>: <span class="s">${palette[k]}</span>;`,
+                  `${indent}${tokenVar(k)}: ${palette[k]};`
+                )
               )
-            )
+            const light = ':root, [data-theme="light"]'
+            line(`<span class="k">${esc(light)}</span> {`, `${light} {`)
+            roles('  ', lightKeys, pal.light)
             line('}', '}')
             if (state.dark === 'auto') {
+              const auto = ':root:not([data-theme="light"])'
+              const pinned = ':root[data-theme="dark"], [data-theme="dark"]'
               line('<span class="c">/* sign-in pages only */</span>', '/* sign-in pages only */')
               line(
                 '<span class="k">@media (prefers-color-scheme: dark)</span> {',
                 '@media (prefers-color-scheme: dark) {'
               )
-              line('  <span class="k">:root</span> {', '  :root {')
-              FLOW_ROLES.forEach((k) =>
-                line(
-                  `    <span class="k">${TW[k]}</span>: <span class="s">${pal.dark[k]}</span>;`,
-                  `    ${TW[k]}: ${pal.dark[k]};`
-                )
-              )
+              line(`  <span class="k">${esc(auto)}</span> {`, `  ${auto} {`)
+              roles('    ', FLOW_ROLES, pal.dark)
               line('  }', '  }')
+              line('}', '}')
+              line(`<span class="k">${esc(pinned)}</span> {`, `${pinned} {`)
+              roles('  ', FLOW_ROLES, pal.dark)
               line('}', '}')
             }
           }
@@ -1547,10 +1567,16 @@
           state.name = e.target.value
           render()
         })
-        $('logo-url').addEventListener('input', (e) => {
-          state.logoUrl = e.target.value
-          render()
-        })
+        ;[
+          ['logo', 'logo'],
+          ['logo-dark', 'logoDark'],
+          ['icon', 'icon']
+        ].forEach(([id, key]) =>
+          $(id).addEventListener('input', (e) => {
+            state[key] = e.target.value
+            render()
+          })
+        )
         document.querySelectorAll('input[name="tint"]').forEach((r) =>
           r.addEventListener('change', (e) => {
             state.tint = e.target.value
@@ -1590,7 +1616,9 @@
             hex: '#7b1e3a',
             tint: 'tinted',
             dark: 'auto',
-            logoUrl: '',
+            logo: '',
+            logoDark: '',
+            icon: '',
             logoData: ''
           })
           syncInputs()
@@ -1621,7 +1649,9 @@
           $('name').value = state.name
           $('hex').value = state.hex
           $('picker').value = state.hex
-          $('logo-url').value = state.logoUrl
+          $('logo').value = state.logo
+          $('logo-dark').value = state.logoDark
+          $('icon').value = state.icon
           $('logo-file').value = ''
           document
             .querySelectorAll('input[name="tint"]')

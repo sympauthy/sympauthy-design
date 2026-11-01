@@ -1,5 +1,6 @@
 /* SympAuthy brand: VitePress variables mapped onto the design system tokens (tokens.css).
-   Both themes resolve through the same tokens, which tokens.css redefines under .dark. */
+   Both themes resolve through the same tokens, which tokens.css redefines under data-theme, kept in
+   step with VitePress's .dark class (see config.ts). */
 
 /* Type */
 :root {
@@ -84,7 +85,7 @@
   --vp-code-tab-active-bar-color: var(--nav-text);
 }
 
-/* In dark mode the nav ground sits below the page ground: code takes the surface, one step above it */
+/* In dark mode code takes the surface, one step above the page ground */
 .dark {
   --vp-code-block-bg: var(--surface);
   --vp-code-copy-code-bg: var(--surface);

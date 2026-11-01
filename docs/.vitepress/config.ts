@@ -41,7 +41,18 @@ export default defineConfig({
     ['link', { rel: 'icon', href: `${base}favicon.ico`, sizes: '32x32' }],
     ['link', { rel: 'icon', href: `${base}favicon.svg`, type: 'image/svg+xml' }],
     ['link', { rel: 'apple-touch-icon', href: `${base}apple-touch-icon.png` }],
-    ['meta', { name: 'theme-color', content: '#7B1E3A' }]
+    ['meta', { name: 'theme-color', content: '#7B1E3A' }],
+    // tokens.css follows the device unless the page pins a theme: the site's switch is that pin.
+    [
+      'script',
+      {},
+      `(() => {
+        const root = document.documentElement
+        const sync = () => (root.dataset.theme = root.classList.contains('dark') ? 'dark' : 'light')
+        sync()
+        new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['class'] })
+      })()`
+    ]
   ],
   markdown: {
     theme: { light: sympauthyCodeTheme, dark: sympauthyCodeTheme }
