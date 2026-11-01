@@ -25,7 +25,10 @@ interface Props {
    * control of a toolbar. Pass an [icon] with it, or there is nothing left to press.
    */
   collapseLabel?: boolean
-  /** `control` (38px, the admin) or `large` (44px, full width, the flow's auth card). */
+  /**
+   * `control` (the admin: 14px/500, as wide as its label) or `large` (the flow's auth card: full
+   * width, 16px/600). Both are `control-height` tall.
+   */
   size?: 'control' | 'large'
   loading?: boolean
   submitting?: boolean
@@ -75,7 +78,7 @@ const computedClasses = computed(() => {
 })
 
 const sizeClasses = computed(() =>
-  props.size === 'large' ? 'min-h-11 w-full text-base font-semibold' : 'font-medium'
+  props.size === 'large' ? 'w-full text-base font-semibold' : 'font-medium'
 )
 
 // A state names its own slot, so a caller can say `Saving…` where the label alone would not do.

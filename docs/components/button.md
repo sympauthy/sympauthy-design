@@ -29,8 +29,8 @@ The one button of both apps: `CommonButton` with a `ButtonStyle`, filled Bordeau
 - `outline` (flow): the alternative path inside an auth card, such as "No, cancel" or an identity provider. Transparent, `primary` border and text, `primary-subtle` on hover.
 - `danger`: soft, never filled: `danger-subtle` fill, `danger-line` border, `danger` label, `danger-hover` on hover. Bordeaux stays the only solid button, so two reds never compete. Inside a `ConfirmDialog` only, labelled with the destructive verb.
 
-**The consumer provides** a `label` (shown while in flight too), optionally an `icon` (Heroicons 20 solid, drawn 16px), and `submitting` or `loading` while waiting. A disabled button keeps its place; in the admin it explains itself in a `HintTooltip` and is `aria-disabled`.
+**The consumer provides** a `label` (shown while in flight too), optionally an `icon` (Heroicons 20 solid, drawn 16px), and `submitting` or `loading` while waiting. A disabled button keeps its place; in the admin it explains itself in a tooltip and is `aria-disabled`.
 
-**Sizes**: admin `control-height` (38px), 14px/500, padding 12px by 8px. Flow `control-height-flow` (44px), full width, 16px/600.
+**Sizes**: both `control-height` (44px, see [Control height](/foundations/control-height)), padding 12px by 8px. Admin 14px/500, as wide as the label; flow `size="large"`, full width, 16px/600.
 
 **Tailwind**: primary `border-transparent bg-primary text-on-primary hover:bg-primary-hover`; secondary `border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200`; outline `border-primary text-primary hover:bg-primary-subtle`; danger `border-red-200 bg-red-50 text-red-700 hover:bg-red-100`; disabled `bg-disabled text-on-disabled cursor-not-allowed`.

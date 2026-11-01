@@ -114,7 +114,9 @@ themeCss += `  --font-sans: ${fontStack('sans', tokens.type.families.sans)};\n`
 themeCss += `  --font-mono: ${fontStack('mono', tokens.type.families.mono)};\n\n`
 themeCss += `  --container-page: ${size('page-width')};\n`
 themeCss += `  --container-card: ${size('auth-card-width')};\n`
-themeCss += `  --container-card-large: ${size('auth-card-width-large')};\n`
+themeCss += `  --container-card-large: ${size('auth-card-width-large')};\n\n`
+// min-h-control, min-w-control: the one height every control is drawn at.
+themeCss += `  --spacing-control: ${size('control-height')};\n`
 themeCss += '}\n'
 
 // ---------- theme-dark.css (flow only) ----------

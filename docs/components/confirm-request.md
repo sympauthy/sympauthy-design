@@ -2,7 +2,7 @@
 
 <p class="caps-note">Flow · specified here, implemented in the app</p>
 
-The request summary of the flow's `ConfirmPage`: what a client asks to do on the account, and an explicit yes or no.
+The request summary of the flow's confirm page: what a client asks to do on the account, and an explicit yes or no.
 
 **Card**: an `AuthCard`, so a padded `Card` at `auth-card-width`, titled "Verify this request".
 

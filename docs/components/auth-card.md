@@ -2,7 +2,7 @@
 
 <p class="caps-note">Flow · specified here, implemented in the app</p>
 
-The page every flow screen is: brand header, one auth card, footer. It maps to the flow's `BasePage` around a `TitleContentCard` (`BaseCard`).
+The page every flow screen is: brand header, one auth card, footer.
 
 **Brand header**: the mark at 40px beside the wordmark (`flow-brand`, "Symp" 500 + "Authy" 800), the tagline under it in `flow-small` / `ink-500`.
 

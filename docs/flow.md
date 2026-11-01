@@ -4,18 +4,18 @@ The pages of **sympauthy-flow**: sign in, sign up, collect and validate claims, 
 
 ## Anatomy of a page
 
-1. **Brand header** (`BasePage`): the mark at 40px, then the wordmark in `flow-brand`, then the tagline in `flow-small` and `ink-500`. Centred.
-2. **The auth card** (`TitleContentCard` on `BaseCard`): the system's one flat card (`surface`, 1px `ink-200` border, `radius-lg`, padded `space-4` then `space-6` from `sm:`, no shadow), at most `auth-card-width`. Its h1 is `flow-title`, centred. Everything inside is `flow-body`, stacked with `space-4` gaps.
+1. **Brand header**: the mark at 40px, then the wordmark in `flow-brand`, then the tagline in `flow-small` and `ink-500`. Centred.
+2. **The auth card** ([AuthCard](/components/auth-card)): the system's one flat card (`surface`, 1px `ink-200` border, `radius-lg`, padded `space-4` then `space-6` from `sm:`, no shadow), at most `auth-card-width`. Its h1 is `flow-title`, centred. Everything inside is `flow-body`, stacked with `space-4` gaps.
 3. **Footer**: "Powered by SympAuthy." in `flow-small`, `ink-500`, the name a `primary` link.
 
 The page is `ground` with `space-8` above the header and a `space-6` gap between the three parts. Nothing else goes on the page: no sidebar, no navigation, no illustration.
 
 ## Inside the card
 
-- **One primary action per card**, full width, `control-height-flow` (44px), `flow-body` at 600. It is the last control of the form.
+- **One primary action per card**, full width, `control-height` (44px), `flow-body` at 600. It is the last control of the form.
 - **A secondary path is a link or an outline button**, never a second filled button: "Forgot password?" is a `primary` link under the password field; "No, cancel" on the confirm page is an outline button under "Yes, continue".
 - **Identity providers come first, then a divider, then the password form.** Each provider is an outline button carrying the provider's name ("Continue with Google"); the divider reads "or". This replaces the current two cards side by side: one card keeps a single h1 and reads top to bottom on a phone.
-- **Fields** are the [Field](/components/field) both apps share: labelled above in `flow-label`, 44px tall, 16px text, `ink-400` border, `focus-ring` border and 1px ring on focus. The error line under a field is `flow-small` in `danger`, and the field takes `aria-invalid`.
+- **Fields** are the [Field](/components/field) both apps share: labelled above in `flow-label`, `control-height` (44px) tall, 16px text, `ink-400` border, `focus-ring` border and 1px ring on focus. The error line under a field is `flow-small` in `danger`, and the field takes `aria-invalid`.
 - **A code** (claims validation, TOTP) is six digit boxes in `flow-code`, 64px tall, `radius-md`, a gap in the middle after the third. Pasting a whole code fills every box.
 - **A consent or request summary** (confirm page) sits in a `primary-subtle` box with `on-primary-subtle` text and a shield icon, above the warning sentence.
 - **A failure** is a `danger` alert at the top of the card body; the form stays below it.

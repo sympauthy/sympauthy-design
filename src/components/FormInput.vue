@@ -2,8 +2,8 @@
 import { computed, useAttrs, type Component } from 'vue'
 
 /**
- * A single line of text, drawn the same in both apps: 44px, so a thumb can hit it, and 16px text,
- * below which iOS zooms the page on focus. It is the box every other control shares, made taller.
+ * A single line of text, drawn the same in both apps: the box every control shares, with 16px
+ * text, below which iOS zooms the page on focus.
  */
 const props = withDefaults(
   defineProps<{
@@ -39,7 +39,7 @@ const fieldAttrs = computed(() => {
 })
 
 const classes = computed(() => [
-  'control control-focus block min-h-11 w-full bg-white text-base text-gray-900',
+  'control control-focus block w-full bg-white text-base text-gray-900',
   'placeholder:text-gray-500',
   'disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500',
   props.invalid ? 'border-danger' : '',

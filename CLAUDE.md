@@ -29,6 +29,8 @@ npm run format
 - **A component joins `src/components/` only when both apps draw it** (the Common group). A
   component one app uses is specified in `docs/components/` and lives in that app.
 - **Flat.** No shadows; one card (`CommonCard`); `primary` is the only filled button.
+- **Every control is `control-height` (44px)**, in both apps, through `.control` (`min-h-control`).
+  Never write a height on a control.
 - **Every text pair holds 4.5:1** (3:1 for borders and focus rings) in light and dark. The theme
   builder and `derivePalette` enforce it for deployments' colors.
 - **`src/theme/derive.ts` and `docs/public/theme-builder/index.html` carry the same derivation.**

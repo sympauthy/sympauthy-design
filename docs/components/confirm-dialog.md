@@ -2,7 +2,7 @@
 
 <p class="caps-note">Admin · specified here, implemented in the app</p>
 
-The confirmation every destructive admin action passes through: `ConfirmDialog` on `BaseDialog` (reka-ui `Dialog`).
+The confirmation every destructive admin action passes through: `ConfirmDialog`, built on reka-ui's dialog.
 
 **Look**: the flat card (`surface`, 1px `ink-200` border, `radius-lg`, no shadow), max 448px, padded `space-6`, centred on a scrim of Cassis at 50%. Title `admin-heading` as the h3, body `admin-body` in `ink-700`, footer buttons right-aligned `space-3` apart: secondary "Cancel" first, the `danger` button last.
 

@@ -46,7 +46,7 @@ export default defineConfig({
 })
 ```
 
-In the admin, keep `shared/ui/index.ts` as the kit every screen imports from, and re-export the package's components there. The admin's `CommonButton` becomes a thin wrapper: it computes the missing scopes, passes `refused` to the package's button, and wraps it in its `HintTooltip`.
+In the admin, keep `shared/ui/index.ts` as the kit every screen imports from, and re-export the package's components there. The admin's `CommonButton` becomes a thin wrapper: it computes the missing scopes, passes `refused` to the package's button, and wraps it in a tooltip that names them.
 
 ## Branding at load
 
@@ -64,8 +64,9 @@ See [Branding a deployment](./branding) for the configuration it reads.
 ## Changes the migration brings
 
 - **Controls get a visible border.** `.control` now states `border-gray-400` (3:1 on white). The old compatibility rule painted every border `gray-200` (1.3:1), too faint to find a field by.
-- **One flat card.** The flow's `BaseCard` (`rounded-xl shadow-lg`, `p-3 md:p-5`) becomes `CommonCard`: `rounded-lg border border-gray-200 bg-white p-4 sm:p-6`. No shadow anywhere: remove `shadow-lg` from menus, popovers and `BaseDialog`, give `BaseDialog` the card's border, and drop `shadow-sm` from inputs.
+- **One flat card.** The flow's card (`rounded-xl shadow-lg`, `p-3 md:p-5`) becomes `CommonCard`: `rounded-lg border border-gray-200 bg-white p-4 sm:p-6`. No shadow anywhere: remove `shadow-lg` from menus, popovers and dialogs, give dialogs the card's border, and drop `shadow-sm` from inputs.
 - **A soft danger button.** `dangerColoredButton` is `border-red-200 bg-red-50 text-red-700`: `primary` is the only filled button.
+- **One control height.** Every control is 44px in both apps: the admin's buttons, selects and dropdown triggers grow from 38px. Drop `min-h-9.5` and `min-h-11` from the apps' own controls: `.control` carries `min-h-control`.
 - **One field.** The admin's fields grow to the flow's: 44px, 16px text, a 14px/500 `gray-700` label and a 14px help line. The flow's labels go from 600 `gray-900` to the same 500 `gray-700`, and its inputs drop the `ring-4 ring-primary-subtle` halo. `FormField` and `FormInput` no longer take a `size`.
 - **Disabled buttons** read `gray-500` on a `gray-100` fill (5.3:1) instead of white on `gray-400` (2.5:1).
 - **Flow clean-ups.** `src/assets/base.css` and `src/assets/main.css` are the Vue starter's files and nothing imports them: delete them. The `btn` utility gives way to `CommonButton`.
@@ -78,6 +79,7 @@ See [Branding a deployment](./branding) for the configuration it reads.
 | flow `--color-body: gray-100`                                    | Ivory `#fbf7f4`                                          |
 | system font                                                      | Plus Jakarta Sans, JetBrains Mono                        |
 | flow `rounded-sm` controls, admin `rounded-md`                   | `rounded-md` in both                                     |
+| admin controls 38px, flow 44px                                   | `control-height` (44px) in both                          |
 | admin fields 38px/14px, flow 44px/16px with a halo               | 44px/16px in both, no halo                               |
 | flow card `rounded-xl shadow-lg`, admin card `rounded-lg border` | `CommonCard` in both                                     |
 | danger button `bg-red-600 text-white`                            | `border-red-200 bg-red-50 text-red-700`                  |

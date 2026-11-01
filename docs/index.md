@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Foundations
-      link: /foundations
+      link: /foundations/
     - theme: alt
       text: Using in the apps
       link: /using-in-apps
@@ -22,7 +22,7 @@ hero:
 features:
   - title: Bordeaux, flat, legible
     details: One action color, warm grays on its hue, one flat card, and every text pair checked against WCAG AA in light and dark.
-    link: /foundations
+    link: /foundations/
   - title: One package, both apps
     details: '@sympauthy/design ships the Tailwind theme, the shared rules and the Common components. Templates keep writing bg-primary and text-gray-500.'
     link: /using-in-apps

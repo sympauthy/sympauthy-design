@@ -55,7 +55,7 @@ export default defineConfig({
     siteTitle: 'Symp<span class="wordmark-strong">Authy</span> Design',
 
     nav: [
-      { text: 'Foundations', link: '/foundations' },
+      { text: 'Foundations', link: '/foundations/', activeMatch: '^/foundations/' },
       { text: 'Components', link: '/components/' },
       { text: 'Using in the apps', link: '/using-in-apps' },
       { text: 'Branding', link: '/branding' },
@@ -66,11 +66,27 @@ export default defineConfig({
       {
         text: 'Guide',
         items: [
-          { text: 'Foundations', link: '/foundations' },
           { text: 'Flow pages', link: '/flow' },
           { text: 'Admin panel', link: '/admin' },
           { text: 'Using in the apps', link: '/using-in-apps' },
           { text: 'Branding a deployment', link: '/branding' }
+        ]
+      },
+      {
+        text: 'Foundations',
+        items: [
+          { text: 'Overview', link: '/foundations/' },
+          { text: 'Content', link: '/foundations/content' },
+          { text: 'Color', link: '/foundations/color' },
+          { text: 'Themes', link: '/foundations/themes' },
+          { text: 'Type', link: '/foundations/type' },
+          { text: 'Spacing', link: '/foundations/spacing' },
+          { text: 'Control height', link: '/foundations/control-height' },
+          { text: 'Cards and radius', link: '/foundations/cards' },
+          { text: 'Focus and states', link: '/foundations/focus' },
+          { text: 'Layout', link: '/foundations/layout' },
+          { text: 'Iconography', link: '/foundations/iconography' },
+          { text: 'The mark', link: '/foundations/mark' }
         ]
       },
       {

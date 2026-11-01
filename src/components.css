@@ -8,12 +8,13 @@
  */
 @layer components {
   /**
-   * One box for every control: an input, a select, a textarea, a button, a dropdown trigger. Its
-   * border is stated (gray-400, 3:1 on white) rather than inherited from the gray-200 every other
-   * border takes, which is too faint to find a field by.
+   * One box for every control: an input, a select, a textarea, a button, a dropdown trigger. It is
+   * `control-height` (44px) tall and at least as wide, in both apps: the touch target the flow
+   * chose, so a thumb hits it. Its border is stated (gray-400, 3:1 on white) rather than inherited
+   * from the gray-200 every other border takes, which is too faint to find a field by.
    */
   .control {
-    @apply min-h-9.5 rounded-md border border-gray-400 px-3 py-2 text-sm;
+    @apply min-h-control min-w-control rounded-md border border-gray-400 px-3 py-2 text-sm;
   }
 
   /** The name above a value, wherever a value is read. */
