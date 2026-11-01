@@ -23,7 +23,7 @@ ui:
   logo: https://cdn.acme.example/logo.svg
   logo-dark: http://assets.internal/logo-dark.svg
   theme:
-    dark-mode: auto # auto: the pages follow the device · off: always light
+    dark-mode: auto # auto: the pages follow the device · "off", quoted: always light
     light:
       primary: '#0f766e'
       primary-hover: '#0f645d'
@@ -52,7 +52,7 @@ Only colors can be changed. Status colors (errors, warnings, tags) stay too: red
 - **It serves what is configured, and derives nothing.** A role left out keeps SympAuthy's value, even when `primary` is changed: a deployment writing only `primary` keeps SympAuthy's `primary-hover` and `on-primary`. Write the full set the builder gives you.
 - **It does not check contrast.** The builder does, so a palette edited by hand is yours to check.
 - **It refuses wrong configuration.** A color that is not `#rrggbb`, `accent` or `nav-*` under `dark`, and `dark` alongside `dark-mode: off` each take readiness down, and the startup banner names the key.
-- `dark-mode: off` keeps the pages light on every device. The admin is always light.
+- `dark-mode: "off"` keeps the pages light on every device. The admin is always light. Quote it: unquoted, YAML reads `off` as `false`, which the server refuses.
 
 ### Images
 
@@ -117,9 +117,9 @@ With nothing configured, the answer is the design system's file unchanged. `them
 
 SympAuthy's images are the files of `logos/` named in [the table above](#images).
 
-## Trying a theme without a server
+## Trying a theme before it is configured
 
-`applyTheme` writes those same rules in a `<style>` at the end of `<head>`, so a page shows a theme that no server answers yet. It is what a theme still being built needs, and the builder's CSS variables tab prints the same rules for pasting in the devtools. Nothing in production calls it: it runs after the page has booted, so the page would show SympAuthy's colors first.
+`applyTheme` writes those same rules in a `<style>` at the end of `<head>`, so a page shows a theme that no server answers yet. The page still needs the tokens, linked from a server or imported from `@sympauthy/design/tokens.css`: without them, what the theme leaves out falls back to `theme.css`'s light values, which a dark theme cannot read against. It is what a theme still being built needs, and the builder's CSS variables tab prints the same rules for pasting in the devtools. Nothing in production calls it: it runs after the page has booted, so the page would show SympAuthy's colors first.
 
 ```ts
 import { applyTheme, derivePalette } from '@sympauthy/design'
@@ -128,4 +128,15 @@ const { light, dark } = derivePalette('#0f766e')
 applyTheme({ light, dark }, { dark: true }) // { dark: false } in the admin
 ```
 
-It takes what the server takes, a role left out keeping SympAuthy's value, so what it shows is what the configuration will. The one difference is that it ignores a value that is not a hex color rather than refusing it, since a theme being typed is often not one yet.
+A role left out keeps SympAuthy's value, as on the server. `{ dark: false }` keeps the page light, pinning it if the page has not. A pin it added is lifted when it no longer applies, and a pin the page set stays.
+
+It is more forgiving than the server, since a theme being typed is often not valid yet, so a theme that shows here can still be refused there:
+
+| Value                                  | The server | `applyTheme`                                |
+| -------------------------------------- | ---------- | ------------------------------------------- |
+| a color that is not `#rrggbb`          | refuses    | reads `#0f7` and `0f766e`, ignores the rest |
+| a `dark-mode` other than `auto`, `off` | refuses    | treats it as `auto`                         |
+| `accent` or `nav-*` under `dark`       | refuses    | ignores it                                  |
+| `dark` alongside `dark-mode: "off"`    | refuses    | ignores `dark`                              |
+
+The builder only writes what the server accepts.

@@ -38,7 +38,7 @@ npm run format
 - **A deployment's brand reaches the apps through the server's stylesheet.** `dist/tokens.css` is what
   it answers at `/branding/tokens.css`, and `themeToCss` is the shape of what it writes after it:
   changing either changes the server's contract (`docs/branding.md`). `applyTheme` writes the same
-  rules, to try a theme without a server.
+  rules, to try a theme no configuration has yet.
 
 ## Releases
 

@@ -25,6 +25,8 @@ const HEADER =
   '/* @sympauthy/design — generated from tokens.json by scripts/build-theme.mjs. Do not edit. */\n'
 const themes = tokens.color.themes.map((t) => t.id)
 const [first] = themes
+// tokens.css has a rule for each: a theme added to tokens.json needs one here.
+if (themes.join() !== 'light,dark') throw new Error(`Unexpected themes: ${themes.join(', ')}`)
 
 /** The value of a color token in one theme; a token without one inherits the first theme's. */
 function valueIn(token, theme) {

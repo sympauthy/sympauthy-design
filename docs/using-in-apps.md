@@ -27,9 +27,10 @@ Adjust the `@source` path to the stylesheet's depth (`../../../` from `src/app/s
 
 ```html
 <link rel="stylesheet" href="/branding/tokens.css" vite-ignore />
+<link rel="icon" href="/branding/icon" vite-ignore />
 ```
 
-`vite-ignore` keeps Vite from bundling the link, which it would otherwise fail to resolve. A link in the page is in place before any script runs, so a deployment's colors never flash SympAuthy's first. A flow hosted on another origin links the server's full URL.
+The icon replaces the app's own `favicon.ico`. `vite-ignore` keeps Vite from bundling the links, which it would otherwise fail to resolve. A link in the page is in place before any script runs, so a deployment's colors never flash SympAuthy's first. A flow hosted on another origin links the server's full URLs.
 
 The admin stays light by pinning it, on the same page:
 
@@ -67,7 +68,7 @@ In the admin, keep `shared/ui/index.ts` as the kit every screen imports from, an
 
 ## The deployment's brand
 
-The stylesheet needs no code. The images are linked from the server too, and only the name and the dark mode are fetched:
+The stylesheet and the icon need no code. The logos are linked from the server too, and only the name and the dark mode are fetched:
 
 ```vue
 <script setup lang="ts">
@@ -90,7 +91,9 @@ const brand = await fetchBrand()
 </template>
 ```
 
-The `await` needs a `<Suspense>` above the component; an app without one fetches the brand once at boot and hands it down. The dark mode is what keeps the dark logo off a light page: under `off`, the device's preference must not choose it. The admin's sidebar stays on `nav-ground` in every theme, so it always draws `urls.logoDark`.
+The `await` needs a `<Suspense>` above the component; an app without one fetches the brand once at boot and hands it down. `fetchBrand` never rejects: after 3 seconds, or on any failure, it answers no name and `off`, and the page draws as SympAuthy's.
+
+This is the flow's logo, which follows the device. The dark mode is what keeps the dark logo off a light page: under `off`, the device's preference must not choose it. A page that pins a theme chooses by its ground instead, with no `<source>`: the admin draws `urls.logo` on `ground` and `surface`, and `urls.logoDark` on its sidebar, which stays on `nav-ground` in every theme.
 
 See [Branding a deployment](./branding) for what the server answers.
 

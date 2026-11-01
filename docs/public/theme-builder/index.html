@@ -1470,8 +1470,8 @@
             })
             line('  <span class="k">theme</span>:', '  theme:')
             line(
-              `    <span class="k">dark-mode</span>: <span class="s">${state.dark}</span>  <span class="c"># auto: follow the device · off: always light</span>`,
-              `    dark-mode: ${state.dark}  # auto: follow the device · off: always light`
+              `    <span class="k">dark-mode</span>: <span class="s">"${state.dark}"</span>  <span class="c"># auto: follow the device · off: always light</span>`,
+              `    dark-mode: "${state.dark}"  # auto: follow the device · off: always light`
             )
             line('    <span class="k">light</span>:', '    light:')
             lightKeys.forEach((k) =>
