@@ -1,6 +1,7 @@
 {
   "name": "@sympauthy/design",
   "version": "0.1.0",
+  "private": true,
   "description": "The SympAuthy design system: tokens, Tailwind theme, shared Vue components and branding helpers for sympauthy-flow and sympauthy-admin.",
   "license": "GPL-3.0-only",
   "type": "module",
@@ -33,7 +34,7 @@
     "docs:preview": "vitepress preview docs",
     "format": "prettier --write src docs scripts",
     "format:check": "prettier --check src docs scripts",
-    "prepublishOnly": "npm run build"
+    "prepare": "npm run build"
   },
   "dependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
