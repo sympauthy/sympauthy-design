@@ -17,12 +17,27 @@ In `sympauthy-flow/src/styles/style.css` and `sympauthy-admin/src/app/styles/sty
 ```css
 @import 'tailwindcss';
 @import '@sympauthy/design/theme.css';
-@import '@sympauthy/design/theme-dark.css'; /* flow only: the admin stays light */
 @import '@sympauthy/design/components.css';
 @source '../../node_modules/@sympauthy/design/src'; /* so Tailwind sees the components' classes */
 ```
 
 Adjust the `@source` path to the stylesheet's depth (`../../../` from `src/app/styles/`). Remove from the admin's stylesheet what `components.css` now carries (`.control`, `.field-label`, `.control-focus`, `.control-focus-within`, `.menu`, `.menu-item`, `.popover`, `.overlay-animated`) and its own `@theme` block. Keep its table-as-cards rules: they are the admin's.
+
+`theme.css` names the roles and reads each from a token, so `bg-primary` is `var(--primary)`. The tokens themselves come from the server, linked in `index.html` ahead of the app's own stylesheet:
+
+```html
+<link rel="stylesheet" href="/branding/tokens.css" vite-ignore />
+```
+
+`vite-ignore` keeps Vite from bundling the link, which it would otherwise fail to resolve. A link in the page is in place before any script runs, so a deployment's colors never flash SympAuthy's first. A flow hosted on another origin links the server's full URL.
+
+The admin stays light by pinning it, on the same page:
+
+```html
+<html lang="en" data-theme="light"></html>
+```
+
+In development, proxy `/branding` to the server next to `/api` in `vite.config.ts`. Without the stylesheet the page still draws, in SympAuthy's light colors, which `theme.css` carries as fallbacks; it has no dark theme until the link resolves.
 
 ## Fonts
 
@@ -50,18 +65,34 @@ export default defineConfig({
 
 In the admin, keep `shared/ui/index.ts` as the kit every screen imports from, and re-export the package's components there. The admin's `CommonButton` becomes a thin wrapper: it computes the missing scopes, passes `refused` to the package's button, and wraps it in a tooltip that names them.
 
-## Branding at load
+## The deployment's brand
 
-Both apps apply the deployment's `ui.theme` once the configuration has arrived:
+The stylesheet needs no code. The images are linked from the server too, and only the name and the dark mode are fetched:
 
-```ts
-import { applyTheme } from '@sympauthy/design'
+```vue
+<script setup lang="ts">
+import { brandingUrls, fetchBrand } from '@sympauthy/design'
 
-applyTheme(configuration.ui?.theme, { dark: true }) // flow
-applyTheme(configuration.ui?.theme, { dark: false }) // admin
+const urls = brandingUrls() // brandingUrls(serverUrl) for a flow on another origin
+const brand = await fetchBrand()
+</script>
+
+<template>
+  <picture>
+    <source
+      v-if="brand.darkMode === 'auto'"
+      media="(prefers-color-scheme: dark)"
+      :srcset="urls.logoDark"
+    />
+    <img :src="urls.logo" alt="" />
+  </picture>
+  <span>{{ brand.displayName ?? 'SympAuthy' }}</span>
+</template>
 ```
 
-See [Branding a deployment](./branding) for the configuration it reads.
+The `await` needs a `<Suspense>` above the component; an app without one fetches the brand once at boot and hands it down. The dark mode is what keeps the dark logo off a light page: under `off`, the device's preference must not choose it. The admin's sidebar stays on `nav-ground` in every theme, so it always draws `urls.logoDark`.
+
+See [Branding a deployment](./branding) for what the server answers.
 
 ## Changes the migration brings
 

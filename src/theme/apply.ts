@@ -1,19 +1,18 @@
 /**
- * Applies a deployment's branding (`ui.theme` of the server's configuration) to the page, at load,
- * without rebuilding the app: both apps style everything through Tailwind variables, so setting
- * those variables on :root is the whole rebrand.
+ * Tries a theme in the page, without the server: a deployment's colors reach it through the
+ * stylesheet at /branding/tokens.css, in place before any script runs (see docs/branding.md). This
+ * is for what has no configuration yet, such as a theme still being built:
  *
- *   // flow: main.ts, once the configuration has been fetched
- *   applyTheme(configuration.ui?.theme, { dark: true })
- *   // admin: the admin stays light
- *   applyTheme(configuration.ui?.theme, { dark: false })
+ *   applyTheme(theme, { dark: true }) // flow
+ *   applyTheme(theme, { dark: false }) // admin: the admin stays light
  *
- * A value that is not a 6-digit hex color is ignored. A theme that names a primary color and
- * leaves other roles out gets them derived from it, so a hand-written `light: { primary: … }` is
- * enough.
+ * It writes what the server writes over its tokens, so what it shows is what the configuration
+ * will: a role left out keeps SympAuthy's value. To start from one color, pass derivePalette's
+ * result. It differs in one way: a value that is not a hex color, which the server refuses, is
+ * ignored here, since a theme being typed is often not one yet.
  */
-import { derivePalette, normalizeHex } from './derive'
-import { FLOW_ROLES, NAV_ROLES, TAILWIND_VARIABLE, type FlowRole, type Role } from './roles'
+import { normalizeHex } from './derive'
+import { FLOW_ROLES, isRole, NAV_ROLES, tokenVariable, type FlowRole, type Role } from './roles'
 
 export interface UiTheme {
   /** `auto` follows the device on the sign-in pages; `off` keeps them light. Default `auto`. */
@@ -49,39 +48,43 @@ function clean(colors: unknown): Record<string, string> | undefined {
   for (const [key, value] of Object.entries(colors as Record<string, unknown>)) {
     const role = key.replace(/[A-Z]/g, (c) => '-' + c.toLowerCase()).replace(/^ink(\d)/, 'ink-$1')
     const hex = typeof value === 'string' ? normalizeHex(value) : null
-    if (hex && role in TAILWIND_VARIABLE) out[role] = hex
+    if (hex && isRole(role)) out[role] = hex
   }
   return Object.keys(out).length ? out : undefined
 }
 
+/** The rules written after the tokens: the same selectors, so a value lands where its default is. */
 export function themeToCss(input: unknown, options: Pick<ApplyThemeOptions, 'dark'>): string {
   const theme = read(input)
-  if (!theme?.light && !theme?.dark) return ''
-  const base = theme.light?.primary ? derivePalette(theme.light.primary) : null
-  const light = { ...(base?.light ?? {}), ...theme.light }
-  const dark = { ...(base?.dark ?? {}), ...theme.dark }
-
-  const block = (palette: Record<string, string>, roles: readonly Role[], indent: string) =>
+  const block = (
+    palette: Record<string, string> | undefined,
+    roles: readonly Role[],
+    indent: string
+  ) =>
     roles
-      .filter((r) => palette[r])
-      .map((r) => `${indent}${TAILWIND_VARIABLE[r]}: ${palette[r]};`)
+      .filter((r) => palette?.[r])
+      .map((r) => `${indent}${tokenVariable(r)}: ${palette?.[r]};`)
       .join('\n')
 
-  let css = `:root {\n${block(light, [...FLOW_ROLES, ...NAV_ROLES], '  ')}\n}\n`
-  if (options.dark && theme.darkMode !== 'off' && Object.keys(dark).length) {
-    css += '@media (prefers-color-scheme: dark) {\n  :root:not([data-dark-mode="off"]) {\n'
-    css += block(dark, FLOW_ROLES, '    ')
-    if (dark.surface) css += `\n    --color-white: ${dark.surface};`
-    css += '\n  }\n}\n'
+  let css = ''
+  const light = block(theme?.light, [...FLOW_ROLES, ...NAV_ROLES], '  ')
+  if (light) css += `:root, [data-theme="light"] {\n${light}\n}\n`
+  const dark = options.dark && theme?.darkMode !== 'off' ? theme?.dark : undefined
+  if (dark) {
+    css += `@media (prefers-color-scheme: dark) {\n  :root:not([data-theme="light"]) {\n`
+    css += `${block(dark, FLOW_ROLES, '    ')}\n  }\n}\n`
+    css += `:root[data-theme="dark"], [data-theme="dark"] {\n${block(dark, FLOW_ROLES, '  ')}\n}\n`
   }
   return css
 }
 
 export function applyTheme(input: unknown, options: ApplyThemeOptions): void {
   const doc = options.document ?? document
-  const theme = read(input)
-  if (theme?.darkMode === 'off') doc.documentElement.dataset.darkMode = 'off'
-  else delete doc.documentElement.dataset.darkMode
+  // The tokens carry the dark roles whatever is tried here, so turning dark off pins the page.
+  if (options.dark) {
+    if (read(input)?.darkMode === 'off') doc.documentElement.dataset.theme = 'light'
+    else delete doc.documentElement.dataset.theme
+  }
 
   const css = themeToCss(input, options)
   let style = doc.getElementById(STYLE_ID) as HTMLStyleElement | null
@@ -94,6 +97,6 @@ export function applyTheme(input: unknown, options: ApplyThemeOptions): void {
     style.id = STYLE_ID
   }
   style.textContent = css
-  // Last in <head>, after the app's own stylesheet, so the deployment's values win.
+  // Last in <head>, after the stylesheets, so these values win.
   doc.head.appendChild(style)
 }

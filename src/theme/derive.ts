@@ -1,6 +1,6 @@
 /**
- * One brand color in, a full palette out: what the theme builder shows and what `applyTheme` falls
- * back on when a configuration names only a primary color.
+ * One brand color in, a full palette out: what the theme builder shows and writes. The server does
+ * not derive: a role a configuration leaves out keeps SympAuthy's value.
  *
  * The grays reuse SympAuthy's own lightness and chroma at every step, turned to the brand's hue
  * (or to no hue, for `neutral`). A primary too light to carry white labels is darkened until it

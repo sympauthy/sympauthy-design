@@ -12,7 +12,7 @@ VitePress site documenting it (deployed to https://sympauthy.github.io/sympauthy
 Always run `nvm use` before any `npm` or `node` command.
 
 ```sh
-npm run build         # tokens.json → dist/theme.css, theme-dark.css, tokens.css
+npm run build         # tokens.json → dist/theme.css, tokens.css, tokens-light.css
 npm run docs:dev      # build, then serve the docs
 npm run docs:build
 npm run type-check
@@ -35,6 +35,10 @@ npm run format
   builder and `derivePalette` enforce it for deployments' colors.
 - **`src/theme/derive.ts` and `docs/public/theme-builder/index.html` carry the same derivation.**
   Change both, or neither.
+- **A deployment's brand reaches the apps through the server's stylesheet.** `dist/tokens.css` is what
+  it answers at `/branding/tokens.css`, and `themeToCss` is the shape of what it writes after it:
+  changing either changes the server's contract (`docs/branding.md`). `applyTheme` writes the same
+  rules, to try a theme without a server.
 
 ## Releases
 
