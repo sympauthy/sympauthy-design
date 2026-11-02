@@ -4,6 +4,7 @@ import '../../../src/fonts.css'
 import '../../../dist/tokens.css'
 import './brand.css'
 import './demos.css'
+import TokenTable from './TokenTable.vue'
 import {
   CommonAlert,
   CommonButton,
@@ -23,5 +24,7 @@ export default {
     app.component('CommonSpinner', CommonSpinner)
     app.component('FormField', FormField)
     app.component('FormInput', FormInput)
+    // The token tables of pages/foundations/*.md, read from tokens.json.
+    app.component('TokenTable', TokenTable)
   }
 } satisfies Theme
