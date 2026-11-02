@@ -10,7 +10,7 @@ const base = '/sympauthy-design/'
 const publicDir = fileURLToPath(new URL('../public', import.meta.url))
 
 /**
- * GitHub Pages answers a folder of docs/public with its index.html (/theme-builder/); Vite's dev
+ * GitHub Pages answers a folder of pages/public with its index.html (/theme-builder/); Vite's dev
  * server serves public files by exact path only, and shows VitePress's 404 instead. Do the same
  * as Pages in dev.
  */
@@ -58,7 +58,7 @@ export default defineConfig({
     theme: { light: sympauthyCodeTheme, dark: sympauthyCodeTheme }
   },
   vite: {
-    // Tailwind compiles the live component demos; the docs pages themselves use VitePress's theme.
+    // Tailwind compiles the live component demos; the pages themselves use VitePress's theme.
     plugins: [tailwindcss(), publicFolderIndex()]
   },
   themeConfig: {

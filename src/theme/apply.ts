@@ -1,7 +1,7 @@
 /**
  * Tries a theme in the page, before any configuration has it: a deployment's colors reach the apps
  * through the stylesheet at /branding/tokens.css, in place before any script runs (see
- * docs/branding.md). This is for what has no configuration yet, such as a theme still being built:
+ * pages/branding.md). This is for what has no configuration yet, such as a theme still being built:
  *
  *   applyTheme(theme, { dark: true }) // flow
  *   applyTheme(theme, { dark: false }) // admin: the admin stays light

@@ -28,7 +28,7 @@ import '@sympauthy/design/fonts.css'
 import { CommonButton, fetchBrand } from '@sympauthy/design'
 ```
 
-The full guide is [Using in the apps](docs/using-in-apps.md).
+The full guide is [Using in the apps](pages/using-in-apps.md).
 
 ## What is in here
 
@@ -41,7 +41,8 @@ src/
   components.css         .control, .menu, .popover… shared by both apps
   fonts.css              self-hosted Plus Jakarta Sans and JetBrains Mono
 logos/                   the mark: SVG, favicons, app icons
-docs/                    the VitePress site, deployed to GitHub Pages
+docs/                    how this repository is built: its design and its standards
+pages/                   the VitePress site, deployed to GitHub Pages
   public/theme-builder/  the theme builder, a standalone page
 ```
 
@@ -53,7 +54,7 @@ The `prepare` script builds it when an app installs the package.
 ```sh
 nvm use
 npm install
-npm run docs:dev      # builds the theme, then serves the docs with live demos
+npm run pages:dev     # builds the theme, then serves the pages with live demos
 npm run type-check
 npm run format
 ```
@@ -73,7 +74,7 @@ bump.
   is [sympauthy#200](https://github.com/sympauthy/sympauthy/issues/200), and both apps then link it.
 - **The theme builder carries its own copy of the derivation** (it is one standalone HTML page).
   Keep it in step with `src/theme/derive.ts`, or port it to a Vue page that imports it.
-- **Flow and Admin components** are specified in the docs but implemented in each app; only the
+- **Flow and Admin components** are specified in the pages but implemented in each app; only the
   Common group ships here.
 
 ## License

@@ -1,5 +1,5 @@
-# Builds the docs site and deploys it to GitHub Pages (sympauthy.github.io/sympauthy-design/).
-name: Deploy docs to Pages
+# Builds the pages site and deploys it to GitHub Pages (sympauthy.github.io/sympauthy-design/).
+name: Deploy pages to GitHub Pages
 
 on:
   push:
@@ -36,12 +36,12 @@ jobs:
         run: npm ci
 
       - name: Build with VitePress
-        run: npm run docs:build
+        run: npm run pages:build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: docs/.vitepress/dist
+          path: pages/.vitepress/dist
 
   deploy:
     environment:

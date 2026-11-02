@@ -32,5 +32,5 @@ jobs:
       - name: Check formatting
         run: npm run format:check
 
-      - name: Build the docs
-        run: npm run docs:build
+      - name: Build the pages
+        run: npm run pages:build
