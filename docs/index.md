@@ -1,32 +1,37 @@
----
-layout: home
+# SympAuthy Design — documentation
 
-hero:
-  name: SympAuthy Design
-  text: One system for the sign-in pages and the admin panel.
-  tagline: Tokens, a Tailwind theme and shared Vue components for sympauthy-flow and sympauthy-admin, and the branding a self-hosted deployment can make its own.
-  image:
-    src: /logo.svg
-    alt: ''
-  actions:
-    - theme: brand
-      text: Foundations
-      link: /foundations/
-    - theme: alt
-      text: Using in the apps
-      link: /using-in-apps
-    - theme: alt
-      text: Brand your deployment
-      link: /branding
+`@sympauthy/design` is the design system
+[sympauthy-flow](https://github.com/sympauthy/sympauthy-flow) and
+[sympauthy-admin](https://github.com/sympauthy/sympauthy-admin) are built with: the tokens, the
+Tailwind theme, the shared Vue components and the branding helpers. The
+[SympAuthy](https://github.com/sympauthy/sympauthy) server builds its `/branding` stylesheet from it
+too.
 
-features:
-  - title: Bordeaux, flat, legible
-    details: One action color, warm grays on its hue, one flat card, and every text pair checked against WCAG AA in light and dark.
-    link: /foundations/
-  - title: One package, both apps
-    details: '@sympauthy/design ships the Tailwind theme, the shared rules and the Common components. Templates keep writing bg-primary and text-gray-500.'
-    link: /using-in-apps
-  - title: Your brand, no rebuild
-    details: Pick a color in the theme builder, paste the ui configuration, restart the server. The apps apply it as CSS variables at load.
-    link: /branding
----
+These documents are the authority on how this repository is built. They are read before the code
+they govern, and a new decision is written here before or alongside the change that implements it.
+What they are _not_ is the guide to using the system: which token, component and layout an app
+reaches for, and how a deployment brands itself, is [the site in `pages/`](../pages/index.md).
+
+## The two halves
+
+They come in two kinds, and the folder is which kind a document is. The two are read at different
+moments — a design document by somebody about to change the part it describes, a rule by somebody
+about to break it — and each kind has a standard of its own saying how one is written, over [the one
+that holds of both](standards/docs-standard.md).
+
+- **[How the system works](design/index.md)**, in `design/` — a document per part of the system:
+  what it does, what implements it, and why it was settled that way.
+- **[How the code is written](standards/index.md)**, in `standards/` — the rules a change is held
+  to, one subject per document, each named `<subject>-standard.md`. A standard reaches an agent
+  when a file it governs is read, through the symlink in `.claude/rules/`.
+
+## Goals
+
+- **One system for every SympAuthy app.** The apps share the values and the components they all
+  draw, and a component only one of them draws lives in that app.
+- **One source for every value.** A color, a size or a radius is written once, in `tokens.json`,
+  and everything else is built from it.
+- **A brand is configuration.** A deployment changes its colors, images and name without rebuilding
+  an app, and the system holds what that must not break.
+- **Legible whatever the brand.** Every text pair holds its contrast in light and dark, for
+  SympAuthy's own colors and for what the theme builder derives from a deployment's.

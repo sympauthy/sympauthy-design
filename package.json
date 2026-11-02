@@ -29,11 +29,11 @@
   "scripts": {
     "build": "node scripts/build-theme.mjs",
     "type-check": "vue-tsc --noEmit -p tsconfig.json",
-    "docs:dev": "npm run build && vitepress dev docs",
-    "docs:build": "npm run build && vitepress build docs",
-    "docs:preview": "vitepress preview docs",
-    "format": "prettier --write src docs scripts",
-    "format:check": "prettier --check src docs scripts",
+    "pages:dev": "npm run build && vitepress dev pages",
+    "pages:build": "npm run build && vitepress build pages",
+    "pages:preview": "vitepress preview pages",
+    "format": "prettier --write src docs pages scripts",
+    "format:check": "prettier --check src docs pages scripts",
     "prepare": "npm run build"
   },
   "dependencies": {

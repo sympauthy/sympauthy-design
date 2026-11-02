@@ -16,7 +16,7 @@ import {
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
-    // The Common components, registered for the live demos in docs/components/*.md.
+    // The Common components, registered for the live demos in pages/components/*.md.
     app.component('CommonAlert', CommonAlert)
     app.component('CommonButton', CommonButton)
     app.component('CommonCard', CommonCard)

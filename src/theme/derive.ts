@@ -6,7 +6,7 @@
  * (or to no hue, for `neutral`). A primary too light to carry white labels is darkened until it
  * does, and the result says so. SympAuthy's Bordeaux returns the hand-tuned palette of tokens.json.
  *
- * Keep docs/public/theme-builder/index.html in step with this file: it carries the same steps.
+ * Keep pages/public/theme-builder/index.html in step with this file: it carries the same steps.
  */
 import { FLOW_ROLES, INK_STEPS, type DarkPalette, type LightPalette } from './roles'
 

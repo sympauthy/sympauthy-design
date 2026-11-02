@@ -1,7 +1,7 @@
 node_modules
 dist
-docs/.vitepress/cache
-docs/.vitepress/dist
+pages/.vitepress/cache
+pages/.vitepress/dist
 .DS_Store
 *.log
 *.tsbuildinfo
@@ -11,3 +11,4 @@ docs/.vitepress/dist
 
 # Claude Code local settings
 .claude/*
+!.claude/rules/

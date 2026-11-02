@@ -1,5 +1,5 @@
 /**
- * What the server answers under /branding, read the same way by both apps (see docs/branding.md).
+ * What the server answers under /branding, read the same way by both apps (see pages/branding.md).
  * The stylesheet and the images are linked from the page; only the name and the dark mode are fetched.
  */
 export interface Brand {
