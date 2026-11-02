@@ -1,26 +1,43 @@
 # Card
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as `CommonCard`</p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonCard</code></p>
+
+The one card of both apps: a flat box that every other boxed component is built on.
 
 <div class="demo"><div class="stack">
-  <CommonCard><p>Padded, the default: 16px from the edge, 24px from <code>sm:</code>.</p></CommonCard>
+  <CommonCard><p>Padded, the default: the card owns the room around its content.</p></CommonCard>
   <CommonCard :padded="false">
     <p class="border-b border-gray-200 px-4 py-3">Flush: rows run edge to edge</p>
     <p class="px-4 py-3">A table, a definition list</p>
   </CommonCard>
 </div></div>
 
-The one card of both apps: a flat `surface` box with a 1px `ink-200` border and `radius-lg`, which every other boxed component is built on.
+## Usage
 
-**Look**: `surface`, 1px `ink-200` border, `radius-lg`, no shadow. Padded `space-4`, then `space-6` from `sm:`; flush (no padding, `overflow: hidden`) when its content draws its own rows, like a table or a definition list.
+- **Padded**, the default: for content that does not draw its own rows.
+- **Flush** (`:padded="false"`): for content that pads its own rows, like a table or a definition list.
+- **Not for** a card inside a card: lay the content out inside the one card.
+- **Not for** a different look: never give it a shadow, a colored border or a different radius.
 
-**In the apps**: the admin's `CommonCard` (`rounded-lg border border-gray-200 bg-white`, with `p-4 sm:p-6` when `padded`) is the reference. The flow's card becomes the same classes: one card, two copies of the component until the apps share a package.
+## Look
 
-**Built on it**:
+- **Box**: `surface`, a 1px `ink-200` border, `radius-lg`, no shadow (see [Shape](/foundations/shape)).
+- **Padding**: `space-4`, then `space-6` from `sm:`; none when flush.
+- **Width**: it takes the width its parent gives it, and only the flow states a maximum.
 
-- Flow: `AuthCard` (adds a width of `auth-card-width` or `auth-card-width-large`, stacks its content at `space-4`, sets `flow-body`), and `ConfirmRequest`, which is an auth card.
-- Admin: a `RecordPage`'s summary and section boxes, the box around a `Table`, and a `ConfirmDialog` (a padded card on a scrim).
+## API
 
-**Rules**: never put a card inside a card; never give it a shadow, a colored border or a different radius; a card takes the width its parent gives it, and only the flow states a maximum.
+The consumer provides the content, and whether it is padded or flush.
 
-**The consumer provides** the content, and whether it is padded or flush.
+| Name       | Type      | Default | Description                             |
+| ---------- | --------- | ------- | --------------------------------------- |
+| `padded`   | `boolean` | `true`  | Off for content that pads its own rows. |
+| `#default` | slot      |         | The content.                            |
+
+## Related
+
+- [Shape](/foundations/shape): why it is flat, and what `radius-lg` means.
+- [AuthCard](/components/auth-card): adds a maximum width and the flow's type.
+- [RecordPage](/components/record-page): its summary and section boxes.
+- [Table](/components/table): the box around a table.
+- [ConfirmDialog](/components/confirm-dialog): a padded card on a scrim.

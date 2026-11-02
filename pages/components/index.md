@@ -8,6 +8,7 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [Button](./button)
 - [Field](./field)
 - [Alert](./alert)
+- [Spinner](./spinner)
 
 ## Flow
 
