@@ -93,8 +93,8 @@ export default defineConfig({
           { text: 'Type', link: '/foundations/type' },
           { text: 'Spacing', link: '/foundations/spacing' },
           { text: 'Control height', link: '/foundations/control-height' },
-          { text: 'Cards and radius', link: '/foundations/cards' },
-          { text: 'Focus and states', link: '/foundations/focus' },
+          { text: 'Shape', link: '/foundations/shape' },
+          { text: 'Focus, states and motion', link: '/foundations/focus' },
           { text: 'Layout', link: '/foundations/layout' },
           { text: 'Iconography', link: '/foundations/iconography' },
           { text: 'The mark', link: '/foundations/mark' }

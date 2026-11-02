@@ -6,20 +6,20 @@ Components are grouped the same way. **Common** holds what both apps draw (Butto
 
 ## Content
 
-- [Content fundamentals](./content): voice, case, button labels, errors.
+- [Content](./content): voice, case, button labels, errors.
 
 ## Visual
 
 - [Color](./color): ground and surface, the ink scale, Bordeaux, gold, status colors.
 - [Themes](./themes): light first; dark in the flow only.
-- [Type](./type): the two families and each app's sizes.
+- [Type](./type): the two families and each app's styles.
 - [Spacing](./spacing): the steps and what each separates.
-- [Control height](./control-height): 44px for every control, in both apps.
-- [Cards, radius and depth](./cards): one flat card, and what each radius means.
+- [Control height](./control-height): one height for every control, in both apps.
+- [Shape](./shape): flat surfaces, and what each radius means.
 - [Focus, states and motion](./focus): the one focus ring, disabled, loading, the one motion.
 - [Layout](./layout): the flow's centred card, the admin's shell.
+- [Iconography](./iconography): Heroicons, and their sizes.
 
 ## Brand
 
-- [Iconography](./iconography): Heroicons, and their sizes.
 - [The mark](./mark): the keyhole between braces, and which file goes where.

@@ -1,0 +1,1 @@
+../../docs/standards/foundations-standard.md

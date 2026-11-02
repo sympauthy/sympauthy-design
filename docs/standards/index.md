@@ -12,6 +12,8 @@ the other half — [how the system works](../design/index.md).
   written and what it states in place of the code that happens to follow it, and [the design
   documentation standard](docs-design-standard.md) for what a design document answers about the
   part it names and what it leaves to the code, to the standards and to the FAQ.
+- **[Foundations standard](foundations-standard.md)** — how a page in `pages/foundations/` is written:
+  which pages exist, the sections of one, and the token table it draws.
 
 ---
 
