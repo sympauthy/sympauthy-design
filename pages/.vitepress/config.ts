@@ -106,7 +106,8 @@ export default defineConfig({
           { text: 'Card', link: '/components/card' },
           { text: 'Button', link: '/components/button' },
           { text: 'Field', link: '/components/field' },
-          { text: 'Alert', link: '/components/alert' }
+          { text: 'Alert', link: '/components/alert' },
+          { text: 'Spinner', link: '/components/spinner' }
         ]
       },
       {

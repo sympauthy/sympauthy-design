@@ -81,8 +81,8 @@ project's goals, and each half's own lists what is in it; nothing here shapes th
 mechanics above.
 
 **The site in `pages/`.** It addresses somebody using the system, and runs live demos plain Markdown
-cannot, so nothing here governs it. [The foundations standard](foundations-standard.md) holds its
-foundation pages, and says why those have one.
+cannot, so nothing here governs it. [The foundations standard](foundations-standard.md) and [the
+components standard](components-standard.md) hold those pages, and each says why they have one.
 
 **The public documentation.** It is written in another repository, and nothing here governs it.
 

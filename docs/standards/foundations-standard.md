@@ -8,10 +8,10 @@ paths:
 
 # Foundations standard
 
-How a page in [`pages/foundations/`](../../pages/foundations/index.md) is written. The rest of the
-site has no standard, and [the documentation standard](docs-standard.md) says so. These pages have
-one because a person reads them side by side and expects the same answer in the same place on each,
-and because they name values `tokens.json` owns.
+How a page in [`pages/foundations/`](../../pages/foundations/index.md) is written. [The
+documentation standard](docs-standard.md) leaves the site alone, and these pages have a standard of
+their own because a person reads them side by side and expects the same answer in the same place on
+each, and because they name values `tokens.json` owns.
 
 ## Which pages exist
 
@@ -111,7 +111,9 @@ page names each in its rules.
 **A changelog per page.** The history stays in git, as [the documentation
 standard](docs-standard.md) has it.
 
-**The other pages of the site.** The component pages and the guides have no standard yet.
+**The other pages of the site.** [The components standard](components-standard.md) holds the
+pages of Common components. The pages of components in other repositories, and the guides, have no
+standard yet.
 
 **The overview's own shape.** It introduces the system and lists the pages, so the sections above do
 not hold of it.

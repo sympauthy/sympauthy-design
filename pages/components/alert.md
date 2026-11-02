@@ -1,18 +1,47 @@
 # Alert
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as `CommonAlert`</p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonAlert</code></p>
+
+A message box that stays on screen: `danger` for a failure, `warning` for what must be read first.
 
 <div class="demo"><div class="stack" style="max-width: 560px">
   <CommonAlert>An unexpected error occurred. Please go back to your application and retry to sign in.</CommonAlert>
   <CommonAlert color="warning">This secret is shown once. Copy it before you close this dialog.</CommonAlert>
 </div></div>
 
-A message box that stays on screen: `CommonAlert` in both apps, `danger` for a failure and `warning` for what must be read first.
+## Usage
 
-**Look**: full width, `space-3` padding, 1px border, `radius-md`, 14px text, a 20px icon on the left. Danger: `danger-subtle` fill, `danger-line` border, `danger` text. Warning: `warning-subtle`, `warning-line`, `warning`.
+- **`danger`**, the default: a request that failed and that the screen keeps showing, such as a flow error or a record that could not load.
+- **`warning`**: a one-time secret, or what an operator must know before closing a dialog.
+- **Not for** success: neither app reports success out of band; a screen shows the result it asked for.
+- **Not for** a caution inside a sentence of the flow: [ConfirmRequest](/components/confirm-request)'s warning is text, not an alert.
 
-**Use** danger for a request that failed and that the screen keeps showing (a flow error, a record that could not load); warning for a one-time secret, or what an operator must know before closing a dialog. Danger takes `role="alert"`, warning `role="status"`.
+## Look
 
-**Not for** success: neither app reports success out of band; a screen shows the result it asked for.
+- **Box**: full width, `space-3` padding, a 1px border, `radius-md`.
+- **Text**: 14px.
+- **`danger`**: `danger-subtle` fill, `danger-line` border, `danger` text.
+- **`warning`**: `warning-subtle` fill, `warning-line` border, `warning` text.
+- **On a dark page**: `CommonAlert` keeps these colors' Light values for now ([#4](https://github.com/sympauthy/sympauthy-design/issues/4)).
 
-**The consumer provides** the sentence: what went wrong and what to do next.
+## Content
+
+- **It says what went wrong and what to do next** (see [Content](/foundations/content)). The sentence carries the meaning, so the color is never the only signal.
+
+## Accessibility
+
+- **`danger` takes `role="alert"`, and `warning` takes `role="status"`** (WCAG 4.1.3). The component sets both, so a screen reader announces a message that appears.
+
+## API
+
+The consumer provides the sentence: what went wrong and what to do next.
+
+| Name       | Type                    | Default    | Description                 |
+| ---------- | ----------------------- | ---------- | --------------------------- |
+| `color`    | `'danger' \| 'warning'` | `'danger'` | The meaning of the message. |
+| `#default` | slot                    |            | The sentence.               |
+
+## Related
+
+- [Color](/foundations/color): the `danger` and `warning` families.
+- [AuthCard](/components/auth-card): a `danger` alert above the form.
