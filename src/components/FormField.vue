@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { computed, provide, useId } from 'vue'
+import { FIELD_DESCRIPTION } from './fieldDescription'
+
 /**
  * One field of a form: the name of what is being filled in, the control filling it, and a line
  * under it for what the name alone does not say, or for what went wrong.
@@ -6,7 +9,7 @@
  * It owns the space between the three, so a form stacking four fields does not decide it four
  * times.
  */
-withDefaults(
+const props = withDefaults(
   defineProps<{
     label: string
     /** The id of the control, so a click on the label focuses it. */
@@ -22,6 +25,13 @@ withDefaults(
     error: undefined
   }
 )
+
+const descriptionId = useId()
+
+provide(
+  FIELD_DESCRIPTION,
+  computed(() => (props.error || props.hint ? descriptionId : undefined))
+)
 </script>
 
 <template>
@@ -31,7 +41,7 @@ withDefaults(
       <slot name="help" />
     </label>
     <slot />
-    <p v-if="error" class="text-sm text-danger">{{ error }}</p>
-    <p v-else-if="hint" class="text-sm text-gray-500">{{ hint }}</p>
+    <p v-if="error" :id="descriptionId" class="text-sm text-danger">{{ error }}</p>
+    <p v-else-if="hint" :id="descriptionId" class="text-sm text-gray-500">{{ hint }}</p>
   </div>
 </template>

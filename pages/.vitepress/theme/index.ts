@@ -8,19 +8,33 @@ import TokenTable from './TokenTable.vue'
 import {
   BrandLogo,
   CommonAlert,
+  CommonAppShell,
+  CommonBreadcrumb,
   CommonButton,
   CommonCard,
+  CommonDialog,
+  CommonMenu,
   CommonPagination,
+  CommonPopover,
+  CommonSidebar,
   CommonSkeleton,
   CommonSpinner,
   CommonTable,
   CommonTag,
+  CommonTooltip,
+  CommonTooltipProvider,
+  ConfirmDialog,
   CopyableValue,
   CopyToClipboard,
   EmptyValue,
   FormField,
   FormInput,
+  FormListbox,
+  FormSelect,
+  FormTagsInput,
+  FormTextarea,
   LoadingState,
+  PageActions,
   TableCell,
   TableHeader
 } from '../../../src/index'
@@ -31,19 +45,33 @@ export default {
     // The Common components, registered for the live demos in pages/components/*.md.
     app.component('BrandLogo', BrandLogo)
     app.component('CommonAlert', CommonAlert)
+    app.component('CommonAppShell', CommonAppShell)
+    app.component('CommonBreadcrumb', CommonBreadcrumb)
     app.component('CommonButton', CommonButton)
     app.component('CommonCard', CommonCard)
+    app.component('CommonDialog', CommonDialog)
+    app.component('CommonMenu', CommonMenu)
     app.component('CommonPagination', CommonPagination)
+    app.component('CommonPopover', CommonPopover)
+    app.component('CommonSidebar', CommonSidebar)
     app.component('CommonSkeleton', CommonSkeleton)
     app.component('CommonSpinner', CommonSpinner)
     app.component('CommonTable', CommonTable)
     app.component('CommonTag', CommonTag)
+    app.component('CommonTooltip', CommonTooltip)
+    app.component('CommonTooltipProvider', CommonTooltipProvider)
+    app.component('ConfirmDialog', ConfirmDialog)
     app.component('CopyableValue', CopyableValue)
     app.component('CopyToClipboard', CopyToClipboard)
     app.component('EmptyValue', EmptyValue)
     app.component('FormField', FormField)
     app.component('FormInput', FormInput)
+    app.component('FormListbox', FormListbox)
+    app.component('FormSelect', FormSelect)
+    app.component('FormTagsInput', FormTagsInput)
+    app.component('FormTextarea', FormTextarea)
     app.component('LoadingState', LoadingState)
+    app.component('PageActions', PageActions)
     app.component('TableCell', TableCell)
     app.component('TableHeader', TableHeader)
     // The token tables of pages/foundations/*.md, read from tokens.json.
