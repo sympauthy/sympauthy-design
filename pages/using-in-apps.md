@@ -18,10 +18,9 @@ In `sympauthy-flow/src/styles/style.css` and `sympauthy-admin/src/app/styles/sty
 @import 'tailwindcss';
 @import '@sympauthy/design/theme.css';
 @import '@sympauthy/design/components.css';
-@source '../../node_modules/@sympauthy/design/src'; /* so Tailwind sees the components' classes */
 ```
 
-Adjust the `@source` path to the stylesheet's depth (`../../../` from `src/app/styles/`). Remove from the admin's stylesheet what `components.css` now carries (`.sa-control`, `.sa-field-label`, `.sa-control-focus`, `.sa-control-focus-within`, `.sa-menu`, `.sa-menu-item`, `.sa-popover`, `.sa-overlay-animated`, `.sa-table-as-cards`, `.sa-table-pinned-header`) and its own `@theme` block.
+`components.css` tells Tailwind where the components are, so an app writes no `@source` for them. Import it outside any `layer()`: inside one, the build fails with `` `@source` cannot be nested ``. Remove from the admin's stylesheet what `components.css` now carries (`.sa-control`, `.sa-field-label`, `.sa-control-focus`, `.sa-control-focus-within`, `.sa-menu`, `.sa-menu-item`, `.sa-popover`, `.sa-overlay-animated`, `.sa-table-as-cards`, `.sa-table-pinned-header`) and its own `@theme` block.
 
 `theme.css` names the roles and reads each from a token, so `bg-primary` is `var(--primary)`. The tokens themselves come from the server, linked in `index.html` ahead of the app's own stylesheet:
 
@@ -111,6 +110,7 @@ See [Branding a deployment](./branding) for what the server answers.
 - **A radio group.** The admin's `LogoutDialog` draws `SaRadioGroup` in place of its two raw radio inputs, with the disabled option's reason as its `disabledReason`.
 - **One link.** `.sa-link` comes from `components.css`, underlined at rest: the flow drops its `@utility link`, and the admin's `DocLink` draws it instead of underlining on hover.
 - **One skeleton.** The flow's `animate-pulse` blocks become `SaSkeleton`, in `gray-300` where some were `gray-100`, and they hold still under `prefers-reduced-motion`.
+- **No `@source` for the package.** Delete the line pointing into `node_modules` from the app's stylesheet: `components.css` now declares its own. A line left behind changes nothing.
 - **Flow clean-ups.** `src/assets/base.css` and `src/assets/main.css` are the Vue starter's files and nothing imports them: delete them. The `btn` utility gives way to `SaButton`.
 
 | Was                                                              | Now                                                      |
