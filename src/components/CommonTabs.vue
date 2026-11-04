@@ -49,7 +49,7 @@ withDefaults(
         :is="linkAs"
         v-bind="tab.link"
         :aria-current="tab.current ? 'page' : undefined"
-        class="rounded-md py-2 text-sm font-medium outline-primary focus-visible:outline-2"
+        class="flex min-h-control items-center rounded-md text-sm font-medium outline-primary focus-visible:outline-2"
       >
         {{ tab.label }}
       </component>

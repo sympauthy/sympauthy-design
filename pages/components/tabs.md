@@ -30,7 +30,7 @@ const many = ['Claims', 'Consents', 'Second factors', 'Providers', 'Sessions', '
 ## Look
 
 - **Strip**: an `ink-200` rule under it, `space-1` between tabs.
-- **Tab**: 14px at 500 in `ink-500`, 8px by 16px, over a 2px line.
+- **Tab**: 14px at 500 in `ink-500`, `control-height` tall with 16px either side, over a 2px line.
 - **Current tab**: `primary` text and a 2px `primary` line.
 
 ## Behavior
@@ -48,7 +48,7 @@ const many = ['Claims', 'Consents', 'Second factors', 'Providers', 'Sessions', '
 
 - **They are links in a `nav`, not an ARIA tab list**, because each one goes to an address (WCAG 4.1.2). `label` names the `nav`.
 - **The current one takes `aria-current="page"`**, set by the component.
-- **A tab is navigation rather than a control, so it is not `control-height`.** Its target is 38px tall (WCAG 2.5.8), and a strip of them stays compact above the record.
+- **A tab is at least `control-height` tall**, so that it can be touched (WCAG 2.5.5).
 
 ## API
 
