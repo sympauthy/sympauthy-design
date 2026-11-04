@@ -5,6 +5,7 @@ description:
 paths:
   - 'pages/components/**'
   - 'src/components/**'
+  - 'src/components.css'
 ---
 
 # Components standard
@@ -27,6 +28,14 @@ term.
 **A shipped component knows no store, no router, no auth and no message bundle.** Hand it the words
 it draws and the links it follows as props or slots. An app that needs more wraps it, as the admin's
 button adds its scopes.
+
+**A component an app wraps exports its props as `Sa…Props`, and the wrapper extends them.** The
+wrapper then states only what it adds, so a prop the package gains reaches the app's screens with no
+edit. Export them when the first wrapper appears, as one interface in the component's source, which
+each app's compiler reads through `src/index.ts` to generate the wrapper's runtime props.
+
+**A component exporting its props defaults every boolean to `false`.** A wrapper declares them too,
+so Vue hands an absent one down as `false`, over any other default.
 
 **A shipped component holds its contrast in light and dark, whatever the app drawing it pins.**
 Check it in both themes when it moves, since the admin is pinned light and never saw the other.
@@ -51,6 +60,10 @@ foundation](../../pages/foundations/iconography.md).
 
 **A component's module runs nothing at its top level but declarations.** That keeps a component an
 app does not import out of its bundle, through the one barrel in `src/index.ts`.
+
+**A class the package draws is written in `src/components/`.** The `@source` of `src/components.css`
+reads that directory and nothing else in `src/`, so that an app writes no path into `node_modules`.
+A class written elsewhere reaches no app's stylesheet, and the build reports nothing.
 
 **A rule of `src/components.css` is a class in the `components` layer, unless a stylesheet has to
 apply it.** Tailwind applies only utilities, and a class cannot reach a pseudo-element, so
@@ -198,8 +211,9 @@ yet, so it is a judgement made per component, and the first one corrects it.
 **`sideEffects` in `package.json`.** An app's bundler drops a component nothing imports without it,
 and declaring it would mean listing the stylesheets an app imports for their effect.
 
-**The stylesheet of a component an app does not import.** Tailwind reads all of `src/` through the
-app's `@source`, so its classes reach every app's stylesheet whichever components that app draws.
+**The stylesheet of a component an app does not import.** Tailwind reads all of `src/components/`
+through the `@source` of `src/components.css`, so its classes reach every app's stylesheet whichever
+components that app draws.
 
 **A component in another repository.** Flow and Admin components live in their apps, so this
 repository can neither draw nor check them. Their pages stay as those apps' specifications, and

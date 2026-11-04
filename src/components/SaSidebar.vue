@@ -48,15 +48,17 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
 
 <template>
   <nav :aria-label="label" class="flex h-full flex-col bg-nav text-nav-text">
-    <div class="flex h-14 items-center justify-between gap-2 border-b border-nav-divider px-4">
+    <div class="flex h-14 items-center justify-between gap-1 border-b border-nav-divider px-4">
       <div class="flex min-w-0 items-center gap-2">
         <slot name="head" />
       </div>
+      <!-- The icon keeps its size, so the head keeps its width, and the pseudo-element around it is
+           the target. -->
       <button
         type="button"
         :aria-label="closeLabel"
         :title="closeLabel"
-        class="-mr-3 flex size-control shrink-0 items-center justify-center text-nav-muted hover:text-nav-text lg:hidden"
+        class="relative shrink-0 rounded-md text-nav-muted after:absolute after:top-1/2 after:left-1/2 after:size-control after:-translate-x-1/2 after:-translate-y-1/2 hover:text-nav-text lg:hidden"
         :class="focusClasses"
         @click="emit('close')"
       >

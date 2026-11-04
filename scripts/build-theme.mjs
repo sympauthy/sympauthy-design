@@ -107,7 +107,12 @@ const TAILWIND = [
   ['--color-disabled', 'disabled'],
   ['--color-on-disabled', 'on-disabled'],
   ['--color-danger', 'danger'],
+  ['--color-danger-subtle', 'danger-subtle'],
+  ['--color-danger-line', 'danger-line'],
   ['--color-danger-hover', 'danger-hover'],
+  ['--color-warning', 'warning'],
+  ['--color-warning-subtle', 'warning-subtle'],
+  ['--color-warning-line', 'warning-line'],
   ...['green', 'red', 'yellow', 'blue', 'purple'].flatMap((c) => [
     [`--color-tag-${c}`, `tag-${c}`],
     [`--color-tag-${c}-fill`, `tag-${c}-fill`]

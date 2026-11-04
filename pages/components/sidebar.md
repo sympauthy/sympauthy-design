@@ -11,7 +11,7 @@ import { demoSections } from '../.vitepress/theme/demo-shell'
 <div class="demo vp-raw"><ClientOnly><SaTooltipProvider>
   <div style="width: 256px; height: 420px">
     <SaSidebar :sections="demoSections" label="Main" close-label="Close the menu">
-      <template #head><span class="truncate text-lg font-semibold">SympAuthy <span class="ml-1 font-medium text-nav-muted">Admin</span></span></template>
+      <template #head><SaBrandLogo dark /><span class="truncate text-lg font-semibold">SympAuthy <span class="ml-1.5 font-medium text-nav-muted">Admin</span></span></template>
       <template #foot><span class="text-sm">Signed in as Ada</span></template>
     </SaSidebar>
   </div>
@@ -36,10 +36,10 @@ import { demoSections } from '../.vitepress/theme/demo-shell'
 ## Behavior
 
 - **Hover**: `nav-hover`.
-- **Focus**: a 2px outline in `nav-text`, inside the entry. `focus-ring` is `primary`, which a person could not make out on this ground.
+- **Focus**: a 2px outline in `nav-text`, inside the entry. `focus-ring` is `primary`, which a person could not make out on this ground. The control closing the drawer draws it around its icon.
 - **Disabled**: `nav-disabled`. It keeps the keyboard's focus, and says why in a [Tooltip](/components/tooltip) on the right.
 - **More than fits**: the entries scroll, and the head and foot stay.
-- **Below `lg:`**: the control closing the drawer appears, 44px square, and emits `close`.
+- **Below `lg:`**: the control closing the drawer appears and emits `close`. It is a 20px icon with its target around it, so that the head keeps its width for the logo and the name.
 - **Which is current**: only the app knows, and says so on each entry.
 
 ## Accessibility
@@ -47,7 +47,7 @@ import { demoSections } from '../.vitepress/theme/demo-shell'
 - **`label` names the `nav`, and the current entry takes `aria-current="page"`** (WCAG 2.4.8).
 - **A disabled entry is `role="link"` with `aria-disabled`**, set by the component, so that it stays reachable and its reason can be read.
 - **`nav-text` holds 13.5:1 on `nav-ground`.**
-- **An entry is at least `control-height` tall**, so that it can be touched (WCAG 2.5.5).
+- **An entry is at least `control-height` tall, and the target of the control closing the drawer is `control-height` square**, so that they can be touched (WCAG 2.5.5). That target overlaps the end of the head, which does nothing when pressed.
 
 ## API
 

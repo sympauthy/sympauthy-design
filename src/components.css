@@ -5,7 +5,11 @@
  *   @import 'tailwindcss';
  *   @import '@sympauthy/design/theme.css';
  *   @import '@sympauthy/design/components.css';
+ *
+ * Tailwind resolves an `@source` against the stylesheet declaring it, so this one finds the
+ * components wherever the package is installed, and no app writes a path into `node_modules`.
  */
+@source './components';
 
 /**
  * The name above a value, wherever a value is read. A utility rather than a class of the layer below,
@@ -49,6 +53,14 @@
   /** The same ring, for a control made of more than one focusable part. */
   .sa-control-focus-within {
     @apply focus-within:border-primary focus-within:ring-1 focus-within:ring-primary;
+  }
+
+  /**
+   * The one focus ring of a button, for the keyboard alone. The offset sets it on the surface around
+   * the button, which is what its 3:1 is held against: on a `primary` fill it would not show.
+   */
+  .sa-button-focus {
+    @apply outline-primary focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   /** A link inside a sentence: underlined at rest, so its color is not its only signal. */

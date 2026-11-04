@@ -12,11 +12,12 @@ What a control shows when it is focused, disabled or in flight, and the one thin
 ## Accessibility
 
 - **A focused control always shows the ring** (WCAG 2.4.7). Its contrast is held on [Color](/foundations/color#accessibility).
-- **Motion honors `prefers-reduced-motion`** (WCAG 2.3.3).
+- **Nothing moves under `prefers-reduced-motion`** (WCAG 2.3.3). The spinner fades in place instead of turning, since it is the one sign that a request is still alive; every other motion above holds still.
 
 ## Related
 
-- [Button](/components/button): disabled and in flight.
+- [Button](/components/button): the ring on a button, disabled and in flight.
+- [Spinner](/components/spinner): the turn, which becomes a fade under `prefers-reduced-motion`.
 - [Skeleton](/components/skeleton): the pulse, which stops under `prefers-reduced-motion`.
 - [Field](/components/field): the ring on a control.
 - [Menu](/components/menu): a disabled item, and the overlay's motion.

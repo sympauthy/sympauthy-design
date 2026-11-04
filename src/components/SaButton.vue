@@ -9,7 +9,7 @@ export type SaButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger'
  * scopes: an app that refuses a button for a reason (the admin, for a missing scope) passes
  * `refused` and wraps the button in its own tooltip saying why.
  */
-interface Props {
+export interface SaButtonProps {
   /**
    * `primary` for what the screen is for, and the only filled button. `secondary` for everything
    * beside it. `outline` for the alternative path inside an auth card. `danger` for what destroys or
@@ -48,7 +48,7 @@ interface Props {
 
 defineOptions({ inheritAttrs: false })
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<SaButtonProps>(), {
   variant: 'primary',
   label: undefined,
   icon: undefined,
@@ -98,8 +98,8 @@ const variantClasses: Record<
   },
   // Soft, so that it never competes with primary.
   danger: {
-    active: 'border-red-200 bg-red-50 text-red-700 hover:bg-red-100',
-    waiting: 'border-red-200 bg-red-50 text-red-700 cursor-wait',
+    active: 'border-danger-line bg-danger-subtle text-danger hover:bg-danger-hover',
+    waiting: 'border-danger-line bg-danger-subtle text-danger cursor-wait',
     disabled: 'border-transparent bg-disabled text-on-disabled cursor-not-allowed'
   }
 }
@@ -129,7 +129,7 @@ const stateSlot = computed(() => {
     :class="[computedClasses, sizeClasses]"
     :disabled="computedDisabled"
     :title="props.label"
-    class="sa-control flex items-center justify-center gap-1.5 transition-colors"
+    class="sa-control sa-button-focus flex items-center justify-center gap-1.5 transition-colors"
   >
     <SaSpinner v-if="loading || submitting" size="sm" />
     <component :is="props.icon" v-else-if="props.icon" class="size-4 shrink-0" />

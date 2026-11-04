@@ -20,7 +20,6 @@ npm install github:sympauthy/sympauthy-design#v0.4.0
 @import 'tailwindcss';
 @import '@sympauthy/design/theme.css';
 @import '@sympauthy/design/components.css';
-@source '../../node_modules/@sympauthy/design/src';
 ```
 
 ```ts
