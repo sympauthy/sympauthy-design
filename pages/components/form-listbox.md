@@ -29,7 +29,7 @@ const several = ref(['Email', 'Locale'])
 
 - **Box**: `surface`, an `ink-400` border and `radius-md`, like every control.
 - **List**: at most 224px tall, then it scrolls.
-- **Option**: `.menu-item` in `ink-700`, cut with an ellipsis where it does not fit, with a 16px check in `primary` once chosen.
+- **Option**: `.menu-item` in `ink-700`, at least `control-height` tall, cut with an ellipsis where it does not fit, with a 16px check in `primary` once chosen.
 - **Search**: a `.control` over the list, under an `ink-200` rule.
 
 ## Behavior

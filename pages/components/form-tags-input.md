@@ -39,7 +39,7 @@ const none = ref([])
 
 - **`removeLabel` names each cross**, and the primitive handles the keyboard (WCAG 4.1.2).
 - **Pass `ariaLabel`**, since `FormField`'s label points at no single control here. A line under it in `FormField` is linked with `aria-describedby`.
-- **The target of a cross is 24px square**, while the icon stays 12px (WCAG 2.5.8). It is under `control-height`, because a tag is a line of text and a larger target would overlap its neighbours.
+- **The target of a cross is `control-height` square**, while the icon stays 12px (WCAG 2.5.5). It may overlap the word beside it, which does nothing when pressed.
 
 ## API
 

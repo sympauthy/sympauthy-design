@@ -83,7 +83,7 @@ defineExpose({ flush })
       <TagsInputItemText class="truncate" />
       <!-- The icon stays small beside the word, and the pseudo-element around it is the target. -->
       <TagsInputItemDelete
-        class="relative shrink-0 rounded-md text-gray-500 outline-primary after:absolute after:-inset-1.5 hover:text-gray-700 focus-visible:outline-2"
+        class="relative shrink-0 rounded-md text-gray-500 outline-primary after:absolute after:top-1/2 after:left-1/2 after:size-control after:-translate-x-1/2 after:-translate-y-1/2 hover:text-gray-700 focus-visible:outline-2"
         :aria-label="removeLabel"
       >
         <XMarkIcon class="size-3" />
