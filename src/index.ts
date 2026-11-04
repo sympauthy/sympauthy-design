@@ -4,7 +4,11 @@ export { default as SaAlert } from './components/SaAlert.vue'
 export { default as SaAppShell } from './components/SaAppShell.vue'
 export { default as SaBrandLogo } from './components/SaBrandLogo.vue'
 export { default as SaBreadcrumb, type SaBreadcrumbItem } from './components/SaBreadcrumb.vue'
-export { default as SaButton, type SaButtonVariant } from './components/SaButton.vue'
+export {
+  default as SaButton,
+  type SaButtonProps,
+  type SaButtonVariant
+} from './components/SaButton.vue'
 export { default as SaCard } from './components/SaCard.vue'
 export { default as SaConfirmDialog } from './components/SaConfirmDialog.vue'
 export { default as SaCopyableValue } from './components/SaCopyableValue.vue'

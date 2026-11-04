@@ -66,7 +66,7 @@ export default defineConfig({
 })
 ```
 
-In the admin, keep `shared/ui/index.ts` as the kit every screen imports from, and re-export the package's components there. The admin's own button becomes a thin wrapper: it computes the missing scopes, passes `refused` to `SaButton`, and wraps it in a tooltip that names them.
+In the admin, keep `shared/ui/index.ts` as the kit every screen imports from, and re-export the package's components there. The admin's own button becomes a thin wrapper: its props extend `SaButtonProps` with `requiredScopes`, and it computes the missing scopes, passes `refused` to `SaButton`, and wraps it in a tooltip that names them.
 
 ## The deployment's brand
 

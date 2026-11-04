@@ -9,7 +9,7 @@ export type SaButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger'
  * scopes: an app that refuses a button for a reason (the admin, for a missing scope) passes
  * `refused` and wraps the button in its own tooltip saying why.
  */
-interface Props {
+export interface SaButtonProps {
   /**
    * `primary` for what the screen is for, and the only filled button. `secondary` for everything
    * beside it. `outline` for the alternative path inside an auth card. `danger` for what destroys or
@@ -48,7 +48,7 @@ interface Props {
 
 defineOptions({ inheritAttrs: false })
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<SaButtonProps>(), {
   variant: 'primary',
   label: undefined,
   icon: undefined,

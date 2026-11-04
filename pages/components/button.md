@@ -84,7 +84,7 @@ import { ChevronDownIcon, PlusIcon, SearchIcon } from '../.vitepress/theme/demo-
 
 ## API
 
-The consumer provides a `label`, optionally an icon, and `submitting` or `loading` while waiting. An app that refuses a button for a reason passes `refused` and wraps the button in its own tooltip saying why. Every other attribute reaches the `<button>`.
+The consumer provides a `label`, optionally an icon, and `submitting` or `loading` while waiting. An app that refuses a button for a reason passes `refused` and wraps the button in its own tooltip saying why. A wrapper extends the exported `SaButtonProps`, and hands down everything but what it adds. Every other attribute reaches the `<button>`.
 
 | Name            | Type                                                | Default     | Description                                                 |
 | --------------- | --------------------------------------------------- | ----------- | ----------------------------------------------------------- |
