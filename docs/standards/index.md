@@ -14,8 +14,8 @@ the other half — [how the system works](../design/index.md).
   part it names and what it leaves to the code, to the standards and to the FAQ.
 - **[Foundations standard](foundations-standard.md)** — how a page in `pages/foundations/` is
   written: which pages exist, the sections of one, and the token table it draws.
-- **[Components standard](components-standard.md)** — how the page of a Common component is written:
-  which components have one, its sections, its demo and its API.
+- **[Components standard](components-standard.md)** — which components ship in the package, and
+  how the page of one is written: its sections, its demo and its API.
 
 ---
 

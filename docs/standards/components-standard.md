@@ -1,7 +1,7 @@
 ---
 description:
-  How the page of a Common component is written — which components have one, its sections,
-  its demo and its API.
+  Which components ship in the package, and how the page of one is written — its sections, its
+  demo and its API.
 paths:
   - 'pages/components/**'
   - 'src/components/**'
@@ -9,9 +9,30 @@ paths:
 
 # Components standard
 
-How the page of a Common component in [`pages/components/`](../../pages/components/index.md) is
-written. Its code is in this repository, so its page can draw it, and an app imports from what the
-page says. Values are [the foundations'](foundations-standard.md), and a page names them.
+Which components ship in the package, and how the page of a Common component in
+[`pages/components/`](../../pages/components/index.md) is written. Its code is in this repository,
+so its page can draw it, and an app imports from what the page says. Values are [the
+foundations'](foundations-standard.md), and a page names them.
+
+## Which components ship
+
+**A component joins `src/components/` when more than one app draws it, or when it names nothing of
+the one app drawing it and any app built like the admin would draw it.** Any other component lives
+in its app, specified in `pages/components/` under that app's group.
+
+**A component names nothing of an app when no entity, scope, route or sentence of that app reaches
+it.** `CommonTag` qualifies and `OriginTag` does not, since a claim's origin is the admin's own
+term.
+
+**A shipped component knows no store, no router, no auth and no message bundle.** Hand it the words
+it draws and the links it follows as props or slots. An app that needs more wraps it, as the admin's
+`CommonButton` adds its scopes.
+
+**A shipped component holds its contrast in light and dark, whatever the app drawing it pins.**
+Check it in both themes when it moves, since the admin is pinned light and never saw the other.
+
+**An app deletes its copy when it installs the tag shipping the component.** Re-export the package's
+where the app has a kit, so its screens keep their imports.
 
 ## Which pages exist
 
@@ -131,6 +152,9 @@ under a `###` naming the part.
 path, and list what the component is built on before what is built on it.
 
 ## What this standard does not cover
+
+**What _built like the admin_ means, past tables, records and a sidebar.** No such third app exists
+yet, so it is a judgement made per component, and the first one corrects it.
 
 **A component in another repository.** Flow and Admin components live in their apps, so this
 repository can neither draw nor check them. Their pages stay as those apps' specifications, and
