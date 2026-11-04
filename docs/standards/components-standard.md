@@ -28,6 +28,14 @@ term.
 it draws and the links it follows as props or slots. An app that needs more wraps it, as the admin's
 button adds its scopes.
 
+**A component an app wraps exports its props as `Sa…Props`, and the wrapper extends them.** The
+wrapper then states only what it adds, so a prop the package gains reaches the app's screens with no
+edit. Export them when the first wrapper appears, as one interface in the component's source, which
+each app's compiler reads through `src/index.ts` to generate the wrapper's runtime props.
+
+**A component exporting its props defaults every boolean to `false`.** A wrapper declares them too,
+so Vue hands an absent one down as `false`, over any other default.
+
 **A shipped component holds its contrast in light and dark, whatever the app drawing it pins.**
 Check it in both themes when it moves, since the admin is pinned light and never saw the other.
 
