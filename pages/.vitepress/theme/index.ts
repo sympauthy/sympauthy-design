@@ -18,6 +18,10 @@ import {
   EmptyValue,
   FormField,
   FormInput,
+  FormListbox,
+  FormSelect,
+  FormTagsInput,
+  FormTextarea,
   LoadingState
 } from '../../../src/index'
 
@@ -37,6 +41,10 @@ export default {
     app.component('EmptyValue', EmptyValue)
     app.component('FormField', FormField)
     app.component('FormInput', FormInput)
+    app.component('FormListbox', FormListbox)
+    app.component('FormSelect', FormSelect)
+    app.component('FormTagsInput', FormTagsInput)
+    app.component('FormTextarea', FormTextarea)
     app.component('LoadingState', LoadingState)
     // The token tables of pages/foundations/*.md, read from tokens.json.
     app.component('TokenTable', TokenTable)

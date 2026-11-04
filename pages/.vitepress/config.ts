@@ -110,6 +110,8 @@ export default defineConfig({
           { text: 'CopyableValue', link: '/components/copyable-value' },
           { text: 'EmptyValue', link: '/components/empty-value' },
           { text: 'Field', link: '/components/field' },
+          { text: 'FormListbox', link: '/components/form-listbox' },
+          { text: 'FormTagsInput', link: '/components/form-tags-input' },
           { text: 'Link', link: '/components/link' },
           { text: 'LoadingState', link: '/components/loading-state' },
           { text: 'Skeleton', link: '/components/skeleton' },
