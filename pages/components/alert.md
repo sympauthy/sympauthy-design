@@ -24,7 +24,6 @@ A message box that stays on screen: `danger` for a failure, `warning` for what a
 - **Text**: 14px.
 - **`danger`**: `danger-subtle` fill, `danger-line` border, `danger` text.
 - **`warning`**: `warning-subtle` fill, `warning-line` border, `warning` text. `urgent` changes none of it.
-- **On a dark page**: `SaAlert` keeps these colors' Light values for now ([#4](https://github.com/sympauthy/sympauthy-design/issues/4)).
 
 ## Content
 

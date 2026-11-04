@@ -96,7 +96,7 @@ See [Branding a deployment](./branding) for what the server answers.
 - **A button takes `variant`.** `:button-style="dangerColoredButton"` becomes `variant="danger"`, and `SaMenu` and `SaConfirmDialog` take `variant` and `confirmVariant`. The `*ColoredButton` constants and `ButtonStyle` are gone; `SaButtonVariant` is the type.
 - **Controls get a visible border.** `.sa-control` now states `border-gray-400` (3:1 on white). The old compatibility rule painted every border `gray-200` (1.3:1), too faint to find a field by.
 - **One flat card.** The flow's card (`rounded-xl shadow-lg`, `p-3 md:p-5`) becomes `SaCard`: `rounded-lg border border-gray-200 bg-white p-4 sm:p-6`. No shadow anywhere: remove `shadow-lg` from menus, popovers and dialogs, give dialogs the card's border, and drop `shadow-sm` from inputs.
-- **A soft danger button.** `variant="danger"` is `border-red-200 bg-red-50 text-red-700`: `primary` is the only filled button.
+- **A soft danger button.** `variant="danger"` is `border-danger-line bg-danger-subtle text-danger`: `primary` is the only filled button.
 - **One control height.** Every control is 44px in both apps: the admin's buttons, selects and dropdown triggers grow from 38px. Drop `min-h-9.5` and `min-h-11` from the apps' own controls: `.sa-control` carries `min-h-control`.
 - **One field.** The admin's fields grow to the flow's: 44px, 16px text, a 14px/500 `gray-700` label and a 14px help line. The flow's labels go from 600 `gray-900` to the same 500 `gray-700`, and its inputs drop the `ring-4 ring-primary-subtle` halo. `FormField` and `FormInput` no longer take a `size`.
 - **Disabled buttons** read `gray-500` on a `gray-100` fill (5.3:1) instead of white on `gray-400` (2.5:1).
@@ -124,4 +124,4 @@ See [Branding a deployment](./branding) for what the server answers.
 | admin controls 38px, flow 44px                                   | `control-height` (44px) in both                          |
 | admin fields 38px/14px, flow 44px/16px with a halo               | 44px/16px in both, no halo                               |
 | flow card `rounded-xl shadow-lg`, admin card `rounded-lg border` | `SaCard` in both                                         |
-| danger button `bg-red-600 text-white`                            | `border-red-200 bg-red-50 text-red-700`                  |
+| danger button `bg-red-600 text-white`                            | `border-danger-line bg-danger-subtle text-danger`        |
