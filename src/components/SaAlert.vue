@@ -12,9 +12,15 @@ const props = withDefaults(
      * one that could not render what it was asked to.
      */
     color?: 'danger' | 'warning'
+    /**
+     * A `warning` the reader must not move on without, announced at once. It changes nothing on
+     * screen, and a `danger` is always announced at once.
+     */
+    urgent?: boolean
   }>(),
   {
-    color: 'danger'
+    color: 'danger',
+    urgent: false
   }
 )
 
@@ -24,7 +30,7 @@ const colorClasses: Record<string, string> = {
 }
 
 const classes = computed(() => ['w-full rounded-md border p-3 text-sm', colorClasses[props.color]])
-const role = computed(() => (props.color === 'danger' ? 'alert' : 'status'))
+const role = computed(() => (props.color === 'danger' || props.urgent ? 'alert' : 'status'))
 </script>
 
 <template>
