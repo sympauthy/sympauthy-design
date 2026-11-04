@@ -55,6 +55,8 @@ Both faces come from the package's `@fontsource-variable` dependencies, served b
 import { CommonButton, CommonCard, outlineColoredButton } from '@sympauthy/design'
 ```
 
+npm installs what the components are built on with the package: `reka-ui` as a peer dependency and `@heroicons/vue` as a dependency. An app that imports `reka-ui` itself keeps to a version in the package's range: npm still installs one copy outside it, and only warns, so the package's components run on a version they were not built for. A component an app does not import adds nothing to its JavaScript.
+
 The package ships `.vue` and `.ts` source; each app's Vite build compiles it. Exclude it from pre-bundling so it is compiled like the app's own files:
 
 ```ts
