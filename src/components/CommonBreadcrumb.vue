@@ -45,7 +45,7 @@ withDefaults(
             :is="linkAs"
             v-if="item.link"
             v-bind="item.link"
-            class="rounded-md text-sm text-gray-500 outline-primary transition-colors hover:text-gray-700 focus-visible:outline-2"
+            class="flex min-h-control items-center rounded-md text-sm whitespace-nowrap text-gray-500 outline-primary transition-colors hover:text-gray-700 focus-visible:outline-2"
           >
             {{ item.label }}
           </component>

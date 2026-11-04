@@ -30,7 +30,7 @@ import { demoSections } from '../.vitepress/theme/demo-shell'
 - **Ground**: `nav-ground`, whatever the theme.
 - **Head**: 56px, with a `nav-divider` rule under it.
 - **Section label**: 12px at 600, uppercase, in `nav-muted`, with a `nav-divider` rule between sections.
-- **Entry**: 14px in `nav-text`, 8px by 16px.
+- **Entry**: 14px in `nav-text`, `control-height` tall with 16px either side.
 - **Current entry**: `nav-active` fill, `nav-text` at 500, and a 3px `gold` rule on its left edge: the only place gold marks state, echoing the key in the mark.
 
 ## Behavior
@@ -46,7 +46,8 @@ import { demoSections } from '../.vitepress/theme/demo-shell'
 
 - **`label` names the `nav`, and the current entry takes `aria-current="page"`** (WCAG 2.4.8).
 - **A disabled entry is `role="link"` with `aria-disabled`**, set by the component, so that it stays reachable and its reason can be read.
-- **`nav-text` holds 13.5:1 on `nav-ground`.** An entry's target is 36px tall (WCAG 2.5.8), as navigation rather than a control.
+- **`nav-text` holds 13.5:1 on `nav-ground`.**
+- **An entry is at least `control-height` tall**, so that it can be touched (WCAG 2.5.5).
 
 ## API
 

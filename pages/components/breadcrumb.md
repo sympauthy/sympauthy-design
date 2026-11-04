@@ -25,7 +25,7 @@ const top = [{ key: 'users', label: 'Users' }]
 ## Look
 
 - **Bar**: 56px tall, `surface`, an `ink-200` rule under it, its column lined up with the page's at `page-width`.
-- **Ancestor**: 14px `ink-500`.
+- **Ancestor**: 14px `ink-500`, `control-height` tall, inside the taller bar.
 - **Screen**: 14px at 600 in `ink-900`, cut with an ellipsis where it does not fit.
 - **Between them**: a 16px chevron in `ink-400`, `space-2` either side.
 - **Actions**: at the right end, `space-2` apart, taking no room when there are none.

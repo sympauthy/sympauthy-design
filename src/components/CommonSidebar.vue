@@ -75,7 +75,7 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
               role="link"
               aria-disabled="true"
               tabindex="0"
-              class="block cursor-not-allowed px-4 py-2 text-sm text-nav-disabled"
+              class="flex min-h-control cursor-not-allowed items-center px-4 text-sm text-nav-disabled"
               :class="focusClasses"
             >
               {{ entry.label }}
@@ -86,7 +86,7 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
             v-else
             v-bind="entry.link"
             :aria-current="entry.current ? 'page' : undefined"
-            class="relative block px-4 py-2 text-sm transition-colors"
+            class="relative flex min-h-control items-center px-4 text-sm transition-colors"
             :class="[
               focusClasses,
               entry.current
