@@ -11,9 +11,9 @@ export interface SaBreadcrumbItem {
 }
 
 /**
- * The bar naming the screen: its ancestors as links, the screen itself, and at its right end what
- * `SaPageActions` draws. The package knows no router, so an app that has one derives the items from it
- * and names its link in [linkAs].
+ * The bar naming the screen: its ancestors as links, the screen itself as the page's heading, and at
+ * its right end what `SaPageActions` draws. Below `lg:` it names the screen alone. The package knows
+ * no router, so an app that has one derives the items from it and names its link in [linkAs].
  */
 withDefaults(
   defineProps<{
@@ -39,8 +39,16 @@ withDefaults(
          record rather than at the far edge of a wide monitor. -->
     <div class="mx-auto flex w-full max-w-page items-center justify-between gap-4 px-4 lg:px-6">
       <ol class="flex min-w-0 items-center gap-2">
-        <li v-for="(item, index) in items" :key="item.key" class="flex min-w-0 items-center gap-2">
-          <ChevronRightIcon v-if="index > 0" class="size-4 shrink-0 text-gray-400" />
+        <li
+          v-for="(item, index) in items"
+          :key="item.key"
+          class="min-w-0 items-center gap-2"
+          :class="index < items.length - 1 ? 'hidden lg:flex' : 'flex'"
+        >
+          <ChevronRightIcon
+            v-if="index > 0"
+            class="hidden size-4 shrink-0 text-gray-400 lg:block"
+          />
           <component
             :is="linkAs"
             v-if="item.link"
@@ -49,9 +57,13 @@ withDefaults(
           >
             {{ item.label }}
           </component>
-          <span v-else aria-current="page" class="truncate text-sm font-semibold text-gray-900">
+          <h1
+            v-else
+            aria-current="page"
+            class="truncate text-lg font-semibold text-gray-900 lg:text-sm"
+          >
             {{ item.label }}
-          </span>
+          </h1>
         </li>
       </ol>
       <!-- Filled by whichever screen is open, through `SaPageActions`. Empty on a screen with nothing

@@ -20,3 +20,9 @@ export const demoSections = [
     ]
   }
 ]
+
+/** The same, without what opens a tooltip, for a demo in a frame: see DemoFrame.vue. */
+export const framedSections = demoSections.map((section) => ({
+  ...section,
+  entries: section.entries.filter((entry) => !entry.disabledReason)
+}))

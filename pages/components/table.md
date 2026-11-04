@@ -18,26 +18,31 @@ const pageLabel = (p, total) => `Page ${p} of ${total}`
 const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 </script>
 
+<div class="demo vp-raw"><div class="flex flex-col gap-4">
+  <DemoFrame v-for="mode in ['phone', 'tablet', 'desktop']" :key="mode" :mode="mode">
+    <SaTable loading-label="Loading users.">
+      <template #header>
+        <SaTableHeader>Name</SaTableHeader>
+        <SaTableHeader hidden-below="lg">Email</SaTableHeader>
+        <SaTableHeader hidden-below="sm">Identifier</SaTableHeader>
+        <SaTableHeader fit>Status</SaTableHeader>
+      </template>
+      <template #rows>
+        <tr v-for="user in users" :key="user.id">
+          <SaTableCell primary>{{ user.name }}</SaTableCell>
+          <SaTableCell label="Email" hidden-below="lg" truncate>{{ user.email }}</SaTableCell>
+          <SaTableCell label="Identifier" hidden-below="sm" mono fit>{{ user.id }}</SaTableCell>
+          <SaTableCell label="Status" fit><SaTag :color="user.color">{{ user.status }}</SaTag></SaTableCell>
+        </tr>
+      </template>
+      <template #footer>
+        <SaPagination :page="page" :total-pages="3" :size="3" :total="9" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
+      </template>
+    </SaTable>
+  </DemoFrame>
+</div></div>
+
 <div class="demo vp-raw"><div class="flex flex-col gap-6">
-  <SaTable loading-label="Loading users.">
-    <template #header>
-      <SaTableHeader>Name</SaTableHeader>
-      <SaTableHeader hidden-below="lg">Email</SaTableHeader>
-      <SaTableHeader hidden-below="sm">Identifier</SaTableHeader>
-      <SaTableHeader fit>Status</SaTableHeader>
-    </template>
-    <template #rows>
-      <tr v-for="user in users" :key="user.id">
-        <SaTableCell primary>{{ user.name }}</SaTableCell>
-        <SaTableCell label="Email" hidden-below="lg" truncate>{{ user.email }}</SaTableCell>
-        <SaTableCell label="Identifier" hidden-below="sm" mono fit>{{ user.id }}</SaTableCell>
-        <SaTableCell label="Status" fit><SaTag :color="user.color">{{ user.status }}</SaTag></SaTableCell>
-      </tr>
-    </template>
-    <template #footer>
-      <SaPagination :page="page" :total-pages="3" :size="3" :total="9" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
-    </template>
-  </SaTable>
   <div style="height: 300px">
     <SaTable fill auto-page-size loading-label="Loading clients." @page-size-change="fits = $event">
       <template #header><SaTableHeader>Name</SaTableHeader><SaTableHeader fit>Identifier</SaTableHeader></template>

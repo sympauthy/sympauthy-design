@@ -28,12 +28,15 @@ withDefaults(
     sections: SaSidebarSection[]
     /** Names the navigation, as "Main". */
     label: string
+    /** What the head's link is given, as an entry's. Without it the head is not a link. */
+    homeLink?: Record<string, unknown>
     /** Names the control closing the drawer below `lg:`. */
     closeLabel: string
     /** What draws a link: an element's name, or a component such as a router's link. */
     linkAs?: string | Component
   }>(),
   {
+    homeLink: undefined,
     linkAs: 'a'
   }
 )
@@ -49,7 +52,16 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
 <template>
   <nav :aria-label="label" class="flex h-full flex-col bg-nav text-nav-text">
     <div class="flex h-14 items-center justify-between gap-1 border-b border-nav-divider px-4">
-      <div class="flex min-w-0 items-center gap-2">
+      <component
+        :is="linkAs"
+        v-if="homeLink"
+        v-bind="homeLink"
+        class="flex min-w-0 items-center gap-2.5 self-stretch text-nav-strong"
+        :class="focusClasses"
+      >
+        <slot name="head" />
+      </component>
+      <div v-else class="flex min-w-0 items-center gap-2.5 text-nav-strong">
         <slot name="head" />
       </div>
       <!-- The icon keeps its size, so the head keeps its width, and the pseudo-element around it is
@@ -65,10 +77,11 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
         <XMarkIcon class="size-5" />
       </button>
     </div>
-    <ul class="mt-2 flex min-h-0 flex-1 flex-col overflow-y-auto">
-      <template v-for="(section, index) in sections" :key="section.label">
-        <li v-if="index > 0" class="my-2 border-t border-nav-divider" />
-        <li class="px-4 py-2 text-xs font-semibold tracking-wider text-nav-muted uppercase">
+    <ul class="flex min-h-0 flex-1 flex-col overflow-y-auto pt-2 pb-4">
+      <template v-for="section in sections" :key="section.label">
+        <li
+          class="px-4 pt-5 pb-1.5 text-xs font-medium tracking-wider text-nav-muted uppercase first:pt-3"
+        >
           {{ section.label }}
         </li>
         <li v-for="entry in section.entries" :key="entry.key">
@@ -77,7 +90,7 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
               role="link"
               aria-disabled="true"
               tabindex="0"
-              class="flex min-h-control cursor-not-allowed items-center px-4 text-sm text-nav-disabled"
+              class="flex min-h-control cursor-not-allowed items-center px-4 text-sm font-medium text-nav-disabled"
               :class="focusClasses"
             >
               {{ entry.label }}
@@ -92,8 +105,8 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
             :class="[
               focusClasses,
               entry.current
-                ? 'bg-nav-active font-medium before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-gold'
-                : 'hover:bg-nav-hover'
+                ? 'bg-nav-active font-semibold text-nav-strong before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-gold'
+                : 'font-medium hover:bg-nav-hover'
             ]"
           >
             {{ entry.label }}

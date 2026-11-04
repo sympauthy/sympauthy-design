@@ -17,6 +17,8 @@ const props = withDefaults(
     dark?: boolean
     /** Follows the device's preference, for a page whose brand allows dark mode. Ignores [dark]. */
     followDevice?: boolean
+    /** The size a sidebar's head draws it at. Ignored with [large]. */
+    medium?: boolean
     /** The size a screen outside an app's shell is headed with. */
     large?: boolean
     /** The server's origin, for an app hosted on another one. */
@@ -25,6 +27,7 @@ const props = withDefaults(
   {
     dark: false,
     followDevice: false,
+    medium: false,
     large: false,
     server: ''
   }
@@ -40,7 +43,7 @@ const darkSrc = computed(() => (failed.value ? sympauthyLogoDark : urls.value.lo
 // most, so a wide one leaves the name room and is scaled rather than squashed.
 const classes = computed(() => [
   'w-auto shrink-0 object-contain',
-  props.large ? 'h-10' : 'h-6 max-w-1/2'
+  props.large ? 'h-10' : [props.medium ? 'h-8' : 'h-6', 'max-w-1/2']
 ])
 </script>
 

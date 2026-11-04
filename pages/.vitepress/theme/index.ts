@@ -5,6 +5,8 @@ import '../../../dist/tokens.css'
 import './brand.css'
 import './demos.css'
 import TokenTable from './TokenTable.vue'
+import DemoFrame from './DemoFrame.vue'
+import DemoPageActions from './DemoPageActions.vue'
 import {
   SaAlert,
   SaAppShell,
@@ -31,6 +33,7 @@ import {
   SaRadioGroup,
   SaSelect,
   SaSidebar,
+  SaSidebarAccount,
   SaSkeleton,
   SaSpinner,
   SaSummaryCard,
@@ -75,6 +78,7 @@ export default {
     app.component('SaRadioGroup', SaRadioGroup)
     app.component('SaSelect', SaSelect)
     app.component('SaSidebar', SaSidebar)
+    app.component('SaSidebarAccount', SaSidebarAccount)
     app.component('SaSkeleton', SaSkeleton)
     app.component('SaSpinner', SaSpinner)
     app.component('SaSummaryCard', SaSummaryCard)
@@ -90,5 +94,8 @@ export default {
     app.component('SaTooltipProvider', SaTooltipProvider)
     // The token tables of pages/foundations/*.md, read from tokens.json.
     app.component('TokenTable', TokenTable)
+    // The frames drawing a demo at the width of a device.
+    app.component('DemoFrame', DemoFrame)
+    app.component('DemoPageActions', DemoPageActions)
   }
 } satisfies Theme

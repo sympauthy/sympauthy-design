@@ -114,7 +114,7 @@ the last column does not hold of the page.
 | ------------------ | ---------------------------------------------------------- | ------------------- |
 | Status line        | What it ships as                                           | Always              |
 | Opening sentence   | What the component is                                      | Always              |
-| Demo               | The real component, in each variant and state              | Always              |
+| Demo               | The real component, in each variant, state and mode        | Always              |
 | `## Usage`         | When to use it, each variant's purpose, and what not to    | Always              |
 | `## Look`          | Its parts, their order, and the tokens they take           | Always              |
 | `## Behavior`      | Its states and interactions                                | Where it has any    |
@@ -141,6 +141,17 @@ Markdown is not read inside the paragraph.
 
 **A demo draws the real component in a `.demo`, in every variant and state its props offer.** Import
 what it needs; never redraw a shipped component in markup.
+
+**A component whose parts or layout change at a breakpoint shows each mode in its demo, labelled.**
+A padding that steps is not a mode. Only the frame below changes one, since a breakpoint reads the
+viewport and a narrower box does not.
+
+**A mode is drawn in a `DemoFrame`, naming its `mode`.** It teleports the real component into an
+iframe of that width, on the same page and with its state. Leave out what opens an overlay, since
+reka-ui's portal opens it on the page and not in the frame.
+
+**A frame draws `DemoPageActions` in place of `SaPageActions`.** `SaPageActions` looks for its bar on
+the page and not in the frame.
 
 **A demo says what the interface would say.** Its labels and sentences follow [the Content
 foundation](../../pages/foundations/content.md).

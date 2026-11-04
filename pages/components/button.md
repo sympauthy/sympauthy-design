@@ -6,6 +6,7 @@ The one button of both apps: filled Bordeaux for what the screen is for, and qui
 
 <script setup>
 import { ChevronDownIcon, PlusIcon, SearchIcon } from '../.vitepress/theme/demo-icons'
+const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' }]
 </script>
 
 <div class="demo"><div class="stack" style="max-width: none">
@@ -34,12 +35,20 @@ import { ChevronDownIcon, PlusIcon, SearchIcon } from '../.vitepress/theme/demo-
   <div class="row">
     <SaButton label="Create client" :icon="PlusIcon" />
     <SaButton label="Actions" variant="secondary" :trailing-icon="ChevronDownIcon" />
-    <SaButton label="Search" variant="secondary" :icon="SearchIcon" collapse-label />
   </div>
   <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 520px">
     <SaButton label="Yes, continue" size="large" />
     <SaButton label="No, cancel" size="large" variant="outline" />
   </div>
+</div></div>
+
+<div class="demo vp-raw"><div class="flex flex-wrap gap-4">
+  <DemoFrame v-for="frame in modes" :key="frame.mode" v-bind="frame" :crop="280">
+    <div class="flex gap-2">
+      <SaButton label="Search" variant="secondary" :icon="SearchIcon" collapse-label />
+      <SaButton label="Create client" :icon="PlusIcon" collapse-label />
+    </div>
+  </DemoFrame>
 </div></div>
 
 ## Usage
