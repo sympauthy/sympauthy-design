@@ -22,10 +22,12 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [Menu](./menu)
 - [Pagination](./pagination)
 - [Popover](./popover)
+- [RecordPage](./record-page)
 - [Sidebar](./sidebar)
 - [Skeleton](./skeleton)
 - [Spinner](./spinner)
 - [Table](./table)
+- [Tabs](./tabs)
 - [Tag](./tag)
 - [Tooltip](./tooltip)
 
@@ -38,4 +40,3 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 ## Admin
 
 - [ActionsDropdown](./actions-dropdown)
-- [RecordPage](./record-page)

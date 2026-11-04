@@ -20,12 +20,16 @@ import {
   CommonSkeleton,
   CommonSpinner,
   CommonTable,
+  CommonTabs,
   CommonTag,
   CommonTooltip,
   CommonTooltipProvider,
   ConfirmDialog,
   CopyableValue,
   CopyToClipboard,
+  DefinitionList,
+  DefinitionRow,
+  DetailSection,
   EmptyValue,
   FormField,
   FormInput,
@@ -35,6 +39,8 @@ import {
   FormTextarea,
   LoadingState,
   PageActions,
+  SummaryCard,
+  SummaryField,
   TableCell,
   TableHeader
 } from '../../../src/index'
@@ -57,12 +63,16 @@ export default {
     app.component('CommonSkeleton', CommonSkeleton)
     app.component('CommonSpinner', CommonSpinner)
     app.component('CommonTable', CommonTable)
+    app.component('CommonTabs', CommonTabs)
     app.component('CommonTag', CommonTag)
     app.component('CommonTooltip', CommonTooltip)
     app.component('CommonTooltipProvider', CommonTooltipProvider)
     app.component('ConfirmDialog', ConfirmDialog)
     app.component('CopyableValue', CopyableValue)
     app.component('CopyToClipboard', CopyToClipboard)
+    app.component('DefinitionList', DefinitionList)
+    app.component('DefinitionRow', DefinitionRow)
+    app.component('DetailSection', DetailSection)
     app.component('EmptyValue', EmptyValue)
     app.component('FormField', FormField)
     app.component('FormInput', FormInput)
@@ -72,6 +82,8 @@ export default {
     app.component('FormTextarea', FormTextarea)
     app.component('LoadingState', LoadingState)
     app.component('PageActions', PageActions)
+    app.component('SummaryCard', SummaryCard)
+    app.component('SummaryField', SummaryField)
     app.component('TableCell', TableCell)
     app.component('TableHeader', TableHeader)
     // The token tables of pages/foundations/*.md, read from tokens.json.

@@ -21,7 +21,7 @@ Drawn by [AppShell](/components/app-shell), [Sidebar](/components/sidebar) and [
 ## Records
 
 - **Summary first**: a summary card of fields, each an `admin-label` over its value; the identifier is in `admin-mono`, with a copy button (see [RecordPage](/components/record-page)).
-- **Tabs**: `admin-strong` labels in `ink-500`, a 2px `primary` underline and `primary` text on the current tab, an `ink-200` rule under the strip.
+- **Tabs** (see [Tabs](/components/tabs)): `admin-strong` labels in `ink-500`, a 2px `primary` underline and `primary` text on the current tab, an `ink-200` rule under the strip.
 - **Sections**: an `admin-heading` title, then a flat card. Fields are a definition list: `admin-label` on the left (on top below `sm:`), the value in `ink-900`, rows split by `ink-200`. A missing value is a dash in `ink-300`.
 
 ## Controls and actions

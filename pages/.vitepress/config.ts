@@ -124,10 +124,12 @@ export default defineConfig({
           { text: 'Menu', link: '/components/menu' },
           { text: 'Pagination', link: '/components/pagination' },
           { text: 'Popover', link: '/components/popover' },
+          { text: 'RecordPage', link: '/components/record-page' },
           { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Skeleton', link: '/components/skeleton' },
           { text: 'Spinner', link: '/components/spinner' },
           { text: 'Table', link: '/components/table' },
+          { text: 'Tabs', link: '/components/tabs' },
           { text: 'Tag', link: '/components/tag' },
           { text: 'Tooltip', link: '/components/tooltip' }
         ]
@@ -142,10 +144,7 @@ export default defineConfig({
       },
       {
         text: 'Admin',
-        items: [
-          { text: 'ActionsDropdown', link: '/components/actions-dropdown' },
-          { text: 'RecordPage', link: '/components/record-page' }
-        ]
+        items: [{ text: 'ActionsDropdown', link: '/components/actions-dropdown' }]
       }
     ],
 
