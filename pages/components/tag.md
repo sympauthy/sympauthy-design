@@ -26,7 +26,7 @@ A short status or label, in a color that comes from what the word means.
 ## Look
 
 - **Box**: 2px by 8px padding, `radius-md`, and `space-1` between two tags.
-- **Text**: `admin-tag`.
+- **Text**: `panel-tag`.
 - **Colors**: `tag-green`, `tag-red`, `tag-yellow`, `tag-blue` and `tag-purple` on their `-fill` tokens, and `ink-700` on `ink-100` for `gray`. Each pair holds 6:1 or better in both themes.
 
 ## Content
@@ -50,5 +50,5 @@ The consumer provides the word and its meaning.
 ## Related
 
 - [Color](/foundations/color): the status colors.
-- [Type](/foundations/type): `admin-tag`.
+- [Type](/foundations/type): `panel-tag`.
 - [Table](/components/table): where most tags are read.

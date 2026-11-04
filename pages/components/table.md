@@ -74,7 +74,7 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 - **Box**: `surface` with an `ink-200` border and `radius-lg`, from `sm:`.
 - **Header row**: `ink-50`, its names in `.field-label`, 12px by 24px.
 - **Cell**: 14px in `ink-500`, 16px by 24px, with rows split by `ink-200`.
-- **The `primary` cell**: `admin-strong` in `ink-900`.
+- **The `primary` cell**: `panel-strong` in `ink-900`.
 - **Below `sm:`**: every row is its own card on `ground`, and each cell is a line of it under the `.field-label` its `label` gives.
 - **Footer**: `space-4` under the table.
 

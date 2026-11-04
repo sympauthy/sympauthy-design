@@ -36,7 +36,7 @@ const copied = { label: 'Copy client ID', copiedLabel: 'Client ID copied', faile
 
 - **Summary card**: a [Card](/components/card) holding its fields in three columns from `sm:` and one below it, `space-4` apart.
 - **Summary field**: a `.field-label` over its value, `space-1` apart, in 14px `ink-900`. A `mono` value is cut with an ellipsis.
-- **Section title**: `admin-heading` in `ink-900`, as an `h2`, `space-4` above its content.
+- **Section title**: `panel-heading` in `ink-900`, as an `h2`, `space-4` above its content.
 - **Definition list**: a flush [Card](/components/card), with its rows split by `ink-200`.
 - **Definition row**: `space-3` by `space-4`, `space-6` from `sm:`. Its `.field-label` sits beside the value from `sm:`, one third to two thirds, and above it below `sm:`. A long value breaks anywhere rather than scrolling the page.
 - **A missing value**: an [EmptyValue](/components/empty-value).
