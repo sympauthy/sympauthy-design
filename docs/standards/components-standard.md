@@ -5,6 +5,7 @@ description:
 paths:
   - 'pages/components/**'
   - 'src/components/**'
+  - 'src/components.css'
 ---
 
 # Components standard
@@ -59,6 +60,10 @@ foundation](../../pages/foundations/iconography.md).
 
 **A component's module runs nothing at its top level but declarations.** That keeps a component an
 app does not import out of its bundle, through the one barrel in `src/index.ts`.
+
+**A class the package draws is written in `src/components/`.** The `@source` of `src/components.css`
+reads that directory and nothing else in `src/`, so that an app writes no path into `node_modules`.
+A class written elsewhere reaches no app's stylesheet, and the build reports nothing.
 
 ## What a thing is named
 
@@ -201,8 +206,9 @@ yet, so it is a judgement made per component, and the first one corrects it.
 **`sideEffects` in `package.json`.** An app's bundler drops a component nothing imports without it,
 and declaring it would mean listing the stylesheets an app imports for their effect.
 
-**The stylesheet of a component an app does not import.** Tailwind reads all of `src/` through the
-app's `@source`, so its classes reach every app's stylesheet whichever components that app draws.
+**The stylesheet of a component an app does not import.** Tailwind reads all of `src/components/`
+through the `@source` of `src/components.css`, so its classes reach every app's stylesheet whichever
+components that app draws.
 
 **A component in another repository.** Flow and Admin components live in their apps, so this
 repository can neither draw nor check them. Their pages stay as those apps' specifications, and

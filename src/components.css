@@ -5,7 +5,12 @@
  *   @import 'tailwindcss';
  *   @import '@sympauthy/design/theme.css';
  *   @import '@sympauthy/design/components.css';
+ *
+ * Tailwind resolves an `@source` against the stylesheet declaring it, so this one finds the
+ * components wherever the package is installed, and no app writes a path into `node_modules`.
  */
+@source './components';
+
 @layer components {
   /**
    * One box for every control: an input, a select, a textarea, a button, a dropdown trigger. It is
