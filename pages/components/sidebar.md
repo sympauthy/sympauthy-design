@@ -1,15 +1,72 @@
 # Sidebar
 
-<p class="caps-note">Admin · specified here, implemented in the app</p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonSidebar</code></p>
 
-The admin's navigation: sections of entries on a Cassis ground, permanent from `lg:` and a drawer below it.
+An app's navigation: sections of entries on a ground that stays dark in every theme.
 
-**Look**: `nav-ground`, `sidebar-width` (256px). Head 56px: the dark mark (`sympauthy-icon-dark.svg`, 24px), the wordmark in white and "Admin" in `nav-muted`, a `nav-divider` rule under it. Section labels 12px/600 uppercase `nav-muted`; entries 14px `nav-text`, 8px by 16px; hover `nav-hover`.
+<script setup>
+import { demoSections } from '../.vitepress/theme/demo-shell'
+</script>
 
-**Current entry**: `nav-active` fill, white 500 text, a 3px `gold` rule on its left edge: the only place gold marks state, echoing the key in the mark.
+<div class="demo vp-raw"><ClientOnly><CommonTooltipProvider>
+  <div style="width: 256px; height: 420px">
+    <CommonSidebar :sections="demoSections" label="Main" close-label="Close the menu">
+      <template #head><span class="truncate text-lg font-semibold">SympAuthy <span class="ml-1 font-medium text-nav-muted">Admin</span></span></template>
+      <template #foot><span class="text-sm">Signed in as Ada</span></template>
+    </CommonSidebar>
+  </div>
+</CommonTooltipProvider></ClientOnly></div>
 
-**Disabled entry**: `nav-disabled`, `aria-disabled="true"`, keeps focus, and says why in a tooltip on the right.
+## Usage
 
-**Order**: sections and entries from the most used to the least; the first entry is the page the panel lands on (see the admin's page layout standard).
+- **The order**: sections and entries from the most used to the least. The first entry is the page an app lands on.
+- **`disabledReason`**: an entry a person's role cannot open. It is drawn rather than removed, so that the sidebar does not change shape with what someone was granted.
+- **`#head`**: the deployment's logo and name, drawn with [BrandLogo](/components/brand-logo) passed `dark`.
+- **`#foot`**: who is signed in, and signing out.
+- **Not for** the views of one record: use `CommonTabs`.
 
-**The consumer provides** the sections from `navigation.ts`; the component reads the current route and the token's scopes.
+## Look
+
+- **Ground**: `nav-ground`, whatever the theme.
+- **Head**: 56px, with a `nav-divider` rule under it.
+- **Section label**: 12px at 600, uppercase, in `nav-muted`, with a `nav-divider` rule between sections.
+- **Entry**: 14px in `nav-text`, 8px by 16px.
+- **Current entry**: `nav-active` fill, `nav-text` at 500, and a 3px `gold` rule on its left edge: the only place gold marks state, echoing the key in the mark.
+
+## Behavior
+
+- **Hover**: `nav-hover`.
+- **Focus**: a 2px outline in `nav-text`, inside the entry. `focus-ring` is `primary`, which a person could not make out on this ground.
+- **Disabled**: `nav-disabled`. It keeps the keyboard's focus, and says why in a [Tooltip](/components/tooltip) on the right.
+- **More than fits**: the entries scroll, and the head and foot stay.
+- **Below `lg:`**: the control closing the drawer appears, 44px square, and emits `close`.
+- **Which is current**: only the app knows, and says so on each entry.
+
+## Accessibility
+
+- **`label` names the `nav`, and the current entry takes `aria-current="page"`** (WCAG 2.4.8).
+- **A disabled entry is `role="link"` with `aria-disabled`**, set by the component, so that it stays reachable and its reason can be read.
+- **`nav-text` holds 13.5:1 on `nav-ground`.** An entry's target is 36px tall (WCAG 2.5.8), as navigation rather than a control.
+
+## API
+
+The consumer provides the sections, what draws their links, and the words, since the component knows no router, no scopes and no message bundle. An app decides from its own scopes what is disabled, and from its route what is current. With a router, pass its link as `linkAs` and each entry's `{ to }` as its `link`.
+
+| Name         | Type                  | Default | Description                                     |
+| ------------ | --------------------- | ------- | ----------------------------------------------- |
+| `sections`   | `SidebarSection[]`    |         | Required. Each a `label` and `entries`.         |
+| `label`      | `string`              |         | Required. Names the navigation.                 |
+| `closeLabel` | `string`              |         | Required. Names the control closing the drawer. |
+| `linkAs`     | `string \| Component` | `'a'`   | What draws a link.                              |
+| `@close`     | event                 |         | The control closing the drawer was pressed.     |
+| `#head`      | slot                  |         | The logo and the name.                          |
+| `#foot`      | slot                  |         | Who is signed in, and signing out.              |
+
+An entry is a `key`, a `label`, a `link`, and optionally `current` and `disabledReason`.
+
+## Related
+
+- [AppShell](/components/app-shell): what holds it, and draws it as a drawer.
+- [BrandLogo](/components/brand-logo): the logo in its head.
+- [Tooltip](/components/tooltip): a disabled entry's reason.
+- [Color](/foundations/color): the `nav-*` tokens.

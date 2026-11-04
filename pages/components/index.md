@@ -5,7 +5,9 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 ## Common
 
 - [Alert](./alert)
+- [AppShell](./app-shell)
 - [BrandLogo](./brand-logo)
+- [Breadcrumb](./breadcrumb)
 - [Button](./button)
 - [Card](./card)
 - [ConfirmDialog](./confirm-dialog)
@@ -17,6 +19,7 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [LoadingState](./loading-state)
 - [Menu](./menu)
 - [Popover](./popover)
+- [Sidebar](./sidebar)
 - [Skeleton](./skeleton)
 - [Spinner](./spinner)
 - [Tag](./tag)
@@ -32,5 +35,4 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 
 - [ActionsDropdown](./actions-dropdown)
 - [RecordPage](./record-page)
-- [Sidebar](./sidebar)
 - [Table](./table)

@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { defineConfig } from 'vitepress'
+import { defineConfig, postcssIsolateStyles } from 'vitepress'
 import type { Plugin } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import { sympauthyCodeTheme } from './code-theme.ts'
@@ -58,6 +58,9 @@ export default defineConfig({
     theme: { light: sympauthyCodeTheme, dark: sympauthyCodeTheme }
   },
   vite: {
+    // A demo inside `.vp-raw` is drawn with the apps' styles alone: the site's own would draw a
+    // table of records as prose.
+    css: { postcss: { plugins: [postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] })] } },
     // Tailwind compiles the live component demos; the pages themselves use VitePress's theme.
     plugins: [tailwindcss(), publicFolderIndex()]
   },
@@ -104,7 +107,9 @@ export default defineConfig({
         text: 'Common',
         items: [
           { text: 'Alert', link: '/components/alert' },
+          { text: 'AppShell', link: '/components/app-shell' },
           { text: 'BrandLogo', link: '/components/brand-logo' },
+          { text: 'Breadcrumb', link: '/components/breadcrumb' },
           { text: 'Button', link: '/components/button' },
           { text: 'Card', link: '/components/card' },
           { text: 'ConfirmDialog', link: '/components/confirm-dialog' },
@@ -116,6 +121,7 @@ export default defineConfig({
           { text: 'LoadingState', link: '/components/loading-state' },
           { text: 'Menu', link: '/components/menu' },
           { text: 'Popover', link: '/components/popover' },
+          { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Skeleton', link: '/components/skeleton' },
           { text: 'Spinner', link: '/components/spinner' },
           { text: 'Tag', link: '/components/tag' },
@@ -135,7 +141,6 @@ export default defineConfig({
         items: [
           { text: 'ActionsDropdown', link: '/components/actions-dropdown' },
           { text: 'RecordPage', link: '/components/record-page' },
-          { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Table', link: '/components/table' }
         ]
       }

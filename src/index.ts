@@ -1,11 +1,18 @@
 // Components of the Common group: any app can draw them, from this one source.
+export { default as CommonAppShell } from './components/CommonAppShell.vue'
 export { default as BrandLogo } from './components/BrandLogo.vue'
 export { default as CommonAlert } from './components/CommonAlert.vue'
+export { default as CommonBreadcrumb, type BreadcrumbItem } from './components/CommonBreadcrumb.vue'
 export { default as CommonButton } from './components/CommonButton.vue'
 export { default as CommonCard } from './components/CommonCard.vue'
 export { default as CommonDialog } from './components/CommonDialog.vue'
 export { default as CommonMenu, type MenuItem } from './components/CommonMenu.vue'
 export { default as CommonPopover } from './components/CommonPopover.vue'
+export {
+  default as CommonSidebar,
+  type SidebarEntry,
+  type SidebarSection
+} from './components/CommonSidebar.vue'
 export { default as CommonSkeleton } from './components/CommonSkeleton.vue'
 export { default as CommonSpinner } from './components/CommonSpinner.vue'
 export { default as CommonTag } from './components/CommonTag.vue'
@@ -18,6 +25,8 @@ export { default as EmptyValue } from './components/EmptyValue.vue'
 export { default as FormField } from './components/FormField.vue'
 export { default as FormInput } from './components/FormInput.vue'
 export { default as LoadingState } from './components/LoadingState.vue'
+export { default as PageActions } from './components/PageActions.vue'
+export { PAGE_ACTIONS_OUTLET } from './components/pageActionsOutlet'
 export {
   type ButtonStyle,
   dangerColoredButton,
