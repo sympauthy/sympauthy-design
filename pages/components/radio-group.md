@@ -33,7 +33,7 @@ const other = ref('all')
 ## Look
 
 - **Row**: at least `control-height` tall, in 14px `ink-700`, with `space-2` between the mark and its label.
-- **Mark**: 16px, `radius-full`, `surface`, with an `ink-400` border.
+- **Mark**: 16px, `radius-full`, `surface`, with an `ink-400` border, beside the first line of its label however many lines follow.
 - **Chosen**: a `primary` border and an 8px `primary` dot.
 - **Disabled**: `ink-400` text, an `ink-300` border, and the reason under its label in 12px `ink-500`.
 
