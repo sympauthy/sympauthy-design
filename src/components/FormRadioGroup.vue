@@ -1,5 +1,6 @@
 <script lang="ts" setup generic="T extends string">
 import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'reka-ui'
+import { useFieldDescription } from './fieldDescription'
 
 /**
  * One choice among a few options a person should see all at once. The whole row is the target, at
@@ -17,10 +18,16 @@ defineProps<{
 }>()
 
 const model = defineModel<T>()
+const description = useFieldDescription()
 </script>
 
 <template>
-  <RadioGroupRoot v-model="model" class="flex flex-col" :aria-label="ariaLabel">
+  <RadioGroupRoot
+    v-model="model"
+    class="flex flex-col"
+    :aria-label="ariaLabel"
+    :aria-describedby="description"
+  >
     <label
       v-for="option in options"
       :key="option.value"

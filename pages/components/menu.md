@@ -27,7 +27,7 @@ const chosen = ref('')
 - **`danger`**: an action that destroys. It opens a [ConfirmDialog](/components/confirm-dialog) rather than acting.
 - **`disabledReason`**: an action that exists but cannot be used, drawn rather than removed.
 - **Not for** one or two actions: use a [Button](/components/button) each.
-- **Not for** a choice of a value: use `FormListbox`.
+- **Not for** a choice of a value: use a [FormListbox](/components/form-listbox).
 
 ## Look
 

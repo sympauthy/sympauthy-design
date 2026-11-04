@@ -50,7 +50,7 @@ const other = ref('all')
 ## Accessibility
 
 - **The primitive sets the radio group and radio roles, and the keyboard** (WCAG 4.1.2).
-- **Pass `ariaLabel`**, since `FormField`'s label points at no single control here.
+- **Pass `ariaLabel`**, since `FormField`'s label points at no single control here. A line under it in `FormField` is linked with `aria-describedby`.
 - **The mark's border holds 3:1 in light and dark** ([Color](/foundations/color#accessibility)). A disabled mark's need not.
 - **The target is the whole row**, at least `control-height` tall (WCAG 2.5.5).
 

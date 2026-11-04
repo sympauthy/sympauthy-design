@@ -23,7 +23,7 @@ import { demoSections } from '../.vitepress/theme/demo-shell'
 - **`disabledReason`**: an entry a person's role cannot open. It is drawn rather than removed, so that the sidebar does not change shape with what someone was granted.
 - **`#head`**: the deployment's logo and name, drawn with [BrandLogo](/components/brand-logo) passed `dark`.
 - **`#foot`**: who is signed in, and signing out.
-- **Not for** the views of one record: use `CommonTabs`.
+- **Not for** the views of one record: use [Tabs](/components/tabs).
 
 ## Look
 
