@@ -1,4 +1,4 @@
-// Components of the Common group: both apps draw them, from this one source.
+// Components of the Common group: any app can draw them, from this one source.
 export { default as CommonAlert } from './components/CommonAlert.vue'
 export { default as CommonButton } from './components/CommonButton.vue'
 export { default as CommonCard } from './components/CommonCard.vue'

@@ -35,10 +35,12 @@ npm run format
 - **`tokens.json` is the one source of every value.** Change a color, a size or a radius there and
   rebuild; never edit `dist/`, and never write a hex value in a component.
 - **Components use Tailwind utilities and the shared rules of `src/components.css`**, so the apps'
-  Tailwind compiles them. They know nothing of either app: no store, no router, no auth. An app
-  that needs more (the admin's scopes) wraps the component.
-- **A component joins `src/components/` only when both apps draw it** (the Common group). A
-  component one app uses is specified in `pages/components/` and lives in that app.
+  Tailwind compiles them. They know nothing of any app: no store, no router, no auth, no message
+  bundle. An app that needs more (the admin's scopes) wraps the component.
+- **A component joins `src/components/` when more than one app draws it, or when it names nothing
+  of the one app drawing it and any app built like the admin would draw it** (the Common group;
+  [the components standard](docs/standards/components-standard.md) owns the rule). Any other
+  component is specified in `pages/components/` and lives in its app.
 - **Flat.** No shadows; one card (`CommonCard`); `primary` is the only filled button.
 - **Every control is `control-height` (44px)**, in both apps, through `.control` (`min-h-control`).
   Never write a height on a control.

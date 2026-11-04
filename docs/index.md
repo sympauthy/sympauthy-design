@@ -27,8 +27,9 @@ that holds of both](standards/docs-standard.md).
 
 ## Goals
 
-- **One system for every SympAuthy app.** The apps share the values and the components they all
-  draw, and a component only one of them draws lives in that app.
+- **One system for every SympAuthy app.** The apps share the values, and the components that more
+  than one of them draws or that any app built like the admin would. A component tied to one app
+  lives in that app.
 - **One source for every value.** A color, a size or a radius is written once, in `tokens.json`,
   and everything else is built from it.
 - **A brand is configuration.** A deployment changes its colors, images and name without rebuilding
