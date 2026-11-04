@@ -41,7 +41,7 @@ import { secondaryColoredButton } from '../../src/components/ButtonStyle'
 ## Accessibility
 
 - **Pass `label` with the default icon**, as "What is a grant?", since the icon draws no words (WCAG 4.1.2). A `#trigger` names itself.
-- **The icon's target is 24px square**, while it stays 12px (WCAG 2.5.8). It is under `control-height`, because it sits inside a line of text.
+- **The icon's target is `control-height` square**, while it stays 12px (WCAG 2.5.5). It may overlap the word beside it, which does nothing when pressed.
 
 ## API
 
