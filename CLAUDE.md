@@ -42,8 +42,10 @@ npm run format
   [the components standard](docs/standards/components-standard.md) owns the rule). Any other
   component is specified in `pages/components/` and lives in its app.
 - **Flat.** No shadows; one card (`CommonCard`); `primary` is the only filled button.
-- **Every control is `control-height` (44px)**, in both apps, through `.control` (`min-h-control`).
-  Never write a height on a control.
+- **Everything a person presses is at least `control-height` (44px)**, in both apps, so that it can be
+  touched: a control through `.control` (`min-h-control`), anything else through `min-h-control`, and
+  a small icon through a target around it. A link inside a sentence is the one exception. Never write
+  a height on a control.
 - **Every text pair holds 4.5:1** (3:1 for borders and focus rings) in light and dark. The theme
   builder and `derivePalette` enforce it for deployments' colors.
 - **`src/theme/derive.ts` and `pages/public/theme-builder/index.html` carry the same derivation.**
