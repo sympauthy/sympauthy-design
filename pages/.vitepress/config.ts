@@ -122,10 +122,12 @@ export default defineConfig({
           { text: 'Link', link: '/components/link' },
           { text: 'LoadingState', link: '/components/loading-state' },
           { text: 'Menu', link: '/components/menu' },
+          { text: 'Pagination', link: '/components/pagination' },
           { text: 'Popover', link: '/components/popover' },
           { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Skeleton', link: '/components/skeleton' },
           { text: 'Spinner', link: '/components/spinner' },
+          { text: 'Table', link: '/components/table' },
           { text: 'Tag', link: '/components/tag' },
           { text: 'Tooltip', link: '/components/tooltip' }
         ]
@@ -142,8 +144,7 @@ export default defineConfig({
         text: 'Admin',
         items: [
           { text: 'ActionsDropdown', link: '/components/actions-dropdown' },
-          { text: 'RecordPage', link: '/components/record-page' },
-          { text: 'Table', link: '/components/table' }
+          { text: 'RecordPage', link: '/components/record-page' }
         ]
       }
     ],
