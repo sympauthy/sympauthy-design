@@ -42,7 +42,7 @@ function preventWhenDisabled(event: Event) {
     <DialogPortal>
       <DialogOverlay class="sa-dialog-animated fixed inset-0 z-50 bg-nav/50" />
       <DialogContent
-        class="sa-dialog-animated fixed top-1/2 left-1/2 z-50 mx-4 max-h-[calc(100vh-2rem)] w-full max-w-md -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-lg border border-gray-200 bg-white p-4 text-sm text-gray-700 sm:p-6"
+        class="sa-dialog-animated fixed top-1/2 left-1/2 z-50 max-h-[calc(100vh-2rem)] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-lg border border-gray-200 bg-white p-4 text-sm text-gray-700 sm:p-6"
         :aria-describedby="undefined"
         @escape-key-down="preventWhenDisabled"
         @pointer-down-outside="preventWhenDisabled"
