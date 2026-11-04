@@ -17,7 +17,7 @@ Components are grouped the same way. **Common** holds what both apps draw (Butto
 - [Control height](./control-height): one height for every control, in both apps.
 - [Shape](./shape): flat surfaces, and what each radius means.
 - [Focus, states and motion](./focus): the one focus ring, disabled, loading, the one motion.
-- [Layout](./layout): the flow's centred card, the admin's shell.
+- [Layout](./layout): the flow's centred card, the admin's shell, the breakpoints.
 - [Iconography](./iconography): Heroicons, and their sizes.
 
 ## Brand

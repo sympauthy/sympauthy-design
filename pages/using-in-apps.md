@@ -105,6 +105,7 @@ See [Branding a deployment](./branding) for what the server answers.
 - **One control height.** Every control is 44px in both apps: the admin's buttons, selects and dropdown triggers grow from 38px. Drop `min-h-9.5` and `min-h-11` from the apps' own controls: `.control` carries `min-h-control`.
 - **One field.** The admin's fields grow to the flow's: 44px, 16px text, a 14px/500 `gray-700` label and a 14px help line. The flow's labels go from 600 `gray-900` to the same 500 `gray-700`, and its inputs drop the `ring-4 ring-primary-subtle` halo. `FormField` and `FormInput` no longer take a `size`.
 - **Disabled buttons** read `gray-500` on a `gray-100` fill (5.3:1) instead of white on `gray-400` (2.5:1).
+- **One mobile breakpoint.** The flow's claim groups step at `md:`, past the card around them at `sm:`: change them to `sm:`. The admin's `@media (max-width: 639px)` becomes `@media (width < theme(--breakpoint-sm))`.
 - **Flow clean-ups.** `src/assets/base.css` and `src/assets/main.css` are the Vue starter's files and nothing imports them: delete them. The `btn` utility gives way to `CommonButton`.
 
 | Was                                                              | Now                                                      |
