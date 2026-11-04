@@ -12,13 +12,19 @@ import {
   CommonCard,
   CommonSkeleton,
   CommonSpinner,
+  CommonTabs,
   CommonTag,
   CopyableValue,
   CopyToClipboard,
+  DefinitionList,
+  DefinitionRow,
+  DetailSection,
   EmptyValue,
   FormField,
   FormInput,
-  LoadingState
+  LoadingState,
+  SummaryCard,
+  SummaryField
 } from '../../../src/index'
 
 export default {
@@ -31,13 +37,19 @@ export default {
     app.component('CommonCard', CommonCard)
     app.component('CommonSkeleton', CommonSkeleton)
     app.component('CommonSpinner', CommonSpinner)
+    app.component('CommonTabs', CommonTabs)
     app.component('CommonTag', CommonTag)
     app.component('CopyableValue', CopyableValue)
     app.component('CopyToClipboard', CopyToClipboard)
+    app.component('DefinitionList', DefinitionList)
+    app.component('DefinitionRow', DefinitionRow)
+    app.component('DetailSection', DetailSection)
     app.component('EmptyValue', EmptyValue)
     app.component('FormField', FormField)
     app.component('FormInput', FormInput)
     app.component('LoadingState', LoadingState)
+    app.component('SummaryCard', SummaryCard)
+    app.component('SummaryField', SummaryField)
     // The token tables of pages/foundations/*.md, read from tokens.json.
     app.component('TokenTable', TokenTable)
   }

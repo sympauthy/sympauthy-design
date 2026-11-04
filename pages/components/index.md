@@ -13,8 +13,10 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [Field](./field)
 - [Link](./link)
 - [LoadingState](./loading-state)
+- [RecordPage](./record-page)
 - [Skeleton](./skeleton)
 - [Spinner](./spinner)
+- [Tabs](./tabs)
 - [Tag](./tag)
 
 ## Flow
@@ -27,6 +29,5 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 
 - [ActionsDropdown](./actions-dropdown)
 - [ConfirmDialog](./confirm-dialog)
-- [RecordPage](./record-page)
 - [Sidebar](./sidebar)
 - [Table](./table)

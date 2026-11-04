@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { defineConfig } from 'vitepress'
+import { defineConfig, postcssIsolateStyles } from 'vitepress'
 import type { Plugin } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import { sympauthyCodeTheme } from './code-theme.ts'
@@ -58,6 +58,9 @@ export default defineConfig({
     theme: { light: sympauthyCodeTheme, dark: sympauthyCodeTheme }
   },
   vite: {
+    // A demo inside `.vp-raw` is drawn with the apps' styles alone: the site's own would draw a
+    // table of records as prose.
+    css: { postcss: { plugins: [postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] })] } },
     // Tailwind compiles the live component demos; the pages themselves use VitePress's theme.
     plugins: [tailwindcss(), publicFolderIndex()]
   },
@@ -112,8 +115,10 @@ export default defineConfig({
           { text: 'Field', link: '/components/field' },
           { text: 'Link', link: '/components/link' },
           { text: 'LoadingState', link: '/components/loading-state' },
+          { text: 'RecordPage', link: '/components/record-page' },
           { text: 'Skeleton', link: '/components/skeleton' },
           { text: 'Spinner', link: '/components/spinner' },
+          { text: 'Tabs', link: '/components/tabs' },
           { text: 'Tag', link: '/components/tag' }
         ]
       },
@@ -130,7 +135,6 @@ export default defineConfig({
         items: [
           { text: 'ActionsDropdown', link: '/components/actions-dropdown' },
           { text: 'ConfirmDialog', link: '/components/confirm-dialog' },
-          { text: 'RecordPage', link: '/components/record-page' },
           { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Table', link: '/components/table' }
         ]
