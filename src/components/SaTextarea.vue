@@ -10,7 +10,7 @@ withDefaults(
     rows?: number
     /** For a value read character by character: a JSON document, a list of identifiers. */
     mono?: boolean
-    /** Draws the error border; pair it with FormField's `error`. */
+    /** Draws the error border; pair it with SaField's `error`. */
     invalid?: boolean
   }>(),
   {
@@ -30,7 +30,7 @@ const description = useFieldDescription()
     :rows="rows"
     :aria-describedby="description"
     :aria-invalid="invalid || undefined"
-    class="control control-focus control-field block w-full"
+    class="sa-control sa-control-focus sa-control-field block w-full"
     :class="[mono ? 'font-mono' : '', invalid ? 'border-danger' : '']"
   />
 </template>

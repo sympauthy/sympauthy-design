@@ -1,6 +1,6 @@
 # AppShell
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonAppShell</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaAppShell</code></p>
 
 The frame of an app built like the admin: a sidebar, a bar naming the screen, and the page.
 
@@ -11,19 +11,19 @@ const open = ref(false)
 const items = [{ key: 'users', label: 'Users', link: { href: '#users' } }, { key: 'ada', label: 'Ada Lovelace' }]
 </script>
 
-<div class="demo vp-raw" style="padding: 0; overflow: hidden"><div style="height: 420px; transform: translateZ(0)"><ClientOnly><CommonTooltipProvider>
-  <CommonAppShell v-model:sidebar-open="open" class="h-full!" open-menu-label="Open the menu">
+<div class="demo vp-raw" style="padding: 0; overflow: hidden"><div style="height: 420px; transform: translateZ(0)"><ClientOnly><SaTooltipProvider>
+  <SaAppShell v-model:sidebar-open="open" class="h-full!" open-menu-label="Open the menu">
     <template #sidebar>
-      <CommonSidebar :sections="demoSections" label="Main" close-label="Close the menu" @close="open = false">
+      <SaSidebar :sections="demoSections" label="Main" close-label="Close the menu" @close="open = false">
         <template #head><span class="truncate text-lg font-semibold">SympAuthy</span></template>
         <template #foot><span class="text-sm">Signed in as Ada</span></template>
-      </CommonSidebar>
+      </SaSidebar>
     </template>
     <template #title>SympAuthy</template>
-    <template #bar><CommonBreadcrumb :items="items" label="Where you are" /></template>
-    <CommonCard>The page.</CommonCard>
-  </CommonAppShell>
-</CommonTooltipProvider></ClientOnly></div></div>
+    <template #bar><SaBreadcrumb :items="items" label="Where you are" /></template>
+    <SaCard>The page.</SaCard>
+  </SaAppShell>
+</SaTooltipProvider></ClientOnly></div></div>
 
 ## Usage
 

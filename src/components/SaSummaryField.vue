@@ -2,10 +2,10 @@
 import { computed } from 'vue'
 
 /**
- * One labelled value of a `SummaryCard`: the label above, the value under it.
+ * One labelled value of a `SaSummaryCard`: the label above, the value under it.
  *
- * The value keeps the slot rather than a prop, since as often as not it is a `CommonTag`, a link
- * or an identifier carrying a `CopyToClipboard` beside it.
+ * The value keeps the slot rather than a prop, since as often as not it is a `SaTag`, a link
+ * or an identifier carrying a `SaCopyButton` beside it.
  */
 const props = withDefaults(
   defineProps<{
@@ -26,7 +26,7 @@ const classes = computed(() => [
 
 <template>
   <div class="min-w-0">
-    <dt class="field-label">
+    <dt class="sa-field-label">
       {{ label }}
       <slot name="help" />
     </dt>

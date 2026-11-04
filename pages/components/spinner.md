@@ -1,12 +1,12 @@
 # Spinner
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonSpinner</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaSpinner</code></p>
 
 A request in flight, drawn in the color of the text around it.
 
 <div class="demo"><div class="stack text-primary">
-  <div class="row"><CommonSpinner size="sm">Loading</CommonSpinner><CommonSpinner>Loading</CommonSpinner><CommonSpinner size="lg">Loading</CommonSpinner></div>
-  <div class="row"><CommonSpinner>Waiting for a response from the server.</CommonSpinner><span class="text-gray-500">Waiting for a response from the server.</span></div>
+  <div class="row"><SaSpinner size="sm">Loading</SaSpinner><SaSpinner>Loading</SaSpinner><SaSpinner size="lg">Loading</SaSpinner></div>
+  <div class="row"><SaSpinner>Waiting for a response from the server.</SaSpinner><span class="text-gray-500">Waiting for a response from the server.</span></div>
 </div></div>
 
 ## Usage

@@ -21,7 +21,7 @@ In `sympauthy-flow/src/styles/style.css` and `sympauthy-admin/src/app/styles/sty
 @source '../../node_modules/@sympauthy/design/src'; /* so Tailwind sees the components' classes */
 ```
 
-Adjust the `@source` path to the stylesheet's depth (`../../../` from `src/app/styles/`). Remove from the admin's stylesheet what `components.css` now carries (`.control`, `.field-label`, `.control-focus`, `.control-focus-within`, `.menu`, `.menu-item`, `.popover`, `.overlay-animated`, `.table-as-cards`, `.table-pinned-header`) and its own `@theme` block.
+Adjust the `@source` path to the stylesheet's depth (`../../../` from `src/app/styles/`). Remove from the admin's stylesheet what `components.css` now carries (`.sa-control`, `.sa-field-label`, `.sa-control-focus`, `.sa-control-focus-within`, `.sa-menu`, `.sa-menu-item`, `.sa-popover`, `.sa-overlay-animated`, `.sa-table-as-cards`, `.sa-table-pinned-header`) and its own `@theme` block.
 
 `theme.css` names the roles and reads each from a token, so `bg-primary` is `var(--primary)`. The tokens themselves come from the server, linked in `index.html` ahead of the app's own stylesheet:
 
@@ -52,7 +52,7 @@ Both faces come from the package's `@fontsource-variable` dependencies, served b
 ## Components
 
 ```ts
-import { CommonButton, CommonCard, outlineColoredButton } from '@sympauthy/design'
+import { SaButton, SaCard } from '@sympauthy/design'
 ```
 
 npm installs what the components are built on with the package: `reka-ui` as a peer dependency and `@heroicons/vue` as a dependency. An app that imports `reka-ui` itself keeps to a version in the package's range: npm still installs one copy outside it, and only warns, so the package's components run on a version they were not built for. A component an app does not import adds nothing to its JavaScript.
@@ -66,7 +66,7 @@ export default defineConfig({
 })
 ```
 
-In the admin, keep `shared/ui/index.ts` as the kit every screen imports from, and re-export the package's components there. The admin's `CommonButton` becomes a thin wrapper: it computes the missing scopes, passes `refused` to the package's button, and wraps it in a tooltip that names them.
+In the admin, keep `shared/ui/index.ts` as the kit every screen imports from, and re-export the package's components there. The admin's own button becomes a thin wrapper: it computes the missing scopes, passes `refused` to `SaButton`, and wraps it in a tooltip that names them.
 
 ## The deployment's brand
 
@@ -74,13 +74,13 @@ The stylesheet and the icon need no code. The logos are linked from the server t
 
 ```vue
 <script setup lang="ts">
-import { BrandLogo, fetchBrand } from '@sympauthy/design'
+import { SaBrandLogo, fetchBrand } from '@sympauthy/design'
 
 const brand = await fetchBrand()
 </script>
 
 <template>
-  <BrandLogo large :follow-device="brand.darkMode === 'auto'" />
+  <SaBrandLogo large :follow-device="brand.darkMode === 'auto'" />
   <span>{{ brand.displayName ?? 'SympAuthy' }}</span>
 </template>
 ```
@@ -93,23 +93,25 @@ See [Branding a deployment](./branding) for what the server answers.
 
 ## Changes the migration brings
 
-- **Controls get a visible border.** `.control` now states `border-gray-400` (3:1 on white). The old compatibility rule painted every border `gray-200` (1.3:1), too faint to find a field by.
-- **One flat card.** The flow's card (`rounded-xl shadow-lg`, `p-3 md:p-5`) becomes `CommonCard`: `rounded-lg border border-gray-200 bg-white p-4 sm:p-6`. No shadow anywhere: remove `shadow-lg` from menus, popovers and dialogs, give dialogs the card's border, and drop `shadow-sm` from inputs.
-- **A soft danger button.** `dangerColoredButton` is `border-red-200 bg-red-50 text-red-700`: `primary` is the only filled button.
-- **One control height.** Every control is 44px in both apps: the admin's buttons, selects and dropdown triggers grow from 38px. Drop `min-h-9.5` and `min-h-11` from the apps' own controls: `.control` carries `min-h-control`.
+- **Everything is renamed, once.** Every component, type, composable and class of the package starts with `Sa`, and there are no aliases. `Common*` becomes `Sa*`, and `FormField`, `FormInput`, `FormSelect`, `FormTextarea`, `FormListbox`, `FormRadioGroup` and `FormTagsInput` lose `Form`: `SaField`, `SaInput` and so on. `CopyToClipboard` becomes `SaCopyButton`. `TableCell`, `BrandLogo`, `LoadingState` and the rest take the prefix as they are. Classes follow: `.control` is `.sa-control`, `.link` is `.sa-link`, `.field-label` is `.sa-field-label`, and likewise for each class of `components.css`. A token's name does not change: `min-h-control` stays.
+- **A button takes `variant`.** `:button-style="dangerColoredButton"` becomes `variant="danger"`, and `SaMenu` and `SaConfirmDialog` take `variant` and `confirmVariant`. The `*ColoredButton` constants and `ButtonStyle` are gone; `SaButtonVariant` is the type.
+- **Controls get a visible border.** `.sa-control` now states `border-gray-400` (3:1 on white). The old compatibility rule painted every border `gray-200` (1.3:1), too faint to find a field by.
+- **One flat card.** The flow's card (`rounded-xl shadow-lg`, `p-3 md:p-5`) becomes `SaCard`: `rounded-lg border border-gray-200 bg-white p-4 sm:p-6`. No shadow anywhere: remove `shadow-lg` from menus, popovers and dialogs, give dialogs the card's border, and drop `shadow-sm` from inputs.
+- **A soft danger button.** `variant="danger"` is `border-red-200 bg-red-50 text-red-700`: `primary` is the only filled button.
+- **One control height.** Every control is 44px in both apps: the admin's buttons, selects and dropdown triggers grow from 38px. Drop `min-h-9.5` and `min-h-11` from the apps' own controls: `.sa-control` carries `min-h-control`.
 - **One field.** The admin's fields grow to the flow's: 44px, 16px text, a 14px/500 `gray-700` label and a 14px help line. The flow's labels go from 600 `gray-900` to the same 500 `gray-700`, and its inputs drop the `ring-4 ring-primary-subtle` halo. `FormField` and `FormInput` no longer take a `size`.
 - **Disabled buttons** read `gray-500` on a `gray-100` fill (5.3:1) instead of white on `gray-400` (2.5:1).
 - **One mobile breakpoint.** The flow's claim groups step at `md:`, past the card around them at `sm:`: change them to `sm:`. The admin's `@media (max-width: 639px)` becomes `@media (width < theme(--breakpoint-sm))`.
-- **The small parts move to the package.** The admin deletes its `CommonTag`, `EmptyValue`, `LoadingState`, `CopyToClipboard`, `CopyableValue` and `BrandLogo`, and re-exports the package's from `shared/ui`. The words become props: `LoadingState` takes a `label`, and the copy controls take `label`, `copiedLabel` and `failedLabel` where `title` was. `LoadingState` draws its spinner in `primary` and its line in `gray-500`. The flow's `BasePage` draws `BrandLogo` and its `TitleContentCard` draws `LoadingState`.
-- **The form controls move to the package.** The admin deletes its `FormSelect`, `FormTextarea`, `FormListbox` and `FormTagsInput`, and re-exports the package's. `FormListbox` takes `searchPlaceholder` and `noMatchLabel`, and `FormTagsInput` takes `removeLabel`, in place of the words it read from the bundle. A control of an app's own takes `.control-field`, or `.control-text` for a bare input inside a box something else draws, instead of writing out its 16px text.
-- **The overlays move to the package.** The admin deletes `BaseDialog`, `ConfirmDialog`, `HintTooltip` and `HelpTooltip`, re-exports `CommonDialog` as `BaseDialog` and so on so that its screens keep their imports, and mounts `CommonTooltipProvider` in place of reka-ui's in `App.vue`. `ActionsDropdown` becomes a wrapper over `CommonMenu` that turns `requiredScopes` into `disabledReason`. `ConfirmDialog` requires `confirmLabel` and `cancelLabel`, `CommonPopover` takes a `label` for its icon, and the `ⓘ` character becomes the icon. An app drawing `CommonTooltip` mounts one `CommonTooltipProvider` at its root. The flow's `CommonModal` becomes `CommonDialog`, which brings a focus trap and Escape to its time zone picker, and about 24 KB gzip to its bundle, loaded with the rest of the flow.
-- **The app shell moves to the package.** The admin's `AdminLayout`, `SidebarNav` and `BreadcrumbNav` become small wrappers over `CommonAppShell`, `CommonSidebar` and `CommonBreadcrumb`: they keep the router, the scopes and the words, and pass `RouterLink` as `linkAs`. `AdminLayout` still closes the drawer on a route change. `PageActions` and `PAGE_ACTIONS_OUTLET` are re-exported.
-- **The table moves to the package.** The admin deletes `TableHeader`, `TableCell`, `PaginatedTable`, `useAutoPageSize` and its table rules. `PaginatedTable` splits into `CommonTable`, which takes `loadingLabel`, and a `CommonPagination` in its `#footer`, which takes the pager's words. Every step of the pager grows from 32px to `control-height`, and the admin's standard drops its rule that a pager is not a `.control`. A table gains its card and its row highlight, as this system always specified.
-- **The record page moves to the package.** The admin deletes `SummaryCard`, `SummaryField`, `DetailSection`, `DefinitionList` and `DefinitionRow`, and re-exports the package's. `RecordTabs` becomes a wrapper over `CommonTabs`: it passes `RouterLink` as `linkAs`, each tab's `{ to }` as its `link`, says which is `current`, and draws its help in the `#help` slot.
-- **A radio group.** The admin's `LogoutDialog` draws `FormRadioGroup` in place of its two raw radio inputs, with the disabled option's reason as its `disabledReason`.
-- **One link.** `.link` comes from `components.css`, underlined at rest: the flow drops its `@utility link`, and the admin's `DocLink` draws it instead of underlining on hover.
-- **One skeleton.** The flow's `animate-pulse` blocks become `CommonSkeleton`, in `gray-300` where some were `gray-100`, and they hold still under `prefers-reduced-motion`.
-- **Flow clean-ups.** `src/assets/base.css` and `src/assets/main.css` are the Vue starter's files and nothing imports them: delete them. The `btn` utility gives way to `CommonButton`.
+- **The small parts move to the package.** The admin deletes its `CommonTag`, `EmptyValue`, `LoadingState`, `CopyToClipboard`, `CopyableValue` and `BrandLogo`, and re-exports the package's from `shared/ui`. The words become props: `SaLoadingState` takes a `label`, and the copy controls take `label`, `copiedLabel` and `failedLabel` where `title` was. `SaLoadingState` draws its spinner in `primary` and its line in `gray-500`. The flow's `BasePage` draws `SaBrandLogo` and its `TitleContentCard` draws `SaLoadingState`.
+- **The form controls move to the package.** The admin deletes its `FormSelect`, `FormTextarea`, `FormListbox` and `FormTagsInput`, and re-exports the package's. `SaListbox` takes `searchPlaceholder` and `noMatchLabel`, and `SaTagsInput` takes `removeLabel`, in place of the words it read from the bundle. A control of an app's own takes `.sa-control-field`, or `.sa-control-text` for a bare input inside a box something else draws, instead of writing out its 16px text.
+- **The overlays move to the package.** The admin deletes `BaseDialog`, `ConfirmDialog`, `HintTooltip` and `HelpTooltip`, re-exports `SaDialog` as `BaseDialog` and so on so that its screens keep their imports, and mounts `SaTooltipProvider` in place of reka-ui's in `App.vue`. `ActionsDropdown` becomes a wrapper over `SaMenu` that turns `requiredScopes` into `disabledReason`. `SaConfirmDialog` requires `confirmLabel` and `cancelLabel`, `SaPopover` takes a `label` for its icon, and the `ⓘ` character becomes the icon. An app drawing `SaTooltip` mounts one `SaTooltipProvider` at its root. The flow's `CommonModal` becomes `SaDialog`, which brings a focus trap and Escape to its time zone picker, and about 24 KB gzip to its bundle, loaded with the rest of the flow.
+- **The app shell moves to the package.** The admin's `AdminLayout`, `SidebarNav` and `BreadcrumbNav` become small wrappers over `SaAppShell`, `SaSidebar` and `SaBreadcrumb`: they keep the router, the scopes and the words, and pass `RouterLink` as `linkAs`. `AdminLayout` still closes the drawer on a route change. `SaPageActions` and `SA_PAGE_ACTIONS_OUTLET` are re-exported.
+- **The table moves to the package.** The admin deletes `TableHeader`, `TableCell`, `PaginatedTable`, `useAutoPageSize` and its table rules. `PaginatedTable` splits into `SaTable`, which takes `loadingLabel`, and a `SaPagination` in its `#footer`, which takes the pager's words. Every step of the pager grows from 32px to `control-height`, and the admin's standard drops its rule that a pager is not a `.control`. A table gains its card and its row highlight, as this system always specified.
+- **The record page moves to the package.** The admin deletes `SummaryCard`, `SummaryField`, `DetailSection`, `DefinitionList` and `DefinitionRow`, and re-exports the package's. `RecordTabs` becomes a wrapper over `SaTabs`: it passes `RouterLink` as `linkAs`, each tab's `{ to }` as its `link`, says which is `current`, and draws its help in the `#help` slot.
+- **A radio group.** The admin's `LogoutDialog` draws `SaRadioGroup` in place of its two raw radio inputs, with the disabled option's reason as its `disabledReason`.
+- **One link.** `.sa-link` comes from `components.css`, underlined at rest: the flow drops its `@utility link`, and the admin's `DocLink` draws it instead of underlining on hover.
+- **One skeleton.** The flow's `animate-pulse` blocks become `SaSkeleton`, in `gray-300` where some were `gray-100`, and they hold still under `prefers-reduced-motion`.
+- **Flow clean-ups.** `src/assets/base.css` and `src/assets/main.css` are the Vue starter's files and nothing imports them: delete them. The `btn` utility gives way to `SaButton`.
 
 | Was                                                              | Now                                                      |
 | ---------------------------------------------------------------- | -------------------------------------------------------- |
@@ -121,5 +123,5 @@ See [Branding a deployment](./branding) for what the server answers.
 | flow `rounded-sm` controls, admin `rounded-md`                   | `rounded-md` in both                                     |
 | admin controls 38px, flow 44px                                   | `control-height` (44px) in both                          |
 | admin fields 38px/14px, flow 44px/16px with a halo               | 44px/16px in both, no halo                               |
-| flow card `rounded-xl shadow-lg`, admin card `rounded-lg border` | `CommonCard` in both                                     |
+| flow card `rounded-xl shadow-lg`, admin card `rounded-lg border` | `SaCard` in both                                         |
 | danger button `bg-red-600 text-white`                            | `border-red-200 bg-red-50 text-red-700`                  |

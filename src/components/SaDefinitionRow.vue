@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 /**
- * One field of a `DefinitionList`: its label, and the value beside it from `sm:` and under it below.
+ * One field of a `SaDefinitionList`: its label, and the value beside it from `sm:` and under it below.
  *
  * The label takes the `label` slot where it is not a sentence — the keys of a failure's values are
  * the server's own identifiers, and are read in the monospace face the value is.
@@ -31,7 +31,7 @@ const classes = computed(() => [
 
 <template>
   <div class="px-4 py-3 sm:grid sm:grid-cols-3 sm:items-center sm:gap-4 sm:px-6">
-    <dt class="field-label">
+    <dt class="sa-field-label">
       <slot name="label">{{ label }}</slot>
     </dt>
     <dd :class="classes">

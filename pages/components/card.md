@@ -1,15 +1,15 @@
 # Card
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonCard</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaCard</code></p>
 
 The one card of both apps: a flat box that every other boxed component is built on.
 
 <div class="demo"><div class="stack">
-  <CommonCard><p>Padded, the default: the card owns the room around its content.</p></CommonCard>
-  <CommonCard :padded="false">
+  <SaCard><p>Padded, the default: the card owns the room around its content.</p></SaCard>
+  <SaCard :padded="false">
     <p class="border-b border-gray-200 px-4 py-3">Flush: rows run edge to edge</p>
     <p class="px-4 py-3">A table, a definition list</p>
-  </CommonCard>
+  </SaCard>
 </div></div>
 
 ## Usage

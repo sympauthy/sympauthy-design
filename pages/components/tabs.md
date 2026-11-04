@@ -1,6 +1,6 @@
 # Tabs
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonTabs</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaTabs</code></p>
 
 The views one thing is read through, each its own link.
 
@@ -15,10 +15,10 @@ const many = ['Claims', 'Consents', 'Second factors', 'Providers', 'Sessions', '
 </script>
 
 <div class="demo vp-raw"><div class="flex flex-col gap-6">
-  <CommonTabs :tabs="tabs" label="Views of this user" />
-  <CommonTabs :tabs="many" label="More views of this user">
-    <template #help="{ tab }"><CommonPopover v-if="tab.key === 'Consents'" label="What is a consent?">What a person allowed a client to read.</CommonPopover></template>
-  </CommonTabs>
+  <SaTabs :tabs="tabs" label="Views of this user" />
+  <SaTabs :tabs="many" label="More views of this user">
+    <template #help="{ tab }"><SaPopover v-if="tab.key === 'Consents'" label="What is a consent?">What a person allowed a client to read.</SaPopover></template>
+  </SaTabs>
 </div></div>
 
 ## Usage

@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { dangerColoredButton, secondaryColoredButton, type ButtonStyle } from './ButtonStyle'
-import CommonAlert from './CommonAlert.vue'
-import CommonButton from './CommonButton.vue'
-import CommonDialog from './CommonDialog.vue'
+import SaAlert from './SaAlert.vue'
+import SaButton, { type SaButtonVariant } from './SaButton.vue'
+import SaDialog from './SaDialog.vue'
 
 /**
  * The question a destructive action asks before it reaches the server. Cancel comes first, so focus
@@ -14,7 +13,7 @@ withDefaults(
     /** Repeats the verb of the title, as "Revoke grant", never "OK" or "Yes". */
     confirmLabel: string
     cancelLabel: string
-    confirmStyle?: ButtonStyle
+    confirmVariant?: SaButtonVariant
     /** Holds the confirmation back while what it would act on is not yet chosen. */
     confirmDisabled?: boolean
     /** While the call runs: the buttons wait, and the dialog cannot be dismissed. */
@@ -23,7 +22,7 @@ withDefaults(
     error?: string | null
   }>(),
   {
-    confirmStyle: () => dangerColoredButton,
+    confirmVariant: 'danger',
     confirmDisabled: false,
     loading: false,
     error: null
@@ -37,31 +36,31 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <CommonDialog :open="open" :dismiss-disabled="loading" @close="emit('cancel')">
+  <SaDialog :open="open" :dismiss-disabled="loading" @close="emit('cancel')">
     <template #title>
       <slot name="title" />
     </template>
 
     <slot />
 
-    <CommonAlert v-if="error" color="danger" class="mt-4">
+    <SaAlert v-if="error" color="danger" class="mt-4">
       {{ error }}
-    </CommonAlert>
+    </SaAlert>
 
     <template #actions>
-      <CommonButton
-        :button-style="secondaryColoredButton"
+      <SaButton
+        variant="secondary"
         :label="cancelLabel"
         :disabled="loading"
         @click="emit('cancel')"
       />
-      <CommonButton
-        :button-style="confirmStyle"
+      <SaButton
+        :variant="confirmVariant"
         :label="confirmLabel"
         :submitting="loading"
         :disabled="confirmDisabled"
         @click="emit('confirm')"
       />
     </template>
-  </CommonDialog>
+  </SaDialog>
 </template>

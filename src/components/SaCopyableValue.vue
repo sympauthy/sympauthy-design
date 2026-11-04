@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import CopyToClipboard from './CopyToClipboard.vue'
+import SaCopyButton from './SaCopyButton.vue'
 
 /**
  * A value a person reads and then pastes elsewhere. It is cut with an ellipsis rather than wrapped,
@@ -19,7 +19,7 @@ defineProps<{
 <template>
   <span class="flex min-w-0 items-center gap-1.5">
     <span class="truncate">{{ value }}</span>
-    <CopyToClipboard
+    <SaCopyButton
       :value="value"
       :label="label"
       :copied-label="copiedLabel"

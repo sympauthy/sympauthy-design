@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import CommonAlert from './CommonAlert.vue'
-import LoadingState from './LoadingState.vue'
-import { useAutoPageSize } from './useAutoPageSize'
+import SaAlert from './SaAlert.vue'
+import SaLoadingState from './SaLoadingState.vue'
+import { useSaAutoPageSize } from './useSaAutoPageSize'
 
 /**
  * Any table of records, and what it shows instead of one while it waits, fails or holds nothing. Below
@@ -43,7 +43,7 @@ const emit = defineEmits<{
 
 const viewport = ref<HTMLElement | null>(null)
 
-useAutoPageSize(viewport, {
+useSaAutoPageSize(viewport, {
   enabled: () => props.fill && props.autoPageSize,
   minSize: props.minPageSize,
   onChange: (size) => emit('pageSizeChange', size)
@@ -61,11 +61,11 @@ const showsTable = computed(() => !props.loading && !props.error && !props.empty
         showsTable ? 'sm:rounded-lg sm:border sm:border-gray-200 sm:bg-white' : ''
       ]"
     >
-      <LoadingState v-if="loading" :label="loadingLabel" :centered="fill" />
+      <SaLoadingState v-if="loading" :label="loadingLabel" :centered="fill" />
 
-      <CommonAlert v-else-if="error" color="danger">
+      <SaAlert v-else-if="error" color="danger">
         {{ error }}
-      </CommonAlert>
+      </SaAlert>
 
       <div v-else-if="empty" :class="fill ? 'flex h-full items-center justify-center' : ''">
         <slot name="empty" />
@@ -73,10 +73,10 @@ const showsTable = computed(() => !props.loading && !props.error && !props.empty
 
       <table
         v-else
-        class="table-as-cards w-full divide-y divide-gray-200"
+        class="sa-table-as-cards w-full divide-y divide-gray-200"
         :class="[
           tableLayout === 'auto' ? 'table-auto' : 'table-fixed',
-          fill ? 'table-pinned-header' : ''
+          fill ? 'sa-table-pinned-header' : ''
         ]"
       >
         <thead class="bg-gray-50">

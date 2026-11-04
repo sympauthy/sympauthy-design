@@ -22,7 +22,7 @@ const props = withDefaults(
 )
 
 const classes = computed(() => [
-  'field-label px-6 py-3 text-left',
+  'sa-field-label px-6 py-3 text-left',
   props.fit ? 'w-0 whitespace-nowrap' : '',
   props.hiddenBelow === 'sm' ? 'hidden sm:table-cell' : '',
   props.hiddenBelow === 'lg' ? 'hidden lg:table-cell' : ''

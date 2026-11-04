@@ -1,16 +1,16 @@
 # Tag
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonTag</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaTag</code></p>
 
 A short status or label, in a color that comes from what the word means.
 
 <div class="demo"><div class="row">
-  <CommonTag color="green">Active</CommonTag>
-  <CommonTag color="red">Revoked</CommonTag>
-  <CommonTag color="yellow">Pending</CommonTag>
-  <CommonTag color="blue">Standard</CommonTag>
-  <CommonTag color="purple">Custom</CommonTag>
-  <CommonTag color="gray">Email</CommonTag>
+  <SaTag color="green">Active</SaTag>
+  <SaTag color="red">Revoked</SaTag>
+  <SaTag color="yellow">Pending</SaTag>
+  <SaTag color="blue">Standard</SaTag>
+  <SaTag color="purple">Custom</SaTag>
+  <SaTag color="gray">Email</SaTag>
 </div></div>
 
 ## Usage

@@ -8,19 +8,19 @@ How tall a control is, and how large anything a person presses is.
 - **Everything a person presses is at least `control-height`**, so that it can be touched: a control, a menu item, a list option, a tab, a sidebar entry, a breadcrumb link, a radio's row.
 - **A mark too small to draw at that size keeps its size and takes the target around it.** An icon beside a value or a word draws a pseudo-element `control-height` square, without opening up the line it sits on. A target may overlap what does nothing when pressed, such as the word beside it.
 - **A link inside a sentence is the one exception**, since a target that size would cover the lines above and below it. Its height is the sentence's (WCAG 2.5.8 exempts it).
-- **`.control` carries it** (`min-h-control min-w-control`), so a control is never shorter, nor narrower: an icon-only button is a square. The apps never write a height on a control.
+- **`.sa-control` carries it** (`min-h-control min-w-control`), so a control is never shorter, nor narrower: an icon-only button is a square. The apps never write a height on a control.
 - **What differs between the apps is the text inside**, not the box: the admin's buttons are `panel-strong` and as wide as their label; the flow's are 16px/600 and full width. Every text field is 16px in both.
 
-| Control             | Component                           | Height                                       | Width                                                             |
-| ------------------- | ----------------------------------- | -------------------------------------------- | ----------------------------------------------------------------- |
-| Button, every style | `CommonButton`                      | `control-height`                             | its label, at least `control-height`; full width in the auth card |
-| Icon-only button    | `CommonButton` with `collapseLabel` | `control-height`                             | `control-height`                                                  |
-| Dropdown trigger    | `CommonMenu`'s button               | `control-height`                             | its label                                                         |
-| Text field          | `FormInput`                         | `control-height`                             | its container                                                     |
-| Select              | `FormSelect`                        | `control-height`                             | its container                                                     |
-| Text area           | `FormTextarea`                      | at least `control-height`; set by its `rows` | its container                                                     |
-| Radio option        | `FormRadioGroup`                    | at least `control-height`, the whole row     | its container                                                     |
-| Code digit box      | `CodeInput`                         | 64px: larger, never smaller                  | shares the row                                                    |
+| Control             | Component                       | Height                                       | Width                                                             |
+| ------------------- | ------------------------------- | -------------------------------------------- | ----------------------------------------------------------------- |
+| Button, every style | `SaButton`                      | `control-height`                             | its label, at least `control-height`; full width in the auth card |
+| Icon-only button    | `SaButton` with `collapseLabel` | `control-height`                             | `control-height`                                                  |
+| Dropdown trigger    | `SaMenu`'s button               | `control-height`                             | its label                                                         |
+| Text field          | `SaInput`                       | `control-height`                             | its container                                                     |
+| Select              | `SaSelect`                      | `control-height`                             | its container                                                     |
+| Text area           | `SaTextarea`                    | at least `control-height`; set by its `rows` | its container                                                     |
+| Radio option        | `SaRadioGroup`                  | at least `control-height`, the whole row     | its container                                                     |
+| Code digit box      | `CodeInput`                     | 64px: larger, never smaller                  | shares the row                                                    |
 
 ## Tokens
 

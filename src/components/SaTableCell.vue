@@ -55,7 +55,7 @@ const classes = computed(() => [
 
 <template>
   <td :class="classes" :data-label="props.label">
-    <div v-if="props.truncate" class="cell-truncate truncate">
+    <div v-if="props.truncate" class="sa-cell-truncate truncate">
       <slot />
     </div>
     <slot v-else />

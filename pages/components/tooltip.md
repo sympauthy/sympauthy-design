@@ -1,13 +1,13 @@
 # Tooltip
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonTooltip</code> and <code>CommonTooltipProvider</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaTooltip</code> and <code>SaTooltipProvider</code></p>
 
 A sentence beside a control, shown while the pointer rests on it, the keyboard focuses it or a finger taps it.
 
-<div class="demo"><CommonTooltipProvider><div class="row">
-  <CommonTooltip text="Your role does not allow deleting users."><CommonButton label="Delete user" refused /></CommonTooltip>
-  <CommonTooltip text="Your role does not allow deleting users." side="right"><CommonButton label="To its right" refused /></CommonTooltip>
-</div></CommonTooltipProvider></div>
+<div class="demo"><SaTooltipProvider><div class="row">
+  <SaTooltip text="Your role does not allow deleting users."><SaButton label="Delete user" refused /></SaTooltip>
+  <SaTooltip text="Your role does not allow deleting users." side="right"><SaButton label="To its right" refused /></SaTooltip>
+</div></SaTooltipProvider></div>
 
 ## Usage
 
@@ -18,7 +18,7 @@ A sentence beside a control, shown while the pointer rests on it, the keyboard f
 
 ## Look
 
-- **Box**: `.popover`, at most 288px wide, 8px by 12px padding, 4px from the control.
+- **Box**: `.sa-popover`, at most 288px wide, 8px by 12px padding, 4px from the control.
 - **Text**: 12px in `ink-700`.
 
 ## Behavior
@@ -26,7 +26,7 @@ A sentence beside a control, shown while the pointer rests on it, the keyboard f
 - **Opening**: on hover after 150ms, on keyboard focus, or on a tap. A pointer moving from one tooltip to the next skips the delay.
 - **Closing**: when the pointer or focus leaves, on Escape, or on a tap elsewhere.
 - **Placing**: on the `side` asked for, unless the screen's edge moves it.
-- **Motion**: `.overlay-animated`.
+- **Motion**: `.sa-overlay-animated`.
 
 ## Content
 
@@ -39,9 +39,9 @@ A sentence beside a control, shown while the pointer rests on it, the keyboard f
 
 ## API
 
-The consumer provides the sentence and the control, and mounts one `CommonTooltipProvider` at the root of the app.
+The consumer provides the sentence and the control, and mounts one `SaTooltipProvider` at the root of the app.
 
-### CommonTooltip
+### SaTooltip
 
 | Name       | Type                                     | Default | Description                  |
 | ---------- | ---------------------------------------- | ------- | ---------------------------- |
@@ -49,7 +49,7 @@ The consumer provides the sentence and the control, and mounts one `CommonToolti
 | `side`     | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` | The side it opens on.        |
 | `#default` | slot                                     |         | The one element it explains. |
 
-### CommonTooltipProvider
+### SaTooltipProvider
 
 | Name       | Type | Default | Description |
 | ---------- | ---- | ------- | ----------- |

@@ -19,7 +19,7 @@ The page is `ground` with `space-8` above the header and a `space-6` gap between
 - **A code** (claims validation, TOTP) is six digit boxes in `flow-code`, 64px tall, `radius-md`, a gap in the middle after the third. Pasting a whole code fills every box.
 - **A consent or request summary** (confirm page) sits in a `primary-subtle` box with `on-primary-subtle` text and a shield icon, above the warning sentence.
 - **A failure** is a `danger` alert at the top of the card body; the form stays below it.
-- **Waiting on the server**: a `sa-spinner--lg` in `primary`, centred, over "Waiting for a response from the server." in `flow-small` and `ink-500`. Skeleton bars in a field are `ink-300`.
+- **Waiting on the server**: a large `SaSpinner` in `primary`, centred, over "Waiting for a response from the server." in `flow-small` and `ink-500`. Skeleton bars in a field are `ink-300`.
 
 ## Page by page
 

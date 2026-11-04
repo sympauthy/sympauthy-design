@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import CommonSpinner from './CommonSpinner.vue'
+import SaSpinner from './SaSpinner.vue'
 
 /**
  * What a screen shows while it waits for what it was asked for, so that a slow fetch does not look
@@ -29,7 +29,7 @@ withDefaults(
       centered ? 'h-full justify-center' : ''
     ]"
   >
-    <CommonSpinner :size="size" class="text-primary">{{ label }}</CommonSpinner>
+    <SaSpinner :size="size" class="text-primary">{{ label }}</SaSpinner>
     <!-- The spinner announces the label, so the line a person reads is not announced twice. -->
     <span aria-hidden="true">{{ label }}</span>
   </div>

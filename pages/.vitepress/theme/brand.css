@@ -143,18 +143,6 @@
   }
 }
 
-/* components.css's .menu (the apps' dropdown) shares its name with VitePress's nav menus, which
-   would draw it as a white bordered box. Unlayered, this wins over its @layer components. */
-.VPNavBar .menu,
-.VPFlyout .menu,
-.VPLocalNav .menu,
-.VPNavScreen .menu {
-  z-index: auto;
-  border: 0;
-  border-radius: 0;
-  background-color: transparent;
-}
-
 /* Wordmark: Symp 500 / Authy 800. At 1.25rem it overflows the sidebar-wide title column. */
 .VPNavBarTitle a.title {
   font-size: 1.125rem;

@@ -13,7 +13,7 @@ const props = withDefaults(
     icon?: Component
     /** For a value read character by character: an identifier, a token, a URL. */
     mono?: boolean
-    /** Draws the error border; pair it with FormField's `error`. */
+    /** Draws the error border; pair it with SaField's `error`. */
     invalid?: boolean
   }>(),
   {
@@ -41,7 +41,7 @@ const fieldAttrs = computed(() => {
 })
 
 const classes = computed(() => [
-  'control control-focus control-field block w-full',
+  'sa-control sa-control-focus sa-control-field block w-full',
   props.invalid ? 'border-danger' : '',
   props.icon ? 'pl-9' : '',
   props.mono ? 'font-mono' : ''

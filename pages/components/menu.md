@@ -1,6 +1,6 @@
 # Menu
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonMenu</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaMenu</code></p>
 
 The actions of one record or one page, behind a button.
 
@@ -17,7 +17,7 @@ const chosen = ref('')
 
 <div class="demo"><div class="row" style="justify-content: flex-end">
   <span class="text-gray-500">{{ chosen ? `Chose ${chosen}` : '' }}</span>
-  <CommonMenu label="Actions" :items="items" @select="chosen = $event" />
+  <SaMenu label="Actions" :items="items" @select="chosen = $event" />
 </div></div>
 
 ## Usage
@@ -27,13 +27,13 @@ const chosen = ref('')
 - **`danger`**: an action that destroys. It opens a [ConfirmDialog](/components/confirm-dialog) rather than acting.
 - **`disabledReason`**: an action that exists but cannot be used, drawn rather than removed.
 - **Not for** one or two actions: use a [Button](/components/button) each.
-- **Not for** a choice of a value: use a [FormListbox](/components/form-listbox).
+- **Not for** a choice of a value: use a [Listbox](/components/listbox).
 
 ## Look
 
 - **Trigger**: a secondary [Button](/components/button) with a chevron after its label.
-- **Box**: `.menu`, at least 192px wide, 4px from its trigger.
-- **Item**: `.menu-item` in `ink-700`, at least `control-height` tall, with a 16px icon in `ink-500`.
+- **Box**: `.sa-menu`, at least 192px wide, 4px from its trigger.
+- **Item**: `.sa-menu-item` in `ink-700`, at least `control-height` tall, with a 16px icon in `ink-500`.
 - **Separator**: an `ink-200` rule before the first `danger` item, which the menu draws itself.
 - **`danger` item**: `danger` text, on `danger-hover` when highlighted.
 - **Disabled item**: `ink-400`, with its reason under the label in 12px `ink-500`.
@@ -43,7 +43,7 @@ const chosen = ref('')
 - **Hover and keyboard**: the highlighted item is `ink-100` with `ink-900` text.
 - **Keyboard**: the arrow keys move through the items, Enter chooses one, Escape closes it. A disabled item is skipped.
 - **Choosing**: closes the menu and emits `select`.
-- **Motion**: `.overlay-animated`.
+- **Motion**: `.sa-overlay-animated`.
 
 ## Content
 
@@ -59,12 +59,12 @@ const chosen = ref('')
 
 The consumer provides the label, the items in order, and what each does, since the component knows no scopes. An app that decides from its own rules what is disabled wraps it, as the admin's `ActionsDropdown` does.
 
-| Name          | Type          | Default                  | Description                                                             |
-| ------------- | ------------- | ------------------------ | ----------------------------------------------------------------------- |
-| `label`       | `string`      |                          | Required. What the button says.                                         |
-| `items`       | `MenuItem[]`  |                          | Required. Each a `key`, `label`, `icon`, `danger` and `disabledReason`. |
-| `buttonStyle` | `ButtonStyle` | `secondaryColoredButton` | The trigger's style.                                                    |
-| `@select`     | event         |                          | The `key` of the item chosen.                                           |
+| Name      | Type              | Default               | Description                                                             |
+| --------- | ----------------- | --------------------- | ----------------------------------------------------------------------- |
+| `label`   | `string`          |                       | Required. What the button says.                                         |
+| `items`   | `SaMenuItem[]`    |                       | Required. Each a `key`, `label`, `icon`, `danger` and `disabledReason`. |
+| `variant` | `SaButtonVariant` | `variant="secondary"` | The trigger's style.                                                    |
+| `@select` | event             |                       | The `key` of the item chosen.                                           |
 
 ## Related
 
