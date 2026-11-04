@@ -25,8 +25,8 @@ const props = withDefaults(
 )
 
 const colorClasses: Record<string, string> = {
-  danger: 'border-red-200 bg-red-50 text-red-700',
-  warning: 'border-amber-200 bg-amber-50 text-amber-800'
+  danger: 'border-danger-line bg-danger-subtle text-danger',
+  warning: 'border-warning-line bg-warning-subtle text-warning'
 }
 
 const classes = computed(() => ['w-full rounded-md border p-3 text-sm', colorClasses[props.color]])

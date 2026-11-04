@@ -98,8 +98,8 @@ const variantClasses: Record<
   },
   // Soft, so that it never competes with primary.
   danger: {
-    active: 'border-red-200 bg-red-50 text-red-700 hover:bg-red-100',
-    waiting: 'border-red-200 bg-red-50 text-red-700 cursor-wait',
+    active: 'border-danger-line bg-danger-subtle text-danger hover:bg-danger-hover',
+    waiting: 'border-danger-line bg-danger-subtle text-danger cursor-wait',
     disabled: 'border-transparent bg-disabled text-on-disabled cursor-not-allowed'
   }
 }
