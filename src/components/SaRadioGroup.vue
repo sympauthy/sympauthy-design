@@ -31,7 +31,7 @@ const description = useFieldDescription()
     <label
       v-for="option in options"
       :key="option.value"
-      class="flex min-h-control items-center gap-2 text-sm"
+      class="grid min-h-control grid-cols-[auto_1fr] content-center items-start gap-x-2 text-sm"
       :class="
         option.disabledReason ? 'cursor-not-allowed text-gray-400' : 'cursor-pointer text-gray-700'
       "
@@ -39,15 +39,13 @@ const description = useFieldDescription()
       <RadioGroupItem
         :value="option.value"
         :disabled="option.disabledReason !== undefined"
-        class="flex size-4 shrink-0 items-center justify-center rounded-full border border-gray-400 bg-white outline-primary focus-visible:outline-2 focus-visible:outline-offset-2 disabled:border-gray-300 data-[state=checked]:border-primary"
+        class="mt-0.5 flex size-4 items-center justify-center rounded-full border border-gray-400 bg-white outline-primary focus-visible:outline-2 focus-visible:outline-offset-2 disabled:border-gray-300 data-[state=checked]:border-primary"
       >
         <RadioGroupIndicator class="size-2 rounded-full bg-primary" />
       </RadioGroupItem>
-      <span class="flex flex-col">
-        {{ option.label }}
-        <span v-if="option.disabledReason" class="text-xs text-gray-500">
-          {{ option.disabledReason }}
-        </span>
+      <span>{{ option.label }}</span>
+      <span v-if="option.disabledReason" class="col-start-2 text-xs text-gray-500">
+        {{ option.disabledReason }}
       </span>
     </label>
   </RadioGroupRoot>
