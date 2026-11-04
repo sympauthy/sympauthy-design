@@ -19,6 +19,7 @@ How tall a control is, and how large anything a person presses is.
 | Text field          | `FormInput`                         | `control-height`                             | its container                                                     |
 | Select              | `FormSelect`                        | `control-height`                             | its container                                                     |
 | Text area           | `FormTextarea`                      | at least `control-height`; set by its `rows` | its container                                                     |
+| Radio option        | `FormRadioGroup`                    | at least `control-height`, the whole row     | its container                                                     |
 | Code digit box      | `CodeInput`                         | 64px: larger, never smaller                  | shares the row                                                    |
 
 ## Tokens

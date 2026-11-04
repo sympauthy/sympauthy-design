@@ -17,7 +17,7 @@ const many = ['Claims', 'Consents', 'Second factors', 'Providers', 'Sessions', '
 <div class="demo vp-raw"><div class="flex flex-col gap-6">
   <CommonTabs :tabs="tabs" label="Views of this user" />
   <CommonTabs :tabs="many" label="More views of this user">
-    <template #help="{ tab }"><span v-if="tab.key === 'Consents'" class="ml-1 text-xs text-gray-500">(new)</span></template>
+    <template #help="{ tab }"><CommonPopover v-if="tab.key === 'Consents'" label="What is a consent?">What a person allowed a client to read.</CommonPopover></template>
   </CommonTabs>
 </div></div>
 
@@ -64,4 +64,5 @@ The consumer provides the tabs, what draws their links, and which one is current
 ## Related
 
 - [RecordPage](/components/record-page): what sits above and below them.
+- [Popover](/components/popover): an explanation beside a tab.
 - [Link](/components/link): a link inside a sentence.

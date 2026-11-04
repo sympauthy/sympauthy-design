@@ -34,6 +34,7 @@ import {
   FormField,
   FormInput,
   FormListbox,
+  FormRadioGroup,
   FormSelect,
   FormTagsInput,
   FormTextarea,
@@ -77,6 +78,7 @@ export default {
     app.component('FormField', FormField)
     app.component('FormInput', FormInput)
     app.component('FormListbox', FormListbox)
+    app.component('FormRadioGroup', FormRadioGroup)
     app.component('FormSelect', FormSelect)
     app.component('FormTagsInput', FormTagsInput)
     app.component('FormTextarea', FormTextarea)
