@@ -31,7 +31,7 @@ const none = ref([])
 
 - **Enter or leaving the field**: enters what was typed. A value already in the list is not entered twice.
 - **Backspace**: in the empty field, selects then removes the last tag.
-- **Focus**: the ring is on the box, through `.control-focus-within`, whichever part has focus.
+- **Focus**: the ring is on the box, through `.control-focus-within`, whichever part has focus. Pressing anywhere in the box focuses the field.
 - **Invalid** (`invalid`): a `danger` border.
 - **`flush()`**: enters what is typed. A caller closing an overlay around the field calls it, since an overlay dismissed on the pointer going down takes the field away before it can lose focus.
 

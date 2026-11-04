@@ -64,6 +64,13 @@ function flush() {
   model.value = [...model.value, value]
 }
 
+// The field inside is shorter than the box around it, and the box is what a person sees and presses.
+function focusField(event: MouseEvent) {
+  if (event.target === event.currentTarget) {
+    ;(event.currentTarget as HTMLElement).querySelector('input')?.focus()
+  }
+}
+
 defineExpose({ flush })
 </script>
 
@@ -73,6 +80,7 @@ defineExpose({ flush })
     add-on-blur
     class="control control-focus-within flex w-full flex-wrap items-center gap-1 bg-white"
     :class="invalid ? 'border-danger' : ''"
+    @click="focusField"
   >
     <TagsInputItem
       v-for="value in model"
