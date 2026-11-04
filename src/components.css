@@ -6,6 +6,16 @@
  *   @import '@sympauthy/design/theme.css';
  *   @import '@sympauthy/design/components.css';
  */
+
+/**
+ * The name above a value, wherever a value is read. A utility rather than a class of the layer below,
+ * since only a utility can be applied: a label drawn in a pseudo-element, which no class can reach,
+ * takes it with `@apply` and cannot drift from this one.
+ */
+@utility sa-field-label {
+  @apply text-xs font-medium tracking-wider text-gray-500 uppercase;
+}
+
 @layer components {
   /**
    * One box for every control: an input, a select, a textarea, a button, a dropdown trigger. It is
@@ -29,11 +39,6 @@
 
   .sa-control-field {
     @apply bg-white disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500;
-  }
-
-  /** The name above a value, wherever a value is read. */
-  .sa-field-label {
-    @apply text-xs font-medium tracking-wider text-gray-500 uppercase;
   }
 
   /** The one focus ring. */
@@ -62,7 +67,7 @@
 
   /* A stacked cell names its column with the label a table draws over it. */
   .sa-table-as-cards td[data-label]::before {
-    @apply text-xs font-medium tracking-wider text-gray-500 uppercase;
+    @apply sa-field-label;
   }
 
   /** The surface an overlay explains or asks something on. A card's radius, no shadow. */

@@ -52,6 +52,11 @@ foundation](../../pages/foundations/iconography.md).
 **A component's module runs nothing at its top level but declarations.** That keeps a component an
 app does not import out of its bundle, through the one barrel in `src/index.ts`.
 
+**A rule of `src/components.css` is a class in the `components` layer, unless a stylesheet has to
+apply it.** Tailwind applies only utilities, and a class cannot reach a pseudo-element, so
+`sa-field-label` is declared with `@utility`. A template still writes it as a class, and a text
+utility beside it still wins.
+
 ## What a thing is named
 
 **Everything the package names starts with `Sa`.** A component is `SaButton`, a type `SaMenuItem`, a
