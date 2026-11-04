@@ -17,8 +17,8 @@ How tall a control is, and how large anything a person presses is.
 | Icon-only button    | `CommonButton` with `collapseLabel` | `control-height`                             | `control-height`                                                  |
 | Dropdown trigger    | `CommonMenu`'s button               | `control-height`                             | its label                                                         |
 | Text field          | `FormInput`                         | `control-height`                             | its container                                                     |
-| Select              | a select in a `FormField`           | `control-height`                             | its container                                                     |
-| Text area           | a text area in a `FormField`        | at least `control-height`; set by its `rows` | its container                                                     |
+| Select              | `FormSelect`                        | `control-height`                             | its container                                                     |
+| Text area           | `FormTextarea`                      | at least `control-height`; set by its `rows` | its container                                                     |
 | Code digit box      | `CodeInput`                         | 64px: larger, never smaller                  | shares the row                                                    |
 
 ## Tokens

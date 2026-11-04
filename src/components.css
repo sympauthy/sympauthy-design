@@ -17,6 +17,20 @@
     @apply min-h-control min-w-control rounded-md border border-gray-400 px-3 py-2 text-sm;
   }
 
+  /**
+   * What typed text adds to `.control`, declared after it so that its 16px wins: below that, iOS
+   * zooms the page when the control takes focus. `.control-text` is the text alone, for a bare input
+   * inside a box something else draws.
+   */
+  .control-field,
+  .control-text {
+    @apply text-base text-gray-900 placeholder:text-gray-500;
+  }
+
+  .control-field {
+    @apply bg-white disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500;
+  }
+
   /** The name above a value, wherever a value is read. */
   .field-label {
     @apply text-xs font-medium tracking-wider text-gray-500 uppercase;
