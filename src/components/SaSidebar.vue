@@ -51,19 +51,18 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
 
 <template>
   <nav :aria-label="label" class="flex h-full flex-col bg-nav text-nav-text">
-    <div class="flex h-14 items-center justify-between gap-1 border-b border-nav-divider px-4">
+    <div
+      class="flex h-14 items-center justify-between gap-1 border-b border-nav-divider px-4 max-lg:pr-3"
+    >
+      <!-- Stops short of the target around the control closing the drawer, which paints over it. -->
       <component
-        :is="linkAs"
-        v-if="homeLink"
+        :is="homeLink ? linkAs : 'div'"
         v-bind="homeLink"
-        class="flex min-w-0 items-center gap-2.5 self-stretch text-nav-strong"
-        :class="focusClasses"
+        class="flex min-w-0 items-center gap-2.5 self-stretch text-nav-strong max-lg:mr-2"
+        :class="homeLink ? focusClasses : undefined"
       >
         <slot name="head" />
       </component>
-      <div v-else class="flex min-w-0 items-center gap-2.5 text-nav-strong">
-        <slot name="head" />
-      </div>
       <!-- The icon keeps its size, so the head keeps its width, and the pseudo-element around it is
            the target. -->
       <button

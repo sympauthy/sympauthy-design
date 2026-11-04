@@ -652,7 +652,7 @@
         border-bottom: 1px solid var(--p-nav-divider);
         font-size: 15px;
         font-weight: 800;
-        color: #ffffff;
+        color: var(--p-nav-strong);
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -681,7 +681,7 @@
       .pv-nav a.on {
         background: var(--p-nav-active);
         border-left-color: var(--p-accent);
-        color: #ffffff;
+        color: var(--p-nav-strong);
         font-weight: 600;
       }
       .pv-nav a.off {
@@ -1143,7 +1143,8 @@
             'nav-disabled': '#7d6b71',
             'nav-hover': '#33242a',
             'nav-active': '#4a1f2d',
-            'nav-divider': '#33242a'
+            'nav-divider': '#33242a',
+            'nav-strong': '#ffffff'
           },
           dark: {
             primary: '#e89aae',
@@ -1211,7 +1212,8 @@
           'nav-disabled',
           'nav-hover',
           'nav-active',
-          'nav-divider'
+          'nav-divider',
+          'nav-strong'
         ]
 
         function derive(input, tint) {
@@ -1268,6 +1270,7 @@
           L['nav-hover'] = L['ink-800']
           L['nav-active'] = D['primary-subtle']
           L['nav-divider'] = L['ink-800']
+          L['nav-strong'] = '#ffffff'
           return { light: L, dark: D, adjusted }
         }
 
@@ -1402,7 +1405,10 @@
             ['Text on a tint', pal.light['on-primary-subtle'], pal.light['primary-subtle'], 4.5],
             ['Field border', pal.light['ink-400'], pal.light.surface, 3],
             ['Sidebar entry', pal.light['nav-text'], pal.light['nav-ground'], 4.5],
-            ['Sidebar current entry', '#ffffff', pal.light['nav-active'], 4.5]
+            ['Sidebar head and name', pal.light['nav-strong'], pal.light['nav-ground'], 4.5],
+            ['Sidebar current entry', pal.light['nav-strong'], pal.light['nav-active'], 4.5],
+            ['Sidebar sign-out border', pal.light['nav-muted'], pal.light['nav-ground'], 3],
+            ['Sidebar sign-out border, hovered', pal.light['nav-muted'], pal.light['nav-hover'], 3]
           ]
           if (state.dark === 'auto')
             rows.push(
@@ -1446,7 +1452,9 @@
             ['logo', state.logo.trim(), '/etc/sympauthy/branding/logo.svg'],
             ['logo-dark', state.logoDark.trim(), 'https://cdn.example.com/logo-dark.svg']
           ]
-          const lightKeys = [...FLOW_ROLES, ...NAV_ROLES]
+          // nav-strong is white in every palette derived here, as it is left out, and a server older
+          // than the role refuses the key.
+          const lightKeys = [...FLOW_ROLES, ...NAV_ROLES].filter((k) => k !== 'nav-strong')
           let html = '',
             text = ''
           const line = (h, t) => {

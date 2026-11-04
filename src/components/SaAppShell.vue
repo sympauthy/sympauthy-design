@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { Bars3Icon } from '@heroicons/vue/20/solid'
+import { SA_PAGE_HEADING } from './pageHeading'
 
 /**
  * The frame of an app built like the admin: a sidebar, permanent from `lg:` and a drawer below it, and
@@ -57,7 +58,10 @@ const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
         </div>
         <!-- Sized by the box rather than by what it holds, so a collection filling the height scrolls
              its rows and not the page. -->
-        <main class="mx-auto min-h-0 w-full max-w-page flex-1 p-4 lg:p-6">
+        <main
+          :aria-labelledby="SA_PAGE_HEADING"
+          class="mx-auto min-h-0 w-full max-w-page flex-1 p-4 lg:p-6"
+        >
           <slot />
         </main>
       </div>

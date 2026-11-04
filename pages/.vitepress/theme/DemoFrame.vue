@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import tokens from '../../../tokens.json'
 
 /**
  * A demo drawn at the width of a device, for a component that changes at a breakpoint. A breakpoint
@@ -9,10 +10,15 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
  * reka-ui's portals open on the page and not in the frame, so a framed demo opens no overlay.
  * `SaPageActions` looks for its bar on the page too, so a framed demo draws `DemoPageActions`.
  */
+const breakpoint = (name: string) =>
+  parseFloat(tokens.breakpoint.tokens.find((token) => token.name === name)!.value) * 16
+
+// Well past their breakpoints: a frame exactly at one drops below it at some display scales, by
+// rounding.
 const MODES = {
   phone: { width: 390, label: 'Phone' },
-  tablet: { width: 768, label: 'Tablet' },
-  desktop: { width: 1024, label: 'Desktop' }
+  tablet: { width: breakpoint('breakpoint-sm') + 128, label: 'Tablet' },
+  desktop: { width: breakpoint('breakpoint-lg') + 64, label: 'Desktop' }
 }
 
 const EMPTY_DOCUMENT =
@@ -73,6 +79,7 @@ function copyStyles(doc: Document) {
 function copyTheme(doc: Document) {
   const copy = () => {
     doc.documentElement.className = document.documentElement.className
+    doc.documentElement.lang = document.documentElement.lang
     const theme = document.documentElement.dataset.theme
     if (theme) {
       doc.documentElement.dataset.theme = theme
@@ -84,12 +91,15 @@ function copyTheme(doc: Document) {
   const observer = new MutationObserver(copy)
   observer.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['class', 'data-theme']
+    attributeFilter: ['class', 'data-theme', 'lang']
   })
   stop.push(() => observer.disconnect())
 }
 
 function onLoad() {
+  if (body.value) {
+    return
+  }
   const doc = frame.value?.contentDocument
   const view = frame.value?.contentWindow as (Window & typeof globalThis) | null | undefined
   if (!doc || !view) {
@@ -104,6 +114,13 @@ function onLoad() {
   })
   observer.observe(doc.body)
   stop.push(() => observer.disconnect())
+
+  // A demo's link is an address on the page around it, so following one would load the site here.
+  doc.addEventListener('click', (event) => {
+    if ((event.target as Element).closest('a[href]')) {
+      event.preventDefault()
+    }
+  })
 
   body.value = doc.body
 }

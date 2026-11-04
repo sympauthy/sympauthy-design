@@ -12,7 +12,7 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 <div class="demo vp-raw"><ClientOnly><SaTooltipProvider>
   <div style="width: 256px; height: 560px">
     <SaSidebar :sections="demoSections" label="Main" close-label="Close the menu" :home-link="{ href: '#users' }">
-      <template #head><SaBrandLogo dark medium /><span class="truncate text-lg tracking-tight"><span class="font-medium">Symp</span><span class="font-extrabold">Authy</span></span><span class="text-xs font-medium tracking-wider text-nav-muted uppercase">Admin</span></template>
+      <template #head><SaBrandLogo dark size="md" /><span class="truncate text-lg tracking-tight"><span class="font-medium">Symp</span><span class="font-extrabold">Authy</span></span><span class="text-xs font-medium tracking-wider text-nav-muted uppercase">Admin</span></template>
       <template #foot><SaSidebarAccount name="Ada Lovelace" detail="ada@example.com" sign-out-label="Sign out" /></template>
     </SaSidebar>
   </div>
@@ -22,7 +22,7 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
   <DemoFrame v-for="frame in modes" :key="frame.mode" v-bind="frame" :crop="256" :height="420" flush>
     <div class="h-screen w-sidebar">
       <SaSidebar :sections="framedSections" label="Main" close-label="Close the menu" :home-link="{ href: '#users' }">
-        <template #head><SaBrandLogo dark medium /><span class="truncate text-lg tracking-tight"><span class="font-medium">Symp</span><span class="font-extrabold">Authy</span></span></template>
+        <template #head><SaBrandLogo dark size="md" /><span class="truncate text-lg tracking-tight"><span class="font-medium">Symp</span><span class="font-extrabold">Authy</span></span><span class="text-xs font-medium tracking-wider text-nav-muted uppercase">Admin</span></template>
         <template #foot><SaSidebarAccount name="Ada Lovelace" sign-out-label="Sign out" /></template>
       </SaSidebar>
     </div>
@@ -33,7 +33,7 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 
 - **The order**: sections and entries from the most used to the least. The first entry is the page an app lands on.
 - **`disabledReason`**: an entry a person's role cannot open. It is drawn rather than removed, so that the sidebar does not change shape with what someone was granted.
-- **`#head`**: the deployment's logo and name, drawn with [BrandLogo](/components/brand-logo) passed `dark` and `medium`.
+- **`#head`**: the deployment's logo and name, drawn with [BrandLogo](/components/brand-logo) passed `dark` and `size="md"`.
 - **`homeLink`**: makes the head a link to the page the app lands on.
 - **`#foot`**: who is signed in, and signing out: a `SaSidebarAccount`.
 - **Not for** the views of one record: use [Tabs](/components/tabs).
@@ -47,7 +47,7 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 - **Entry**: 14px at 500 in `nav-text`, `control-height` tall with 16px either side.
 - **Current entry**: `nav-active` fill, `nav-strong` at 600, and a 3px `gold` rule on its left edge: the only place gold marks state, echoing the key in the mark.
 - **Foot**: a `nav-divider` rule above it, and 16px around what it holds.
-- **Account**: the name, 14px at 500 in `nav-strong`, over the detail, 12px in `nav-muted`, each cut short on one line. Under them by 12px, the sign-out control fills the width: `control-height` tall, 14px at 500 in `nav-text`, with an icon and a `nav-disabled` border, which holds 3:1 on `nav-ground`.
+- **Account**: the name, 14px at 500 in `nav-strong`, over the detail, 12px in `nav-muted`, each cut short on one line. Under them by 12px, the sign-out control fills the width: `control-height` tall, 14px at 500 in `nav-text`, with an icon and a `nav-muted` border, which holds 3:1 on `nav-ground` and on `nav-hover`.
 
 ## Behavior
 
@@ -63,7 +63,7 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 - **`label` names the `nav`, and the current entry takes `aria-current="page"`** (WCAG 2.4.8).
 - **A disabled entry is `role="link"` with `aria-disabled`**, set by the component, so that it stays reachable and its reason can be read.
 - **`nav-text` holds 13.5:1 on `nav-ground`.**
-- **An entry and the sign-out control are at least `control-height` tall, and the target of the control closing the drawer is `control-height` square**, so that they can be touched (WCAG 2.5.5). That target overlaps the end of the head, which does nothing when pressed.
+- **An entry and the sign-out control are at least `control-height` tall, and the target of the control closing the drawer is `control-height` square**, so that they can be touched (WCAG 2.5.5). The head's link stops short of that target.
 
 ## API
 

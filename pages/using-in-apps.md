@@ -81,7 +81,7 @@ const brand = await fetchBrand()
 </script>
 
 <template>
-  <SaBrandLogo large :follow-device="brand.darkMode === 'auto'" />
+  <SaBrandLogo size="lg" :follow-device="brand.darkMode === 'auto'" />
   <span>{{ brand.displayName ?? 'SympAuthy' }}</span>
 </template>
 ```

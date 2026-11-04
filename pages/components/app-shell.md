@@ -8,8 +8,9 @@ The frame of an app built like the admin: a sidebar, a bar naming the screen, an
 import { reactive } from 'vue'
 import { framedSections } from '../.vitepress/theme/demo-shell'
 const frames = reactive([
-  { mode: 'phone', label: 'Phone and tablet', open: false },
-  { mode: 'phone', label: 'Phone and tablet, drawer open', open: true },
+  { mode: 'phone', label: 'Phone', open: false },
+  { mode: 'phone', label: 'Phone, drawer open', open: true },
+  { mode: 'tablet', label: 'Tablet', open: false, class: 'col-span-2' },
   { mode: 'desktop', label: 'Desktop', open: false, class: 'col-span-2' }
 ])
 const items = [{ key: 'users', label: 'Users', link: { href: '#users' } }, { key: 'ada', label: 'Ada Lovelace' }]
@@ -35,7 +36,7 @@ const items = [{ key: 'users', label: 'Users', link: { href: '#users' } }, { key
 
 - **An app of tables and records**, read at a desk and on a phone.
 - **`#sidebar`**: a [Sidebar](/components/sidebar).
-- **`#bar`**: a [Breadcrumb](/components/breadcrumb). Below `lg:` it is all that heads the screen, beside the control opening the drawer.
+- **`#bar`**: a [Breadcrumb](/components/breadcrumb). Below `lg:` the control opening the drawer stands before it.
 - **Not for** a screen outside the app's navigation, such as a sign-in callback. Draw that without it.
 - **Not for** the sign-in pages: they are one card on a quiet page ([Layout](/foundations/layout)).
 
@@ -56,6 +57,7 @@ const items = [{ key: 'users', label: 'Users', link: { href: '#users' } }, { key
 
 ## Accessibility
 
+- **`main` is named by the [Breadcrumb](/components/breadcrumb)'s heading**, set by the component (WCAG 1.3.1).
 - **`openMenuLabel` names the control opening the drawer**, which draws no words (WCAG 4.1.2). Its target is `control-height` square.
 - **The drawer does not trap focus**, so the keyboard can leave it for the page under the scrim. It closes on Escape while focus is inside.
 

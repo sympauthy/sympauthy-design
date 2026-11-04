@@ -25,14 +25,14 @@ const emit = defineEmits<{
 <template>
   <div class="flex flex-col gap-3">
     <div class="flex min-w-0 flex-col">
-      <span class="truncate text-sm font-medium text-nav-strong">{{ name }}</span>
-      <span v-if="detail" class="truncate text-xs text-nav-muted">{{ detail }}</span>
+      <span :title="name" class="truncate text-sm font-medium text-nav-strong">{{ name }}</span>
+      <span v-if="detail" :title="detail" class="truncate text-xs text-nav-muted">{{
+        detail
+      }}</span>
     </div>
-    <!-- `nav-disabled` is the one `nav-*` value holding the 3:1 a control's border needs, and it is
-         what a control's border takes in the dark theme. -->
     <button
       type="button"
-      class="flex min-h-control items-center justify-center gap-1.5 rounded-md border border-nav-disabled text-sm font-medium outline-nav-text -outline-offset-2 transition-colors hover:bg-nav-hover focus-visible:outline-2"
+      class="flex min-h-control items-center justify-center gap-1.5 rounded-md border border-nav-muted text-sm font-medium outline-nav-text -outline-offset-2 transition-colors hover:bg-nav-hover focus-visible:outline-2"
       @click="emit('signOut')"
     >
       <ArrowRightStartOnRectangleIcon class="size-4" />

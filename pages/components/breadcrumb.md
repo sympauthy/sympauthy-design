@@ -7,7 +7,7 @@ The bar naming the screen: its ancestors as links, the screen itself, and what c
 <script setup>
 const items = [{ key: 'users', label: 'Users', link: { href: '#users' } }, { key: 'ada', label: 'Ada Lovelace' }]
 const top = [{ key: 'users', label: 'Users' }]
-const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }]
+const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' }]
 </script>
 
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
@@ -36,7 +36,7 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 - **Ancestor**: 14px `ink-500`, at least `control-height` square, inside the taller bar.
 - **Screen**: 14px at 600 in `ink-900`, cut with an ellipsis where it does not fit.
 - **Between them**: a 16px chevron in `ink-400`, `space-2` either side.
-- **Below `lg:`**: no ancestors and no chevrons. The screen is 18px, so that it heads the screen, and the [AppShell](/components/app-shell) puts the control opening its drawer before it.
+- **Below `sm:`**: no ancestors and no chevrons, and the screen takes `panel-heading`. Below `lg:` the [AppShell](/components/app-shell) puts the control opening its drawer before it.
 - **Actions**: at the right end, `space-2` apart, taking no room when there are none.
 
 ## Behavior
@@ -51,9 +51,9 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 
 ## Accessibility
 
-- **`label` names the `nav`, and the last item takes `aria-current="page"`** (WCAG 2.4.8).
-- **The last item is the page's `h1`**, set by the component, so that a screen writes no heading of its own (WCAG 1.3.1).
-- **Below `lg:` the ancestors are out of reach of the keyboard and of a screen reader.** The way back is the drawer.
+- **`label` names the `nav` holding the ancestors.** A screen with no ancestors draws no `nav`.
+- **The last item is the page's `h1`**, set by the component, so that a screen writes no heading of its own (WCAG 1.3.1). It is last on the row and beside the `nav` rather than in it, so that skipping the navigation does not skip it, and the [AppShell](/components/app-shell) names its `main` with it.
+- **Below `sm:` the ancestors are out of reach of the keyboard and of a screen reader.** The way back is the drawer.
 - **The chevrons draw no words.**
 
 ## API
@@ -65,7 +65,7 @@ The consumer provides the items and what draws their links, since the component 
 | Name     | Type                  | Default | Description                                                       |
 | -------- | --------------------- | ------- | ----------------------------------------------------------------- |
 | `items`  | `SaBreadcrumbItem[]`  |         | Required. Each a `key`, a `label` and a `link`, but for the last. |
-| `label`  | `string`              |         | Required. Names the bar.                                          |
+| `label`  | `string`              |         | Required. Names the `nav` holding the ancestors.                  |
 | `linkAs` | `string \| Component` | `'a'`   | What draws a link.                                                |
 
 ### SaPageActions

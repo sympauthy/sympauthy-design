@@ -37,7 +37,8 @@ export const NAV_ROLES = [
   'nav-disabled',
   'nav-hover',
   'nav-active',
-  'nav-divider'
+  'nav-divider',
+  'nav-strong'
 ] as const
 
 export type FlowRole = (typeof FLOW_ROLES)[number]
