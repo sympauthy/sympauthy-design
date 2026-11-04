@@ -33,7 +33,7 @@ const chosen = ref('')
 
 - **Trigger**: a secondary [Button](/components/button) with a chevron after its label.
 - **Box**: `.menu`, at least 192px wide, 4px from its trigger.
-- **Item**: `.menu-item` in `ink-700`, with a 16px icon in `ink-500`.
+- **Item**: `.menu-item` in `ink-700`, at least `control-height` tall, with a 16px icon in `ink-500`.
 - **Separator**: an `ink-200` rule before the first `danger` item, which the menu draws itself.
 - **`danger` item**: `danger` text, on `danger-hover` when highlighted.
 - **Disabled item**: `ink-400`, with its reason under the label in 12px `ink-500`.

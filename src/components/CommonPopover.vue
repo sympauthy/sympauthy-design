@@ -28,7 +28,7 @@ const open = defineModel<boolean>('open')
     <PopoverTrigger
       v-else
       type="button"
-      class="relative ml-1 inline-flex cursor-help rounded-md align-middle text-gray-500 outline-primary after:absolute after:-inset-1.5 hover:text-gray-700 focus-visible:outline-2"
+      class="relative ml-1 inline-flex cursor-help rounded-md align-middle text-gray-500 outline-primary after:absolute after:top-1/2 after:left-1/2 after:size-control after:-translate-x-1/2 after:-translate-y-1/2 hover:text-gray-700 focus-visible:outline-2"
       :aria-label="label"
     >
       <InformationCircleIcon class="size-3" />
