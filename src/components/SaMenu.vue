@@ -73,8 +73,11 @@ function startsDanger(index: number, items: SaMenuItem[]): boolean {
             <component
               :is="item.icon"
               v-if="item.icon"
-              class="mt-0.5 size-4 shrink-0 self-start"
-              :class="item.disabledReason || item.danger ? '' : 'text-gray-500'"
+              class="size-4 shrink-0"
+              :class="[
+                item.disabledReason ? 'mt-0.5 self-start' : '',
+                item.disabledReason || item.danger ? '' : 'text-gray-500'
+              ]"
             />
             <!-- The reason sits under the label rather than in a tooltip: a menu is read while it is
                  open, and a hover over one of its items is a highlight, not a question. -->

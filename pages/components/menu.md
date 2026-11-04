@@ -9,8 +9,8 @@ import { ref } from 'vue'
 import { PlusIcon } from '../.vitepress/theme/demo-icons'
 const items = [
   { key: 'enroll', label: 'Enroll a factor', icon: PlusIcon },
-  { key: 'link', label: 'Link a provider', disabledReason: 'Your role does not allow linking providers.' },
-  { key: 'logout', label: 'Force logout', danger: true }
+  { key: 'link', label: 'Link a provider', icon: PlusIcon, disabledReason: 'Your role does not allow linking providers.' },
+  { key: 'logout', label: 'Force logout', icon: PlusIcon, danger: true }
 ]
 const chosen = ref('')
 </script>
