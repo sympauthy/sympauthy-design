@@ -3,7 +3,7 @@ import { computed, type CSSProperties } from 'vue'
 import tokens from '../../../tokens.json'
 
 const props = defineProps<{
-  group: 'color' | 'type' | 'spacing' | 'radius' | 'size'
+  group: 'color' | 'type' | 'spacing' | 'radius' | 'size' | 'breakpoint'
   only?: string[]
   except?: string[]
 }>()
@@ -95,7 +95,8 @@ const rows = computed(() => {
         borderRadius: value,
         border: '1px solid var(--ink-400)'
       })),
-    size: () => plainRows(tokens.size.tokens)
+    size: () => plainRows(tokens.size.tokens),
+    breakpoint: () => plainRows(tokens.breakpoint.tokens)
   }[props.group]()
   return all.filter(
     ({ name }) => (props.only?.includes(name) ?? true) && !props.except?.includes(name)

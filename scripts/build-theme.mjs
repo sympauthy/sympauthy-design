@@ -127,6 +127,12 @@ themeCss += `  --container-card: ${size('auth-card-width')};\n`
 themeCss += `  --container-card-large: ${size('auth-card-width-large')};\n\n`
 // min-h-control, min-w-control: the one height every control is drawn at.
 themeCss += `  --spacing-control: ${size('control-height')};\n`
+// sm:, lg:. Literals, here and not in tokens.css: a media query cannot read a variable, so no
+// stylesheet of the server's could change them.
+themeCss += '\n'
+for (const { name, value } of tokens.breakpoint.tokens) {
+  themeCss += `  --${name}: ${value};\n`
+}
 themeCss += '}\n'
 
 writeFileSync(join(out, 'tokens.css'), HEADER + lightCss + darkCss + restCss)

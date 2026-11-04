@@ -62,29 +62,30 @@ carries the value. A number no token holds, or one an outside source sets, is wr
 **A token table is `<TokenTable>`, reading `tokens.json`.** Never type a token's value into
 Markdown.
 
-**Every color, type style, space, radius and size token is listed on one page.**
+**Every color, type style, space, radius, size and breakpoint token is listed on one page.**
 
-| Page           | Table                                                      |
-| -------------- | ---------------------------------------------------------- |
-| Color          | `<TokenTable group="color" />`                             |
-| Type           | `<TokenTable group="type" />`                              |
-| Spacing        | `<TokenTable group="spacing" />`                           |
-| Shape          | `<TokenTable group="radius" />`                            |
-| Control height | `<TokenTable group="size" :only="['control-height']" />`   |
-| Layout         | `<TokenTable group="size" :except="['control-height']" />` |
+| Page           | Table                                                                                           |
+| -------------- | ----------------------------------------------------------------------------------------------- |
+| Color          | `<TokenTable group="color" />`                                                                  |
+| Type           | `<TokenTable group="type" />`                                                                   |
+| Spacing        | `<TokenTable group="spacing" />`                                                                |
+| Shape          | `<TokenTable group="radius" />`                                                                 |
+| Control height | `<TokenTable group="size" :only="['control-height']" />`                                        |
+| Layout         | `<TokenTable group="size" :except="['control-height']" />`, `<TokenTable group="breakpoint" />` |
 
 **A row shows the token's name, its `usage`, its value and its specimen.** A color shows its value
 once per theme `tokens.json` names.
 
 **A specimen draws the value itself.**
 
-| Group   | Specimen                   |
-| ------- | -------------------------- |
-| color   | A swatch                   |
-| type    | Its `sample`, in the style |
-| spacing | A bar at the true width    |
-| radius  | A box with that corner     |
-| size    | None                       |
+| Group      | Specimen                   |
+| ---------- | -------------------------- |
+| color      | A swatch                   |
+| type       | Its `sample`, in the style |
+| spacing    | A bar at the true width    |
+| radius     | A box with that corner     |
+| size       | None                       |
+| breakpoint | None                       |
 
 ## Accessibility and related
 
