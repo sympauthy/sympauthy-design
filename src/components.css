@@ -32,6 +32,11 @@
     @apply focus-within:border-primary focus-within:ring-1 focus-within:ring-primary;
   }
 
+  /** A link inside a sentence: underlined at rest, so its color is not its only signal. */
+  .link {
+    @apply cursor-pointer text-primary underline outline-primary hover:text-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2;
+  }
+
   /** A menu an overlay drops. Flat: a border, no shadow. */
   .menu {
     @apply z-10 rounded-md border border-gray-200 bg-white;

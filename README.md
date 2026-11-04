@@ -36,7 +36,7 @@ The full guide is [Using in the apps](pages/using-in-apps.md).
 tokens.json              every value of the system, the one source
 scripts/build-theme.mjs  tokens.json → dist/theme.css, tokens.css, tokens-light.css
 src/
-  components/            the Common components (Card, Button, Field, Alert, Spinner)
+  components/            the Common components (Alert, Button, Card, Field and the rest)
   theme/                 branding: /branding, applyTheme, derivePalette, the overridable roles
   components.css         .control, .menu, .popover… shared by both apps
   fonts.css              self-hosted Plus Jakarta Sans and JetBrains Mono

@@ -64,7 +64,10 @@ tabs and no subpages.
 label is the same name, word for word.
 
 **A new page joins the Common group of the sidebar in `pages/.vitepress/config.ts` and of
-`pages/components/index.md` in the same commit.** Both list the pages in the same order.
+`pages/components/index.md` in the same commit.**
+
+**Every group of both lists its pages in alphabetical order of their names, ignoring case.** Put a
+new or moved page in its place, so that nobody has to decide where it goes.
 
 **A component that moves into `src/components/` takes a page of this form in the same commit.** Move
 it to the Common group of the sidebar and the index.

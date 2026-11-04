@@ -103,30 +103,36 @@ export default defineConfig({
       {
         text: 'Common',
         items: [
-          { text: 'Card', link: '/components/card' },
-          { text: 'Button', link: '/components/button' },
-          { text: 'Field', link: '/components/field' },
           { text: 'Alert', link: '/components/alert' },
-          { text: 'Spinner', link: '/components/spinner' }
+          { text: 'BrandLogo', link: '/components/brand-logo' },
+          { text: 'Button', link: '/components/button' },
+          { text: 'Card', link: '/components/card' },
+          { text: 'CopyableValue', link: '/components/copyable-value' },
+          { text: 'EmptyValue', link: '/components/empty-value' },
+          { text: 'Field', link: '/components/field' },
+          { text: 'Link', link: '/components/link' },
+          { text: 'LoadingState', link: '/components/loading-state' },
+          { text: 'Skeleton', link: '/components/skeleton' },
+          { text: 'Spinner', link: '/components/spinner' },
+          { text: 'Tag', link: '/components/tag' }
         ]
       },
       {
         text: 'Flow',
         items: [
           { text: 'AuthCard', link: '/components/auth-card' },
-          { text: 'ConfirmRequest', link: '/components/confirm-request' },
-          { text: 'CodeInput', link: '/components/code-input' }
+          { text: 'CodeInput', link: '/components/code-input' },
+          { text: 'ConfirmRequest', link: '/components/confirm-request' }
         ]
       },
       {
         text: 'Admin',
         items: [
-          { text: 'Sidebar', link: '/components/sidebar' },
-          { text: 'Table', link: '/components/table' },
-          { text: 'RecordPage', link: '/components/record-page' },
-          { text: 'Tag', link: '/components/tag' },
           { text: 'ActionsDropdown', link: '/components/actions-dropdown' },
-          { text: 'ConfirmDialog', link: '/components/confirm-dialog' }
+          { text: 'ConfirmDialog', link: '/components/confirm-dialog' },
+          { text: 'RecordPage', link: '/components/record-page' },
+          { text: 'Sidebar', link: '/components/sidebar' },
+          { text: 'Table', link: '/components/table' }
         ]
       }
     ],

@@ -1,6 +1,6 @@
 import { h, type FunctionalComponent } from 'vue'
 
-/** Heroicons' 20px solid paths, for the demos: the site does not install the package the apps do. */
+/** Heroicons' 20px solid paths, for the demos. */
 function icon(d: string): FunctionalComponent {
   return () =>
     h('svg', { viewBox: '0 0 20 20', fill: 'currentColor', 'aria-hidden': 'true' }, [
