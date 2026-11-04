@@ -34,6 +34,7 @@ import {
   FormField,
   FormInput,
   FormListbox,
+  FormRadioGroup,
   FormSelect,
   FormTagsInput,
   FormTextarea,
@@ -43,8 +44,6 @@ import {
   SummaryField,
   TableCell,
   TableHeader
-  FormRadioGroup,
-  LoadingState
 } from '../../../src/index'
 
 export default {
@@ -79,10 +78,10 @@ export default {
     app.component('FormField', FormField)
     app.component('FormInput', FormInput)
     app.component('FormListbox', FormListbox)
+    app.component('FormRadioGroup', FormRadioGroup)
     app.component('FormSelect', FormSelect)
     app.component('FormTagsInput', FormTagsInput)
     app.component('FormTextarea', FormTextarea)
-    app.component('FormRadioGroup', FormRadioGroup)
     app.component('LoadingState', LoadingState)
     app.component('PageActions', PageActions)
     app.component('SummaryCard', SummaryCard)
