@@ -107,14 +107,19 @@ export default defineConfig({
           { text: 'BrandLogo', link: '/components/brand-logo' },
           { text: 'Button', link: '/components/button' },
           { text: 'Card', link: '/components/card' },
+          { text: 'ConfirmDialog', link: '/components/confirm-dialog' },
           { text: 'CopyableValue', link: '/components/copyable-value' },
+          { text: 'Dialog', link: '/components/dialog' },
           { text: 'EmptyValue', link: '/components/empty-value' },
           { text: 'Field', link: '/components/field' },
           { text: 'Link', link: '/components/link' },
           { text: 'LoadingState', link: '/components/loading-state' },
+          { text: 'Menu', link: '/components/menu' },
+          { text: 'Popover', link: '/components/popover' },
           { text: 'Skeleton', link: '/components/skeleton' },
           { text: 'Spinner', link: '/components/spinner' },
-          { text: 'Tag', link: '/components/tag' }
+          { text: 'Tag', link: '/components/tag' },
+          { text: 'Tooltip', link: '/components/tooltip' }
         ]
       },
       {
@@ -129,7 +134,6 @@ export default defineConfig({
         text: 'Admin',
         items: [
           { text: 'ActionsDropdown', link: '/components/actions-dropdown' },
-          { text: 'ConfirmDialog', link: '/components/confirm-dialog' },
           { text: 'RecordPage', link: '/components/record-page' },
           { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Table', link: '/components/table' }

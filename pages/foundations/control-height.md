@@ -12,7 +12,7 @@ How tall a control is, in both apps.
 | ------------------- | ----------------------------------- | -------------------------------------------- | ----------------------------------------------------------------- |
 | Button, every style | `CommonButton`                      | `control-height`                             | its label, at least `control-height`; full width in the auth card |
 | Icon-only button    | `CommonButton` with `collapseLabel` | `control-height`                             | `control-height`                                                  |
-| Dropdown trigger    | `ActionsDropdown`'s button          | `control-height`                             | its label                                                         |
+| Dropdown trigger    | `CommonMenu`'s button               | `control-height`                             | its label                                                         |
 | Text field          | `FormInput`                         | `control-height`                             | its container                                                     |
 | Select              | a select in a `FormField`           | `control-height`                             | its container                                                     |
 | Text area           | a text area in a `FormField`        | at least `control-height`; set by its `rows` | its container                                                     |
@@ -30,5 +30,5 @@ How tall a control is, in both apps.
 
 - [Button](/components/button): every style, and the icon-only square.
 - [Field](/components/field): the text field and the select.
-- [ActionsDropdown](/components/actions-dropdown): its trigger.
+- [Menu](/components/menu): its trigger.
 - [CodeInput](/components/code-input): the one control taller than the rest.

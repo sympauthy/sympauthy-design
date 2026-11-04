@@ -110,5 +110,5 @@ The consumer provides a `label`, optionally an icon, and `submitting` or `loadin
 - [Focus, states and motion](/foundations/focus): the ring, disabled and in flight.
 - [Spinner](/components/spinner): what it draws in flight.
 - [ConfirmDialog](/components/confirm-dialog): where `dangerColoredButton` appears.
-- [ActionsDropdown](/components/actions-dropdown): a `secondaryColoredButton` with a `trailingIcon`.
+- [Menu](/components/menu): a `secondaryColoredButton` with a `trailingIcon`.
 - [AuthCard](/components/auth-card): where `size="large"` and `outlineColoredButton` appear.
