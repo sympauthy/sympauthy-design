@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, useAttrs, type Component } from 'vue'
+import { useFieldDescription } from './fieldDescription'
 
 /**
  * A single line of text, drawn the same in both apps: the box every control shares, with 16px
@@ -24,6 +25,7 @@ const props = withDefaults(
 )
 
 const model = defineModel<string>({ default: '' })
+const description = useFieldDescription()
 
 // The field is wrapped, so that an icon has something to be positioned against. That wrapper is
 // what a caller sizes — `class` reaches it — while everything else a caller says is said to the
@@ -39,9 +41,7 @@ const fieldAttrs = computed(() => {
 })
 
 const classes = computed(() => [
-  'control control-focus block w-full bg-white text-base text-gray-900',
-  'placeholder:text-gray-500',
-  'disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500',
+  'control control-focus control-field block w-full',
   props.invalid ? 'border-danger' : '',
   props.icon ? 'pl-9' : '',
   props.mono ? 'font-mono' : ''
@@ -56,6 +56,7 @@ const classes = computed(() => [
       class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-gray-400"
     />
     <input
+      :aria-describedby="description"
       v-bind="fieldAttrs"
       v-model="model"
       :type="props.type"
