@@ -11,6 +11,7 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [CopyableValue](./copyable-value)
 - [EmptyValue](./empty-value)
 - [Field](./field)
+- [FormRadioGroup](./form-radio-group)
 - [Link](./link)
 - [LoadingState](./loading-state)
 - [Skeleton](./skeleton)

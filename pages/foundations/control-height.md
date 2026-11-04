@@ -16,6 +16,7 @@ How tall a control is, in both apps.
 | Text field          | `FormInput`                         | `control-height`                             | its container                                                     |
 | Select              | a select in a `FormField`           | `control-height`                             | its container                                                     |
 | Text area           | a text area in a `FormField`        | at least `control-height`; set by its `rows` | its container                                                     |
+| Radio option        | `FormRadioGroup`                    | at least `control-height`, the whole row     | its container                                                     |
 | Code digit box      | `CodeInput`                         | 64px: larger, never smaller                  | shares the row                                                    |
 
 ## Tokens

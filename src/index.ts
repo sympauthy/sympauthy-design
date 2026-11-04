@@ -11,6 +11,7 @@ export { default as CopyToClipboard } from './components/CopyToClipboard.vue'
 export { default as EmptyValue } from './components/EmptyValue.vue'
 export { default as FormField } from './components/FormField.vue'
 export { default as FormInput } from './components/FormInput.vue'
+export { default as FormRadioGroup } from './components/FormRadioGroup.vue'
 export { default as LoadingState } from './components/LoadingState.vue'
 export {
   type ButtonStyle,
