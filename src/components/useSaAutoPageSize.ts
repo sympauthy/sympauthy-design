@@ -1,11 +1,11 @@
 import { onBeforeUnmount, onMounted, onUpdated, type Ref } from 'vue'
 
-// Metrics used before the table has rendered any row, matching the `px-6 py-3` header cells shared
-// by every table. The row height is the one of the tallest kind of row (a row
+// Metrics used before the table has rendered any row, matching the header of a table ordered from
+// its columns, `control-height` and a rule. The row height is the one of the tallest kind of row (a row
 // holding action buttons): overestimating leaves a gap under the last row until the real height is
 // known, where underestimating would request more rows than fit and make the table scroll.
-const FALLBACK_HEADER_HEIGHT = 40
-const FALLBACK_ROW_HEIGHT = 77
+const FALLBACK_HEADER_HEIGHT = 45
+const FALLBACK_ROW_HEIGHT = 69
 
 // A viewport change smaller than this is ignored, in either direction: a scrollbar appearing or
 // disappearing resizes the viewport by ~15px and would otherwise feed back into the page size.
@@ -123,7 +123,7 @@ export function useSaAutoPageSize(
       return
     }
     // Width is watched beside height because it decides how tall a row is: below `sm:` a row is
-    // drawn as a card, so a window narrowed across that breakpoint at one height leaves the
+    // laid out down rather than across, so a window narrowed across that breakpoint at one height leaves the
     // measured row height describing a layout that is no longer on the screen.
     observer = new ResizeObserver(() => {
       const element = viewport.value

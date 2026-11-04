@@ -62,7 +62,7 @@ const itemsPerPage = computed(() => (props.size > 0 ? props.size : 1))
 const totalItems = computed(() => (props.size > 0 ? props.total : props.totalPages))
 
 const stepClasses =
-  'sa-control sa-control-focus inline-flex items-center justify-center bg-white text-gray-700 hover:bg-gray-50'
+  'sa-control sa-control-focus inline-flex items-center justify-center bg-white font-medium text-gray-700 hover:bg-gray-50'
 </script>
 
 <template>
@@ -74,7 +74,7 @@ const stepClasses =
     :sibling-count="1"
     show-edges
     :aria-label="label"
-    class="flex items-center justify-center gap-2 sm:justify-between"
+    class="flex items-center gap-2 sm:justify-between"
     @update:page="(value: number) => emit('pageChange', value - 1)"
   >
     <!-- A phone is told which page of how many by the indicator inside the pager, so the range it
@@ -83,7 +83,10 @@ const stepClasses =
       <template v-if="range && rangeLabel">{{ rangeLabel(range) }}</template>
     </span>
 
-    <PaginationList v-slot="{ items }" class="flex items-center gap-1">
+    <PaginationList
+      v-slot="{ items }"
+      class="flex w-full items-center justify-between gap-2 sm:w-auto sm:justify-start"
+    >
       <!-- The words wait for `lg:`: seven steps and the range take all of `sm:`'s width. -->
       <PaginationPrev
         :class="stepClasses"
@@ -98,7 +101,7 @@ const stepClasses =
         {{ pageLabel(page + 1, totalPages) }}
       </span>
 
-      <div class="hidden items-center gap-1 sm:flex">
+      <div class="hidden items-center gap-2 sm:flex">
         <template v-for="(item, index) in items">
           <PaginationListItem
             v-if="item.type === 'page'"

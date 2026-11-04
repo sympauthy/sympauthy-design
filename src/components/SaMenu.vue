@@ -30,9 +30,12 @@ withDefaults(
     label: string
     items: SaMenuItem[]
     variant?: SaButtonVariant
+    /** Draws the button as this mark alone, naming it with [label], for the actions of a row. */
+    icon?: Component
   }>(),
   {
-    variant: 'secondary'
+    variant: 'secondary',
+    icon: undefined
   }
 )
 
@@ -48,7 +51,8 @@ function startsDanger(index: number, items: SaMenuItem[]): boolean {
 <template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger as-child>
-      <SaButton :variant="variant" :label="label" :trailing-icon="ChevronDownIcon" />
+      <SaButton v-if="icon" :variant="variant" :label="label" :icon="icon" icon-only />
+      <SaButton v-else :variant="variant" :label="label" :trailing-icon="ChevronDownIcon" />
     </DropdownMenuTrigger>
     <DropdownMenuPortal>
       <DropdownMenuContent

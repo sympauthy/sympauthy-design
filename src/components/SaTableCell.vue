@@ -6,17 +6,20 @@ import { computed } from 'vue'
  * the cell's role asks for rather than one the page picks.
  *
  * The sizing props answer the header's: a cell under a [fit] column does not wrap, and a cell under
- * a column dropped on a phone is dropped with it. Below `sm:` the row it belongs to is drawn as a
- * card, and the cell becomes a line of it under the name its [label] gives.
+ * a column dropped on a phone is dropped with it. Below `sm:` the row it belongs to is laid out down
+ * rather than across: the record's name first, then each other value beside the name its [label]
+ * gives.
  */
 const props = withDefaults(
   defineProps<{
     /**
-     * The column's name, which the cell shows above its value once the row is a card. Every cell
-     * carries it but the one identifying the record and the one holding the row's actions, which
-     * name themselves.
+     * The column's name, which the cell shows beside its value below `sm:`. Every cell carries it
+     * but the one identifying the record and the one holding the row's actions, which name
+     * themselves.
      */
     label?: string
+    /** Keeps [label] for a screen reader alone, for a value read without it, such as a status. */
+    labelHidden?: boolean
     /** The column identifying the record. One per row, and never a status. */
     primary?: boolean
     /** Does not wrap, under a column shrink-wrapped around it. */
@@ -27,14 +30,18 @@ const props = withDefaults(
     mono?: boolean
     /** Dropped below this width. Matches the header's own. */
     hiddenBelow?: 'sm' | 'lg'
+    /** Holds the row's actions, at the end of the row and beside the record's name on a phone. */
+    actions?: boolean
   }>(),
   {
     label: undefined,
+    labelHidden: false,
     primary: false,
     fit: false,
     truncate: false,
     mono: false,
-    hiddenBelow: undefined
+    hiddenBelow: undefined,
+    actions: false
   }
 )
 
@@ -43,9 +50,10 @@ const props = withDefaults(
 // instead of showing an ellipsis. The cut itself is on a block inside the cell, which is the one
 // element a table's own sizing does not reach.
 const classes = computed(() => [
-  'px-6 py-4 text-sm',
-  props.primary ? 'font-medium text-gray-900' : 'text-gray-500',
-  props.fit ? 'whitespace-nowrap' : '',
+  'px-4 py-3 text-sm text-gray-900',
+  props.primary ? 'sa-cell-primary font-medium' : '',
+  props.actions ? 'sa-cell-actions' : '',
+  props.fit || props.actions ? 'whitespace-nowrap' : '',
   props.truncate ? 'max-w-0' : '',
   props.mono ? 'font-mono' : '',
   props.hiddenBelow === 'sm' ? 'hidden sm:table-cell' : '',
@@ -54,8 +62,12 @@ const classes = computed(() => [
 </script>
 
 <template>
-  <td :class="classes" :data-label="props.label">
-    <div v-if="props.truncate" class="sa-cell-truncate truncate">
+  <td :class="classes" :data-label="props.labelHidden ? undefined : props.label">
+    <span v-if="props.label && props.labelHidden" class="sr-only sm:hidden">{{ props.label }}</span>
+    <div v-if="props.actions" class="flex items-center justify-end gap-1">
+      <slot />
+    </div>
+    <div v-else-if="props.truncate" class="sa-cell-truncate truncate">
       <slot />
     </div>
     <slot v-else />

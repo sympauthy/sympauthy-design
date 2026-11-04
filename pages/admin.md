@@ -12,10 +12,14 @@ Drawn by [AppShell](/components/app-shell), [Sidebar](/components/sidebar) and [
 
 ## Collections
 
-- **A table** is `surface` inside an `ink-200` bordered `radius-lg` card. The header row is `ink-50` with an `ink-200` inset rule and `panel-label` names; cells are `panel-body` in `ink-500`, the primary column `panel-strong` in `ink-900`, identifiers `panel-mono`. Rows are separated by `ink-200` rules and highlight `ink-50` on hover.
-- **The pagination bar** sits under the table (see [Pagination](/components/pagination)): the range in `ink-500` on the left, the pager on the right; the current page is a `primary` square with `on-primary` digits.
-- **Below `sm:` each row is a card** on `ground`, as the global stylesheet already draws it; only the border color changes to `ink-200`.
-- **An empty collection is one sentence** in `ink-500`, centred in the table body.
+Drawn by [Table](/components/table).
+
+- **One card holds a collection**, `surface` with an `ink-200` border and `radius-lg`: the toolbar, the filters while one is applied, the table and the pagination bar, split by `ink-200` rules.
+- **A table**: the header row is `ink-50` with `panel-label` names, and a column that orders the list is a button (see [TableSort](/components/table-sort)), which a phone reaches through a control in the toolbar; cells are `panel-body` in `ink-900`, the primary column `panel-strong`, identifiers `panel-mono`. Rows are separated by `ink-200` rules and highlight `ink-50` on hover.
+- **A filter** (see [TableFilters](/components/table-filters)) is a `primary-subtle` control with a `primary` border, in an `ink-50` band with how many records are left and the way to clear them. Its condition and value are chosen in a popover, and which fields exist is the collection's capability document.
+- **The pagination bar** is the card's foot (see [Pagination](/components/pagination)): the range in `ink-500` on the left, the pager on the right; the current page is a `primary` square with `on-primary` digits.
+- **Below `sm:` the card stays and each row is laid out down**: the record's name and its actions, then its other values wrapping beside their column's name. The pager's arrows take the ends of the foot.
+- **An empty collection is one sentence** in `ink-500`, centred in the card.
 
 ## Records
 

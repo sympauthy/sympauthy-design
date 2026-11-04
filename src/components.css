@@ -77,11 +77,6 @@
     @apply flex min-h-control w-full cursor-pointer items-center gap-2 px-4 py-2 text-left text-sm outline-none first:rounded-t-md last:rounded-b-md;
   }
 
-  /* A stacked cell names its column with the label a table draws over it. */
-  .sa-table-as-cards td[data-label]::before {
-    @apply sa-field-label;
-  }
-
   /** The surface an overlay explains or asks something on. A card's radius, no shadow. */
   .sa-popover {
     @apply rounded-lg border border-gray-200 bg-white;
@@ -89,18 +84,18 @@
 }
 
 /**
- * Below `sm:` a table of records is a list of them: every row becomes a card and every cell a
- * labelled line down it. The markup is the table's own — a phone is handed the same description of
- * a record, laid out down instead of across — so a column added to a screen reaches the phone with
- * it and a card cannot fall behind the table it was written beside.
+ * Below `sm:` a table of records is a list of them: a row is laid out down rather than across, with
+ * the record's name and its actions on the first line and the other values wrapping under it, each
+ * beside the name of its column. The markup is the table's own — a phone is handed the same
+ * description of a record — so a column added to a screen reaches the phone with it and a phone's
+ * layout cannot fall behind the table it was written beside.
  *
  * These rules sit outside every layer on purpose: they undo utilities (`truncate`, `max-w-0`,
- * `whitespace-nowrap`, `divide-y`) that a layered rule could not reach, whatever its specificity.
+ * `whitespace-nowrap`) that a layered rule could not reach, whatever its specificity.
  */
 @media (width < theme(--breakpoint-sm)) {
   .sa-table-as-cards,
-  .sa-table-as-cards tbody,
-  .sa-table-as-cards tr {
+  .sa-table-as-cards tbody {
     display: block;
   }
 
@@ -109,23 +104,14 @@
     display: none;
   }
 
-  /* `divide-y` colours a row's top border and deliberately skips the last child, so a card
-     bordered on four sides states its own colour — and its own ground, since the gutters between
-     cards belong to the page and not to the white the table body paints. */
+  /* Stated rather than left to the body's white, or a pressed row would stay on its hover. */
   .sa-table-as-cards tr {
-    border-width: 1px;
-    border-color: var(--color-gray-200);
-    border-radius: var(--radius-lg);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--spacing) * 1) calc(var(--spacing) * 3);
     background-color: var(--color-white);
-    padding: calc(var(--spacing) * 4);
-  }
-
-  .sa-table-as-cards tbody {
-    background-color: transparent;
-  }
-
-  .sa-table-as-cards tr + tr {
-    margin-top: calc(var(--spacing) * 4);
+    padding: calc(var(--spacing) * 3.5) calc(var(--spacing) * 3);
   }
 
   /* A column the page drops on a phone stays dropped: it carries `hidden`, and what a screen has
@@ -134,33 +120,77 @@
     display: block;
   }
 
+  /* After the name and the actions, wherever the screen writes them among its columns. */
   .sa-table-as-cards td {
-    max-width: none;
+    order: 2;
+    min-width: 0;
+    max-width: 100%;
     padding: 0;
     overflow: visible;
+    overflow-wrap: anywhere;
     text-overflow: clip;
     white-space: normal;
-  }
-
-  .sa-table-as-cards td + td {
-    margin-top: calc(var(--spacing) * 3);
   }
 
   .sa-table-as-cards td:empty {
     display: none;
   }
 
-  /* A value cut with an ellipsis across a row has the width of the card to wrap into down one. */
+  /* A value cut with an ellipsis across a row has the width of the row to wrap into down one. */
   .sa-table-as-cards td > .sa-cell-truncate {
     overflow: visible;
     text-overflow: clip;
     white-space: normal;
   }
 
+  /* The whole first line, so that the values start the next one. */
+  .sa-table-as-cards td.sa-cell-primary {
+    order: 0;
+    flex: 1 1 100%;
+    margin-bottom: calc(var(--spacing) * 1);
+  }
+
+  .sa-table-as-cards tr:has(.sa-cell-actions) td.sa-cell-primary {
+    flex-basis: calc(100% - var(--spacing-control) - var(--spacing) * 3);
+  }
+
+  /* As tall as the control it holds, without making the line of the name that tall: the row then
+     keeps to the height of what it says. */
+  .sa-table-as-cards td.sa-cell-actions {
+    order: 1;
+    margin-block: calc((var(--spacing) * 5 - var(--spacing-control)) / 2);
+  }
+
+  .sa-table-as-cards td[data-label]:not(.hidden) {
+    display: flex;
+    align-items: baseline;
+    gap: calc(var(--spacing) * 1);
+    @apply text-xs;
+  }
+
   .sa-table-as-cards td[data-label]::before {
     content: attr(data-label);
-    display: block;
-    margin-bottom: calc(var(--spacing) * 1);
+    flex-shrink: 0;
+    @apply text-gray-500;
+  }
+}
+
+/**
+ * Below `sm:` a table's toolbar fills its lines: the search field takes the first, whatever a screen
+ * sizes it to from `sm:`, and the controls share the next, but for one drawn as its mark alone, which
+ * stays square. Outside every layer, to reach the width a screen writes on its search field.
+ */
+@media (width < theme(--breakpoint-sm)) {
+  .sa-table-toolbar > * {
+    flex: 1 1 auto;
+  }
+
+  .sa-table-toolbar > :has(input) {
+    flex-basis: 100%;
+  }
+
+  .sa-table-toolbar > [data-sa-mark] {
+    flex: none;
   }
 }
 

@@ -1,17 +1,27 @@
 # Table
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaTable</code>, <code>SaTableHeader</code> and <code>SaTableCell</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaTable</code>, <code>SaTableHeader</code>, <code>SaTableCell</code> and <code>SaTableRecord</code></p>
 
-Any table of records: a header row, rows of cells, and what it shows instead while it waits, fails or holds nothing.
+A list of records in one card: a header row and rows of cells, what it shows instead while it waits, fails or holds nothing, and what sits around them through its slots.
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { ArrowPathIcon, EllipsisHorizontalIcon, SearchIcon } from '../.vitepress/theme/demo-icons'
 const users = [
-  { name: 'Ada Lovelace', email: 'ada@example.com', id: 'c3f1e0a2-7b4d-4e8a', status: 'Active', color: 'green' },
-  { name: 'Alan Turing', email: 'alan@example.com', id: '8d21b6f4-1c9e-4a07', status: 'Revoked', color: 'red' },
-  { name: 'Grace Hopper', email: 'grace@example.com', id: '5e7a90c3-2f6b-4d18', status: 'Pending', color: 'yellow' }
+  { email: 'ada@example.com', id: 'c3f1e0a2-7b4d-4e8a-9d21-5e7a90c32f6b', status: 'Enabled', color: 'green', signIn: '02/11/2026 13:33', created: '2026-11-01' },
+  { email: 'grace@example.com', id: '8d21b6f4-1c9e-4a07-b3e2-4c1d7a60e8f5', status: 'Enabled', color: 'green', signIn: '28/10/2026 09:12', created: '2026-10-14' },
+  { email: 'katherine.johnson@example.com', id: '5e7a90c3-2f6b-4d18-8a51-f1395eeb4307', status: 'Invited', color: 'yellow', signIn: null, created: '2026-10-03' },
+  { email: 'alan@example.com', id: '2b9c4e17-6a03-4f5d-a7c8-90d1e3f6b254', status: 'Disabled', color: 'red', signIn: '12/09/2026 17:45', created: '2026-08-20' },
+  { email: 'edsger@example.com', id: '71d3a8f0-5c2e-4b96-8e14-3fa6c07d92e1', status: 'Invited', color: 'yellow', signIn: null, created: '2026-07-02' }
 ]
+const PAGE_SIZE = 3
 const page = ref(0)
+const rows = computed(() => users.slice(page.value * PAGE_SIZE, (page.value + 1) * PAGE_SIZE))
+const actions = [
+  { key: 'view', label: 'View user' },
+  { key: 'copy', label: 'Copy user ID' },
+  { key: 'disable', label: 'Disable user…', danger: true }
+]
 const fits = ref(1)
 const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name: `Client ${i + 1}` }))
 const pageLabel = (p, total) => `Page ${p} of ${total}`
@@ -21,28 +31,46 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <DemoFrame v-for="mode in ['phone', 'tablet', 'desktop']" :key="mode" :mode="mode">
     <SaTable loading-label="Loading users.">
+      <template #toolbar>
+        <SaInput class="min-w-0 flex-1 basis-60" :icon="SearchIcon" placeholder="Search by email or user ID" aria-label="Search users" />
+        <SaButton variant="secondary" label="Refresh" :icon="ArrowPathIcon" icon-only />
+      </template>
       <template #header>
-        <SaTableHeader>Name</SaTableHeader>
-        <SaTableHeader hidden-below="lg">Email</SaTableHeader>
-        <SaTableHeader hidden-below="sm">Identifier</SaTableHeader>
+        <SaTableHeader>User</SaTableHeader>
         <SaTableHeader fit>Status</SaTableHeader>
+        <SaTableHeader fit>Last sign-in</SaTableHeader>
+        <SaTableHeader fit>Created</SaTableHeader>
+        <SaTableHeader fit><span class="sr-only">Actions</span></SaTableHeader>
       </template>
       <template #rows>
-        <tr v-for="user in users" :key="user.id">
-          <SaTableCell primary>{{ user.name }}</SaTableCell>
-          <SaTableCell label="Email" hidden-below="lg" truncate>{{ user.email }}</SaTableCell>
-          <SaTableCell label="Identifier" hidden-below="sm" mono fit>{{ user.id }}</SaTableCell>
-          <SaTableCell label="Status" fit><SaTag :color="user.color">{{ user.status }}</SaTag></SaTableCell>
+        <tr v-for="user in rows" :key="user.id">
+          <SaTableCell primary><SaTableRecord :name="user.email" :detail="user.id" :link="{ href: '#' }" /></SaTableCell>
+          <SaTableCell label="Status" label-hidden fit><SaTag :color="user.color">{{ user.status }}</SaTag></SaTableCell>
+          <SaTableCell label="Last sign-in" fit><SaEmptyValue v-if="!user.signIn" /><template v-else>{{ user.signIn }}</template></SaTableCell>
+          <SaTableCell label="Created" fit>{{ user.created }}</SaTableCell>
+          <SaTableCell actions><SaButton variant="secondary" :label="`Actions for ${user.email}`" :icon="EllipsisHorizontalIcon" icon-only /></SaTableCell>
         </tr>
       </template>
       <template #footer>
-        <SaPagination :page="page" :total-pages="3" :size="3" :total="9" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
+        <SaPagination :page="page" :total-pages="2" :size="PAGE_SIZE" :total="users.length" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
       </template>
     </SaTable>
   </DemoFrame>
 </div></div>
 
 <div class="demo vp-raw"><div class="flex flex-col gap-6">
+  <SaTable loading-label="Loading users.">
+    <template #header>
+      <SaTableHeader>User</SaTableHeader>
+      <SaTableHeader fit><span class="sr-only">Actions</span></SaTableHeader>
+    </template>
+    <template #rows>
+      <tr>
+        <SaTableCell primary><SaTableRecord :name="users[0].email" :link="{ href: '#' }" /></SaTableCell>
+        <SaTableCell actions><SaMenu :label="`Actions for ${users[0].email}`" :items="actions" :icon="EllipsisHorizontalIcon" /></SaTableCell>
+      </tr>
+    </template>
+  </SaTable>
   <div style="height: 300px">
     <SaTable fill auto-page-size loading-label="Loading clients." @page-size-change="fits = $event">
       <template #header><SaTableHeader>Name</SaTableHeader><SaTableHeader fit>Identifier</SaTableHeader></template>
@@ -66,6 +94,13 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 
 - **A list of records with the same fields**, read across.
 - **`SaTableHeader` and `SaTableCell`**: every column and every cell. A screen writes no padding, text size or color of its own.
+- **`#toolbar`**: what narrows and re-reads the list, in one row that wraps. The search field takes what is left.
+- **`#filters`**: the band under the toolbar, for a [TableFilters](/components/table-filters). A table with no filters leaves it out, and nothing else changes.
+- **`SaTableRecord`**: the name of a record, linking to it, in the `primary` cell. Its `detail` is an identifier, from `sm:`.
+- **`sorting`** and **`field`**: a column that orders the list, as [TableSort](/components/table-sort) shows.
+- **`filteredLabel`**: says that a filter narrows a column, as [TableFilters](/components/table-filters) shows.
+- **`actions`**: the cell holding what can be done to a row, usually a [Menu](/components/menu) drawn as its mark alone. The name of a record already leads to it, so no second control does.
+- **`labelHidden`**: a value read without the column's name on a phone, such as a status.
 - **`fit`**: a column that takes only the width its content needs, such as a status, a date or a row of actions. A column without it takes a share of what is left. That is the whole sizing model, and neither writes a width.
 - **`truncate`**: a value cut with an ellipsis rather than wrapped, under a column taking a share of the width.
 - **`primary`**: the one column identifying the record. Never a status.
@@ -76,19 +111,21 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 
 ## Look
 
-- **Box**: `surface` with an `ink-200` border and `radius-lg`, from `sm:`.
-- **Header row**: `ink-50`, its names in `.sa-field-label`, 12px by 24px.
-- **Cell**: 14px in `ink-500`, 16px by 24px, with rows split by `ink-200`.
+- **Box**: one flat card at every width: `surface` with an `ink-200` border and `radius-lg`. Its parts are split by `ink-200` rules.
+- **Toolbar**: `space-4` around it and `space-2` between its controls, `space-3` around it below `sm:`, where the search field takes the first line and the controls share the next, a control drawn as its mark alone staying square.
+- **Header row**: `ink-50`, its names in `.sa-field-label`, 10px by `space-4`.
+- **Cell**: 14px in `ink-900`, `space-3` by `space-4`, with rows split by `ink-200`.
 - **The `primary` cell**: `panel-strong` in `ink-900`.
-- **Below `sm:`**: every row is its own card on `ground`, and each cell is a line of it under the `.sa-field-label` its `label` gives.
-- **Footer**: `space-4` under the table.
+- **Record**: `primary` at 600, underlined, with a 14px chevron. Its `detail` is `panel-mono` in `ink-500`, under it and cut with an ellipsis.
+- **Below `sm:`**: the rows stay in the card, split by the same rules. The `primary` cell and the actions take the first line, and the other cells wrap under it, each 12px beside its `label` in `ink-500`. A `detail` is dropped.
+- **Footer**: `space-3` by `space-4`, `space-2` by `space-3` below `sm:`.
 
 ## Behavior
 
 - **Hover**: a row is `ink-50`, from `sm:`.
-- **Loading** (`loading`): a [LoadingState](/components/loading-state) in place of the table.
-- **Failed** (`error`): a `danger` [Alert](/components/alert) in place of the table.
-- **Empty** (`empty`): the `#empty` slot in place of the table, centred under `fill`.
+- **Loading** (`loading`): a [LoadingState](/components/loading-state) in place of the rows. What sits around the rows stays.
+- **Failed** (`error`): a `danger` [Alert](/components/alert) in place of the rows.
+- **Empty** (`empty`): the `#empty` slot in place of the rows, centred.
 - **Long values**: the table scrolls sideways inside its box, rather than the page.
 
 ## Content
@@ -99,54 +136,77 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 ## Accessibility
 
 - **It is a real table**, so its header cells are read with each value (WCAG 1.3.1). Below `sm:` it is displayed as blocks, and the `label` of each cell is what names its value.
-- **Pass `label` on every cell** but the one identifying the record and the one holding the row's actions, which name themselves.
+- **Pass `label` on every cell** but the one identifying the record and the one holding the row's actions, which name themselves. `labelHidden` keeps it for a screen reader alone.
+- **`filteredLabel` says what the funnel says, to a screen reader** (WCAG 1.1.1). A column without a visible name, such as the actions, takes one a screen reader alone reads.
+- **The record's link keeps to its line and its target reaches `control-height`** (see [Control height](/foundations/control-height)).
 
 ## API
 
-The consumer provides the header cells, the rows, the sentence for an empty table and the words, since the component reads no message bundle. The rows and the empty sentence stay the consumer's, so that an app's own sort header can sit among the `SaTableHeader`s.
+The consumer provides the controls of the toolbar, the header cells, the rows, the sentence for an empty table and the words, since the component reads no message bundle. The rows and the empty sentence stay the consumer's, so that an app's own sort header can sit among the `SaTableHeader`s.
 
 ### SaTable
 
-| Name              | Type                | Default  | Description                                                         |
-| ----------------- | ------------------- | -------- | ------------------------------------------------------------------- |
-| `loadingLabel`    | `string`            |          | Required. What is being waited for.                                 |
-| `loading`         | `boolean`           | `false`  | Draws the wait in place of the table.                               |
-| `error`           | `string \| null`    | `null`   | Draws the failure in place of the table.                            |
-| `empty`           | `boolean`           | `false`  | Draws `#empty` in place of the table.                               |
-| `tableLayout`     | `'fixed' \| 'auto'` | `'auto'` | The table's layout.                                                 |
-| `fill`            | `boolean`           | `false`  | Fills the parent's height, with the rows scrolling inside.          |
-| `autoPageSize`    | `boolean`           | `false`  | Derives the rows per page from that height.                         |
-| `minPageSize`     | `number`            | `1`      | The fewest rows it asks for.                                        |
-| `@pageSizeChange` | event               |          | The number of rows that fit.                                        |
-| `#header`         | slot                |          | The header cells.                                                   |
-| `#rows`           | slot                |          | The `tr` of each row.                                               |
-| `#empty`          | slot                |          | The sentence for an empty table.                                    |
-| `#footer`         | slot                |          | What sits under it, usually a [Pagination](/components/pagination). |
+| Name              | Type                | Default  | Description                                                           |
+| ----------------- | ------------------- | -------- | --------------------------------------------------------------------- |
+| `loadingLabel`    | `string`            |          | Required. What is being waited for.                                   |
+| `loading`         | `boolean`           | `false`  | Draws the wait in place of the table.                                 |
+| `error`           | `string \| null`    | `null`   | Draws the failure in place of the table.                              |
+| `empty`           | `boolean`           | `false`  | Draws `#empty` in place of the table.                                 |
+| `tableLayout`     | `'fixed' \| 'auto'` | `'auto'` | The table's layout.                                                   |
+| `fill`            | `boolean`           | `false`  | Fills the parent's height, with the rows scrolling inside.            |
+| `autoPageSize`    | `boolean`           | `false`  | Derives the rows per page from that height.                           |
+| `minPageSize`     | `number`            | `1`      | The fewest rows it asks for.                                          |
+| `@pageSizeChange` | event               |          | The number of rows that fit.                                          |
+| `#toolbar`        | slot                |          | What narrows and re-reads the list, in a row that wraps.              |
+| `#filters`        | slot                |          | A [TableFilters](/components/table-filters).                          |
+| `#header`         | slot                |          | The header cells.                                                     |
+| `#rows`           | slot                |          | The `tr` of each row.                                                 |
+| `#empty`          | slot                |          | The sentence for an empty table.                                      |
+| `#footer`         | slot                |          | The foot of the card, usually a [Pagination](/components/pagination). |
 
 ### SaTableHeader
 
-| Name          | Type           | Default     | Description                    |
-| ------------- | -------------- | ----------- | ------------------------------ |
-| `fit`         | `boolean`      | `false`     | Takes only the width it needs. |
-| `hiddenBelow` | `'sm' \| 'lg'` | `undefined` | Dropped below this width.      |
-| `#default`    | slot           |             | The column's name.             |
+| Name            | Type           | Default     | Description                                |
+| --------------- | -------------- | ----------- | ------------------------------------------ |
+| `fit`           | `boolean`      | `false`     | Takes only the width it needs.             |
+| `hiddenBelow`   | `'sm' \| 'lg'` | `undefined` | Dropped below this width.                  |
+| `sorting`       | `SaSort`       | `undefined` | The order of the list.                     |
+| `field`         | `string`       | `undefined` | The field this column shows.               |
+| `filteredLabel` | `string`       | `undefined` | Says a filter narrows it, and marks it.    |
+| `#default`      | slot           |             | The column's name.                         |
+| `#help`         | slot           |             | What explains the column, beside its name. |
 
 ### SaTableCell
 
-| Name          | Type           | Default     | Description                                      |
-| ------------- | -------------- | ----------- | ------------------------------------------------ |
-| `label`       | `string`       | `undefined` | The column's name, shown once the row is a card. |
-| `primary`     | `boolean`      | `false`     | The column identifying the record.               |
-| `fit`         | `boolean`      | `false`     | Does not wrap, under a `fit` column.             |
-| `truncate`    | `boolean`      | `false`     | Cut with an ellipsis rather than wrapped.        |
-| `mono`        | `boolean`      | `false`     | For a value read character by character.         |
-| `hiddenBelow` | `'sm' \| 'lg'` | `undefined` | Dropped below this width.                        |
-| `#default`    | slot           |             | The value.                                       |
+| Name          | Type           | Default     | Description                                |
+| ------------- | -------------- | ----------- | ------------------------------------------ |
+| `label`       | `string`       | `undefined` | The column's name, shown below `sm:`.      |
+| `labelHidden` | `boolean`      | `false`     | Keeps `label` for a screen reader alone.   |
+| `primary`     | `boolean`      | `false`     | The column identifying the record.         |
+| `fit`         | `boolean`      | `false`     | Does not wrap, under a `fit` column.       |
+| `truncate`    | `boolean`      | `false`     | Cut with an ellipsis rather than wrapped.  |
+| `mono`        | `boolean`      | `false`     | For a value read character by character.   |
+| `hiddenBelow` | `'sm' \| 'lg'` | `undefined` | Dropped below this width.                  |
+| `actions`     | `boolean`      | `false`     | Holds the row's actions, at the row's end. |
+| `#default`    | slot           |             | The value.                                 |
+
+### SaTableRecord
+
+| Name     | Type                      | Default     | Description                                                        |
+| -------- | ------------------------- | ----------- | ------------------------------------------------------------------ |
+| `name`   | `string`                  |             | Required. What the record is called.                               |
+| `link`   | `Record<string, unknown>` |             | Required. Given to the link, as `{ href }` or a router's `{ to }`. |
+| `detail` | `string`                  | `undefined` | An identifier under the name, from `sm:`.                          |
+| `linkAs` | `string \| Component`     | `'a'`       | What draws the link, such as a router's link.                      |
 
 `useSaAutoPageSize` is exported as well, for a list that is not a table.
 
 ## Related
 
+- [TableFilters](/components/table-filters): what narrows it.
+- [TableSort](/components/table-sort): what orders it.
+- [Field](/components/field): the search field of its toolbar.
+- [Menu](/components/menu): what a row's actions usually are.
 - [Pagination](/components/pagination): what sits in its footer.
 - [LoadingState](/components/loading-state) and [Alert](/components/alert): what replaces it.
 - [Tag](/components/tag) and [EmptyValue](/components/empty-value): what its cells often hold.

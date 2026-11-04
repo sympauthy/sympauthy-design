@@ -22,16 +22,16 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 
 ## Usage
 
-- **Under a list the server hands out page by page**, usually in the `#footer` of a [Table](/components/table).
+- **Under a list the server hands out page by page**, usually in the `#footer` of a [Table](/components/table), which draws its rule and its padding.
 - **`alwaysShown`**: kept on screen for a single page, where hiding it would give the rows more room and change how many fit.
 - **Not for** moving through a process with steps: use [Button](/components/button).
 
 ## Look
 
-- **Step**: `.sa-control`, so `control-height` square at least, with `surface` and 14px `ink-700` text.
+- **Step**: `.sa-control`, so `control-height` square at least, with `surface` and `panel-strong` `ink-700` text, `space-2` apart.
 - **Current page**: `primary` with `on-primary` digits, and no border.
 - **Range**: 14px in `ink-500`, on the left from `sm:`, with the pager on the right.
-- **Below `sm:`**: no page numbers and no range. The pager is centred, and the page indicator sits between its two arrows.
+- **Below `sm:`**: no page numbers and no range. The two arrows take the ends of the row, and the page indicator sits between them.
 - **Previous and next**: arrows alone until `lg:`, then with their words. Seven steps and the range take all of the width at `sm:`.
 
 ## Behavior

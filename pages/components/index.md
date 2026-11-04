@@ -27,6 +27,8 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [Skeleton](./skeleton)
 - [Spinner](./spinner)
 - [Table](./table)
+- [TableFilters](./table-filters)
+- [TableSort](./table-sort)
 - [Tabs](./tabs)
 - [Tag](./tag)
 - [TagsInput](./tags-input)
