@@ -10,7 +10,7 @@ import {
 } from 'reka-ui'
 import { useFieldDescription } from './fieldDescription'
 
-export interface ListboxOption {
+export interface SaListboxOption {
   value: string
   label: string
 }
@@ -25,7 +25,7 @@ export interface ListboxOption {
  */
 const props = withDefaults(
   defineProps<{
-    options: ListboxOption[]
+    options: SaListboxOption[]
     /** What is chosen, holding at most one value unless [multiple]. */
     selected: string[]
     /** Names what is being searched, where the list is long enough to be. */
@@ -101,7 +101,7 @@ function onUpdate(value: unknown) {
       <MagnifyingGlassIcon class="absolute top-1/2 left-5 size-4 -translate-y-1/2 text-gray-400" />
       <ListboxFilter
         v-model="search"
-        class="control control-focus control-field block w-full pl-9"
+        class="sa-control sa-control-focus sa-control-field block w-full pl-9"
         :placeholder="props.searchPlaceholder"
       />
     </div>
@@ -115,7 +115,7 @@ function onUpdate(value: unknown) {
         v-for="option in matches"
         :key="option.value"
         :value="option.value"
-        class="menu-item justify-between text-gray-700 data-[highlighted]:bg-gray-100"
+        class="sa-menu-item justify-between text-gray-700 data-[highlighted]:bg-gray-100"
       >
         <span class="truncate">{{ option.label }}</span>
         <ListboxItemIndicator>

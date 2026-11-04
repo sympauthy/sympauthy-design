@@ -1,10 +1,10 @@
 # Link
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design/components.css</code> as <code>.link</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design/components.css</code> as <code>.sa-link</code></p>
 
 A link inside a sentence: `primary` and underlined at rest.
 
-<div class="demo"><p>Already have an account? <a class="link" href="#">Sign in</a>.</p></div>
+<div class="demo"><p>Already have an account? <a class="sa-link" href="#">Sign in</a>.</p></div>
 
 ## Usage
 

@@ -11,7 +11,7 @@ const FALLBACK_ROW_HEIGHT = 77
 // disappearing resizes the viewport by ~15px and would otherwise feed back into the page size.
 const RESIZE_THRESHOLD = 24
 
-export interface AutoPageSizeOptions {
+export interface SaAutoPageSizeOptions {
   /** Measuring is skipped entirely while this returns false. */
   enabled?: () => boolean
   minSize?: number
@@ -25,7 +25,10 @@ export interface AutoPageSizeOptions {
  * without scrolling. `viewport` must be an element whose height is set by the layout (and not by
  * its content), otherwise the rows it receives would change the height it is measured from.
  */
-export function useAutoPageSize(viewport: Ref<HTMLElement | null>, options: AutoPageSizeOptions) {
+export function useSaAutoPageSize(
+  viewport: Ref<HTMLElement | null>,
+  options: SaAutoPageSizeOptions
+) {
   const { enabled = () => true, minSize = 1, maxSize = 100, onChange } = options
 
   let currentSize = 0

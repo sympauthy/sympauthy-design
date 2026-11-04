@@ -1,23 +1,23 @@
 # CopyableValue
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CopyableValue</code> and <code>CopyToClipboard</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaCopyableValue</code> and <code>SaCopyButton</code></p>
 
 A value a person reads and then pastes elsewhere, with the control that copies it beside it.
 
 <div class="demo"><div class="stack">
-  <CommonCard>
-    <p class="field-label">Client ID</p>
+  <SaCard>
+    <p class="sa-field-label">Client ID</p>
     <p class="mt-1 font-mono text-gray-900">
-      <CopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" label="Copy client ID" copied-label="Client ID copied" failed-label="Your browser refused to copy the client ID" />
+      <SaCopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" label="Copy client ID" copied-label="Client ID copied" failed-label="Your browser refused to copy the client ID" />
     </p>
-  </CommonCard>
-  <div class="row"><CopyToClipboard value="c3f1e0a2" label="Copy token" copied-label="Token copied" failed-label="Your browser refused to copy the token" /></div>
+  </SaCard>
+  <div class="row"><SaCopyButton value="c3f1e0a2" label="Copy token" copied-label="Token copied" failed-label="Your browser refused to copy the token" /></div>
 </div></div>
 
 ## Usage
 
-- **`CopyableValue`**: an identifier or token shown on a line of its own, cut with an ellipsis where it does not fit.
-- **`CopyToClipboard`**: the control alone, beside a value drawn some other way, such as a one-time secret that wraps.
+- **`SaCopyableValue`**: an identifier or token shown on a line of its own, cut with an ellipsis where it does not fit.
+- **`SaCopyButton`**: the control alone, beside a value drawn some other way, such as a one-time secret that wraps.
 - **Not for** a step whose one action is copying: use [Button](/components/button) with a label, as the flow does for a key to type into an authenticator.
 
 ## Look
@@ -48,7 +48,7 @@ A value a person reads and then pastes elsewhere, with the control that copies i
 
 The consumer provides the value and the words, since the component reads no message bundle.
 
-### CopyableValue
+### SaCopyableValue
 
 | Name          | Type     | Default | Description                              |
 | ------------- | -------- | ------- | ---------------------------------------- |
@@ -57,7 +57,7 @@ The consumer provides the value and the words, since the component reads no mess
 | `copiedLabel` | `string` |         | Said once the value is copied. Required. |
 | `failedLabel` | `string` |         | Said when the browser refuses. Required. |
 
-### CopyToClipboard
+### SaCopyButton
 
 | Name          | Type     | Default | Description                              |
 | ------------- | -------- | ------- | ---------------------------------------- |

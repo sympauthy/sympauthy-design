@@ -22,7 +22,7 @@ that owns a neighbouring rule.
 directive — what to write, what to name, what to do next.
 
 ```markdown
-**Every control is `control-height`, through `.control`.** Never write a height on a control. A
+**Every control is `control-height`, through `.sa-control`.** Never write a height on a control. A
 control a new component draws takes the class.
 ```
 
@@ -65,8 +65,7 @@ it, so it is not symlinked, and `CLAUDE.md` names it beside the task it governs.
 
 ## What a standard names
 
-**A shape carries the rule.** Write the pattern a name, a path or a key must match — `Common…`,
-`Form…`, `--on-…`. The shape is the whole instruction.
+**A shape carries the rule.** Write the pattern a name, a path or a key must match — `Sa…`, `--on-…`. The shape is the whole instruction.
 
 **A name that is itself the rule is written as it is.** The class a control must carry, the card a
 page must draw and the file a value must be written in are named directly.

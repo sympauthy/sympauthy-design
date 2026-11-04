@@ -1,24 +1,23 @@
 # Dialog
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonDialog</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaDialog</code></p>
 
 The shell of any dialog: a flat card on a scrim, with a title and a footer for its buttons.
 
 <script setup>
 import { ref } from 'vue'
-import { secondaryColoredButton } from '../../src/components/ButtonStyle'
 const open = ref(false)
 </script>
 
 <div class="demo"><div class="row">
-  <CommonButton label="Create invitation" @click="open = true" />
-  <CommonDialog :open="open" title="Create invitation" @close="open = false">
-    <FormField label="Email" for="demo-dialog-email"><FormInput id="demo-dialog-email" type="email" /></FormField>
+  <SaButton label="Create invitation" @click="open = true" />
+  <SaDialog :open="open" title="Create invitation" @close="open = false">
+    <SaField label="Email" for="demo-dialog-email"><SaInput id="demo-dialog-email" type="email" /></SaField>
     <template #actions>
-      <CommonButton label="Cancel" :button-style="secondaryColoredButton" @click="open = false" />
-      <CommonButton label="Create invitation" @click="open = false" />
+      <SaButton label="Cancel" variant="secondary" @click="open = false" />
+      <SaButton label="Create invitation" @click="open = false" />
     </template>
-  </CommonDialog>
+  </SaDialog>
 </div></div>
 
 ## Usage

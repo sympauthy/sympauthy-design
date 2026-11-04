@@ -1,13 +1,13 @@
 # BrandLogo
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>BrandLogo</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaBrandLogo</code></p>
 
 The deployment's logo, as the server answers it, and SympAuthy's where it answers none.
 
 <div class="demo"><ClientOnly><div class="row">
-  <BrandLogo />
-  <BrandLogo large />
-  <span class="inline-flex rounded-md bg-nav p-3"><BrandLogo dark /></span>
+  <SaBrandLogo />
+  <SaBrandLogo large />
+  <span class="inline-flex rounded-md bg-nav p-3"><SaBrandLogo dark /></span>
 </div></ClientOnly></div>
 
 The demo has no server behind it, so it draws SympAuthy's logos.

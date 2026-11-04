@@ -9,10 +9,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from 'reka-ui'
-import { secondaryColoredButton, type ButtonStyle } from './ButtonStyle'
-import CommonButton from './CommonButton.vue'
+import SaButton, { type SaButtonVariant } from './SaButton.vue'
 
-export interface MenuItem {
+export interface SaMenuItem {
   key: string
   label: string
   icon?: Component
@@ -29,11 +28,11 @@ withDefaults(
   defineProps<{
     /** What the button says, as "Actions". */
     label: string
-    items: MenuItem[]
-    buttonStyle?: ButtonStyle
+    items: SaMenuItem[]
+    variant?: SaButtonVariant
   }>(),
   {
-    buttonStyle: () => secondaryColoredButton
+    variant: 'secondary'
   }
 )
 
@@ -41,7 +40,7 @@ const emit = defineEmits<{
   select: [key: string]
 }>()
 
-function startsDanger(index: number, items: MenuItem[]): boolean {
+function startsDanger(index: number, items: SaMenuItem[]): boolean {
   return index > 0 && items[index].danger === true && items[index - 1].danger !== true
 }
 </script>
@@ -49,14 +48,18 @@ function startsDanger(index: number, items: MenuItem[]): boolean {
 <template>
   <DropdownMenuRoot>
     <DropdownMenuTrigger as-child>
-      <CommonButton :button-style="buttonStyle" :label="label" :trailing-icon="ChevronDownIcon" />
+      <SaButton :variant="variant" :label="label" :trailing-icon="ChevronDownIcon" />
     </DropdownMenuTrigger>
     <DropdownMenuPortal>
-      <DropdownMenuContent align="end" :side-offset="4" class="menu overlay-animated min-w-48">
+      <DropdownMenuContent
+        align="end"
+        :side-offset="4"
+        class="sa-menu sa-overlay-animated min-w-48"
+      >
         <template v-for="(item, index) in items" :key="item.key">
           <DropdownMenuSeparator v-if="startsDanger(index, items)" class="my-1 h-px bg-gray-200" />
           <DropdownMenuItem
-            class="menu-item"
+            class="sa-menu-item"
             :class="
               item.disabledReason
                 ? 'cursor-not-allowed text-gray-400'
@@ -70,8 +73,11 @@ function startsDanger(index: number, items: MenuItem[]): boolean {
             <component
               :is="item.icon"
               v-if="item.icon"
-              class="mt-0.5 size-4 shrink-0 self-start"
-              :class="item.disabledReason || item.danger ? '' : 'text-gray-500'"
+              class="size-4 shrink-0"
+              :class="[
+                item.disabledReason ? 'mt-0.5 self-start' : '',
+                item.disabledReason || item.danger ? '' : 'text-gray-500'
+              ]"
             />
             <!-- The reason sits under the label rather than in a tooltip: a menu is read while it is
                  open, and a hover over one of its items is a highlight, not a question. -->

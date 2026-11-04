@@ -1,6 +1,6 @@
 # Pagination
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonPagination</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaPagination</code></p>
 
 Which page of a list is on screen, and the way to the others.
 
@@ -12,8 +12,8 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 </script>
 
 <div class="demo"><div class="flex flex-col gap-4">
-  <CommonPagination :page="page" :total-pages="10" :size="20" :total="200" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
-  <CommonPagination :page="0" :total-pages="1" :size="20" :total="3" label="Pages of clients" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" always-shown />
+  <SaPagination :page="page" :total-pages="10" :size="20" :total="200" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
+  <SaPagination :page="0" :total-pages="1" :size="20" :total="3" label="Pages of clients" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" always-shown />
 </div></div>
 
 ## Usage
@@ -24,7 +24,7 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 
 ## Look
 
-- **Step**: `.control`, so `control-height` square at least, with `surface` and 14px `ink-700` text.
+- **Step**: `.sa-control`, so `control-height` square at least, with `surface` and 14px `ink-700` text.
 - **Current page**: `primary` with `on-primary` digits, and no border.
 - **Range**: 14px in `ink-500`, on the left from `sm:`, with the pager on the right.
 - **Below `sm:`**: no page numbers and no range. The pager is centred, and the page indicator sits between its two arrows.
@@ -33,7 +33,7 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 ## Behavior
 
 - **Hover**: `ink-50`.
-- **Focus**: the one focus ring through `.control-focus`.
+- **Focus**: the one focus ring through `.sa-control-focus`.
 - **Disabled**: the arrow with nowhere to go, at half opacity with a `not-allowed` cursor.
 - **Several pages**: the first and last pages stay, with one page either side of the current one and an ellipsis for the rest.
 - **One page**: it draws nothing, unless `alwaysShown`.

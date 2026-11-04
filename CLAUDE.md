@@ -41,9 +41,11 @@ npm run format
   of the one app drawing it and any app built like the admin would draw it** (the Common group;
   [the components standard](docs/standards/components-standard.md) owns the rule). Any other
   component is specified in `pages/components/` and lives in its app.
-- **Flat.** No shadows; one card (`CommonCard`); `primary` is the only filled button.
+- **Everything the package names starts with `Sa`**: `SaButton`, `SaMenuItem`, `.sa-control`. A
+  variant is a prop holding a word, as `variant="danger"`. A token's name takes no prefix.
+- **Flat.** No shadows; one card (`SaCard`); `primary` is the only filled button.
 - **Everything a person presses is at least `control-height` (44px)**, in both apps, so that it can be
-  touched: a control through `.control` (`min-h-control`), anything else through `min-h-control`, and
+  touched: a control through `.sa-control` (`min-h-control`), anything else through `min-h-control`, and
   a small icon through a target around it. A link inside a sentence is the one exception. Never write
   a height on a control.
 - **Every text pair holds 4.5:1** (3:1 for borders and focus rings) in light and dark. The theme

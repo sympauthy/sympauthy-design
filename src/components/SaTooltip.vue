@@ -7,7 +7,7 @@ import { TooltipContent, TooltipPortal, TooltipRoot, TooltipTrigger } from 'reka
  * taps it: the reason a disabled control cannot be used.
  *
  * The control is the trigger, so it has to take the pointer and the focus a disabled one refuses:
- * mark it `aria-disabled` rather than `disabled`. It needs a `CommonTooltipProvider` above it.
+ * mark it `aria-disabled` rather than `disabled`. It needs a `SaTooltipProvider` above it.
  */
 withDefaults(
   defineProps<{
@@ -40,7 +40,7 @@ function onPointerUp(event: PointerEvent) {
         :side="side"
         :side-offset="4"
         :collision-padding="16"
-        class="popover overlay-animated z-50 max-w-72 px-3 py-2 text-xs font-normal text-gray-700"
+        class="sa-popover sa-overlay-animated z-50 max-w-72 px-3 py-2 text-xs font-normal text-gray-700"
       >
         {{ text }}
       </TooltipContent>

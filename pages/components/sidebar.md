@@ -1,6 +1,6 @@
 # Sidebar
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonSidebar</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaSidebar</code></p>
 
 An app's navigation: sections of entries on a ground that stays dark in every theme.
 
@@ -8,14 +8,14 @@ An app's navigation: sections of entries on a ground that stays dark in every th
 import { demoSections } from '../.vitepress/theme/demo-shell'
 </script>
 
-<div class="demo vp-raw"><ClientOnly><CommonTooltipProvider>
+<div class="demo vp-raw"><ClientOnly><SaTooltipProvider>
   <div style="width: 256px; height: 420px">
-    <CommonSidebar :sections="demoSections" label="Main" close-label="Close the menu">
+    <SaSidebar :sections="demoSections" label="Main" close-label="Close the menu">
       <template #head><span class="truncate text-lg font-semibold">SympAuthy <span class="ml-1 font-medium text-nav-muted">Admin</span></span></template>
       <template #foot><span class="text-sm">Signed in as Ada</span></template>
-    </CommonSidebar>
+    </SaSidebar>
   </div>
-</CommonTooltipProvider></ClientOnly></div>
+</SaTooltipProvider></ClientOnly></div>
 
 ## Usage
 
@@ -55,7 +55,7 @@ The consumer provides the sections, what draws their links, and the words, since
 
 | Name         | Type                  | Default | Description                                     |
 | ------------ | --------------------- | ------- | ----------------------------------------------- |
-| `sections`   | `SidebarSection[]`    |         | Required. Each a `label` and `entries`.         |
+| `sections`   | `SaSidebarSection[]`  |         | Required. Each a `label` and `entries`.         |
 | `label`      | `string`              |         | Required. Names the navigation.                 |
 | `closeLabel` | `string`              |         | Required. Names the control closing the drawer. |
 | `linkAs`     | `string \| Component` | `'a'`   | What draws a link.                              |

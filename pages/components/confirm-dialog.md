@@ -1,6 +1,6 @@
 # ConfirmDialog
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>ConfirmDialog</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaConfirmDialog</code></p>
 
 The question a destructive action asks before it reaches the server.
 
@@ -11,22 +11,22 @@ const failing = ref(false)
 </script>
 
 <div class="demo"><div class="row">
-  <CommonButton label="Revoke grant" @click="open = true" />
-  <CommonButton label="Revoke grant, with an error" @click="failing = true" />
-  <ConfirmDialog :open="open" confirm-label="Revoke grant" cancel-label="Cancel" @confirm="open = false" @cancel="open = false">
+  <SaButton label="Revoke grant" @click="open = true" />
+  <SaButton label="Revoke grant, with an error" @click="failing = true" />
+  <SaConfirmDialog :open="open" confirm-label="Revoke grant" cancel-label="Cancel" @confirm="open = false" @cancel="open = false">
     <template #title>Revoke this grant?</template>
     The client is signed out of this account at once. This cannot be undone.
-  </ConfirmDialog>
-  <ConfirmDialog :open="failing" confirm-label="Revoke grant" cancel-label="Cancel" error="The server did not answer. Try again in a moment." @confirm="failing = false" @cancel="failing = false">
+  </SaConfirmDialog>
+  <SaConfirmDialog :open="failing" confirm-label="Revoke grant" cancel-label="Cancel" error="The server did not answer. Try again in a moment." @confirm="failing = false" @cancel="failing = false">
     <template #title>Revoke this grant?</template>
     The client is signed out of this account at once. This cannot be undone.
-  </ConfirmDialog>
+  </SaConfirmDialog>
 </div></div>
 
 ## Usage
 
 - **Every destructive action**, before it reaches the server.
-- **`confirmStyle`**: `danger`, the default, for what destroys. Pass another [Button](/components/button) style for a confirmation that destroys nothing.
+- **`confirmVariant`**: `danger`, the default, for what destroys. Pass another [Button](/components/button) variant for a confirmation that destroys nothing.
 - **Not for** a form with several fields: use [Dialog](/components/dialog).
 
 ## Look
@@ -57,19 +57,19 @@ const failing = ref(false)
 
 The consumer provides the title, the consequence, both labels and the handlers, since the component reads no message bundle.
 
-| Name              | Type             | Default               | Description                                         |
-| ----------------- | ---------------- | --------------------- | --------------------------------------------------- |
-| `open`            | `boolean`        |                       | Required. Whether it is drawn.                      |
-| `confirmLabel`    | `string`         |                       | Required. Repeats the title's verb.                 |
-| `cancelLabel`     | `string`         |                       | Required. What backs out.                           |
-| `confirmStyle`    | `ButtonStyle`    | `dangerColoredButton` | The confirming button's style.                      |
-| `confirmDisabled` | `boolean`        | `false`               | Holds it back until what it acts on is chosen.      |
-| `loading`         | `boolean`        | `false`               | While the call runs.                                |
-| `error`           | `string \| null` | `null`                | Why the call failed.                                |
-| `@confirm`        | event            |                       | The confirming button was pressed.                  |
-| `@cancel`         | event            |                       | Cancel, Escape or the scrim.                        |
-| `#title`          | slot             |                       | The question.                                       |
-| `#default`        | slot             |                       | What happens to whom, and whether it can be undone. |
+| Name              | Type              | Default    | Description                                         |
+| ----------------- | ----------------- | ---------- | --------------------------------------------------- |
+| `open`            | `boolean`         |            | Required. Whether it is drawn.                      |
+| `confirmLabel`    | `string`          |            | Required. Repeats the title's verb.                 |
+| `cancelLabel`     | `string`          |            | Required. What backs out.                           |
+| `confirmVariant`  | `SaButtonVariant` | `'danger'` | The confirming button's variant.                    |
+| `confirmDisabled` | `boolean`         | `false`    | Holds it back until what it acts on is chosen.      |
+| `loading`         | `boolean`         | `false`    | While the call runs.                                |
+| `error`           | `string \| null`  | `null`     | Why the call failed.                                |
+| `@confirm`        | event             |            | The confirming button was pressed.                  |
+| `@cancel`         | event             |            | Cancel, Escape or the scrim.                        |
+| `#title`          | slot              |            | The question.                                       |
+| `#default`        | slot              |            | What happens to whom, and whether it can be undone. |
 
 ## Related
 

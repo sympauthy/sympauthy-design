@@ -1,6 +1,6 @@
-# FormRadioGroup
+# RadioGroup
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>FormRadioGroup</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaRadioGroup</code></p>
 
 One choice among a few options a person should see all at once.
 
@@ -19,15 +19,15 @@ const other = ref('all')
 </script>
 
 <div class="demo vp-raw"><div class="stack">
-  <FormField label="Sign out of"><FormRadioGroup v-model="mode" :options="options" aria-label="Sign out of" /></FormField>
-  <FormField label="Sign out of" hint="This cannot be undone."><FormRadioGroup v-model="other" :options="withDisabled" aria-label="Sign out of" /></FormField>
+  <SaField label="Sign out of"><SaRadioGroup v-model="mode" :options="options" aria-label="Sign out of" /></SaField>
+  <SaField label="Sign out of" hint="This cannot be undone."><SaRadioGroup v-model="other" :options="withDisabled" aria-label="Sign out of" /></SaField>
 </div></div>
 
 ## Usage
 
 - **Two to about five options**, where seeing them all helps a person choose.
 - **`disabledReason`**: an option that exists but cannot be chosen, drawn rather than removed.
-- **Not for** a long list: use `FormSelect` on [Field](/components/field).
+- **Not for** a long list: use `SaSelect` on [Field](/components/field).
 - **Not for** something that can be on or off by itself: no shipped control draws that yet.
 
 ## Look
@@ -50,7 +50,7 @@ const other = ref('all')
 ## Accessibility
 
 - **The primitive sets the radio group and radio roles, and the keyboard** (WCAG 4.1.2).
-- **Pass `ariaLabel`**, since `FormField`'s label points at no single control here. A line under it in `FormField` is linked with `aria-describedby`.
+- **Pass `ariaLabel`**, since `SaField`'s label points at no single control here. A line under it in `SaField` is linked with `aria-describedby`.
 - **The mark's border holds 3:1 in light and dark** ([Color](/foundations/color#accessibility)). A disabled mark's need not.
 - **The target is the whole row**, at least `control-height` tall (WCAG 2.5.5).
 

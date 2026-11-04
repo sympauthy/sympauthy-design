@@ -23,7 +23,7 @@ withDefaults(
     placeholder?: string
     /** Names the field, where the label beside it does not point at it. */
     ariaLabel?: string
-    /** Draws the error border; pair it with FormField's `error`. */
+    /** Draws the error border; pair it with SaField's `error`. */
     invalid?: boolean
   }>(),
   {
@@ -78,7 +78,7 @@ defineExpose({ flush })
   <TagsInputRoot
     v-model="model"
     add-on-blur
-    class="control control-focus-within flex w-full flex-wrap items-center gap-1 bg-white"
+    class="sa-control sa-control-focus-within flex w-full flex-wrap items-center gap-1 bg-white"
     :class="invalid ? 'border-danger' : ''"
     @click="focusField"
   >
@@ -99,7 +99,7 @@ defineExpose({ flush })
     </TagsInputItem>
 
     <TagsInputInput
-      class="control-text min-w-16 flex-1 bg-transparent outline-none"
+      class="sa-control-text min-w-16 flex-1 bg-transparent outline-none"
       :placeholder="placeholder"
       :aria-label="ariaLabel"
       :aria-describedby="description"

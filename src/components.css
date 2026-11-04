@@ -13,60 +13,60 @@
    * chose, so a thumb hits it. Its border is stated (gray-400, 3:1 on white) rather than inherited
    * from the gray-200 every other border takes, which is too faint to find a field by.
    */
-  .control {
+  .sa-control {
     @apply min-h-control min-w-control rounded-md border border-gray-400 px-3 py-2 text-sm;
   }
 
   /**
-   * What typed text adds to `.control`, declared after it so that its 16px wins: below that, iOS
-   * zooms the page when the control takes focus. `.control-text` is the text alone, for a bare input
+   * What typed text adds to `.sa-control`, declared after it so that its 16px wins: below that, iOS
+   * zooms the page when the control takes focus. `.sa-control-text` is the text alone, for a bare input
    * inside a box something else draws.
    */
-  .control-field,
-  .control-text {
+  .sa-control-field,
+  .sa-control-text {
     @apply text-base text-gray-900 placeholder:text-gray-500;
   }
 
-  .control-field {
+  .sa-control-field {
     @apply bg-white disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500;
   }
 
   /** The name above a value, wherever a value is read. */
-  .field-label {
+  .sa-field-label {
     @apply text-xs font-medium tracking-wider text-gray-500 uppercase;
   }
 
   /** The one focus ring. */
-  .control-focus {
+  .sa-control-focus {
     @apply focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none;
   }
 
   /** The same ring, for a control made of more than one focusable part. */
-  .control-focus-within {
+  .sa-control-focus-within {
     @apply focus-within:border-primary focus-within:ring-1 focus-within:ring-primary;
   }
 
   /** A link inside a sentence: underlined at rest, so its color is not its only signal. */
-  .link {
+  .sa-link {
     @apply cursor-pointer text-primary underline outline-primary hover:text-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   /** A menu an overlay drops. Flat: a border, no shadow. */
-  .menu {
+  .sa-menu {
     @apply z-10 rounded-md border border-gray-200 bg-white;
   }
 
-  .menu-item {
+  .sa-menu-item {
     @apply flex min-h-control w-full cursor-pointer items-center gap-2 px-4 py-2 text-left text-sm outline-none first:rounded-t-md last:rounded-b-md;
   }
 
   /* A stacked cell names its column with the label a table draws over it. */
-  .table-as-cards td[data-label]::before {
+  .sa-table-as-cards td[data-label]::before {
     @apply text-xs font-medium tracking-wider text-gray-500 uppercase;
   }
 
   /** The surface an overlay explains or asks something on. A card's radius, no shadow. */
-  .popover {
+  .sa-popover {
     @apply rounded-lg border border-gray-200 bg-white;
   }
 }
@@ -81,21 +81,21 @@
  * `whitespace-nowrap`, `divide-y`) that a layered rule could not reach, whatever its specificity.
  */
 @media (width < theme(--breakpoint-sm)) {
-  .table-as-cards,
-  .table-as-cards tbody,
-  .table-as-cards tr {
+  .sa-table-as-cards,
+  .sa-table-as-cards tbody,
+  .sa-table-as-cards tr {
     display: block;
   }
 
   /* The column names move into the cells; the header row has nothing left to say. */
-  .table-as-cards thead {
+  .sa-table-as-cards thead {
     display: none;
   }
 
   /* `divide-y` colours a row's top border and deliberately skips the last child, so a card
      bordered on four sides states its own colour — and its own ground, since the gutters between
      cards belong to the page and not to the white the table body paints. */
-  .table-as-cards tr {
+  .sa-table-as-cards tr {
     border-width: 1px;
     border-color: var(--color-gray-200);
     border-radius: var(--radius-lg);
@@ -103,21 +103,21 @@
     padding: calc(var(--spacing) * 4);
   }
 
-  .table-as-cards tbody {
+  .sa-table-as-cards tbody {
     background-color: transparent;
   }
 
-  .table-as-cards tr + tr {
+  .sa-table-as-cards tr + tr {
     margin-top: calc(var(--spacing) * 4);
   }
 
   /* A column the page drops on a phone stays dropped: it carries `hidden`, and what a screen has
      already decided not to show a phone is not resurrected by being stacked. */
-  .table-as-cards td:not(.hidden) {
+  .sa-table-as-cards td:not(.hidden) {
     display: block;
   }
 
-  .table-as-cards td {
+  .sa-table-as-cards td {
     max-width: none;
     padding: 0;
     overflow: visible;
@@ -125,22 +125,22 @@
     white-space: normal;
   }
 
-  .table-as-cards td + td {
+  .sa-table-as-cards td + td {
     margin-top: calc(var(--spacing) * 3);
   }
 
-  .table-as-cards td:empty {
+  .sa-table-as-cards td:empty {
     display: none;
   }
 
   /* A value cut with an ellipsis across a row has the width of the card to wrap into down one. */
-  .table-as-cards td > .cell-truncate {
+  .sa-table-as-cards td > .sa-cell-truncate {
     overflow: visible;
     text-overflow: clip;
     white-space: normal;
   }
 
-  .table-as-cards td[data-label]::before {
+  .sa-table-as-cards td[data-label]::before {
     content: attr(data-label);
     display: block;
     margin-bottom: calc(var(--spacing) * 1);
@@ -148,7 +148,7 @@
 }
 
 /** Header row kept visible while the rows of a full height table scroll under it. **/
-.table-pinned-header thead th {
+.sa-table-pinned-header thead th {
   position: sticky;
   top: 0;
   z-index: 10;
@@ -157,20 +157,20 @@
 }
 
 /** The one motion: an overlay arriving from just above what opened it. */
-.overlay-animated[data-state='open'],
-.overlay-animated[data-state='delayed-open'],
-.overlay-animated[data-state='instant-open'] {
+.sa-overlay-animated[data-state='open'],
+.sa-overlay-animated[data-state='delayed-open'],
+.sa-overlay-animated[data-state='instant-open'] {
   animation: sympauthy-overlay-in 120ms ease-out;
 }
-.overlay-animated[data-state='closed'] {
+.sa-overlay-animated[data-state='closed'] {
   animation: sympauthy-overlay-out 100ms ease-in;
 }
 
 /** A dialog's fade. Its card is centred by a transform, which the motion above would undo. */
-.dialog-animated[data-state='open'] {
+.sa-dialog-animated[data-state='open'] {
   animation: sympauthy-dialog-in 200ms ease-out;
 }
-.dialog-animated[data-state='closed'] {
+.sa-dialog-animated[data-state='closed'] {
   animation: sympauthy-dialog-out 200ms ease-in;
 }
 
@@ -213,8 +213,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .overlay-animated,
-  .dialog-animated {
+  .sa-overlay-animated,
+  .sa-dialog-animated {
     animation: none !important;
   }
 }

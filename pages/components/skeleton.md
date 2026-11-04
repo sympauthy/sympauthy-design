@@ -1,17 +1,17 @@
 # Skeleton
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonSkeleton</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaSkeleton</code></p>
 
 The place of a value that has not arrived, the size of what will replace it.
 
 <div class="demo"><div class="stack">
-  <CommonCard>
+  <SaCard>
     <div class="flex flex-col gap-3">
-      <CommonSkeleton class="h-4 w-48" />
-      <CommonSkeleton class="h-4 w-32" />
-      <CommonSkeleton class="size-24" />
+      <SaSkeleton class="h-4 w-48" />
+      <SaSkeleton class="h-4 w-32" />
+      <SaSkeleton class="size-24" />
     </div>
-  </CommonCard>
+  </SaCard>
 </div></div>
 
 ## Usage

@@ -1,12 +1,12 @@
 # Alert
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonAlert</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaAlert</code></p>
 
 A message box that stays on screen: `danger` for a failure, `warning` for what must be read first.
 
 <div class="demo"><div class="stack" style="max-width: 560px">
-  <CommonAlert>An unexpected error occurred. Please go back to your application and retry to sign in.</CommonAlert>
-  <CommonAlert color="warning">This secret is shown once. Copy it before you close this dialog.</CommonAlert>
+  <SaAlert>An unexpected error occurred. Please go back to your application and retry to sign in.</SaAlert>
+  <SaAlert color="warning">This secret is shown once. Copy it before you close this dialog.</SaAlert>
 </div></div>
 
 ## Usage
@@ -22,7 +22,7 @@ A message box that stays on screen: `danger` for a failure, `warning` for what m
 - **Text**: 14px.
 - **`danger`**: `danger-subtle` fill, `danger-line` border, `danger` text.
 - **`warning`**: `warning-subtle` fill, `warning-line` border, `warning` text.
-- **On a dark page**: `CommonAlert` keeps these colors' Light values for now ([#4](https://github.com/sympauthy/sympauthy-design/issues/4)).
+- **On a dark page**: `SaAlert` keeps these colors' Light values for now ([#4](https://github.com/sympauthy/sympauthy-design/issues/4)).
 
 ## Content
 

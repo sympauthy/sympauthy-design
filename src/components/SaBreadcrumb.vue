@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
 import { ChevronRightIcon } from '@heroicons/vue/20/solid'
-import { PAGE_ACTIONS_OUTLET } from './pageActionsOutlet'
+import { SA_PAGE_ACTIONS_OUTLET } from './pageActionsOutlet'
 
-export interface BreadcrumbItem {
+export interface SaBreadcrumbItem {
   key: string
   label: string
   /** What the link is given, as `{ href }` or a router's `{ to }`. The last item takes none. */
@@ -12,12 +12,12 @@ export interface BreadcrumbItem {
 
 /**
  * The bar naming the screen: its ancestors as links, the screen itself, and at its right end what
- * `PageActions` draws. The package knows no router, so an app that has one derives the items from it
+ * `SaPageActions` draws. The package knows no router, so an app that has one derives the items from it
  * and names its link in [linkAs].
  */
 withDefaults(
   defineProps<{
-    items: BreadcrumbItem[]
+    items: SaBreadcrumbItem[]
     /** Names the bar, as "Where you are". */
     label: string
     /** What draws a link: an element's name, or a component such as a router's link. */
@@ -54,9 +54,9 @@ withDefaults(
           </span>
         </li>
       </ol>
-      <!-- Filled by whichever screen is open, through `PageActions`. Empty on a screen with nothing
+      <!-- Filled by whichever screen is open, through `SaPageActions`. Empty on a screen with nothing
            to do, where it takes no room. -->
-      <div :id="PAGE_ACTIONS_OUTLET" class="flex shrink-0 items-center gap-2" />
+      <div :id="SA_PAGE_ACTIONS_OUTLET" class="flex shrink-0 items-center gap-2" />
     </div>
   </nav>
 </template>

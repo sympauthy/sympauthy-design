@@ -1,15 +1,21 @@
 <script lang="ts" setup>
 import { computed, useAttrs, type Component } from 'vue'
-import { type ButtonStyle, primaryColoredButton } from './ButtonStyle'
-import CommonSpinner from './CommonSpinner.vue'
+import SaSpinner from './SaSpinner.vue'
+
+export type SaButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger'
 
 /**
- * Every button of both apps. Ported from sympauthy-admin's `CommonButton`, without its knowledge of
+ * Every button of both apps. Ported from sympauthy-admin's button, without its knowledge of
  * scopes: an app that refuses a button for a reason (the admin, for a missing scope) passes
  * `refused` and wraps the button in its own tooltip saying why.
  */
 interface Props {
-  buttonStyle?: ButtonStyle
+  /**
+   * `primary` for what the screen is for, and the only filled button. `secondary` for everything
+   * beside it. `outline` for the alternative path inside an auth card. `danger` for what destroys or
+   * revokes, inside a confirmation only.
+   */
+  variant?: SaButtonVariant
   /**
    * What the button does. Written here rather than in the default slot so that the button in
    * flight keeps saying it, and so that a button whose label is collapsed still carries it as a
@@ -43,7 +49,7 @@ interface Props {
 defineOptions({ inheritAttrs: false })
 
 const props = withDefaults(defineProps<Props>(), {
-  buttonStyle: () => primaryColoredButton,
+  variant: 'primary',
   label: undefined,
   icon: undefined,
   trailingIcon: undefined,
@@ -70,11 +76,39 @@ const computedDisabled = computed(
   () => !props.refused && (props.loading || props.submitting || props.disabled)
 )
 
+const variantClasses: Record<
+  SaButtonVariant,
+  { active: string; waiting: string; disabled: string }
+> = {
+  primary: {
+    active: 'border-transparent bg-primary text-on-primary hover:bg-primary-hover',
+    waiting: 'border-transparent bg-primary text-on-primary cursor-wait',
+    disabled: 'border-transparent bg-disabled text-on-disabled cursor-not-allowed'
+  },
+  secondary: {
+    active: 'border-gray-200 bg-gray-100 text-gray-700 hover:bg-gray-200',
+    waiting: 'border-gray-200 bg-gray-100 text-gray-700 cursor-wait',
+    // Paler than its active state, not darker: a toolbar's refresh control wears it on every fetch.
+    disabled: 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed'
+  },
+  outline: {
+    active: 'border-primary bg-transparent text-primary hover:bg-primary-subtle',
+    waiting: 'border-primary bg-transparent text-primary cursor-wait',
+    disabled: 'border-gray-200 bg-transparent text-gray-400 cursor-not-allowed'
+  },
+  // Soft, so that it never competes with primary.
+  danger: {
+    active: 'border-red-200 bg-red-50 text-red-700 hover:bg-red-100',
+    waiting: 'border-red-200 bg-red-50 text-red-700 cursor-wait',
+    disabled: 'border-transparent bg-disabled text-on-disabled cursor-not-allowed'
+  }
+}
+
 const computedClasses = computed(() => {
-  if (props.disabled || props.refused) return props.buttonStyle.disabledClasses
-  if (props.loading) return props.buttonStyle.loadingClasses
-  if (props.submitting) return props.buttonStyle.submittingClasses
-  return props.buttonStyle.activeClasses
+  const classes = variantClasses[props.variant]
+  if (props.disabled || props.refused) return classes.disabled
+  if (props.loading || props.submitting) return classes.waiting
+  return classes.active
 })
 
 const sizeClasses = computed(() =>
@@ -95,9 +129,9 @@ const stateSlot = computed(() => {
     :class="[computedClasses, sizeClasses]"
     :disabled="computedDisabled"
     :title="props.label"
-    class="control flex items-center justify-center gap-1.5 transition-colors"
+    class="sa-control flex items-center justify-center gap-1.5 transition-colors"
   >
-    <CommonSpinner v-if="loading || submitting" size="sm" />
+    <SaSpinner v-if="loading || submitting" size="sm" />
     <component :is="props.icon" v-else-if="props.icon" class="size-4 shrink-0" />
     <span :class="props.collapseLabel ? 'hidden sm:inline' : ''">
       <slot :name="stateSlot">{{ props.label }}</slot>

@@ -39,7 +39,7 @@ const open = defineModel<boolean>('open')
         align="center"
         :side-offset="4"
         :collision-padding="16"
-        class="popover overlay-animated z-50 w-72 max-w-[calc(100vw-2rem)] p-3 text-sm font-normal text-gray-700"
+        class="sa-popover sa-overlay-animated z-50 w-72 max-w-[calc(100vw-2rem)] p-3 text-sm font-normal text-gray-700"
       >
         <slot />
       </PopoverContent>

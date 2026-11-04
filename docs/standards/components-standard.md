@@ -21,12 +21,12 @@ the one app drawing it and any app built like the admin would draw it.** Any oth
 in its app, specified in `pages/components/` under that app's group.
 
 **A component names nothing of an app when no entity, scope, route or sentence of that app reaches
-it.** `CommonTag` qualifies and `OriginTag` does not, since a claim's origin is the admin's own
+it.** `SaTag` qualifies and `OriginTag` does not, since a claim's origin is the admin's own
 term.
 
 **A shipped component knows no store, no router, no auth and no message bundle.** Hand it the words
 it draws and the links it follows as props or slots. An app that needs more wraps it, as the admin's
-`CommonButton` adds its scopes.
+button adds its scopes.
 
 **A shipped component holds its contrast in light and dark, whatever the app drawing it pins.**
 Check it in both themes when it moves, since the admin is pinned light and never saw the other.
@@ -52,16 +52,31 @@ foundation](../../pages/foundations/iconography.md).
 **A component's module runs nothing at its top level but declarations.** That keeps a component an
 app does not import out of its bundle, through the one barrel in `src/index.ts`.
 
+## What a thing is named
+
+**Everything the package names starts with `Sa`.** A component is `SaButton`, a type `SaMenuItem`, a
+composable `useSaAutoPageSize`, a constant `SA_PAGE_ACTIONS_OUTLET` and a class of `components.css`
+`.sa-control`. An app's own component then never has to be imported under another name.
+
+**A component is `Sa` and a noun naming what it is.** A part is `Sa`, its parent and the part:
+`SaTableCell`. Its file is that name.
+
+**A variant is a prop holding a word, as `variant="danger"`.** Export the type of its values as
+`Sa…Variant`, never a set of class names for a caller to pass.
+
+**A token's name takes no prefix, and neither do the type styles it builds.** `control-height` and
+`panel-body` are the design system's values, and the server's stylesheet answers them.
+
 ## Which pages exist
 
 **Every component `src/index.ts` exports is named on a page's status line.** Parts drawn together
-share a page: `FormField` and `FormInput` are Field, and a `ButtonStyle` is Button.
+share a page: `SaField` and `SaInput` are Field.
 
 **One component is one page.** Keep its variants, its specification and its API together, with no
 tabs and no subpages.
 
-**A page's title is the component's name, and its file is that name in kebab-case.** The sidebar
-label is the same name, word for word.
+**A page's title is the component's name without `Sa`, and its file is that name in kebab-case.** The
+sidebar label is the same name, word for word.
 
 **A new page joins the Common group of the sidebar in `pages/.vitepress/config.ts` and of
 `pages/components/index.md` in the same commit.**
@@ -103,9 +118,7 @@ commit.
 Markdown is not read inside the paragraph.
 
 ```html
-<p class="caps-note">
-  Common · shipped in <code>@sympauthy/design</code> as <code>CommonAlert</code>
-</p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaAlert</code></p>
 ```
 
 **A demo draws the real component in a `.demo`, in every variant and state its props offer.** Import

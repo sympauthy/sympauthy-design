@@ -25,7 +25,7 @@ npm install github:sympauthy/sympauthy-design#v0.3.0
 
 ```ts
 import '@sympauthy/design/fonts.css'
-import { CommonButton, fetchBrand } from '@sympauthy/design'
+import { SaButton, fetchBrand } from '@sympauthy/design'
 ```
 
 The full guide is [Using in the apps](pages/using-in-apps.md).
@@ -38,7 +38,7 @@ scripts/build-theme.mjs  tokens.json → dist/theme.css, tokens.css, tokens-ligh
 src/
   components/            the Common components (Alert, Button, Card, Field and the rest)
   theme/                 branding: /branding, applyTheme, derivePalette, the overridable roles
-  components.css         .control, .menu, .popover… shared by both apps
+  components.css         .sa-control, .sa-menu, .sa-popover… shared by both apps
   fonts.css              self-hosted Plus Jakarta Sans and JetBrains Mono
 logos/                   the mark: SVG, favicons, app icons
 docs/                    how this repository is built: its design and its standards

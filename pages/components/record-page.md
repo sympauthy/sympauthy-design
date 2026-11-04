@@ -1,6 +1,6 @@
 # RecordPage
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SummaryCard</code>, <code>SummaryField</code>, <code>DetailSection</code>, <code>DefinitionList</code> and <code>DefinitionRow</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaSummaryCard</code>, <code>SaSummaryField</code>, <code>SaDetailSection</code>, <code>SaDefinitionList</code> and <code>SaDefinitionRow</code></p>
 
 The shape of one record: a summary card, then sections of fields.
 
@@ -9,25 +9,25 @@ const copied = { label: 'Copy client ID', copiedLabel: 'Client ID copied', faile
 </script>
 
 <div class="demo vp-raw"><div class="flex flex-col gap-6">
-  <SummaryCard>
-    <SummaryField label="Client ID" mono><CopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" v-bind="copied" /></SummaryField>
-    <SummaryField label="Type">Confidential</SummaryField>
-    <SummaryField label="Status"><CommonTag color="green">Active</CommonTag></SummaryField>
-  </SummaryCard>
-  <DetailSection title="Authorization">
-    <DefinitionList>
-      <DefinitionRow label="Redirect URI" mono>https://billing.example.com/callback</DefinitionRow>
-      <DefinitionRow label="Scopes"><div class="flex flex-wrap gap-1"><CommonTag color="blue">openid</CommonTag><CommonTag color="blue">email</CommonTag></div></DefinitionRow>
-      <DefinitionRow label="Webhook"><EmptyValue label="Not set" /></DefinitionRow>
-    </DefinitionList>
-  </DetailSection>
+  <SaSummaryCard>
+    <SaSummaryField label="Client ID" mono><SaCopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" v-bind="copied" /></SaSummaryField>
+    <SaSummaryField label="Type">Confidential</SaSummaryField>
+    <SaSummaryField label="Status"><SaTag color="green">Active</SaTag></SaSummaryField>
+  </SaSummaryCard>
+  <SaDetailSection title="Authorization">
+    <SaDefinitionList>
+      <SaDefinitionRow label="Redirect URI" mono>https://billing.example.com/callback</SaDefinitionRow>
+      <SaDefinitionRow label="Scopes"><div class="flex flex-wrap gap-1"><SaTag color="blue">openid</SaTag><SaTag color="blue">email</SaTag></div></SaDefinitionRow>
+      <SaDefinitionRow label="Webhook"><SaEmptyValue label="Not set" /></SaDefinitionRow>
+    </SaDefinitionList>
+  </SaDetailSection>
 </div></div>
 
 ## Usage
 
-- **`SummaryCard` and `SummaryField`**: what identifies the record, first on the page. It carries no heading and no actions, since the bar above names the record and holds what can be done to it.
-- **`DetailSection`**: a titled part of the record, under the summary.
-- **`DefinitionList` and `DefinitionRow`**: the fields of a section.
+- **`SaSummaryCard` and `SaSummaryField`**: what identifies the record, first on the page. It carries no heading and no actions, since the bar above names the record and holds what can be done to it.
+- **`SaDetailSection`**: a titled part of the record, under the summary.
+- **`SaDefinitionList` and `SaDefinitionRow`**: the fields of a section.
 - **`mono`**: a value read character by character, such as an identifier, an address or a token.
 - **Not for** a list of records: use [Table](/components/table).
 - **Not for** values being filled in: use [Field](/components/field).
@@ -35,10 +35,10 @@ const copied = { label: 'Copy client ID', copiedLabel: 'Client ID copied', faile
 ## Look
 
 - **Summary card**: a [Card](/components/card) holding its fields in three columns from `sm:` and one below it, `space-4` apart.
-- **Summary field**: a `.field-label` over its value, `space-1` apart, in 14px `ink-900`. A `mono` value is cut with an ellipsis.
+- **Summary field**: a `.sa-field-label` over its value, `space-1` apart, in 14px `ink-900`. A `mono` value is cut with an ellipsis.
 - **Section title**: `panel-heading` in `ink-900`, as an `h2`, `space-4` above its content.
 - **Definition list**: a flush [Card](/components/card), with its rows split by `ink-200`.
-- **Definition row**: `space-3` by `space-4`, `space-6` from `sm:`. Its `.field-label` sits beside the value from `sm:`, one third to two thirds, and above it below `sm:`. A long value breaks anywhere rather than scrolling the page.
+- **Definition row**: `space-3` by `space-4`, `space-6` from `sm:`. Its `.sa-field-label` sits beside the value from `sm:`, one third to two thirds, and above it below `sm:`. A long value breaks anywhere rather than scrolling the page.
 - **A missing value**: an [EmptyValue](/components/empty-value).
 
 ## Accessibility
@@ -50,13 +50,13 @@ const copied = { label: 'Copy client ID', copiedLabel: 'Client ID copied', faile
 
 The consumer provides the record's values, its titles and labels, and any help beside them.
 
-### SummaryCard and DefinitionList
+### SaSummaryCard and SaDefinitionList
 
-| Name       | Type | Default | Description                           |
-| ---------- | ---- | ------- | ------------------------------------- |
-| `#default` | slot |         | `SummaryField`s, or `DefinitionRow`s. |
+| Name       | Type | Default | Description                               |
+| ---------- | ---- | ------- | ----------------------------------------- |
+| `#default` | slot |         | `SaSummaryField`s, or `SaDefinitionRow`s. |
 
-### SummaryField
+### SaSummaryField
 
 | Name       | Type      | Default | Description                                 |
 | ---------- | --------- | ------- | ------------------------------------------- |
@@ -65,7 +65,7 @@ The consumer provides the record's values, its titles and labels, and any help b
 | `#default` | slot      |         | The value: a tag, a link or an identifier.  |
 | `#help`    | slot      |         | Drawn beside the label, for an explanation. |
 
-### DetailSection
+### SaDetailSection
 
 | Name       | Type     | Default | Description                                 |
 | ---------- | -------- | ------- | ------------------------------------------- |
@@ -73,7 +73,7 @@ The consumer provides the record's values, its titles and labels, and any help b
 | `#default` | slot     |         | Its content.                                |
 | `#help`    | slot     |         | Drawn beside the title, for an explanation. |
 
-### DefinitionRow
+### SaDefinitionRow
 
 | Name       | Type      | Default     | Description                              |
 | ---------- | --------- | ----------- | ---------------------------------------- |

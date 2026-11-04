@@ -6,11 +6,11 @@ import { useFieldDescription } from './fieldDescription'
 /**
  * A choice among the values a field admits, written as `option` elements in the default slot. The
  * browser's arrow is replaced by a chevron, since it follows neither the theme nor the box's
- * padding, and a list the deployment sizes reaches for `FormListbox` instead.
+ * padding, and a list the deployment sizes reaches for `SaListbox` instead.
  */
 const props = withDefaults(
   defineProps<{
-    /** Draws the error border; pair it with FormField's `error`. */
+    /** Draws the error border; pair it with SaField's `error`. */
     invalid?: boolean
   }>(),
   {
@@ -21,7 +21,7 @@ const props = withDefaults(
 const model = defineModel<string>({ default: '' })
 const description = useFieldDescription()
 
-// As FormInput: `class` sizes the wrapper the chevron is positioned against, and everything else a
+// As SaInput: `class` sizes the wrapper the chevron is positioned against, and everything else a
 // caller says is said to the select.
 defineOptions({ inheritAttrs: false })
 
@@ -41,7 +41,7 @@ const fieldAttrs = computed(() => {
       v-bind="fieldAttrs"
       v-model="model"
       :aria-invalid="props.invalid || undefined"
-      class="control control-focus control-field block w-full appearance-none pr-9"
+      class="sa-control sa-control-focus sa-control-field block w-full appearance-none pr-9"
       :class="props.invalid ? 'border-danger' : ''"
     >
       <slot />

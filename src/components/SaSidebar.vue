@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
 import { XMarkIcon } from '@heroicons/vue/20/solid'
-import CommonTooltip from './CommonTooltip.vue'
+import SaTooltip from './SaTooltip.vue'
 
-export interface SidebarEntry {
+export interface SaSidebarEntry {
   key: string
   label: string
   /** What the link is given, as `{ href }` or a router's `{ to }`. */
@@ -14,9 +14,9 @@ export interface SidebarEntry {
   disabledReason?: string
 }
 
-export interface SidebarSection {
+export interface SaSidebarSection {
   label: string
-  entries: SidebarEntry[]
+  entries: SaSidebarEntry[]
 }
 
 /**
@@ -25,7 +25,7 @@ export interface SidebarSection {
  */
 withDefaults(
   defineProps<{
-    sections: SidebarSection[]
+    sections: SaSidebarSection[]
     /** Names the navigation, as "Main". */
     label: string
     /** Names the control closing the drawer below `lg:`. */
@@ -70,7 +70,7 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
           {{ section.label }}
         </li>
         <li v-for="entry in section.entries" :key="entry.key">
-          <CommonTooltip v-if="entry.disabledReason" :text="entry.disabledReason" side="right">
+          <SaTooltip v-if="entry.disabledReason" :text="entry.disabledReason" side="right">
             <span
               role="link"
               aria-disabled="true"
@@ -80,7 +80,7 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
             >
               {{ entry.label }}
             </span>
-          </CommonTooltip>
+          </SaTooltip>
           <component
             :is="linkAs"
             v-else

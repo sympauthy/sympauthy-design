@@ -1,12 +1,12 @@
 # LoadingState
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>LoadingState</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaLoadingState</code></p>
 
 What a screen shows while it waits: a spinner and a line saying what is being waited for.
 
 <div class="demo"><div class="stack">
-  <LoadingState label="Loading users." />
-  <CommonCard><LoadingState label="Waiting for a response from the server." size="lg" /></CommonCard>
+  <SaLoadingState label="Loading users." />
+  <SaCard><SaLoadingState label="Waiting for a response from the server." size="lg" /></SaCard>
 </div></div>
 
 ## Usage

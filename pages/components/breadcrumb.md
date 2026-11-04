@@ -1,6 +1,6 @@
 # Breadcrumb
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonBreadcrumb</code> and <code>PageActions</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaBreadcrumb</code> and <code>SaPageActions</code></p>
 
 The bar naming the screen: its ancestors as links, the screen itself, and what can be done there.
 
@@ -11,15 +11,15 @@ const top = [{ key: 'users', label: 'Users' }]
 
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <ClientOnly>
-    <CommonBreadcrumb :items="items" label="Where you are" />
-    <PageActions><CommonButton label="Create user" /></PageActions>
+    <SaBreadcrumb :items="items" label="Where you are" />
+    <SaPageActions><SaButton label="Create user" /></SaPageActions>
   </ClientOnly>
 </div></div>
 
 ## Usage
 
 - **Every screen inside an [AppShell](/components/app-shell)**, in its `#bar`.
-- **`PageActions`**: what a screen lets a person do, written where the action belongs in the screen's own file and drawn in the bar, so that it sits in the same place on every screen and does not move when a filter appears under it. A collection's action is a [Button](/components/button), and a record's are a [Menu](/components/menu).
+- **`SaPageActions`**: what a screen lets a person do, written where the action belongs in the screen's own file and drawn in the bar, so that it sits in the same place on every screen and does not move when a filter appears under it. A collection's action is a [Button](/components/button), and a record's are a [Menu](/components/menu).
 - **Not for** a process with steps: nothing here says how far along a person is.
 
 ## Look
@@ -49,23 +49,23 @@ const top = [{ key: 'users', label: 'Users' }]
 
 The consumer provides the items and what draws their links, since the component knows no router. With one, derive the items from it, pass its link as `linkAs` and each item's `{ to }` as its `link`.
 
-### CommonBreadcrumb
+### SaBreadcrumb
 
 | Name     | Type                  | Default | Description                                                       |
 | -------- | --------------------- | ------- | ----------------------------------------------------------------- |
-| `items`  | `BreadcrumbItem[]`    |         | Required. Each a `key`, a `label` and a `link`, but for the last. |
+| `items`  | `SaBreadcrumbItem[]`  |         | Required. Each a `key`, a `label` and a `link`, but for the last. |
 | `label`  | `string`              |         | Required. Names the bar.                                          |
 | `linkAs` | `string \| Component` | `'a'`   | What draws a link.                                                |
 
-### PageActions
+### SaPageActions
 
 | Name       | Type | Default | Description                       |
 | ---------- | ---- | ------- | --------------------------------- |
 | `#default` | slot |         | What the screen lets a person do. |
 
-`PAGE_ACTIONS_OUTLET` is exported as well: the `id` of the element it draws into.
+`SA_PAGE_ACTIONS_OUTLET` is exported as well: the `id` of the element it draws into.
 
 ## Related
 
 - [AppShell](/components/app-shell): where it goes.
-- [Button](/components/button) and [Menu](/components/menu): what goes in `PageActions`.
+- [Button](/components/button) and [Menu](/components/menu): what goes in `SaPageActions`.

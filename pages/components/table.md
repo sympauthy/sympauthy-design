@@ -1,6 +1,6 @@
 # Table
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonTable</code>, <code>TableHeader</code> and <code>TableCell</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaTable</code>, <code>SaTableHeader</code> and <code>SaTableCell</code></p>
 
 Any table of records: a header row, rows of cells, and what it shows instead while it waits, fails or holds nothing.
 
@@ -19,48 +19,48 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 </script>
 
 <div class="demo vp-raw"><div class="flex flex-col gap-6">
-  <CommonTable loading-label="Loading users.">
+  <SaTable loading-label="Loading users.">
     <template #header>
-      <TableHeader>Name</TableHeader>
-      <TableHeader hidden-below="lg">Email</TableHeader>
-      <TableHeader hidden-below="sm">Identifier</TableHeader>
-      <TableHeader fit>Status</TableHeader>
+      <SaTableHeader>Name</SaTableHeader>
+      <SaTableHeader hidden-below="lg">Email</SaTableHeader>
+      <SaTableHeader hidden-below="sm">Identifier</SaTableHeader>
+      <SaTableHeader fit>Status</SaTableHeader>
     </template>
     <template #rows>
       <tr v-for="user in users" :key="user.id">
-        <TableCell primary>{{ user.name }}</TableCell>
-        <TableCell label="Email" hidden-below="lg" truncate>{{ user.email }}</TableCell>
-        <TableCell label="Identifier" hidden-below="sm" mono fit>{{ user.id }}</TableCell>
-        <TableCell label="Status" fit><CommonTag :color="user.color">{{ user.status }}</CommonTag></TableCell>
+        <SaTableCell primary>{{ user.name }}</SaTableCell>
+        <SaTableCell label="Email" hidden-below="lg" truncate>{{ user.email }}</SaTableCell>
+        <SaTableCell label="Identifier" hidden-below="sm" mono fit>{{ user.id }}</SaTableCell>
+        <SaTableCell label="Status" fit><SaTag :color="user.color">{{ user.status }}</SaTag></SaTableCell>
       </tr>
     </template>
     <template #footer>
-      <CommonPagination :page="page" :total-pages="3" :size="3" :total="9" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
+      <SaPagination :page="page" :total-pages="3" :size="3" :total="9" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
     </template>
-  </CommonTable>
+  </SaTable>
   <div style="height: 300px">
-    <CommonTable fill auto-page-size loading-label="Loading clients." @page-size-change="fits = $event">
-      <template #header><TableHeader>Name</TableHeader><TableHeader fit>Identifier</TableHeader></template>
+    <SaTable fill auto-page-size loading-label="Loading clients." @page-size-change="fits = $event">
+      <template #header><SaTableHeader>Name</SaTableHeader><SaTableHeader fit>Identifier</SaTableHeader></template>
       <template #rows>
         <tr v-for="client in many.slice(0, fits)" :key="client.id">
-          <TableCell primary>{{ client.name }}</TableCell>
-          <TableCell label="Identifier" mono fit>{{ client.id }}</TableCell>
+          <SaTableCell primary>{{ client.name }}</SaTableCell>
+          <SaTableCell label="Identifier" mono fit>{{ client.id }}</SaTableCell>
         </tr>
       </template>
       <template #footer><p class="text-sm text-gray-500">{{ fits }} rows fit this height.</p></template>
-    </CommonTable>
+    </SaTable>
   </div>
-  <CommonTable loading-label="Loading users." loading />
-  <CommonTable loading-label="Loading users." error="The users could not be loaded. Try again in a moment." />
-  <CommonTable loading-label="Loading users." empty>
+  <SaTable loading-label="Loading users." loading />
+  <SaTable loading-label="Loading users." error="The users could not be loaded. Try again in a moment." />
+  <SaTable loading-label="Loading users." empty>
     <template #empty><p class="text-sm text-gray-500">No user matches this search.</p></template>
-  </CommonTable>
+  </SaTable>
 </div></div>
 
 ## Usage
 
 - **A list of records with the same fields**, read across.
-- **`TableHeader` and `TableCell`**: every column and every cell. A screen writes no padding, text size or color of its own.
+- **`SaTableHeader` and `SaTableCell`**: every column and every cell. A screen writes no padding, text size or color of its own.
 - **`fit`**: a column that takes only the width its content needs, such as a status, a date or a row of actions. A column without it takes a share of what is left. That is the whole sizing model, and neither writes a width.
 - **`truncate`**: a value cut with an ellipsis rather than wrapped, under a column taking a share of the width.
 - **`primary`**: the one column identifying the record. Never a status.
@@ -72,10 +72,10 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 ## Look
 
 - **Box**: `surface` with an `ink-200` border and `radius-lg`, from `sm:`.
-- **Header row**: `ink-50`, its names in `.field-label`, 12px by 24px.
+- **Header row**: `ink-50`, its names in `.sa-field-label`, 12px by 24px.
 - **Cell**: 14px in `ink-500`, 16px by 24px, with rows split by `ink-200`.
 - **The `primary` cell**: `panel-strong` in `ink-900`.
-- **Below `sm:`**: every row is its own card on `ground`, and each cell is a line of it under the `.field-label` its `label` gives.
+- **Below `sm:`**: every row is its own card on `ground`, and each cell is a line of it under the `.sa-field-label` its `label` gives.
 - **Footer**: `space-4` under the table.
 
 ## Behavior
@@ -98,9 +98,9 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 
 ## API
 
-The consumer provides the header cells, the rows, the sentence for an empty table and the words, since the component reads no message bundle. The rows and the empty sentence stay the consumer's, so that an app's own sort header can sit among the `TableHeader`s.
+The consumer provides the header cells, the rows, the sentence for an empty table and the words, since the component reads no message bundle. The rows and the empty sentence stay the consumer's, so that an app's own sort header can sit among the `SaTableHeader`s.
 
-### CommonTable
+### SaTable
 
 | Name              | Type                | Default  | Description                                                         |
 | ----------------- | ------------------- | -------- | ------------------------------------------------------------------- |
@@ -118,7 +118,7 @@ The consumer provides the header cells, the rows, the sentence for an empty tabl
 | `#empty`          | slot                |          | The sentence for an empty table.                                    |
 | `#footer`         | slot                |          | What sits under it, usually a [Pagination](/components/pagination). |
 
-### TableHeader
+### SaTableHeader
 
 | Name          | Type           | Default     | Description                    |
 | ------------- | -------------- | ----------- | ------------------------------ |
@@ -126,7 +126,7 @@ The consumer provides the header cells, the rows, the sentence for an empty tabl
 | `hiddenBelow` | `'sm' \| 'lg'` | `undefined` | Dropped below this width.      |
 | `#default`    | slot           |             | The column's name.             |
 
-### TableCell
+### SaTableCell
 
 | Name          | Type           | Default     | Description                                      |
 | ------------- | -------------- | ----------- | ------------------------------------------------ |
@@ -138,7 +138,7 @@ The consumer provides the header cells, the rows, the sentence for an empty tabl
 | `hiddenBelow` | `'sm' \| 'lg'` | `undefined` | Dropped below this width.                        |
 | `#default`    | slot           |             | The value.                                       |
 
-`useAutoPageSize` is exported as well, for a list that is not a table.
+`useSaAutoPageSize` is exported as well, for a list that is not a table.
 
 ## Related
 

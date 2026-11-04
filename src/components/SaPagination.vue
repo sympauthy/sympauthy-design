@@ -62,7 +62,7 @@ const itemsPerPage = computed(() => (props.size > 0 ? props.size : 1))
 const totalItems = computed(() => (props.size > 0 ? props.total : props.totalPages))
 
 const stepClasses =
-  'control control-focus inline-flex items-center justify-center bg-white text-gray-700 hover:bg-gray-50'
+  'sa-control sa-control-focus inline-flex items-center justify-center bg-white text-gray-700 hover:bg-gray-50'
 </script>
 
 <template>

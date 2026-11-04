@@ -1,14 +1,14 @@
 # EmptyValue
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>EmptyValue</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaEmptyValue</code></p>
 
 The dash drawn where a record does not carry a value.
 
 <div class="demo"><div class="stack">
-  <CommonCard>
-    <p class="field-label">Email</p>
-    <p class="mt-1"><EmptyValue label="Not set" /></p>
-  </CommonCard>
+  <SaCard>
+    <p class="sa-field-label">Email</p>
+    <p class="mt-1"><SaEmptyValue label="Not set" /></p>
+  </SaCard>
 </div></div>
 
 ## Usage

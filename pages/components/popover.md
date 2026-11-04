@@ -1,16 +1,15 @@
 # Popover
 
-<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonPopover</code></p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaPopover</code></p>
 
 An explanation pressed open, which may hold a link: what a term means, beside the term.
 
 <script setup>
-import { secondaryColoredButton } from '../../src/components/ButtonStyle'
 </script>
 
 <div class="demo"><div class="stack">
-  <p class="field-label">Grant<CommonPopover label="What is a grant?">A grant is what a person allowed a client to do on their behalf. <a class="link" href="#">Read more</a>.</CommonPopover></p>
-  <CommonPopover><template #trigger><CommonButton label="Show the filter" :button-style="secondaryColoredButton" class="self-start" /></template>A box of fields, pressed open from a control of the caller's.</CommonPopover>
+  <p class="sa-field-label">Grant<SaPopover label="What is a grant?">A grant is what a person allowed a client to do on their behalf. <a class="sa-link" href="#">Read more</a>.</SaPopover></p>
+  <SaPopover><template #trigger><SaButton label="Show the filter" variant="secondary" class="self-start" /></template>A box of fields, pressed open from a control of the caller's.</SaPopover>
 </div></div>
 
 ## Usage
@@ -22,7 +21,7 @@ import { secondaryColoredButton } from '../../src/components/ButtonStyle'
 
 ## Look
 
-- **Box**: `.popover`, 288px wide and never wider than the screen, `space-3` padding, 4px from its trigger.
+- **Box**: `.sa-popover`, 288px wide and never wider than the screen, `space-3` padding, 4px from its trigger.
 - **Text**: 14px in `ink-700`.
 - **Icon**: 12px in `ink-500`, `ink-700` on hover, `space-1` after the word it explains.
 
@@ -32,7 +31,7 @@ import { secondaryColoredButton } from '../../src/components/ButtonStyle'
 - **Closing**: Escape, or a press outside.
 - **Focus**: the outline of [Focus, states and motion](/foundations/focus) on the icon. It moves into the box when it opens, and back when it closes.
 - **Placing**: below its trigger, unless the screen's edge moves it.
-- **Motion**: `.overlay-animated`.
+- **Motion**: `.sa-overlay-animated`.
 
 ## Content
 
