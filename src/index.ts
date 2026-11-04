@@ -33,6 +33,7 @@ export {
   type SaSidebarEntry,
   type SaSidebarSection
 } from './components/SaSidebar.vue'
+export { default as SaSidebarAccount } from './components/SaSidebarAccount.vue'
 export { default as SaSkeleton } from './components/SaSkeleton.vue'
 export { default as SaSpinner } from './components/SaSpinner.vue'
 export { default as SaSummaryCard } from './components/SaSummaryCard.vue'

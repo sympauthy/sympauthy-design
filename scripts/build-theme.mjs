@@ -123,7 +123,8 @@ const TAILWIND = [
   ['--color-nav-disabled', 'nav-disabled'],
   ['--color-nav-hover', 'nav-hover'],
   ['--color-nav-active', 'nav-active'],
-  ['--color-nav-divider', 'nav-divider']
+  ['--color-nav-divider', 'nav-divider'],
+  ['--color-nav-strong', 'nav-strong']
 ]
 const size = (name) => tokens.size.tokens.find((t) => t.name === name).value
 let themeCss = HEADER + '@theme {\n'

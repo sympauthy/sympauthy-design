@@ -5,22 +5,27 @@
 The shape of one record: a summary card, then sections of fields.
 
 <script setup>
+const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' }]
 const copied = { label: 'Copy client ID', copiedLabel: 'Client ID copied', failedLabel: 'Your browser refused to copy the client ID' }
 </script>
 
-<div class="demo vp-raw"><div class="flex flex-col gap-6">
-  <SaSummaryCard>
-    <SaSummaryField label="Client ID" mono><SaCopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" v-bind="copied" /></SaSummaryField>
-    <SaSummaryField label="Type">Confidential</SaSummaryField>
-    <SaSummaryField label="Status"><SaTag color="green">Active</SaTag></SaSummaryField>
-  </SaSummaryCard>
-  <SaDetailSection title="Authorization">
-    <SaDefinitionList>
-      <SaDefinitionRow label="Redirect URI" mono>https://billing.example.com/callback</SaDefinitionRow>
-      <SaDefinitionRow label="Scopes"><div class="flex flex-wrap gap-1"><SaTag color="blue">openid</SaTag><SaTag color="blue">email</SaTag></div></SaDefinitionRow>
-      <SaDefinitionRow label="Webhook"><SaEmptyValue label="Not set" /></SaDefinitionRow>
-    </SaDefinitionList>
-  </SaDetailSection>
+<div class="demo vp-raw"><div class="flex flex-col gap-4">
+  <DemoFrame v-for="frame in modes" :key="frame.mode" v-bind="frame">
+    <div class="flex flex-col gap-6">
+    <SaSummaryCard>
+      <SaSummaryField label="Client ID" mono><SaCopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" v-bind="copied" /></SaSummaryField>
+      <SaSummaryField label="Type">Confidential</SaSummaryField>
+      <SaSummaryField label="Status"><SaTag color="green">Active</SaTag></SaSummaryField>
+    </SaSummaryCard>
+    <SaDetailSection title="Authorization">
+      <SaDefinitionList>
+        <SaDefinitionRow label="Redirect URI" mono>https://billing.example.com/callback</SaDefinitionRow>
+        <SaDefinitionRow label="Scopes"><div class="flex flex-wrap gap-1"><SaTag color="blue">openid</SaTag><SaTag color="blue">email</SaTag></div></SaDefinitionRow>
+        <SaDefinitionRow label="Webhook"><SaEmptyValue label="Not set" /></SaDefinitionRow>
+      </SaDefinitionList>
+    </SaDetailSection>
+    </div>
+  </DemoFrame>
 </div></div>
 
 ## Usage
@@ -44,7 +49,7 @@ const copied = { label: 'Copy client ID', copiedLabel: 'Client ID copied', faile
 ## Accessibility
 
 - **The fields are a real definition list**, so a label is read with its value (WCAG 1.3.1).
-- **A section title is an `h2`**, so the page's outline holds. An app heads the page itself with the record's name.
+- **A section title is an `h2`**, so the page's outline holds. The [Breadcrumb](/components/breadcrumb) heads the page with the record's name.
 
 ## API
 

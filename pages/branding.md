@@ -45,6 +45,8 @@ Each key can also be set as an environment variable (`UI_DISPLAY_NAME`, `UI_THEM
 | `ink-50` … `ink-900`                     | the grays: borders, labels, text                        |
 | `accent`, `nav-*` (light only)           | the admin sidebar                                       |
 
+The builder leaves out `nav-strong`, which is white in every palette it derives. Set it by hand for a light sidebar, on a server that declares a design system from 0.5.0, since an older one refuses the key.
+
 Only colors can be changed. Status colors (errors, warnings, tags) stay too: red means a failure whatever the brand.
 
 ### Rules the server applies

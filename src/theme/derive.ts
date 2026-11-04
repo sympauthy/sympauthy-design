@@ -139,7 +139,8 @@ const SYMPAUTHY: { light: LightPalette; dark: DarkPalette } = {
     'nav-disabled': '#7d6b71',
     'nav-hover': '#33242a',
     'nav-active': '#4a1f2d',
-    'nav-divider': '#33242a'
+    'nav-divider': '#33242a',
+    'nav-strong': '#ffffff'
   },
   dark: {
     primary: '#e89aae',
@@ -258,6 +259,7 @@ export function derivePalette(primaryHex: string, tint: GrayTint = 'tinted'): De
   light['nav-hover'] = light['ink-800']
   light['nav-active'] = dark['primary-subtle']
   light['nav-divider'] = light['ink-800']
+  light['nav-strong'] = '#ffffff'
 
   return { light, dark, adjusted }
 }

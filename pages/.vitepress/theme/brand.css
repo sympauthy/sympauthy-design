@@ -207,16 +207,16 @@
 }
 
 /* Headings */
-.vp-doc h1,
-.vp-doc h2,
-.vp-doc h3 {
+.vp-doc h1:not(.vp-raw *),
+.vp-doc h2:not(.vp-raw *),
+.vp-doc h3:not(.vp-raw *) {
   letter-spacing: -0.02em;
 }
 
-.vp-doc h1 {
+.vp-doc h1:not(.vp-raw *) {
   font-weight: 800;
 }
 
-.vp-doc h2 {
+.vp-doc h2:not(.vp-raw *) {
   font-weight: 700;
 }
