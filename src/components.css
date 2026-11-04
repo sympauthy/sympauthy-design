@@ -57,7 +57,7 @@
   }
 
   .menu-item {
-    @apply flex w-full cursor-pointer items-center gap-2 px-4 py-2 text-left text-sm outline-none first:rounded-t-md last:rounded-b-md;
+    @apply flex min-h-control w-full cursor-pointer items-center gap-2 px-4 py-2 text-left text-sm outline-none first:rounded-t-md last:rounded-b-md;
   }
 
   /** The surface an overlay explains or asks something on. A card's radius, no shadow. */
@@ -74,6 +74,32 @@
 }
 .overlay-animated[data-state='closed'] {
   animation: sympauthy-overlay-out 100ms ease-in;
+}
+
+/** A dialog's fade. Its card is centred by a transform, which the motion above would undo. */
+.dialog-animated[data-state='open'] {
+  animation: sympauthy-dialog-in 200ms ease-out;
+}
+.dialog-animated[data-state='closed'] {
+  animation: sympauthy-dialog-out 200ms ease-in;
+}
+
+@keyframes sympauthy-dialog-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sympauthy-dialog-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes sympauthy-overlay-in {
@@ -97,7 +123,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .overlay-animated {
+  .overlay-animated,
+  .dialog-animated {
     animation: none !important;
   }
 }

@@ -2,7 +2,7 @@
 
 One system for the two web apps SympAuthy ships: **sympauthy-flow**, the pages an end user signs in, signs up, verifies and confirms on, and **sympauthy-admin**, the operator's panel. Both are Vue 3 + Tailwind v4 and read the same tokens. They differ in density and nothing else: the flow is one card on a quiet page, read on a phone, at 16px; the admin is tables and records, read at a desk, at 14px. The pages [Flow pages](/flow), [Admin panel](/admin) and [Using in the apps](/using-in-apps) hold the rules specific to each.
 
-Components are grouped the same way. **Common** holds what any app can import (Alert, Button, Card, Field, Spinner, Tag and more), shipped in `@sympauthy/design`. **Flow** holds what only the sign-in pages use (AuthCard, CodeInput, ConfirmRequest). **Admin** holds what only the panel uses (ActionsDropdown, ConfirmDialog, RecordPage, Sidebar, Table). A component moves to Common the day a second app needs it, or when it names nothing of its app and any app built like the admin would draw it.
+Components are grouped the same way. **Common** holds what any app can import (Alert, Button, Card, Field, Spinner, Tag and more), shipped in `@sympauthy/design`. **Flow** holds what only the sign-in pages use (AuthCard, CodeInput, ConfirmRequest). **Admin** holds what only the panel uses (ActionsDropdown, RecordPage, Table). A component moves to Common the day a second app needs it, or when it names nothing of its app and any app built like the admin would draw it.
 
 ## Content
 

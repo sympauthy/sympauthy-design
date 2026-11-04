@@ -4,7 +4,9 @@ The screens of **sympauthy-admin**. Its own `docs/design-system-standard.md` and
 
 ## The shell
 
-- **Sidebar**: `nav-ground` (Cassis), `sidebar-width`, the mark (`sympauthy-icon-dark.svg`, 24px) and the wordmark with "Admin" in `nav-muted` in a 56px head under a `nav-divider` rule. Section labels in 12px uppercase `nav-muted`; entries in `nav-text`; hover `nav-hover`; the current entry `nav-active` with a 3px `gold` rule on its left edge and white text; an entry the token cannot open `nav-disabled`, explained by a tooltip. Below `lg:` it is a drawer over a `rgba(31,20,24,0.5)` scrim.
+Drawn by [AppShell](/components/app-shell), [Sidebar](/components/sidebar) and [Breadcrumb](/components/breadcrumb).
+
+- **Sidebar**: `nav-ground` (Cassis), `sidebar-width`, the mark (`sympauthy-icon-dark.svg`, 24px) and the wordmark with "Admin" in `nav-muted` in a 56px head under a `nav-divider` rule. Section labels in 12px uppercase `nav-muted`; entries in `nav-text`; hover `nav-hover`; the current entry `nav-active` with a 3px `gold` rule on its left edge; an entry the token cannot open `nav-disabled`, explained by a tooltip. Below `lg:` it is a drawer over a `rgba(31,20,24,0.5)` scrim.
 - **Mobile header**: 56px, `surface`, `ink-200` bottom rule, the menu icon in `ink-600`, the title in `admin-heading`.
 - **Breadcrumb bar**: sticky, `surface` with an `ink-200` bottom rule; ancestors are `ink-500` links, the current record `ink-900`. The page's actions sit at its right end.
 - **Main**: `ground`, padded `space-4` then `space-6` from `lg:`, centred at `page-width`.
@@ -28,6 +30,6 @@ The screens of **sympauthy-admin**. Its own `docs/design-system-standard.md` and
 - **Buttons**: `primaryColoredButton` is `primary` / `primary-hover` / `on-primary`; `secondaryColoredButton` is `ink-100` with an `ink-200` border and `ink-700` text, hovering to `ink-200`; `dangerColoredButton` is soft (`danger-subtle` fill, `danger-line` border, `danger` text, `danger-hover` on hover), used inside a `ConfirmDialog` only. `primary` is the only filled button.
 - **Tags** keep their meaning-to-color rule; they read from the `tag-*` tokens so a dark admin later needs no new classes.
 - **Alerts**: `danger` for a failure the screen keeps showing, `warning` for what an operator reads before closing a dialog.
-- **Menus** (`ActionsDropdown`): `surface`, `ink-200` border, `radius-md`, no shadow; items in `ink-700` with `ink-500` icons, highlighted `ink-100`; destructive items last, under an `ink-200` separator, in `danger`; a disabled item in `ink-400` with its reason under it in 12px `ink-500`.
+- **Menus** (`CommonMenu`, which `ActionsDropdown` wraps): `surface`, `ink-200` border, `radius-md`, no shadow; items in `ink-700` with `ink-500` icons, highlighted `ink-100`; destructive items last, under an `ink-200` separator, in `danger`; a disabled item in `ink-400` with its reason under it in 12px `ink-500`.
 - **Dialogs**: the flat card (`ink-200` border, `radius-lg`, no shadow) on the Cassis scrim, `admin-heading` title, `space-3` between footer buttons, the confirming button last.
 - **One-time secrets** sit in a `warning` alert with the value in `admin-mono` and a copy button: the operator must read that it will not be shown again.
