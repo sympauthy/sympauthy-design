@@ -23,7 +23,7 @@ A request in flight, drawn in the color of the text around it.
 
 ## Behavior
 
-- **Motion**: it turns, as [Focus, states and motion](/foundations/focus) allows. It does not stop under `prefers-reduced-motion` yet.
+- **Motion**: it turns, as [Focus, states and motion](/foundations/focus) allows. Under `prefers-reduced-motion` it stays in place and fades to half and back every 2 seconds, since a ring held still looks the same as a frozen page.
 
 ## Accessibility
 

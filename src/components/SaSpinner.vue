@@ -21,7 +21,7 @@ const sizeClasses: Record<string, string> = {
 }
 
 const classes = computed(() => [
-  'inline-block shrink-0 animate-spin rounded-full border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]',
+  'inline-block shrink-0 animate-spin rounded-full border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-pulse',
   sizeClasses[props.size]
 ])
 </script>
