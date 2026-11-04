@@ -31,7 +31,7 @@ const open = ref(false)
 
 - **Card**: `surface`, an `ink-200` border, `radius-lg` and no shadow, at most 448px wide and never taller than the screen, padded like [Card](/components/card).
 - **Scrim**: `nav-ground` at 50%.
-- **Title**: `admin-heading` in `ink-900`, as an `h3`.
+- **Title**: `panel-heading` in `ink-900`, as an `h3`.
 - **Body**: 14px in `ink-700`.
 - **Footer**: right-aligned, `space-3` between its buttons, `space-6` above them.
 

@@ -61,7 +61,7 @@ import { ChevronDownIcon, PlusIcon, SearchIcon } from '../.vitepress/theme/demo-
 - **`secondaryColoredButton`**: `ink-100` fill, `ink-200` border, `ink-700` label, `ink-200` on hover.
 - **`outlineColoredButton`**: transparent, `primary` border and label, `primary-subtle` on hover.
 - **`dangerColoredButton`**: `danger-subtle` fill, `danger-line` border, `danger` label, `danger-hover` on hover. On a dark page it keeps these colors' Light values for now.
-- **Label**: `admin-strong` at `size="control"`; 16px/600 at `size="large"`.
+- **Label**: `panel-strong` at `size="control"`; 16px/600 at `size="large"`.
 - **Icons**: 16px and `space-1.5` from the label, `icon` before it and `trailingIcon` after it.
 
 ## Behavior
