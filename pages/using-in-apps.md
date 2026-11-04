@@ -22,6 +22,8 @@ In `sympauthy-flow/src/styles/style.css` and `sympauthy-admin/src/app/styles/sty
 
 `components.css` tells Tailwind where the components are, so an app writes no `@source` for them. Import it outside any `layer()`: inside one, the build fails with `` `@source` cannot be nested ``. Remove from the admin's stylesheet what `components.css` now carries (`.sa-control`, `.sa-field-label`, `.sa-control-focus`, `.sa-control-focus-within`, `.sa-menu`, `.sa-menu-item`, `.sa-popover`, `.sa-overlay-animated`, `.sa-table-as-cards`, `.sa-table-pinned-header`) and its own `@theme` block.
 
+`.sa-field-label` can also be applied. A label drawn in a pseudo-element, which no class can reach, takes `@apply sa-field-label` in the app's stylesheet, and so cannot drift from the labels the components draw. The other rules of `components.css` are classes, which Tailwind refuses to apply.
+
 `theme.css` names the roles and reads each from a token, so `bg-primary` is `var(--primary)`. The tokens themselves come from the server, linked in `index.html` ahead of the app's own stylesheet:
 
 ```html
