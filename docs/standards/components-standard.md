@@ -1,7 +1,7 @@
 ---
 description:
-  Which components ship in the package, and how the page of one is written — its sections, its
-  demo and its API.
+  Which components ship in the package, what they are built on, and how the page of one is written
+  — its sections, its demo and its API.
 paths:
   - 'pages/components/**'
   - 'src/components/**'
@@ -9,9 +9,9 @@ paths:
 
 # Components standard
 
-Which components ship in the package, and how the page of a Common component in
-[`pages/components/`](../../pages/components/index.md) is written. Its code is in this repository,
-so its page can draw it, and an app imports from what the page says. Values are [the
+Which components ship in the package, what they are built on, and how the page of a Common
+component in [`pages/components/`](../../pages/components/index.md) is written. Its code is in this
+repository, so its page can draw it, and an app imports from what the page says. Values are [the
 foundations'](foundations-standard.md), and a page names them.
 
 ## Which components ship
@@ -33,6 +33,24 @@ Check it in both themes when it moves, since the admin is pinned light and never
 
 **An app deletes its copy when it installs the tag shipping the component.** Re-export the package's
 where the app has a kit, so its screens keep their imports.
+
+## What a component is built on
+
+**An overlay, a menu or a control made of several parts wraps a [reka-ui](https://reka-ui.com)
+primitive.** The primitive brings the focus trap, the keyboard, the ARIA roles and the positioning,
+and the styling stays Tailwind. Never hand-roll a click-outside, an Escape handler or focus
+management.
+
+**`reka-ui` is a peer dependency, so an app holds one copy of it.** A provider and the parts under
+it meet through a key made once per copy, so an app's `TooltipProvider` reaches no tooltip from a
+second copy. npm installs the peer itself, and warns when an app's own version is out of range.
+
+**An icon comes from `@heroicons/vue`, a plain dependency.** An icon holds no state, so a second
+copy costs bytes and breaks nothing. Which set and size is [the Iconography
+foundation](../../pages/foundations/iconography.md).
+
+**A component's module runs nothing at its top level but declarations.** That keeps a component an
+app does not import out of its bundle, through the one barrel in `src/index.ts`.
 
 ## Which pages exist
 
@@ -155,6 +173,12 @@ path, and list what the component is built on before what is built on it.
 
 **What _built like the admin_ means, past tables, records and a sidebar.** No such third app exists
 yet, so it is a judgement made per component, and the first one corrects it.
+
+**`sideEffects` in `package.json`.** An app's bundler drops a component nothing imports without it,
+and declaring it would mean listing the stylesheets an app imports for their effect.
+
+**The stylesheet of a component an app does not import.** Tailwind reads all of `src/` through the
+app's `@source`, so its classes reach every app's stylesheet whichever components that app draws.
 
 **A component in another repository.** Flow and Admin components live in their apps, so this
 repository can neither draw nor check them. Their pages stay as those apps' specifications, and
