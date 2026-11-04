@@ -10,15 +10,19 @@ import {
   CommonAlert,
   CommonButton,
   CommonCard,
+  CommonPagination,
   CommonSkeleton,
   CommonSpinner,
+  CommonTable,
   CommonTag,
   CopyableValue,
   CopyToClipboard,
   EmptyValue,
   FormField,
   FormInput,
-  LoadingState
+  LoadingState,
+  TableCell,
+  TableHeader
 } from '../../../src/index'
 
 export default {
@@ -29,8 +33,10 @@ export default {
     app.component('CommonAlert', CommonAlert)
     app.component('CommonButton', CommonButton)
     app.component('CommonCard', CommonCard)
+    app.component('CommonPagination', CommonPagination)
     app.component('CommonSkeleton', CommonSkeleton)
     app.component('CommonSpinner', CommonSpinner)
+    app.component('CommonTable', CommonTable)
     app.component('CommonTag', CommonTag)
     app.component('CopyableValue', CopyableValue)
     app.component('CopyToClipboard', CopyToClipboard)
@@ -38,6 +44,8 @@ export default {
     app.component('FormField', FormField)
     app.component('FormInput', FormInput)
     app.component('LoadingState', LoadingState)
+    app.component('TableCell', TableCell)
+    app.component('TableHeader', TableHeader)
     // The token tables of pages/foundations/*.md, read from tokens.json.
     app.component('TokenTable', TokenTable)
   }

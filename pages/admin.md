@@ -12,7 +12,7 @@ The screens of **sympauthy-admin**. Its own `docs/design-system-standard.md` and
 ## Collections
 
 - **A table** is `surface` inside an `ink-200` bordered `radius-lg` card. The header row is `ink-50` with an `ink-200` inset rule and `admin-label` names; cells are `admin-body` in `ink-500`, the primary column `admin-strong` in `ink-900`, identifiers `admin-mono`. Rows are separated by `ink-200` rules and highlight `ink-50` on hover.
-- **The pagination bar** sits under the table: the range in `ink-500` on the left, the pager on the right; the current page is a `primary` square with `on-primary` digits.
+- **The pagination bar** sits under the table (see [Pagination](/components/pagination)): the range in `ink-500` on the left, the pager on the right; the current page is a `primary` square with `on-primary` digits.
 - **Below `sm:` each row is a card** on `ground`, as the global stylesheet already draws it; only the border color changes to `ink-200`.
 - **An empty collection is one sentence** in `ink-500`, centred in the table body.
 
