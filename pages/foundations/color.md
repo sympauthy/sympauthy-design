@@ -5,7 +5,7 @@ What each color is for: the grounds, the ink scale, the brand's two colors and t
 ## Usage
 
 - **Ground and surface.** Pages sit on `ground` (Ivory); every card, table, dialog and input is `surface`. Never place a card on a card.
-- **Text.** Body and headings in `ink-900`; labels, secondary cells and helper lines in `ink-500`; text inside controls and secondary buttons in `ink-700`. `ink-300` is never text: it is the dash of a missing value, and skeleton bars.
+- **Text.** Body and headings in `ink-900`; labels, secondary cells and helper lines in `ink-500`; text inside controls and secondary buttons in `ink-700`. `ink-300` is never text: it is the dash of a missing value, and skeleton bars. A dash a person cannot make out reads as an empty field, which is what it means, so nothing is lost and it is exempt from the text pairs below.
 - **The ink scale is one family.** `ink-50` to `ink-900` share Bordeaux's hue (OKLCH ≈ 350°) and step down in even lightness; the color thins out toward the light end, so a tint reads as a warm gray and never as pink or beige. Add a step only on that same hue.
 - **Lines.** Card borders, table rules and dividers are `ink-200`. A control's border is `ink-400`, because a person has to see a field's edge (see [Accessibility](#accessibility)).
 - **Bordeaux is the action color.** `primary` fills the one button a screen is for and colors links, the active tab, the spinner and the focus ring; `primary-hover` on hover; `on-primary` for its label. `primary-subtle` (Rosé) with `on-primary-subtle` is the quiet version: a consent summary, a selected row.

@@ -23,7 +23,7 @@ A request in flight, drawn in the color of the text around it.
 
 ## Behavior
 
-- **Motion**: it turns, the one thing [Focus, states and motion](/foundations/focus) allows besides an overlay. It does not stop under `prefers-reduced-motion` yet.
+- **Motion**: it turns, as [Focus, states and motion](/foundations/focus) allows. It does not stop under `prefers-reduced-motion` yet.
 
 ## Accessibility
 
@@ -42,4 +42,5 @@ The consumer provides the words a screen reader announces, and the text color it
 
 - [Focus, states and motion](/foundations/focus): the one motion.
 - [Button](/components/button): draws a small one in flight.
+- [LoadingState](/components/loading-state): a spinner with the line saying what is awaited.
 - [AuthCard](/components/auth-card): the large one, while waiting.

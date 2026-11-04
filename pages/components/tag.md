@@ -1,11 +1,54 @@
 # Tag
 
-<p class="caps-note">Admin · specified here, implemented in the app</p>
+<p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>CommonTag</code></p>
 
-A short status or label in the admin, and the entity tags built on it, such as a claim's origin or kind.
+A short status or label, in a color that comes from what the word means.
 
-**Color comes from the meaning, never from taste**: `tag-green` enabled or active, `tag-red` disabled, revoked or failed, `tag-yellow` needs attention, `tag-blue` and `tag-purple` a classification (standard or custom, for example), gray (`ink-100` / `ink-700`) for the rest. Each pair holds 6:1 or better in both themes.
+<div class="demo"><div class="row">
+  <CommonTag color="green">Active</CommonTag>
+  <CommonTag color="red">Revoked</CommonTag>
+  <CommonTag color="yellow">Pending</CommonTag>
+  <CommonTag color="blue">Standard</CommonTag>
+  <CommonTag color="purple">Custom</CommonTag>
+  <CommonTag color="gray">Email</CommonTag>
+</div></div>
 
-**Look**: `admin-tag` (12px/500), 2px by 8px padding, `radius-md`, tags `space-1` apart. The word carries the meaning; the color only speeds up scanning.
+## Usage
 
-**The consumer provides** the word and its meaning (`green | red | yellow | blue | purple | gray`), and optionally a `#help` slot for a help tooltip.
+- **`green`**: what is enabled or active.
+- **`red`**: what is disabled, revoked or failed.
+- **`yellow`**: what needs attention.
+- **`blue`** and **`purple`**: a classification, such as standard or custom.
+- **`gray`**: the rest.
+- **Not for** an action: a tag does nothing when pressed. Use [Button](/components/button).
+- **Not for** a message a screen keeps showing: use [Alert](/components/alert).
+
+## Look
+
+- **Box**: 2px by 8px padding, `radius-md`, and `space-1` between two tags.
+- **Text**: `admin-tag`.
+- **Colors**: `tag-green`, `tag-red`, `tag-yellow`, `tag-blue` and `tag-purple` on their `-fill` tokens, and `ink-700` on `ink-100` for `gray`. Each pair holds 6:1 or better in both themes.
+
+## Content
+
+- **The word carries the meaning**, and the color only speeds up scanning (see [Content](/foundations/content)).
+
+## Accessibility
+
+- **A status always carries its word, so color is never the only signal** (WCAG 1.4.1).
+
+## API
+
+The consumer provides the word and its meaning.
+
+| Name       | Type                                                           | Default | Description                              |
+| ---------- | -------------------------------------------------------------- | ------- | ---------------------------------------- |
+| `color`    | `'green' \| 'red' \| 'yellow' \| 'blue' \| 'purple' \| 'gray'` |         | What the word means. Required.           |
+| `#default` | slot                                                           |         | The word.                                |
+| `#help`    | slot                                                           |         | A control explaining it, after the word. |
+
+## Related
+
+- [Color](/foundations/color): the status colors.
+- [Type](/foundations/type): `admin-tag`.
+- [Table](/components/table): where most tags are read.

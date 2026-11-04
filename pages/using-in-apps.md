@@ -74,21 +74,13 @@ The stylesheet and the icon need no code. The logos are linked from the server t
 
 ```vue
 <script setup lang="ts">
-import { brandingUrls, fetchBrand } from '@sympauthy/design'
+import { BrandLogo, fetchBrand } from '@sympauthy/design'
 
-const urls = brandingUrls() // brandingUrls(serverUrl) for a flow on another origin
 const brand = await fetchBrand()
 </script>
 
 <template>
-  <picture>
-    <source
-      v-if="brand.darkMode === 'auto'"
-      media="(prefers-color-scheme: dark)"
-      :srcset="urls.logoDark"
-    />
-    <img :src="urls.logo" alt="" />
-  </picture>
+  <BrandLogo large :follow-device="brand.darkMode === 'auto'" />
   <span>{{ brand.displayName ?? 'SympAuthy' }}</span>
 </template>
 ```
@@ -108,6 +100,9 @@ See [Branding a deployment](./branding) for what the server answers.
 - **One field.** The admin's fields grow to the flow's: 44px, 16px text, a 14px/500 `gray-700` label and a 14px help line. The flow's labels go from 600 `gray-900` to the same 500 `gray-700`, and its inputs drop the `ring-4 ring-primary-subtle` halo. `FormField` and `FormInput` no longer take a `size`.
 - **Disabled buttons** read `gray-500` on a `gray-100` fill (5.3:1) instead of white on `gray-400` (2.5:1).
 - **One mobile breakpoint.** The flow's claim groups step at `md:`, past the card around them at `sm:`: change them to `sm:`. The admin's `@media (max-width: 639px)` becomes `@media (width < theme(--breakpoint-sm))`.
+- **The small parts move to the package.** The admin deletes its `CommonTag`, `EmptyValue`, `LoadingState`, `CopyToClipboard`, `CopyableValue` and `BrandLogo`, and re-exports the package's from `shared/ui`. The words become props: `LoadingState` takes a `label`, and the copy controls take `label`, `copiedLabel` and `failedLabel` where `title` was. `LoadingState` draws its spinner in `primary` and its line in `gray-500`. The flow's `BasePage` draws `BrandLogo` and its `TitleContentCard` draws `LoadingState`.
+- **One link.** `.link` comes from `components.css`, underlined at rest: the flow drops its `@utility link`, and the admin's `DocLink` draws it instead of underlining on hover.
+- **One skeleton.** The flow's `animate-pulse` blocks become `CommonSkeleton`, in `gray-300` where some were `gray-100`, and they hold still under `prefers-reduced-motion`.
 - **Flow clean-ups.** `src/assets/base.css` and `src/assets/main.css` are the Vue starter's files and nothing imports them: delete them. The `btn` utility gives way to `CommonButton`.
 
 | Was                                                              | Now                                                      |
