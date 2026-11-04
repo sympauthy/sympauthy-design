@@ -16,4 +16,4 @@ How a surface is set apart from what is behind it, and what its corners say.
 
 - [Card](/components/card): the one card, `radius-lg`.
 - [ConfirmDialog](/components/confirm-dialog): a card on a scrim.
-- [ActionsDropdown](/components/actions-dropdown): a menu, `radius-md`.
+- [Menu](/components/menu): a menu, `radius-md`.

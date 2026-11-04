@@ -10,9 +10,15 @@ import {
   CommonAlert,
   CommonButton,
   CommonCard,
+  CommonDialog,
+  CommonMenu,
+  CommonPopover,
   CommonSkeleton,
   CommonSpinner,
   CommonTag,
+  CommonTooltip,
+  CommonTooltipProvider,
+  ConfirmDialog,
   CopyableValue,
   CopyToClipboard,
   EmptyValue,
@@ -29,9 +35,15 @@ export default {
     app.component('CommonAlert', CommonAlert)
     app.component('CommonButton', CommonButton)
     app.component('CommonCard', CommonCard)
+    app.component('CommonDialog', CommonDialog)
+    app.component('CommonMenu', CommonMenu)
+    app.component('CommonPopover', CommonPopover)
     app.component('CommonSkeleton', CommonSkeleton)
     app.component('CommonSpinner', CommonSpinner)
     app.component('CommonTag', CommonTag)
+    app.component('CommonTooltip', CommonTooltip)
+    app.component('CommonTooltipProvider', CommonTooltipProvider)
+    app.component('ConfirmDialog', ConfirmDialog)
     app.component('CopyableValue', CopyableValue)
     app.component('CopyToClipboard', CopyToClipboard)
     app.component('EmptyValue', EmptyValue)

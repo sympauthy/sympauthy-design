@@ -8,14 +8,19 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [BrandLogo](./brand-logo)
 - [Button](./button)
 - [Card](./card)
+- [ConfirmDialog](./confirm-dialog)
 - [CopyableValue](./copyable-value)
+- [Dialog](./dialog)
 - [EmptyValue](./empty-value)
 - [Field](./field)
 - [Link](./link)
 - [LoadingState](./loading-state)
+- [Menu](./menu)
+- [Popover](./popover)
 - [Skeleton](./skeleton)
 - [Spinner](./spinner)
 - [Tag](./tag)
+- [Tooltip](./tooltip)
 
 ## Flow
 
@@ -26,7 +31,6 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 ## Admin
 
 - [ActionsDropdown](./actions-dropdown)
-- [ConfirmDialog](./confirm-dialog)
 - [RecordPage](./record-page)
 - [Sidebar](./sidebar)
 - [Table](./table)
