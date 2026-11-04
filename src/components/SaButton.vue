@@ -129,7 +129,7 @@ const stateSlot = computed(() => {
     :class="[computedClasses, sizeClasses]"
     :disabled="computedDisabled"
     :title="props.label"
-    class="sa-control flex items-center justify-center gap-1.5 transition-colors"
+    class="sa-control sa-button-focus flex items-center justify-center gap-1.5 transition-colors"
   >
     <SaSpinner v-if="loading || submitting" size="sm" />
     <component :is="props.icon" v-else-if="props.icon" class="size-4 shrink-0" />

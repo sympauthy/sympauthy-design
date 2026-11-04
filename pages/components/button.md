@@ -66,7 +66,7 @@ import { ChevronDownIcon, PlusIcon, SearchIcon } from '../.vitepress/theme/demo-
 ## Behavior
 
 - **Hover**: the fill each style names above.
-- **Focus**: a 2px `focus-ring` outline offset by 2px, as [Focus, states and motion](/foundations/focus) has it. `SaButton` does not draw it yet, so a button shows the browser's own outline.
+- **Focus**: the 2px `focus-ring` outline of [Focus, states and motion](/foundations/focus), through `.sa-button-focus`, for the keyboard alone. A `refused` button takes it too.
 - **Disabled** (`disabled`): `variant="primary"` and `variant="danger"` take `disabled` with `on-disabled`; `variant="secondary"` takes an `ink-50` fill, `ink-200` border and `ink-400` label; `variant="outline"` stays transparent, with an `ink-200` border and `ink-400` label. The cursor is `not-allowed`, and the button keeps its place.
 - **In flight** (`loading` or `submitting`): the style's colors stay, a small [Spinner](/components/spinner) replaces `icon`, the label stays, the cursor is `wait`, and the button cannot be pressed.
 - **Refused** (`refused`): drawn as disabled, but it stays focusable and takes the pointer so that an app's tooltip can open on it. Its click is dropped, and inside a form it does not submit.
