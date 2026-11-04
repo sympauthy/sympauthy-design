@@ -98,8 +98,8 @@ const variantClasses: Record<
   },
   // Soft, so that it never competes with primary.
   danger: {
-    active: 'border-red-200 bg-red-50 text-red-700 hover:bg-red-100',
-    waiting: 'border-red-200 bg-red-50 text-red-700 cursor-wait',
+    active: 'border-danger-line bg-danger-subtle text-danger hover:bg-danger-hover',
+    waiting: 'border-danger-line bg-danger-subtle text-danger cursor-wait',
     disabled: 'border-transparent bg-disabled text-on-disabled cursor-not-allowed'
   }
 }
@@ -129,7 +129,7 @@ const stateSlot = computed(() => {
     :class="[computedClasses, sizeClasses]"
     :disabled="computedDisabled"
     :title="props.label"
-    class="sa-control flex items-center justify-center gap-1.5 transition-colors"
+    class="sa-control sa-button-focus flex items-center justify-center gap-1.5 transition-colors"
   >
     <SaSpinner v-if="loading || submitting" size="sm" />
     <component :is="props.icon" v-else-if="props.icon" class="size-4 shrink-0" />

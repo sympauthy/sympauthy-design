@@ -16,7 +16,7 @@ What a control shows when it is focused, disabled or in flight, and the one thin
 
 ## Related
 
-- [Button](/components/button): disabled and in flight.
+- [Button](/components/button): the ring on a button, disabled and in flight.
 - [Spinner](/components/spinner): the turn, which becomes a fade under `prefers-reduced-motion`.
 - [Skeleton](/components/skeleton): the pulse, which stops under `prefers-reduced-motion`.
 - [Field](/components/field): the ring on a control.

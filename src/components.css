@@ -51,6 +51,14 @@
     @apply focus-within:border-primary focus-within:ring-1 focus-within:ring-primary;
   }
 
+  /**
+   * The one focus ring of a button, for the keyboard alone. The offset sets it on the surface around
+   * the button, which is what its 3:1 is held against: on a `primary` fill it would not show.
+   */
+  .sa-button-focus {
+    @apply outline-primary focus-visible:outline-2 focus-visible:outline-offset-2;
+  }
+
   /** A link inside a sentence: underlined at rest, so its color is not its only signal. */
   .sa-link {
     @apply cursor-pointer text-primary underline outline-primary hover:text-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2;
