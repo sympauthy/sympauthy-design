@@ -5,18 +5,13 @@
 A list of records in one card: a header row and rows of cells, what it shows instead while it waits, fails or holds nothing, and what sits around them through its slots.
 
 <script setup>
-import { computed, ref } from 'vue'
-import { ArrowPathIcon, EllipsisHorizontalIcon, SearchIcon } from '../.vitepress/theme/demo-icons'
+import { ref } from 'vue'
+import { EllipsisHorizontalIcon } from '../.vitepress/theme/demo-icons'
 const users = [
   { email: 'ada@example.com', id: 'c3f1e0a2-7b4d-4e8a-9d21-5e7a90c32f6b', status: 'Enabled', color: 'green', signIn: '02/11/2026 13:33', created: '2026-11-01' },
-  { email: 'grace@example.com', id: '8d21b6f4-1c9e-4a07-b3e2-4c1d7a60e8f5', status: 'Enabled', color: 'green', signIn: '28/10/2026 09:12', created: '2026-10-14' },
   { email: 'katherine.johnson@example.com', id: '5e7a90c3-2f6b-4d18-8a51-f1395eeb4307', status: 'Invited', color: 'yellow', signIn: null, created: '2026-10-03' },
-  { email: 'alan@example.com', id: '2b9c4e17-6a03-4f5d-a7c8-90d1e3f6b254', status: 'Disabled', color: 'red', signIn: '12/09/2026 17:45', created: '2026-08-20' },
-  { email: 'edsger@example.com', id: '71d3a8f0-5c2e-4b96-8e14-3fa6c07d92e1', status: 'Invited', color: 'yellow', signIn: null, created: '2026-07-02' }
+  { email: 'alan@example.com', id: '2b9c4e17-6a03-4f5d-a7c8-90d1e3f6b254', status: 'Disabled', color: 'red', signIn: '12/09/2026 17:45', created: '2026-08-20' }
 ]
-const PAGE_SIZE = 3
-const page = ref(0)
-const rows = computed(() => users.slice(page.value * PAGE_SIZE, (page.value + 1) * PAGE_SIZE))
 const actions = [
   { key: 'view', label: 'View user' },
   { key: 'copy', label: 'Copy user ID' },
@@ -24,17 +19,11 @@ const actions = [
 ]
 const fits = ref(1)
 const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name: `Client ${i + 1}` }))
-const pageLabel = (p, total) => `Page ${p} of ${total}`
-const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 </script>
 
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <DemoFrame v-for="mode in ['phone', 'tablet', 'desktop']" :key="mode" :mode="mode">
     <SaTable loading-label="Loading users.">
-      <template #toolbar>
-        <SaInput class="min-w-0 flex-1 basis-60" :icon="SearchIcon" placeholder="Search by email or user ID" aria-label="Search users" />
-        <SaButton variant="secondary" label="Refresh" :icon="ArrowPathIcon" icon-only />
-      </template>
       <template #header>
         <SaTableHeader>User</SaTableHeader>
         <SaTableHeader fit>Status</SaTableHeader>
@@ -43,16 +32,13 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
         <SaTableHeader fit><span class="sr-only">Actions</span></SaTableHeader>
       </template>
       <template #rows>
-        <tr v-for="user in rows" :key="user.id">
+        <tr v-for="user in users" :key="user.id">
           <SaTableCell primary><SaTableRecord :name="user.email" :detail="user.id" :link="{ href: '#' }" /></SaTableCell>
           <SaTableCell label="Status" label-hidden fit><SaTag :color="user.color">{{ user.status }}</SaTag></SaTableCell>
           <SaTableCell label="Last sign-in" fit><SaEmptyValue v-if="!user.signIn" /><template v-else>{{ user.signIn }}</template></SaTableCell>
           <SaTableCell label="Created" fit>{{ user.created }}</SaTableCell>
           <SaTableCell actions><SaButton variant="secondary" :label="`Actions for ${user.email}`" :icon="EllipsisHorizontalIcon" icon-only /></SaTableCell>
         </tr>
-      </template>
-      <template #footer>
-        <SaPagination :page="page" :total-pages="2" :size="PAGE_SIZE" :total="users.length" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
       </template>
     </SaTable>
   </DemoFrame>
