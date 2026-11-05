@@ -40,8 +40,9 @@ so Vue hands an absent one down as `false`, over any other default.
 **A shipped component holds its contrast in light and dark, whatever the app drawing it pins.**
 Check it in both themes when it moves, since the admin is pinned light and never saw the other.
 
-**An app deletes its copy when it installs the tag shipping the component.** Re-export the package's
-where the app has a kit, so its screens keep their imports.
+**An app deletes its copy when it installs the tag shipping the component.** Its screens import the
+package's from `@sympauthy/design`, under its `Sa` name, and a kit of the app's does not re-export
+it, so that a page of the site and the template drawing the component agree on what it is called.
 
 ## What a component is built on
 
