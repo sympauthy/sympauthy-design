@@ -60,7 +60,7 @@ npm run format
 ## Releases
 
 - **Never published to npm.** The package is internal to SympAuthy: `private` stays `true`, and the
-  apps install it by tag (`github:sympauthy/sympauthy-design#v0.5.0`). A release is a version bump
+  apps install it by tag (`github:sympauthy/sympauthy-design#v0.6.0`). A release is a version bump
   merged to `main`, then the tag.
 
 ## Pull requests
