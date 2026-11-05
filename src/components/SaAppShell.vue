@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+import { provide, ref } from 'vue'
 import { Bars3Icon } from '@heroicons/vue/20/solid'
+import { APP_SHELL_MENU_REPLACED } from './appShellMenu'
 import { SA_PAGE_HEADING } from './pageHeading'
 
 /**
@@ -13,6 +15,9 @@ defineProps<{
 }>()
 
 const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
+
+const menuReplaced = ref(false)
+provide(APP_SHELL_MENU_REPLACED, menuReplaced)
 </script>
 
 <template>
@@ -46,6 +51,7 @@ const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
             :aria-label="openMenuLabel"
             :title="openMenuLabel"
             class="relative -mr-2.5 ml-1.5 flex size-control shrink-0 items-center justify-center self-center text-gray-600 outline-primary -outline-offset-2 focus-visible:outline-2 lg:hidden"
+            :class="{ 'max-sm:hidden': menuReplaced }"
             @click="sidebarOpen = true"
           >
             <Bars3Icon class="size-6" />

@@ -31,6 +31,7 @@ import {
   SaPagination,
   SaPopover,
   SaRadioGroup,
+  SaRecordViews,
   SaSelect,
   SaSidebar,
   SaSidebarAccount,
@@ -80,6 +81,7 @@ export default {
     app.component('SaPagination', SaPagination)
     app.component('SaPopover', SaPopover)
     app.component('SaRadioGroup', SaRadioGroup)
+    app.component('SaRecordViews', SaRecordViews)
     app.component('SaSelect', SaSelect)
     app.component('SaSidebar', SaSidebar)
     app.component('SaSidebarAccount', SaSidebarAccount)

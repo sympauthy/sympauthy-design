@@ -32,6 +32,12 @@ export interface SaButtonProps {
    */
   collapseLabel?: boolean
   /**
+   * Stands for the label below `sm:` and is gone from it, for a control whose label and chevron are
+   * too wide for a phone's bar but need no mark beside them from `sm:`. It also drops [trailingIcon]
+   * below `sm:`, and the label stays the title.
+   */
+  collapsedIcon?: Component
+  /**
    * Keeps the label for a screen reader and the title at every width, for a mark that says the rest,
    * such as a row's menu. Pass an [icon] with it.
    */
@@ -59,6 +65,7 @@ const props = withDefaults(defineProps<SaButtonProps>(), {
   icon: undefined,
   trailingIcon: undefined,
   collapseLabel: false,
+  collapsedIcon: undefined,
   iconOnly: false,
   size: 'control',
   loading: false,
@@ -136,13 +143,31 @@ const stateSlot = computed(() => {
     :disabled="computedDisabled"
     :title="props.label"
     class="sa-control sa-button-focus flex items-center justify-center gap-1.5 transition-colors"
-    :data-sa-mark="props.iconOnly || props.collapseLabel || undefined"
+    :data-sa-mark="props.iconOnly || props.collapseLabel || props.collapsedIcon || undefined"
   >
     <SaSpinner v-if="loading || submitting" size="sm" />
     <component :is="props.icon" v-else-if="props.icon" class="size-4 shrink-0" />
-    <span :class="props.iconOnly ? 'sr-only' : props.collapseLabel ? 'hidden sm:inline' : ''">
+    <component
+      :is="props.collapsedIcon"
+      v-if="props.collapsedIcon"
+      class="size-4 shrink-0 sm:hidden"
+    />
+    <span
+      :class="
+        props.iconOnly
+          ? 'sr-only'
+          : props.collapseLabel || props.collapsedIcon
+            ? 'hidden sm:inline'
+            : ''
+      "
+    >
       <slot :name="stateSlot">{{ props.label }}</slot>
     </span>
-    <component :is="props.trailingIcon" v-if="props.trailingIcon" class="size-4 shrink-0" />
+    <component
+      :is="props.trailingIcon"
+      v-if="props.trailingIcon"
+      class="size-4 shrink-0"
+      :class="{ 'hidden sm:block': props.collapsedIcon }"
+    />
   </button>
 </template>

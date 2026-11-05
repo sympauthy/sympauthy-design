@@ -18,6 +18,7 @@ Components are grouped the same way. **Common** holds what any app can import (A
 - [Shape](./shape): flat surfaces, and what each radius means.
 - [Focus, states and motion](./focus): the one focus ring, disabled, loading, the one motion.
 - [Layout](./layout): the flow's centred card, the admin's shell, the breakpoints.
+- [Navigation](./navigation): how a person moves between the admin's screens, and gets back.
 - [Iconography](./iconography): Heroicons, and their sizes.
 
 ## Brand

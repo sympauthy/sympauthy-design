@@ -99,6 +99,7 @@ export default defineConfig({
           { text: 'Shape', link: '/foundations/shape' },
           { text: 'Focus, states and motion', link: '/foundations/focus' },
           { text: 'Layout', link: '/foundations/layout' },
+          { text: 'Navigation', link: '/foundations/navigation' },
           { text: 'Iconography', link: '/foundations/iconography' },
           { text: 'The mark', link: '/foundations/mark' }
         ]
