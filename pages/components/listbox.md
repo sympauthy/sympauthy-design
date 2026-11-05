@@ -29,7 +29,7 @@ const several = ref(['Email', 'Locale'])
 
 - **Box**: `surface`, an `ink-400` border and `radius-md`, like every control.
 - **List**: at most 224px tall, then it scrolls.
-- **Option**: `.sa-menu-item` in `ink-700`, at least `control-height` tall, cut with an ellipsis where it does not fit, with a 16px check in `primary` once chosen.
+- **Option**: `.sa-menu-item` in `ink-700`, at least `control-height` tall, cut with an ellipsis where it does not fit, with a 16px check in `primary` once chosen. An `icon` is 12px, after the label.
 - **Search**: a `.sa-control` over the list, under an `ink-200` rule.
 
 ## Behavior
@@ -51,15 +51,15 @@ const several = ref(['Email', 'Locale'])
 
 The consumer provides the options, what is chosen and the words, since the component reads no message bundle.
 
-| Name                | Type                | Default     | Description                                               |
-| ------------------- | ------------------- | ----------- | --------------------------------------------------------- |
-| `options`           | `SaListboxOption[]` |             | Required. Each a `value` and a `label`.                   |
-| `selected`          | `string[]`          |             | Required. What is chosen: at most one, unless `multiple`. |
-| `searchPlaceholder` | `string`            |             | Required. Names what is searched.                         |
-| `noMatchLabel`      | `string`            |             | Required. Said when the search matches nothing.           |
-| `multiple`          | `boolean`           | `false`     | Lets several be chosen.                                   |
-| `ariaLabel`         | `string`            | `undefined` | Names the list.                                           |
-| `@select`           | event               |             | What is chosen now, as a list whether one or several.     |
+| Name                | Type                | Default     | Description                                                                                                         |
+| ------------------- | ------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------- |
+| `options`           | `SaListboxOption[]` |             | Required. Each a `value` and a `label`, and optionally an `icon` with the `iconLabel` saying it to a screen reader. |
+| `selected`          | `string[]`          |             | Required. What is chosen: at most one, unless `multiple`.                                                           |
+| `searchPlaceholder` | `string`            |             | Required. Names what is searched.                                                                                   |
+| `noMatchLabel`      | `string`            |             | Required. Said when the search matches nothing.                                                                     |
+| `multiple`          | `boolean`           | `false`     | Lets several be chosen.                                                                                             |
+| `ariaLabel`         | `string`            | `undefined` | Names the list.                                                                                                     |
+| `@select`           | event               |             | What is chosen now, as a list whether one or several.                                                               |
 
 ## Related
 

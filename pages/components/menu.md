@@ -23,6 +23,7 @@ const chosen = ref('')
 ## Usage
 
 - **Several actions on one record**, read together.
+- **`icon`**: the actions of a row in a [Table](/components/table), where a word in every row would repeat down the column.
 - **The order**: from the most used to the least, with what destroys last.
 - **`danger`**: an action that destroys. It opens a [ConfirmDialog](/components/confirm-dialog) rather than acting.
 - **`disabledReason`**: an action that exists but cannot be used, drawn rather than removed.
@@ -31,7 +32,7 @@ const chosen = ref('')
 
 ## Look
 
-- **Trigger**: a secondary [Button](/components/button) with a chevron after its label.
+- **Trigger**: a secondary [Button](/components/button) with a chevron after its label. Given an `icon`, it is that mark alone and no chevron.
 - **Box**: `.sa-menu`, at least 192px wide, 4px from its trigger.
 - **Item**: `.sa-menu-item` in `ink-700`, at least `control-height` tall, with a 16px icon in `ink-500`.
 - **Separator**: an `ink-200` rule before the first `danger` item, which the menu draws itself.
@@ -64,6 +65,7 @@ The consumer provides the label, the items in order, and what each does, since t
 | `label`   | `string`          |                       | Required. What the button says.                                         |
 | `items`   | `SaMenuItem[]`    |                       | Required. Each a `key`, `label`, `icon`, `danger` and `disabledReason`. |
 | `variant` | `SaButtonVariant` | `variant="secondary"` | The trigger's style.                                                    |
+| `icon`    | `Component`       | `undefined`           | Draws the trigger as this mark alone, named by `label`.                 |
 | `@select` | event             |                       | The `key` of the item chosen.                                           |
 
 ## Related

@@ -129,6 +129,8 @@ export default defineConfig({
           { text: 'Skeleton', link: '/components/skeleton' },
           { text: 'Spinner', link: '/components/spinner' },
           { text: 'Table', link: '/components/table' },
+          { text: 'TableFilters', link: '/components/table-filters' },
+          { text: 'TableSort', link: '/components/table-sort' },
           { text: 'Tabs', link: '/components/tabs' },
           { text: 'Tag', link: '/components/tag' },
           { text: 'TagsInput', link: '/components/tags-input' },

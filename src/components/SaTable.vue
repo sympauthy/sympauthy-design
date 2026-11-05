@@ -5,9 +5,9 @@ import SaLoadingState from './SaLoadingState.vue'
 import { useSaAutoPageSize } from './useSaAutoPageSize'
 
 /**
- * Any table of records, and what it shows instead of one while it waits, fails or holds nothing. Below
- * `sm:` every row is a card: the markup stays the table's own, so a column added to a screen reaches
- * the phone with it.
+ * A list of records in one card: what narrows it, its rows or what it shows instead of them while it
+ * waits, fails or holds nothing, and what pages it. Below `sm:` a row is laid out down rather than
+ * across: the markup stays the table's own, so a column added to a screen reaches the phone with it.
  */
 const props = withDefaults(
   defineProps<{
@@ -53,21 +53,36 @@ const showsTable = computed(() => !props.loading && !props.error && !props.empty
 </script>
 
 <template>
-  <div :class="fill ? 'flex h-full min-h-0 flex-col' : ''">
+  <div
+    class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
+    :class="fill ? 'h-full min-h-0' : ''"
+  >
+    <div
+      v-if="$slots.toolbar"
+      class="sa-table-toolbar flex shrink-0 flex-wrap items-center gap-2 border-b border-gray-200 p-3 sm:p-4"
+    >
+      <slot name="toolbar" />
+    </div>
+
+    <slot name="filters" />
+
     <div
       ref="viewport"
-      :class="[
-        fill ? 'min-h-0 flex-1 overflow-x-auto overflow-y-auto' : 'overflow-x-auto',
-        showsTable ? 'sm:rounded-lg sm:border sm:border-gray-200 sm:bg-white' : ''
-      ]"
+      :class="fill ? 'min-h-0 flex-1 overflow-x-auto overflow-y-auto' : 'overflow-x-auto'"
     >
-      <SaLoadingState v-if="loading" :label="loadingLabel" :centered="fill" />
+      <SaLoadingState v-if="loading" class="p-4" :label="loadingLabel" :centered="fill" />
 
-      <SaAlert v-else-if="error" color="danger">
-        {{ error }}
-      </SaAlert>
+      <div v-else-if="error" class="p-4">
+        <SaAlert color="danger">
+          {{ error }}
+        </SaAlert>
+      </div>
 
-      <div v-else-if="empty" :class="fill ? 'flex h-full items-center justify-center' : ''">
+      <div
+        v-else-if="empty"
+        class="px-4 py-8 text-center"
+        :class="fill ? 'flex h-full items-center justify-center' : ''"
+      >
         <slot name="empty" />
       </div>
 
@@ -90,7 +105,7 @@ const showsTable = computed(() => !props.loading && !props.error && !props.empty
       </table>
     </div>
 
-    <div v-if="$slots.footer" class="mt-4 shrink-0">
+    <div v-if="$slots.footer" class="shrink-0 border-t border-gray-200 px-3 py-2 sm:px-4 sm:py-3">
       <slot name="footer" />
     </div>
   </div>

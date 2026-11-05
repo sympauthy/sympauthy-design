@@ -148,7 +148,9 @@ viewport and a narrower box does not.
 
 **A mode is drawn in a `DemoFrame`, naming its `mode`.** It teleports the real component into an
 iframe of that width, on the same page and with its state. Leave out what opens an overlay, since
-reka-ui's portal opens it on the page and not in the frame.
+reka-ui's portal opens it on the page and not in the frame, unless the overlay opens in the document
+holding it through `usePortalBody`. A table's filters do, since their popovers are what the demo is
+for. Give each frame its own state where opening takes the focus, as adding a filter does.
 
 **A frame draws `DemoPageActions` in place of `SaPageActions`.** `SaPageActions` looks for its bar on
 the page and not in the frame.

@@ -32,6 +32,11 @@ export interface SaButtonProps {
    */
   collapseLabel?: boolean
   /**
+   * Keeps the label for a screen reader and the title at every width, for a mark that says the rest,
+   * such as a row's menu. Pass an [icon] with it.
+   */
+  iconOnly?: boolean
+  /**
    * `control` (the admin: 14px/500, as wide as its label) or `large` (the flow's auth card: full
    * width, 16px/600). Both are `control-height` tall.
    */
@@ -54,6 +59,7 @@ const props = withDefaults(defineProps<SaButtonProps>(), {
   icon: undefined,
   trailingIcon: undefined,
   collapseLabel: false,
+  iconOnly: false,
   size: 'control',
   loading: false,
   submitting: false,
@@ -130,10 +136,11 @@ const stateSlot = computed(() => {
     :disabled="computedDisabled"
     :title="props.label"
     class="sa-control sa-button-focus flex items-center justify-center gap-1.5 transition-colors"
+    :data-sa-mark="props.iconOnly || props.collapseLabel || undefined"
   >
     <SaSpinner v-if="loading || submitting" size="sm" />
     <component :is="props.icon" v-else-if="props.icon" class="size-4 shrink-0" />
-    <span :class="props.collapseLabel ? 'hidden sm:inline' : ''">
+    <span :class="props.iconOnly ? 'sr-only' : props.collapseLabel ? 'hidden sm:inline' : ''">
       <slot :name="stateSlot">{{ props.label }}</slot>
     </span>
     <component :is="props.trailingIcon" v-if="props.trailingIcon" class="size-4 shrink-0" />

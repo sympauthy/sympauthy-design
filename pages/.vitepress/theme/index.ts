@@ -40,7 +40,11 @@ import {
   SaSummaryField,
   SaTable,
   SaTableCell,
+  SaTableFilterPicker,
+  SaTableFilters,
   SaTableHeader,
+  SaTableRecord,
+  SaTableSort,
   SaTabs,
   SaTag,
   SaTagsInput,
@@ -85,7 +89,11 @@ export default {
     app.component('SaSummaryField', SaSummaryField)
     app.component('SaTable', SaTable)
     app.component('SaTableCell', SaTableCell)
+    app.component('SaTableFilterPicker', SaTableFilterPicker)
+    app.component('SaTableFilters', SaTableFilters)
     app.component('SaTableHeader', SaTableHeader)
+    app.component('SaTableRecord', SaTableRecord)
+    app.component('SaTableSort', SaTableSort)
     app.component('SaTabs', SaTabs)
     app.component('SaTag', SaTag)
     app.component('SaTagsInput', SaTagsInput)

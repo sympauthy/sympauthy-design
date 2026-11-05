@@ -40,7 +40,11 @@ export { default as SaSummaryCard } from './components/SaSummaryCard.vue'
 export { default as SaSummaryField } from './components/SaSummaryField.vue'
 export { default as SaTable } from './components/SaTable.vue'
 export { default as SaTableCell } from './components/SaTableCell.vue'
+export { default as SaTableFilterPicker } from './components/SaTableFilterPicker.vue'
+export { default as SaTableFilters } from './components/SaTableFilters.vue'
 export { default as SaTableHeader } from './components/SaTableHeader.vue'
+export { default as SaTableRecord } from './components/SaTableRecord.vue'
+export { default as SaTableSort, type SaSortLabels } from './components/SaTableSort.vue'
 export { default as SaTabs, type Tab } from './components/SaTabs.vue'
 export { default as SaTag } from './components/SaTag.vue'
 export { default as SaTagsInput } from './components/SaTagsInput.vue'
@@ -48,6 +52,37 @@ export { default as SaTextarea } from './components/SaTextarea.vue'
 export { default as SaTooltip } from './components/SaTooltip.vue'
 export { default as SaTooltipProvider } from './components/SaTooltipProvider.vue'
 export { useSaAutoPageSize, type SaAutoPageSizeOptions } from './components/useSaAutoPageSize'
+export {
+  useSaSort,
+  type SaSort,
+  type SaSortField,
+  type SaSortKey,
+  type SaSortOptions
+} from './components/useSaSort'
+export {
+  useSaFilters,
+  type SaFilterStart,
+  type SaFilters,
+  type SaFiltersOptions
+} from './components/useSaFilters'
+export {
+  SA_FILTER_OPERATORS,
+  SA_FILTER_TYPES,
+  saFilterDefaultOperator,
+  saFilterIsComplete,
+  saFilterIsMultiValued,
+  saFilterIsValueless,
+  saFilterKnownFields,
+  saFilterValues,
+  type SaFilterCriterion,
+  type SaFilterField,
+  type SaFilterFieldDescription,
+  type SaFilterLabels,
+  type SaFilterOperator,
+  type SaFilterPatch,
+  type SaFilterType,
+  type SaFilterValue
+} from './components/saFilter'
 
 // Branding: what the server answers under /branding, and a theme tried in the page before it is.
 export { brandingUrls, fetchBrand, type Brand, type BrandingUrls } from './theme/brand'

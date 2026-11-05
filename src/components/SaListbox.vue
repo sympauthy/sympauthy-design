@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, type Component } from 'vue'
 import { CheckIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 import {
   ListboxContent,
@@ -13,6 +13,10 @@ import { useFieldDescription } from './fieldDescription'
 export interface SaListboxOption {
   value: string
   label: string
+  /** A 12px mark after the label, where it says what the label cannot. */
+  icon?: Component
+  /** What [icon] says to a screen reader. */
+  iconLabel?: string
 }
 
 /**
@@ -117,7 +121,11 @@ function onUpdate(value: unknown) {
         :value="option.value"
         class="sa-menu-item justify-between text-gray-700 data-[highlighted]:bg-gray-100"
       >
-        <span class="truncate">{{ option.label }}</span>
+        <span class="flex min-w-0 items-center gap-1">
+          <span class="truncate">{{ option.label }}</span>
+          <component :is="option.icon" v-if="option.icon" class="size-3 shrink-0" />
+          <span v-if="option.iconLabel" class="sr-only">{{ option.iconLabel }}</span>
+        </span>
         <ListboxItemIndicator>
           <CheckIcon class="size-4 shrink-0 text-primary" />
         </ListboxItemIndicator>

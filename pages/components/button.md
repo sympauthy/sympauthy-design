@@ -60,6 +60,7 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
 - **`size="control"`**, the default (admin): as wide as its label.
 - **`size="large"`** (flow): full width, in an auth card.
 - **`collapseLabel`**: a control of a toolbar, which keeps only its icon below `sm:`.
+- **`iconOnly`**: a mark that says the rest at every width, such as refreshing a list or a row's menu.
 - **Not for** a second filled button: Bordeaux stays the only solid one, so a destructive action takes the soft `variant="danger"`.
 
 ## Look
@@ -87,7 +88,7 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
 
 ## Accessibility
 
-- **`label` is the button's name.** It is also its `title`, which is what names a button whose label `collapseLabel` has dropped, so pass an `icon` with it.
+- **`label` is the button's name.** It is also its `title`, which is what names a button whose label `collapseLabel` has dropped, so pass an `icon` with it. Under `iconOnly` a screen reader still reads it.
 - **`refused` is `aria-disabled`, not `disabled`.** A person on a keyboard can still reach the button and read why it is refused (WCAG 2.1.1).
 - **Its height meets the touch targets** set on [Control height](/foundations/control-height#accessibility).
 
@@ -102,6 +103,7 @@ The consumer provides a `label`, optionally an icon, and `submitting` or `loadin
 | `icon`          | `Component`                                         |             | Drawn before the label.                                     |
 | `trailingIcon`  | `Component`                                         |             | Drawn after the label, for a button that opens something.   |
 | `collapseLabel` | `boolean`                                           | `false`     | Drops the label below `sm:`, keeping it as the title.       |
+| `iconOnly`      | `boolean`                                           | `false`     | Draws the icon alone at every width.                        |
 | `size`          | `'control' \| 'large'`                              | `'control'` | The label's type and the width. The height does not change. |
 | `loading`       | `boolean`                                           | `false`     | Waiting for something to arrive.                            |
 | `submitting`    | `boolean`                                           | `false`     | Waiting for what it sent.                                   |
