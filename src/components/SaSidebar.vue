@@ -58,10 +58,16 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
       <component
         :is="homeLink ? linkAs : 'div'"
         v-bind="homeLink"
-        class="flex min-w-0 items-center gap-2.5 self-stretch text-nav-strong max-lg:mr-2"
+        class="flex min-w-0 items-center self-stretch text-nav-strong max-lg:mr-2"
         :class="homeLink ? focusClasses : undefined"
       >
-        <slot name="head" />
+        <!-- The words share a baseline, whatever their sizes, and the logo is centred on them. Its
+             negative margin keeps it from sizing the line, so the words alone set the middle. -->
+        <span
+          class="flex min-w-0 items-baseline gap-2.5 [&>img,&>picture]:-my-4 [&>img,&>picture]:self-center"
+        >
+          <slot name="head" />
+        </span>
       </component>
       <!-- The icon keeps its size, so the head keeps its width, and the pseudo-element around it is
            the target. -->

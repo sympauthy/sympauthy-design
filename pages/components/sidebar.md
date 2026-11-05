@@ -41,7 +41,7 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 ## Look
 
 - **Ground**: `nav-ground`, whatever the theme.
-- **Head**: 56px in `nav-strong`, with a `nav-divider` rule under it.
+- **Head**: 56px in `nav-strong`, with a `nav-divider` rule under it. Its words share a baseline whatever their sizes, as the 18px name and the 12px "Admin" do, and the logo is centred on them, as [Type](/foundations/type) has it.
 - **Section**: set apart by space alone, 20px above its label.
 - **Section label**: 12px at 500, uppercase, in `nav-muted`.
 - **Entry**: 14px at 500 in `nav-text`, `control-height` tall with 16px either side.
