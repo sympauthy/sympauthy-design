@@ -12,7 +12,7 @@ Components are grouped the same way. **Common** holds what any app can import (A
 
 - [Color](./color): ground and surface, the ink scale, Bordeaux, gold, status colors.
 - [Themes](./themes): light first; dark in the flow only.
-- [Type](./type): the two families and each app's styles.
+- [Type](./type): the two families, each app's styles, and what aligns on the baseline.
 - [Spacing](./spacing): the steps and what each separates.
 - [Control height](./control-height): one height for every control, in both apps.
 - [Shape](./shape): flat surfaces, and what each radius means.
