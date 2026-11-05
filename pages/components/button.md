@@ -60,6 +60,7 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
 - **`size="control"`**, the default (admin): as wide as its label.
 - **`size="large"`** (flow): full width, in an auth card.
 - **`collapseLabel`**: a control of a toolbar, which keeps only its icon below `sm:`.
+- **`collapsedIcon`**: a control that needs a mark only where its label is gone, such as a [Menu](/components/menu)'s trigger in a phone's bar.
 - **`iconOnly`**: a mark that says the rest at every width, such as refreshing a list or a row's menu.
 - **Not for** a second filled button: Bordeaux stays the only solid one, so a destructive action takes the soft `variant="danger"`.
 
@@ -88,7 +89,7 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
 
 ## Accessibility
 
-- **`label` is the button's name.** It is also its `title`, which is what names a button whose label `collapseLabel` has dropped, so pass an `icon` with it. Under `iconOnly` a screen reader still reads it.
+- **`label` is the button's name.** It is also its `title`, which is what names a button whose label `collapseLabel` or `collapsedIcon` has dropped, so pass an `icon` with `collapseLabel`. Under `iconOnly` a screen reader still reads it.
 - **`refused` is `aria-disabled`, not `disabled`.** A person on a keyboard can still reach the button and read why it is refused (WCAG 2.1.1).
 - **Its height meets the touch targets** set on [Control height](/foundations/control-height#accessibility).
 
@@ -96,22 +97,23 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
 
 The consumer provides a `label`, optionally an icon, and `submitting` or `loading` while waiting. An app that refuses a button for a reason passes `refused` and wraps the button in its own tooltip saying why. A wrapper extends the exported `SaButtonProps`, and hands down everything but what it adds. Every other attribute reaches the `<button>`.
 
-| Name            | Type                                                | Default     | Description                                                 |
-| --------------- | --------------------------------------------------- | ----------- | ----------------------------------------------------------- |
-| `variant`       | `'primary' \| 'secondary' \| 'outline' \| 'danger'` | `'primary'` | What the button is for.                                     |
-| `label`         | `string`                                            |             | What the button does, kept while in flight.                 |
-| `icon`          | `Component`                                         |             | Drawn before the label.                                     |
-| `trailingIcon`  | `Component`                                         |             | Drawn after the label, for a button that opens something.   |
-| `collapseLabel` | `boolean`                                           | `false`     | Drops the label below `sm:`, keeping it as the title.       |
-| `iconOnly`      | `boolean`                                           | `false`     | Draws the icon alone at every width.                        |
-| `size`          | `'control' \| 'large'`                              | `'control'` | The label's type and the width. The height does not change. |
-| `loading`       | `boolean`                                           | `false`     | Waiting for something to arrive.                            |
-| `submitting`    | `boolean`                                           | `false`     | Waiting for what it sent.                                   |
-| `disabled`      | `boolean`                                           | `false`     | Unavailable, and needing no explanation.                    |
-| `refused`       | `boolean`                                           | `false`     | Drawn disabled but kept focusable, its click dropped.       |
-| `#default`      | slot                                                | `label`     | The words, when idle.                                       |
-| `#loading`      | slot                                                | `label`     | The words, while `loading`.                                 |
-| `#submitting`   | slot                                                | `label`     | The words, while `submitting`.                              |
+| Name            | Type                                                | Default     | Description                                                       |
+| --------------- | --------------------------------------------------- | ----------- | ----------------------------------------------------------------- |
+| `variant`       | `'primary' \| 'secondary' \| 'outline' \| 'danger'` | `'primary'` | What the button is for.                                           |
+| `label`         | `string`                                            |             | What the button does, kept while in flight.                       |
+| `icon`          | `Component`                                         |             | Drawn before the label.                                           |
+| `trailingIcon`  | `Component`                                         |             | Drawn after the label, for a button that opens something.         |
+| `collapseLabel` | `boolean`                                           | `false`     | Drops the label below `sm:`, keeping it as the title.             |
+| `collapsedIcon` | `Component`                                         | `undefined` | Stands for the label below `sm:`, and drops `trailingIcon` there. |
+| `iconOnly`      | `boolean`                                           | `false`     | Draws the icon alone at every width.                              |
+| `size`          | `'control' \| 'large'`                              | `'control'` | The label's type and the width. The height does not change.       |
+| `loading`       | `boolean`                                           | `false`     | Waiting for something to arrive.                                  |
+| `submitting`    | `boolean`                                           | `false`     | Waiting for what it sent.                                         |
+| `disabled`      | `boolean`                                           | `false`     | Unavailable, and needing no explanation.                          |
+| `refused`       | `boolean`                                           | `false`     | Drawn disabled but kept focusable, its click dropped.             |
+| `#default`      | slot                                                | `label`     | The words, when idle.                                             |
+| `#loading`      | slot                                                | `label`     | The words, while `loading`.                                       |
+| `#submitting`   | slot                                                | `label`     | The words, while `submitting`.                                    |
 
 ## Related
 

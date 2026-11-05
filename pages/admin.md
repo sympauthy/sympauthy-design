@@ -7,7 +7,7 @@ The screens of **sympauthy-admin**. Its own `docs/design-system-standard.md` and
 Drawn by [AppShell](/components/app-shell), [Sidebar](/components/sidebar) and [Breadcrumb](/components/breadcrumb).
 
 - **Sidebar**: `nav-ground` (Cassis), `sidebar-width`, the mark (`sympauthy-icon-dark.svg`, 32px) and the wordmark with "Admin" in `nav-muted` in a 56px head under a `nav-divider` rule. Section labels in 12px uppercase `nav-muted`; entries in `nav-text`; hover `nav-hover`; the current entry `nav-active` with a 3px `gold` rule on its left edge; an entry the token cannot open `nav-disabled`, explained by a tooltip. Below `lg:` it is a drawer over a `rgba(31,20,24,0.5)` scrim.
-- **Breadcrumb bar**: sticky, `surface` with an `ink-200` bottom rule; ancestors are `ink-500` links, the current record `ink-900`. The page's actions sit at its right end. Below `lg:` the menu icon in `ink-600` stands before it, in the same 56px row. Below `sm:` the row drops the ancestors, and the screen's name takes `panel-heading`.
+- **Breadcrumb bar**: sticky, `surface` with an `ink-200` bottom rule; ancestors are `ink-500` links, the current record `ink-900`. The page's actions sit at its right end, and below `sm:` they are always a `⋯` mark with no border, even for one action. Below `lg:` the menu icon in `ink-600` stands before it, in the same 56px row. Below `sm:` the row drops the ancestors, and the screen's name takes `panel-heading`. A screen with ancestors has a link back in place of the menu icon, with its parent's name over its own ([Navigation](/foundations/navigation)).
 - **Main**: `ground`, padded `space-4` then `space-6` from `lg:`, centred at `page-width`.
 
 ## Collections

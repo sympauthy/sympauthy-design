@@ -95,6 +95,7 @@ The consumer provides who is signed in and the words, and signs out when told to
 
 ## Related
 
+- [Navigation](/foundations/navigation): what the sidebar leads to.
 - [AppShell](/components/app-shell): what holds it, and draws it as a drawer.
 - [BrandLogo](/components/brand-logo): the logo in its head.
 - [Tooltip](/components/tooltip): a disabled entry's reason.

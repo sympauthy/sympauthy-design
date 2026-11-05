@@ -63,6 +63,7 @@ The consumer provides the tabs, what draws their links, and which one is current
 
 ## Related
 
+- [Navigation](/foundations/navigation): when a record's views are tabs.
 - [RecordPage](/components/record-page): what sits above and below them.
 - [Popover](/components/popover): an explanation beside a tab.
 - [Link](/components/link): a link inside a sentence.
