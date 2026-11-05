@@ -114,6 +114,18 @@
     padding: calc(var(--spacing) * 3.5) calc(var(--spacing) * 3);
   }
 
+  /* A control on the first line already opens it up, which takes the place of the row's padding. */
+  .sa-table-as-cards tr:has(.sa-cell-actions) {
+    padding-block: calc(var(--spacing) * 2);
+  }
+
+  /* Ends the first line, so that the values start the next however much room the name leaves. */
+  .sa-table-as-cards tr:has(.sa-cell-primary, .sa-cell-actions)::before {
+    content: '';
+    order: 1;
+    flex-basis: 100%;
+  }
+
   /* A column the page drops on a phone stays dropped: it carries `hidden`, and what a screen has
      already decided not to show a phone is not resurrected by being stacked. */
   .sa-table-as-cards td:not(.hidden) {
@@ -143,22 +155,16 @@
     white-space: normal;
   }
 
-  /* The whole first line, so that the values start the next one. */
+  /* The name gives up the line to the actions only while it can still be read, and past that the
+     actions take a line of their own, as several labelled buttons do. */
   .sa-table-as-cards td.sa-cell-primary {
     order: 0;
-    flex: 1 1 100%;
-    margin-bottom: calc(var(--spacing) * 1);
+    flex: 1 1 calc(var(--spacing) * 48);
   }
 
-  .sa-table-as-cards tr:has(.sa-cell-actions) td.sa-cell-primary {
-    flex-basis: calc(100% - var(--spacing-control) - var(--spacing) * 3);
-  }
-
-  /* As tall as the control it holds, without making the line of the name that tall: the row then
-     keeps to the height of what it says. */
   .sa-table-as-cards td.sa-cell-actions {
-    order: 1;
-    margin-block: calc((var(--spacing) * 5 - var(--spacing-control)) / 2);
+    order: 0;
+    flex: none;
   }
 
   .sa-table-as-cards td[data-label]:not(.hidden) {
@@ -177,12 +183,14 @@
 
 /**
  * Below `sm:` a table's toolbar fills its lines: the search field takes the first, whatever a screen
- * sizes it to from `sm:`, and the controls share the next, but for one drawn as its mark alone, which
- * stays square. Outside every layer, to reach the width a screen writes on its search field.
+ * sizes it to from `sm:`, and the controls share the next in equal parts, but for one drawn as its
+ * mark alone, which stays square. A label cut short gives way rather than the line, since what the
+ * toolbar holds has no length the package knows. Outside every layer, to reach the width a screen
+ * writes on its search field.
  */
 @media (width < theme(--breakpoint-sm)) {
   .sa-table-toolbar > * {
-    flex: 1 1 auto;
+    flex: 1 1 0;
   }
 
   .sa-table-toolbar > :has(input) {
@@ -191,6 +199,13 @@
 
   .sa-table-toolbar > [data-sa-mark] {
     flex: none;
+  }
+
+  .sa-table-toolbar > button > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 

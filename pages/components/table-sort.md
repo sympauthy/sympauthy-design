@@ -14,13 +14,7 @@ const users = [
   { email: 'katherine.johnson@example.com', status: 'Invited', color: 'yellow', created: '2026-10-03' },
   { email: 'alan@example.com', status: 'Disabled', color: 'red', created: '2026-08-20' }
 ]
-const orderNames = { created: ['Oldest first', 'Newest first'], email: ['Email, A to Z', 'Email, Z to A'] }
-const labels = {
-  sort: 'Sort',
-  search: 'Search orders',
-  noMatch: 'Nothing matches',
-  order: (field, descending) => orderNames[field.field][descending ? 1 : 0]
-}
+const labels = { sort: 'Sort', search: 'Search orders', noMatch: 'Nothing matches', ascending: 'ascending', descending: 'descending' }
 const sort = useSaSort({
   fields: () => [{ field: 'email', name: 'Email' }, { field: 'created', name: 'Created' }],
   defaultKeys: () => [{ field: 'created', descending: true }]
@@ -68,26 +62,27 @@ const rows = computed(() => {
 
 - **Header**: a column that orders the list makes the header row `control-height` tall and carries a 12px mark for what pressing it does, which the canvas leaves out, since a control has to be findable.
 - **The column setting the order**: `ink-700` with a 12px arrow.
-- **Control**: a secondary [Button](/components/button) saying the order, over a [Listbox](/components/listbox) of the others.
+- **Control**: a secondary [Button](/components/button) holding the field's name and a 16px arrow, as a header writes them. The name is cut with an ellipsis where the controls beside it leave too little room, and the arrow stays.
+- **List**: a [Listbox](/components/listbox) of each field twice, its name and a 12px arrow, up and down.
 
 ## Behavior
 
 - **Hover**: a column that orders the list is `ink-100`.
 - **Focus**: the column's button takes the outline of [Focus, states and motion](/foundations/focus).
 - **Pressing a column**: orders the list on it, ascending, then descending, then back to the list's own order. The whole cell is the target.
-- **Choosing an order on a phone**: the list closes and the control says the new order. Choosing the current one goes back to the list's own, as the third press does.
+- **Choosing an order on a phone**: the list closes and the control shows the new arrow and field. Choosing the current one goes back to the list's own, as the third press does.
 - **`onChange`**: called only where the order moved. Going back to the list's own order while it is already in it asks nothing.
 - **A field no longer published**: its column draws as any other, and the control stops offering it.
 
 ## Content
 
-- **`order` says what an order reads**, as "Oldest first" over a date (see [Content](/foundations/content)). A field's `name` is all the package knows of it, so which words fit it are the app's.
+- **An order is a field's `name` and an arrow, in every mode**, so that an app chooses no words for it (see [Content](/foundations/content)).
 - **`sort` is said only where the list is in no order the control can name**, as "Sort".
 
 ## Accessibility
 
 - **A column that orders the list holds a real button, so it reaches the keyboard, and the cell takes `aria-sort`** (WCAG 2.1.1, 4.1.2).
-- **The control is named by the order it says**, and its list by `labels.sort`. The primitive holds the popover's focus and its Escape, and closing it returns the focus to the control.
+- **An arrow says nothing to a screen reader, so `ascending` and `descending` say it**: in the control's name, which starts with what it shows (WCAG 2.5.3), and in each choice of the list. The list is named by `labels.sort`, and the primitive holds the popover's focus and its Escape. Closing it returns the focus to the control.
 
 ## API
 
@@ -95,10 +90,10 @@ The consumer provides the fields, the words and the toolbar around the control, 
 
 ### SaTableSort
 
-| Name     | Type           | Default | Description                                                      |
-| -------- | -------------- | ------- | ---------------------------------------------------------------- |
-| `sort`   | `SaSort`       |         | Required. What `useSaSort` holds.                                |
-| `labels` | `SaSortLabels` |         | Required. Its words, with `order` answering what an order reads. |
+| Name     | Type           | Default | Description                                                               |
+| -------- | -------------- | ------- | ------------------------------------------------------------------------- |
+| `sort`   | `SaSort`       |         | Required. What `useSaSort` holds.                                         |
+| `labels` | `SaSortLabels` |         | Required. Its words, with `ascending` and `descending` saying the arrows. |
 
 ### useSaSort
 

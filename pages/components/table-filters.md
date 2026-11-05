@@ -53,13 +53,7 @@ const labels = {
   removeFilter: (name) => `Remove the ${name} filter`,
   operatorName: (operator, type) => (type === 'date' ? dateNames[operator] : null) ?? operatorNames[operator]
 }
-const orderNames = { created: ['Oldest first', 'Newest first'], email: ['Email, A to Z', 'Email, Z to A'] }
-const sortLabels = {
-  sort: 'Sort',
-  search: 'Search orders',
-  noMatch: 'Nothing matches',
-  order: (field, descending) => orderNames[field.field][descending ? 1 : 0]
-}
+const sortLabels = { sort: 'Sort', search: 'Search orders', noMatch: 'Nothing matches', ascending: 'ascending', descending: 'descending' }
 const sortFields = [{ field: 'email', name: 'Email' }, { field: 'created', name: 'Created' }]
 const defaultKeys = () => [{ field: 'created', descending: true }]
 const inOrder = (rows, keys) => {

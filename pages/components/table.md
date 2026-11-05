@@ -98,12 +98,12 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
 ## Look
 
 - **Box**: one flat card at every width: `surface` with an `ink-200` border and `radius-lg`. Its parts are split by `ink-200` rules.
-- **Toolbar**: `space-4` around it and `space-2` between its controls, `space-3` around it below `sm:`, where the search field takes the first line and the controls share the next, a control drawn as its mark alone staying square.
+- **Toolbar**: `space-4` around it and `space-2` between its controls, `space-3` around it below `sm:`, where the search field takes the first line and the controls share the next in equal parts, cutting a label with an ellipsis where it does not fit. A control drawn as its mark alone stays square.
 - **Header row**: `ink-50`, its names in `.sa-field-label`, 10px by `space-4`.
 - **Cell**: 14px in `ink-900`, `space-3` by `space-4`, with rows split by `ink-200`.
 - **The `primary` cell**: `panel-strong` in `ink-900`.
 - **Record**: `primary` at 600, underlined, with a 14px chevron. Its `detail` is `panel-mono` in `ink-500`, under it and cut with an ellipsis.
-- **Below `sm:`**: the rows stay in the card, split by the same rules. The `primary` cell and the actions take the first line, and the other cells wrap under it, each 12px beside its `label` in `ink-500`. A `detail` is dropped.
+- **Below `sm:`**: the rows stay in the card, split by the same rules. The `primary` cell takes the first line with the actions, which take a line of their own where they leave it too little room, and the other cells wrap under them, each 12px beside its `label` in `ink-500`. A `detail` is dropped.
 - **Footer**: `space-3` by `space-4`, `space-2` by `space-3` below `sm:`.
 
 ## Behavior
