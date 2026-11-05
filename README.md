@@ -13,7 +13,7 @@ documents them.
 ## Use it in an app
 
 ```sh
-npm install github:sympauthy/sympauthy-design#v0.7.0
+npm install github:sympauthy/sympauthy-design#v0.7.1
 ```
 
 ```css
@@ -61,7 +61,7 @@ npm run format
 ## Release
 
 1. Bump `version` in `package.json` and merge.
-2. `git tag v0.7.0 && git push --tags`.
+2. `git tag v0.7.1 && git push --tags`.
 
 The tag is the release: the package is internal to SympAuthy, so nothing is published to a registry,
 and `private` in `package.json` makes `npm publish` refuse. Renovate in both apps opens the version
