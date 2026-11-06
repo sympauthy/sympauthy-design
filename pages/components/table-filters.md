@@ -107,12 +107,12 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
           <SaTableCell label="Status" label-hidden fit><SaTag :color="statusColor[user.status]">{{ statusName[user.status] }}</SaTag></SaTableCell>
           <SaTableCell label="Last sign-in" fit><SaEmptyValue v-if="!user.signIn" /><template v-else>{{ user.signIn }}</template></SaTableCell>
           <SaTableCell label="Created" fit>{{ user.created }}</SaTableCell>
-          <SaTableCell actions><SaButton variant="secondary" :label="`Actions for ${user.email}`" :icon="EllipsisHorizontalIcon" icon-only /></SaTableCell>
+          <SaTableActions><SaButton variant="secondary" :label="`Actions for ${user.email}`" :icon="EllipsisHorizontalIcon" icon-only /></SaTableActions>
         </tr>
       </template>
       <template #empty><p class="text-sm text-gray-500">No user matches these filters.</p></template>
       <template #footer>
-        <SaPagination always-shown :page="list.page" :total-pages="list.pages" :size="PAGE_SIZE" :total="list.matching.length" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="list.page = $event" />
+        <SaPagination :page="list.page" :total-pages="list.pages" :size="PAGE_SIZE" :total="list.matching.length" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="list.page = $event" />
       </template>
     </SaTable>
   </DemoFrame>

@@ -130,6 +130,7 @@ export default defineConfig({
           { text: 'Skeleton', link: '/components/skeleton' },
           { text: 'Spinner', link: '/components/spinner' },
           { text: 'Table', link: '/components/table' },
+          { text: 'TableEnd', link: '/components/table-end' },
           { text: 'TableFilters', link: '/components/table-filters' },
           { text: 'TableSort', link: '/components/table-sort' },
           { text: 'Tabs', link: '/components/tabs' },

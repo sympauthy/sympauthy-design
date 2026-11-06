@@ -8,6 +8,8 @@ import { useSaAutoPageSize } from './useSaAutoPageSize'
  * A list of records in one card: what narrows it, its rows or what it shows instead of them while it
  * waits, fails or holds nothing, and what pages it. Below `sm:` a row is laid out down rather than
  * across: the markup stays the table's own, so a column added to a screen reaches the phone with it.
+ * A phone's card also ends with its rows, whatever it fills from `sm:`, since its list grows as it is
+ * scrolled and a card stretched to the bottom of the screen would hold nothing but the space.
  */
 const props = withDefaults(
   defineProps<{
@@ -18,11 +20,12 @@ const props = withDefaults(
     empty?: boolean
     tableLayout?: 'fixed' | 'auto'
     /**
-     * Fills the height of the parent: rows scroll inside the table while the header row and the
-     * footer stay pinned. The parent must have a height set by the layout.
+     * Fills the height of the parent from `sm:`: rows scroll inside the table while the header row
+     * and the footer stay pinned. The parent must have a height set by the layout. Below `sm:` the
+     * card ends with its rows, and the page scrolls.
      */
     fill?: boolean
-    /** Derives the number of rows per page from the height available in [fill] mode. */
+    /** Derives the number of rows per page from the height available in [fill] mode, from `sm:`. */
     autoPageSize?: boolean
     minPageSize?: number
   }>(),
@@ -55,7 +58,7 @@ const showsTable = computed(() => !props.loading && !props.error && !props.empty
 <template>
   <div
     class="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
-    :class="fill ? 'h-full min-h-0' : ''"
+    :class="fill ? 'sm:h-full sm:min-h-0' : ''"
   >
     <div
       v-if="$slots.toolbar"
@@ -68,7 +71,7 @@ const showsTable = computed(() => !props.loading && !props.error && !props.empty
 
     <div
       ref="viewport"
-      :class="fill ? 'min-h-0 flex-1 overflow-x-auto overflow-y-auto' : 'overflow-x-auto'"
+      :class="fill ? 'overflow-x-auto sm:min-h-0 sm:flex-1 sm:overflow-y-auto' : 'overflow-x-auto'"
     >
       <SaLoadingState v-if="loading" class="p-4" :label="loadingLabel" :centered="fill" />
 
@@ -81,7 +84,7 @@ const showsTable = computed(() => !props.loading && !props.error && !props.empty
       <div
         v-else-if="empty"
         class="px-4 py-8 text-center"
-        :class="fill ? 'flex h-full items-center justify-center' : ''"
+        :class="fill ? 'sm:flex sm:h-full sm:items-center sm:justify-center' : ''"
       >
         <slot name="empty" />
       </div>

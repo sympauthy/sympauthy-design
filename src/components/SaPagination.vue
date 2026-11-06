@@ -13,6 +13,11 @@ import {
 /**
  * Which page of a list is on screen, and the way to the others. A phone is told which page of how
  * many, since page numbers do not fit it, and every step is a control a thumb can hit.
+ *
+ * A list of one page is told its range alone: a disabled pair of arrows around a lone "1" says
+ * nothing the range does not. The bar keeps the height of a step either way, so that a filter taking
+ * a list down to one page moves nothing but the steps, and a table sizing its pages from the height
+ * left to its rows is not handed a different one.
  */
 const props = withDefaults(
   defineProps<{
@@ -30,14 +35,11 @@ const props = withDefaults(
     total?: number
     /** Says which rows are on screen, as "Showing 1-20 of 200". */
     rangeLabel?: (range: { from: number; to: number; total: number }) => string
-    /** Kept on screen for a single page, where hiding it would change the height around it. */
-    alwaysShown?: boolean
   }>(),
   {
     size: 0,
     total: 0,
-    rangeLabel: undefined,
-    alwaysShown: false
+    rangeLabel: undefined
   }
 )
 
@@ -66,8 +68,13 @@ const stepClasses =
 </script>
 
 <template>
+  <!-- Not a navigation: there is nowhere to go. -->
+  <p v-if="totalPages <= 1" class="flex min-h-control items-center text-sm text-gray-500">
+    <template v-if="range && rangeLabel">{{ rangeLabel(range) }}</template>
+  </p>
+
   <PaginationRoot
-    v-if="alwaysShown || totalPages > 1"
+    v-else
     :page="page + 1"
     :items-per-page="itemsPerPage"
     :total="totalItems"

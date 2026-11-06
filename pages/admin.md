@@ -17,8 +17,9 @@ Drawn by [Table](/components/table).
 - **One card holds a collection**, `surface` with an `ink-200` border and `radius-lg`: the toolbar, the filters while one is applied, the table and the pagination bar, split by `ink-200` rules.
 - **A table**: the header row is `ink-50` with `panel-label` names, and a column that orders the list is a button (see [TableSort](/components/table-sort)), which a phone reaches through a control in the toolbar; cells are `panel-body` in `ink-900`, the primary column `panel-strong`, identifiers `panel-mono`. Rows are separated by `ink-200` rules and highlight `ink-50` on hover.
 - **A filter** (see [TableFilters](/components/table-filters)) is a `primary-subtle` control with a `primary` border, in an `ink-50` band with how many records are left and the way to clear them. Its condition and value are chosen in a popover, and which fields exist is the collection's capability document.
-- **The pagination bar** is the card's foot (see [Pagination](/components/pagination)): the range in `ink-500` on the left, the pager on the right; the current page is a `primary` square with `on-primary` digits.
-- **Below `sm:` the card stays and each row is laid out down**: the record's name and its actions, then its other values wrapping beside their column's name. The pager's arrows take the ends of the foot.
+- **The pagination bar** is the card's foot from `sm:` (see [Pagination](/components/pagination)): the range in `ink-500` on the left, always, and the pager on the right only past one page; the current page is a `primary` square with `on-primary` digits.
+- **Below `sm:` the card stays and each row is laid out down**: the record's name and its actions, then its other values wrapping beside their column's name.
+- **Below `sm:` a collection grows as it is scrolled** (see [TableEnd](/components/table-end)): the card ends with its rows, with no foot, and the next page is asked for before the end is reached, with two placeholder rows standing for it. Once the list is whole a line in `ink-500` says how many it holds. A first page is 20 rows, and an operator coming back from a row finds the rows and the scroll they left.
 - **An empty collection is one sentence** in `ink-500`, centred in the card.
 
 ## Records

@@ -114,13 +114,18 @@
     padding: calc(var(--spacing) * 3.5) calc(var(--spacing) * 3);
   }
 
-  /* A control on the first line already opens it up, which takes the place of the row's padding. */
-  .sa-table-as-cards tr:has(.sa-cell-actions) {
-    padding-block: calc(var(--spacing) * 2);
+  /* The row's mark is out of its flow, in the corner, and the row keeps the room it takes on its
+     right: a row's name and values lay out the same whether it has one or not. */
+  .sa-table-as-cards tr:has(> .sa-cell-actions) {
+    position: relative;
+  }
+
+  .sa-table-as-cards tr:has(> .sa-cell-actions :is(button, a)) {
+    padding-right: var(--spacing-control);
   }
 
   /* Ends the first line, so that the values start the next however much room the name leaves. */
-  .sa-table-as-cards tr:has(.sa-cell-primary, .sa-cell-actions)::before {
+  .sa-table-as-cards tr:has(.sa-cell-primary)::before {
     content: '';
     order: 1;
     flex-basis: 100%;
@@ -155,16 +160,17 @@
     white-space: normal;
   }
 
-  /* The name gives up the line to the actions only while it can still be read, and past that the
-     actions take a line of their own, as several labelled buttons do. */
   .sa-table-as-cards td.sa-cell-primary {
     order: 0;
     flex: 1 1 calc(var(--spacing) * 48);
   }
 
+  /* The top right corner, centred on the first line of a row: its padding, then half of the 20px
+     line the record's name is set on, less half the mark. */
   .sa-table-as-cards td.sa-cell-actions {
-    order: 0;
-    flex: none;
+    position: absolute;
+    top: calc(var(--spacing) * 3.5 + 0.625rem - var(--spacing-control) / 2);
+    right: 0;
   }
 
   .sa-table-as-cards td[data-label]:not(.hidden) {

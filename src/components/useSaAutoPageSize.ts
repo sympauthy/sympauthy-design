@@ -1,4 +1,5 @@
 import { onBeforeUnmount, onMounted, onUpdated, type Ref } from 'vue'
+import { saListGrowsQuery } from './useSaListGrows'
 
 // Metrics used before the table has rendered any row, matching the header of a table ordered from
 // its columns, `control-height` and a rule. The row height is the one of the tallest kind of row (a row
@@ -24,6 +25,10 @@ export interface SaAutoPageSizeOptions {
  * Derives the number of rows that fit the height of a table viewport, so a list can fill the page
  * without scrolling. `viewport` must be an element whose height is set by the layout (and not by
  * its content), otherwise the rows it receives would change the height it is measured from.
+ *
+ * Nothing is measured below `sm:`, where a list grows as it is scrolled and its card ends with its
+ * rows: the height there is the rows', and the caller asks for pages of a size of its own. Crossing
+ * into `sm:` resizes the viewport, which measures it.
  */
 export function useSaAutoPageSize(
   viewport: Ref<HTMLElement | null>,
@@ -64,6 +69,10 @@ export function useSaAutoPageSize(
   function measure() {
     const element = viewport.value
     if (!element || !enabled()) {
+      return
+    }
+    // Read from the window holding the table, which in a demo's frame is not the page's.
+    if (element.ownerDocument.defaultView?.matchMedia(saListGrowsQuery()).matches) {
       return
     }
 

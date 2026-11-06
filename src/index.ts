@@ -40,7 +40,9 @@ export { default as SaRecordViews, type SaRecordView } from './components/SaReco
 export { default as SaSummaryCard } from './components/SaSummaryCard.vue'
 export { default as SaSummaryField } from './components/SaSummaryField.vue'
 export { default as SaTable } from './components/SaTable.vue'
+export { default as SaTableActions } from './components/SaTableActions.vue'
 export { default as SaTableCell } from './components/SaTableCell.vue'
+export { default as SaTableEnd } from './components/SaTableEnd.vue'
 export { default as SaTableFilterPicker } from './components/SaTableFilterPicker.vue'
 export { default as SaTableFilters } from './components/SaTableFilters.vue'
 export { default as SaTableHeader } from './components/SaTableHeader.vue'
@@ -53,6 +55,7 @@ export { default as SaTextarea } from './components/SaTextarea.vue'
 export { default as SaTooltip } from './components/SaTooltip.vue'
 export { default as SaTooltipProvider } from './components/SaTooltipProvider.vue'
 export { useSaAutoPageSize, type SaAutoPageSizeOptions } from './components/useSaAutoPageSize'
+export { useSaListGrows } from './components/useSaListGrows'
 export {
   useSaSort,
   type SaSort,

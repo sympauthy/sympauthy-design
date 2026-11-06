@@ -15,7 +15,7 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
   <DemoFrame v-for="mode in ['phone', 'tablet', 'desktop']" :key="mode" :mode="mode">
     <div class="flex flex-col gap-4">
     <SaPagination :page="page" :total-pages="10" :size="20" :total="200" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
-    <SaPagination :page="0" :total-pages="1" :size="20" :total="3" label="Pages of clients" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" always-shown />
+    <SaPagination :page="0" :total-pages="1" :size="20" :total="3" label="Pages of clients" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" />
     </div>
   </DemoFrame>
 </div></div>
@@ -23,14 +23,15 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 ## Usage
 
 - **Under a list the server hands out page by page**, usually in the `#footer` of a [Table](/components/table), which draws its rule and its padding.
-- **`alwaysShown`**: kept on screen for a single page, where hiding it would give the rows more room and change how many fit.
+- **Not for** a collection below `sm:`: it grows as it is scrolled, through [TableEnd](/components/table-end), since a pager makes a phone hop from page to page. The pager's own phone layout stays for a list that cannot grow.
 - **Not for** moving through a process with steps: use [Button](/components/button).
 
 ## Look
 
 - **Step**: `.sa-control`, so `control-height` square at least, with `surface` and `panel-strong` `ink-700` text, `space-2` apart.
 - **Current page**: `primary` with `on-primary` digits, and no border.
-- **Range**: 14px in `ink-500`, on the left from `sm:`, with the pager on the right.
+- **Range**: 14px in `ink-500`, on the left from `sm:`, with the pager on the right. On one page it is there at every width, alone.
+- **Bar**: `control-height` at least, with its steps or without, so that the foot holding it keeps its height.
 - **Below `sm:`**: no page numbers and no range. The two arrows take the ends of the row, and the page indicator sits between them.
 - **Previous and next**: arrows alone until `lg:`, then with their words. Seven steps and the range take all of the width at `sm:`.
 
@@ -40,7 +41,7 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 - **Focus**: the one focus ring through `.sa-control-focus`.
 - **Disabled**: the arrow with nowhere to go, at half opacity with a `not-allowed` cursor.
 - **Several pages**: the first and last pages stay, with one page either side of the current one and an ellipsis for the rest.
-- **One page**: it draws nothing, unless `alwaysShown`.
+- **One page**: the range alone, with no step. A disabled pair of arrows around a lone page says nothing the range does not, and the bar keeps its height, so a filter taking a list down to one page moves nothing but the steps, and a table's `autoPageSize` is not handed a different height.
 
 ## Content
 
@@ -66,10 +67,10 @@ The consumer provides the page, what it counts, and the words, since the compone
 | `size`          | `number`                          | `0`         | The rows on a page, which with `total` is a range. |
 | `total`         | `number`                          | `0`         | The rows in the list.                              |
 | `rangeLabel`    | `({ from, to, total }) => string` | `undefined` | Says which rows are on screen.                     |
-| `alwaysShown`   | `boolean`                         | `false`     | Kept on screen for a single page.                  |
 | `@pageChange`   | event                             |             | The page asked for, counted from 0.                |
 
 ## Related
 
 - [Table](/components/table): what it sits under.
+- [TableEnd](/components/table-end): what takes its place on a phone.
 - [Control height](/foundations/control-height): the height of a step.

@@ -8,14 +8,13 @@ import { computed } from 'vue'
  * The sizing props answer the header's: a cell under a [fit] column does not wrap, and a cell under
  * a column dropped on a phone is dropped with it. Below `sm:` the row it belongs to is laid out down
  * rather than across: the record's name first, then each other value beside the name its [label]
- * gives.
+ * gives. The row's actions are a cell of their own, `SaTableActions`.
  */
 const props = withDefaults(
   defineProps<{
     /**
      * The column's name, which the cell shows beside its value below `sm:`. Every cell carries it
-     * but the one identifying the record and the one holding the row's actions, which name
-     * themselves.
+     * but the one identifying the record, which names itself.
      */
     label?: string
     /** Keeps [label] for a screen reader alone, for a value read without it, such as a status. */
@@ -30,8 +29,6 @@ const props = withDefaults(
     mono?: boolean
     /** Dropped below this width. Matches the header's own. */
     hiddenBelow?: 'sm' | 'lg'
-    /** Holds the row's actions, at the end of the row and beside the record's name on a phone. */
-    actions?: boolean
   }>(),
   {
     label: undefined,
@@ -40,8 +37,7 @@ const props = withDefaults(
     fit: false,
     truncate: false,
     mono: false,
-    hiddenBelow: undefined,
-    actions: false
+    hiddenBelow: undefined
   }
 )
 
@@ -52,8 +48,7 @@ const props = withDefaults(
 const classes = computed(() => [
   'px-4 py-3 text-sm text-gray-900',
   props.primary ? 'sa-cell-primary font-medium' : '',
-  props.actions ? 'sa-cell-actions' : '',
-  props.fit || props.actions ? 'whitespace-nowrap' : '',
+  props.fit ? 'whitespace-nowrap' : '',
   props.truncate ? 'max-w-0' : '',
   props.mono ? 'font-mono' : '',
   props.hiddenBelow === 'sm' ? 'hidden sm:table-cell' : '',
@@ -64,10 +59,7 @@ const classes = computed(() => [
 <template>
   <td :class="classes" :data-label="props.labelHidden ? undefined : props.label">
     <span v-if="props.label && props.labelHidden" class="sr-only sm:hidden">{{ props.label }}</span>
-    <div v-if="props.actions" class="flex items-center justify-end gap-1">
-      <slot />
-    </div>
-    <div v-else-if="props.truncate" class="sa-cell-truncate truncate">
+    <div v-if="props.truncate" class="sa-cell-truncate truncate">
       <slot />
     </div>
     <slot v-else />
