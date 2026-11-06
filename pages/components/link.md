@@ -10,7 +10,8 @@ A link inside a sentence: `primary` and underlined at rest.
 
 - **A link inside a sentence**, or standing alone under a form.
 - **Not for** an action that changes something on the screen: use [Button](/components/button).
-- **Not for** navigation that is a control of its own, such as a [Sidebar](/components/sidebar) entry, a tab, or the name of a record in a [Table](/components/table) row: those are drawn by what holds them.
+- **Not for** the name of another record, in a field or a cell: use [RecordLink](/components/record-link).
+- **Not for** navigation that is a control of its own, such as a [Sidebar](/components/sidebar) entry or a tab: those are drawn by what holds them.
 
 ## Look
 
@@ -34,3 +35,4 @@ The consumer provides the `a` and its `href`. It is a class of `components.css`,
 
 - [Color](/foundations/color): `primary` as what colors a link.
 - [Focus, states and motion](/foundations/focus): the outline.
+- [RecordLink](/components/record-link): the name of another record, in a field or a cell.

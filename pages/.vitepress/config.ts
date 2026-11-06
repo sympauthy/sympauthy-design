@@ -125,6 +125,7 @@ export default defineConfig({
           { text: 'Pagination', link: '/components/pagination' },
           { text: 'Popover', link: '/components/popover' },
           { text: 'RadioGroup', link: '/components/radio-group' },
+          { text: 'RecordLink', link: '/components/record-link' },
           { text: 'RecordPage', link: '/components/record-page' },
           { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Skeleton', link: '/components/skeleton' },

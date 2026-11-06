@@ -22,6 +22,7 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [Pagination](./pagination) — which page of a list is on screen, and the way to the others.
 - [Popover](./popover) — an explanation pressed open, beside the term it explains.
 - [RadioGroup](./radio-group) — one choice among a few options shown at once.
+- [RecordLink](./record-link) — the name of another record, linking to it.
 - [RecordPage](./record-page) — one record: a summary card, then sections of fields.
 - [Sidebar](./sidebar) — an app's navigation, dark in every theme.
 - [Skeleton](./skeleton) — the place of a value that has not arrived.
