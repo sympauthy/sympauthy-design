@@ -32,6 +32,7 @@ Drawn by [RecordPage](/components/record-page).
 
 - **Every control is `.sa-control`**, at `control-height` ([Control height](/foundations/control-height)). A field is the [Field](/components/field) the flow draws.
 - **Buttons** are [Button](/components/button)s: `primary` for what the screen is for, and `variant="danger"` inside a [ConfirmDialog](/components/confirm-dialog) only.
+- **A field or a cell naming another record** links to it through a [RecordLink](/components/record-link), cut with an ellipsis where the value keeps to one line.
 - **Tags** take their color from what the word means ([Tag](/components/tag)).
 - **Alerts**: `danger` for a failure the screen keeps showing, `warning` for what an operator should know, `urgent` when it must be read before closing a dialog ([Alert](/components/alert)).
 - **A record's or a page's actions** are a [Menu](/components/menu), which the admin's `ActionsDropdown` wraps: destructive items last, under a separator.

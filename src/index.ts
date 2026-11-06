@@ -36,6 +36,7 @@ export {
 export { default as SaSidebarAccount } from './components/SaSidebarAccount.vue'
 export { default as SaSkeleton } from './components/SaSkeleton.vue'
 export { default as SaSpinner } from './components/SaSpinner.vue'
+export { default as SaRecordLink, type SaRecordLinkProps } from './components/SaRecordLink.vue'
 export { default as SaRecordViews, type SaRecordView } from './components/SaRecordViews.vue'
 export { default as SaSummaryCard } from './components/SaSummaryCard.vue'
 export { default as SaSummaryField } from './components/SaSummaryField.vue'

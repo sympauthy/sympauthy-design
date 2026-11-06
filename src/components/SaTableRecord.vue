@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
-import { ChevronRightIcon } from '@heroicons/vue/20/solid'
+import SaRecordLink from './SaRecordLink.vue'
 
 /**
  * What identifies a record in a row: its name, linking to the record, and on wider screens the
@@ -27,15 +27,7 @@ withDefaults(
 
 <template>
   <div class="flex min-w-0 flex-col items-start">
-    <!-- The line stays small beside the identifier, and the pseudo-element around it is the target. -->
-    <component
-      :is="linkAs"
-      v-bind="link"
-      class="relative inline-flex max-w-full min-w-control items-center gap-1 font-semibold text-primary underline underline-offset-3 outline-primary after:absolute after:inset-x-0 after:top-1/2 after:h-control after:-translate-y-1/2 hover:text-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2"
-    >
-      <span class="min-w-0 [overflow-wrap:anywhere]">{{ name }}</span>
-      <ChevronRightIcon class="size-3.5 shrink-0" />
-    </component>
+    <SaRecordLink :name="name" :link="link" :link-as="linkAs" />
     <span v-if="detail" class="hidden max-w-full truncate font-mono text-xs text-gray-500 sm:block">
       {{ detail }}
     </span>

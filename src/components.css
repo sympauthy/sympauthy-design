@@ -185,6 +185,21 @@
     flex-shrink: 0;
     @apply text-gray-500;
   }
+
+  /* A record link cut with an ellipsis wraps down the row, as the value of a cell does. */
+  .sa-table-as-cards .sa-record-link-truncate > span:first-child {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+/**
+ * A record link cut with an ellipsis cuts its own name, so a cell cutting what it holds lets it
+ * overflow: the cell's clip would take the target around the link with it, down to the line. Outside
+ * every layer, to undo `truncate`.
+ */
+.sa-cell-truncate:has(> .sa-record-link-truncate) {
+  overflow: visible;
 }
 
 /**

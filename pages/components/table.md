@@ -83,6 +83,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
 - **`#toolbar`**: what narrows and re-reads the list, in one row that wraps. The search field takes what is left.
 - **`#filters`**: the band under the toolbar, for a [TableFilters](/components/table-filters). A table with no filters leaves it out, and nothing else changes.
 - **`SaTableRecord`**: the name of a record, linking to it, in the `primary` cell. Its `detail` is an identifier, from `sm:`.
+- **Another record named in a cell**, as the client a session signed in at: a [RecordLink](/components/record-link). Under a `truncate` column it takes `truncate` too.
 - **`sorting`** and **`field`**: a column that orders the list, as [TableSort](/components/table-sort) shows.
 - **`filteredLabel`**: says that a filter narrows a column, as [TableFilters](/components/table-filters) shows.
 - **`SaTableActions`**: the cell holding what can be done to a row, one [Menu](/components/menu) drawn as its mark alone. The name of a record already leads to it, so no second control does. A row with nothing to do keeps the cell and leaves it empty.
@@ -104,7 +105,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
 - **Header row**: `ink-50`, its names in `.sa-field-label`, 10px by `space-4`.
 - **Cell**: 14px in `ink-900`, `space-3` by `space-4`, with rows split by `ink-200`.
 - **The `primary` cell**: `panel-strong` in `ink-900`.
-- **Record**: `primary` at 600, underlined, with a 14px chevron. Its `detail` is `panel-mono` in `ink-500`, under it and cut with an ellipsis.
+- **Record**: a [RecordLink](/components/record-link). Its `detail` is `panel-mono` in `ink-500`, under it and cut with an ellipsis.
 - **Below `sm:`**: the rows stay in the card, split by the same rules. The `primary` cell takes the first line, and the other cells wrap under it, each 12px beside its `label` in `ink-500`. A `detail` is dropped.
 - **The row's mark, below `sm:`**: in the top right corner of every row, centred on its first line, out of the row's flow. The row keeps `control-height` free on its right, so that its name and values lay out the same whether it has a mark or not, and the mark is in the same place in every row.
 - **The row's mark, from `sm:`**: the last cell, as tall as the mark whether or not the row has one, so that rows stay one height.
@@ -199,6 +200,7 @@ The consumer provides the controls of the toolbar, the header cells, the rows, t
 
 ## Related
 
+- [RecordLink](/components/record-link): what draws a record's name, and another record named in a cell.
 - [TableFilters](/components/table-filters): what narrows it.
 - [TableSort](/components/table-sort): what orders it.
 - [Field](/components/field): the search field of its toolbar.
