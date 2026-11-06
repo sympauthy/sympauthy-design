@@ -17,17 +17,20 @@ withDefaults(
     detail?: string
     /** What draws a link: an element's name, or a component such as a router's link. */
     linkAs?: string | Component
+    /** Cut with an ellipsis rather than wrapped, under a `truncate` cell. */
+    truncate?: boolean
   }>(),
   {
     detail: undefined,
-    linkAs: 'a'
+    linkAs: 'a',
+    truncate: false
   }
 )
 </script>
 
 <template>
   <div class="flex min-w-0 flex-col items-start">
-    <SaRecordLink :name="name" :link="link" :link-as="linkAs" />
+    <SaRecordLink :name="name" :link="link" :link-as="linkAs" :truncate="truncate" />
     <span v-if="detail" class="hidden max-w-full truncate font-mono text-xs text-gray-500 sm:block">
       {{ detail }}
     </span>

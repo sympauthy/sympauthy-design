@@ -198,7 +198,7 @@
  * overflow: the cell's clip would take the target around the link with it, down to the line. Outside
  * every layer, to undo `truncate`.
  */
-.sa-cell-truncate:has(> .sa-record-link-truncate) {
+.sa-cell-truncate:has(.sa-record-link-truncate) {
   overflow: visible;
 }
 
