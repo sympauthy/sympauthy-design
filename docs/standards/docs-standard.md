@@ -76,19 +76,22 @@ one, the frontmatter that loads it, and what a standard states in place of code.
 standard](docs-design-standard.md) holds it, along with what one argues and what it leaves to the
 code and to the FAQ.
 
-**The indexes.** [The one at the top of `docs/`](../index.md) names the two halves and states the
-project's goals, and each half's own lists what is in it; nothing here shapes them beyond the
-mechanics above.
+**The indexes.** [The one at the top of `docs/`](../index.md) says what to read first, names the
+two halves and states the project's goals, and each half's own lists what is in it; nothing here
+shapes them beyond the mechanics above.
 
 **The site in `pages/`.** It addresses somebody using the system, and runs live demos plain Markdown
 cannot, so nothing here governs it. [The foundations standard](foundations-standard.md) and [the
-components standard](components-standard.md) hold those pages, and each says why they have one.
+component pages standard](component-pages-standard.md) hold those pages, and each says why they have
+one.
 
 **The public documentation.** It is written in another repository, and nothing here governs it.
 
 **The README.** It addresses somebody setting the project up, not somebody changing it.
 
-**Diagrams.** No document draws one, and no format is set for the first that does.
+**Diagrams.** A fenced block of plain text draws what one can, as [the
+architecture](../design/architecture.md#how-a-value-reaches-a-page) does; no format is set for the
+first that needs more.
 
 **Checking.** Nothing verifies a link, a glob or an anchor in `docs/`; each is kept true by whoever
 moves what it names.

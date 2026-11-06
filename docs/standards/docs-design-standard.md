@@ -91,6 +91,9 @@ mechanics and the rule that a document is edited in place; a rule stated there i
 **The design FAQ's own shape.** Its preamble says what belongs in it and what an entry carries, and
 is written with its first entry.
 
+**[Running locally](../design/running-locally.md).** It is a getting-started guide rather than a
+document describing a part of the system, and nothing here governs it.
+
 **How long a design document may be.** Nothing says how long is right for a part.
 
 ---

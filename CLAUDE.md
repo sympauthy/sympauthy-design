@@ -9,7 +9,7 @@ VitePress site documenting it, in `pages/` (deployed to
 https://sympauthy.github.io/sympauthy-design/).
 
 **`docs/` is the authority on how this repository is built** (start at
-[`docs/index.md`](docs/index.md)), in two halves: [`docs/design/`](docs/design/index.md) describes
+[`docs/index.md`](docs/index.md), which says what to read first), in two halves: [`docs/design/`](docs/design/index.md) describes
 each part of the system, and [`docs/standards/`](docs/standards/index.md) holds the rules a change
 is held to. Read the document governing a change before the code it governs, and put a new design
 decision there before or alongside its code. The standards are symlinked into `.claude/rules/`, each
@@ -20,7 +20,9 @@ does not cover. If you end a deferral, say there why.
 
 ## Commands
 
-Always run `nvm use` before any `npm` or `node` command.
+Always run `nvm use` before any `npm` or `node` command. [Running
+locally](docs/design/running-locally.md) holds the checks, trying a change in an app, and the files
+each common change touches.
 
 ```sh
 npm run build         # tokens.json → dist/theme.css, tokens.css, tokens-light.css
@@ -52,9 +54,10 @@ npm run format
   builder and `derivePalette` enforce it for deployments' colors.
 - **`src/theme/derive.ts` and `pages/public/theme-builder/index.html` carry the same derivation.**
   Change both, or neither.
-- **A deployment's brand reaches the apps through the server's stylesheet.** `dist/tokens.css` is what
-  it answers at `/branding/tokens.css`, and `themeToCss` is the shape of what it writes after it:
-  changing either changes the server's contract (`pages/branding.md`). `applyTheme` writes the same
+- **A deployment's brand reaches the apps through the server's stylesheet.** The server writes what
+  `dist/tokens.css` holds at `/branding/tokens.css`, from `tokens.json`, and `themeToCss` is the
+  shape of what it writes after it: changing either changes the server's contract
+  (`pages/branding.md`), and its `BrandStylesheetRenderer` with it. `applyTheme` writes the same
   rules, to try a theme no configuration has yet.
 
 ## Releases

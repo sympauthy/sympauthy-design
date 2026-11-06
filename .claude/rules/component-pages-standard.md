@@ -1,0 +1,1 @@
+../../docs/standards/component-pages-standard.md

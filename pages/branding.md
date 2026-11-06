@@ -10,10 +10,6 @@ SympAuthy is self-hosted, and its sign-in pages are the first thing your users s
 
 The builder takes one color, derives every shade the apps need from it, previews the sign-in pages in light and dark and the admin panel, checks every text pair against WCAG AA, and writes the configuration.
 
-::: warning Status
-SympAuthy reads `ui.display-name` today. The other keys and `/branding` are the contract of [sympauthy#200](https://github.com/sympauthy/sympauthy/issues/200), and the apps link it once the server ships it.
-:::
-
 ## The configuration
 
 ```yaml
@@ -35,36 +31,10 @@ ui:
 
 Each key can also be set as an environment variable (`UI_DISPLAY_NAME`, `UI_THEME_LIGHT_PRIMARY`, …): Micronaut maps them onto the same `ui.*` keys.
 
-### What can be changed
+What each role colors, what the server refuses, how dark mode and the images behave and what happens when an image cannot be obtained are the [public documentation on branding](https://sympauthy.github.io/functional/branding), and every key is in its [configuration reference](https://sympauthy.github.io/technical/configuration/ui). Two things hold of the builder alone:
 
-| Key                                      | What it colors                                          |
-| ---------------------------------------- | ------------------------------------------------------- |
-| `primary`, `primary-hover`, `on-primary` | the main button, links, the focus ring, the current tab |
-| `primary-subtle`, `on-primary-subtle`    | tinted boxes: a consent summary, a selection            |
-| `ground`, `surface`                      | the page behind the cards, and the cards themselves     |
-| `ink-50` … `ink-900`                     | the grays: borders, labels, text                        |
-| `accent`, `nav-*` (light only)           | the admin sidebar                                       |
-
-The builder leaves out `nav-strong`, which is white in every palette it derives. Set it by hand for a light sidebar, on a server that declares a design system from 0.5.0, since an older one refuses the key.
-
-Only colors can be changed. Status colors (errors, warnings, tags) stay too: red means a failure whatever the brand.
-
-### Rules the server applies
-
-- **It serves what is configured, and derives nothing.** A role left out keeps SympAuthy's value, even when `primary` is changed: a deployment writing only `primary` keeps SympAuthy's `primary-hover` and `on-primary`. Write the full set the builder gives you.
-- **It does not check contrast.** The builder does, so a palette edited by hand is yours to check.
-- **It refuses wrong configuration.** A color that is not `#rrggbb`, `accent` or `nav-*` under `dark`, and `dark` alongside `dark-mode: off` each take readiness down, and the startup banner names the key.
-- `dark-mode: "off"` keeps the pages light on every device. The admin is always light. Quote it: unquoted, YAML reads `off` as `false`, which the server refuses.
-
-### Images
-
-An image's value is a file path, or a URL starting with `http://` or `https://`. The server reads it at startup and answers it itself, so a third party never learns that a sign-in is starting. A new image takes a restart. SVG and PNG are accepted, up to 1 MiB.
-
-| Key         | For                        | When not configured                               |
-| ----------- | -------------------------- | ------------------------------------------------- |
-| `icon`      | the favicon and small mark | `logos/sympauthy-favicon.svg`                     |
-| `logo`      | light grounds              | `logos/sympauthy-icon.svg`                        |
-| `logo-dark` | dark grounds               | `logo` if set, or `logos/sympauthy-icon-dark.svg` |
+- **Write the full set it gives you.** The server derives nothing: a role left out keeps SympAuthy's value, even when `primary` is changed. Nor does it check contrast, so a palette edited by hand is yours to check.
+- **It leaves out `nav-strong`**, which is white in every palette it derives. Set it by hand for a light sidebar, on a server that declares a design system from 0.5.0, since an older one refuses the key.
 
 ## How it reaches the pages
 
@@ -90,14 +60,14 @@ Each app links the stylesheet from its `index.html`. Being linked, it is in plac
 
 ### The stylesheet the server builds
 
-The design system ships what the server starts from, of the version the server ships:
+The server writes, from the `tokens.json` of the design system version it declares, what the design system builds as one of its stylesheets:
 
-| `dark-mode` | Starts from             | Holds                                                                                         |
+| `dark-mode` | Same as                 | Holds                                                                                         |
 | ----------- | ----------------------- | --------------------------------------------------------------------------------------------- |
 | `auto`      | `dist/tokens.css`       | Light on `:root`, Dark under `prefers-color-scheme: dark` and `[data-theme="dark"]`, the rest |
 | `off`       | `dist/tokens-light.css` | Light on `:root`, the rest                                                                    |
 
-The server writes the configured colors after it, under the same selectors. Each role's token is its own name, but for `accent`, which is `--gold`:
+It writes the configured colors after it, under the same selectors. Each role's token is its own name, but for `accent`, which is `--gold`:
 
 ```css
 :root,
@@ -115,9 +85,9 @@ The server writes the configured colors after it, under the same selectors. Each
 }
 ```
 
-With nothing configured, the answer is the design system's file unchanged. `themeToCss` in `@sympauthy/design` writes exactly these rules, and is the reference for them.
+With nothing configured, the answer is the same as the design system's file. `themeToCss` in `@sympauthy/design` writes exactly these rules, and is the reference for them.
 
-SympAuthy's images are the files of `logos/` named in [the table above](#images).
+SympAuthy's images, answered for an image a deployment does not configure, are files of `logos/`: `sympauthy-favicon.svg` for `icon`, `sympauthy-icon.svg` for `logo`, and `sympauthy-icon-dark.svg` for `logo-dark` when `logo` is not configured either.
 
 ## Trying a theme before it is configured
 
