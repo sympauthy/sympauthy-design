@@ -12,6 +12,22 @@ they govern, and a new decision is written here before or alongside the change t
 What they are _not_ is the guide to using the system: which token, component and layout an app
 reaches for, and how a deployment brands itself, is [the site in `pages/`](../pages/index.md).
 
+## Where to start
+
+Somebody making a first change here reads, in this order:
+
+1. **[Architecture](design/architecture.md)** — what the repository is made of, and how a value in
+   `tokens.json` reaches the apps and the server.
+2. **[Running locally](design/running-locally.md)** — setting the project up, the checks a change
+   passes, trying it in an app, and the files each common change touches.
+3. **The standard governing the files being changed**, from [how the code is
+   written](standards/index.md). An agent is handed it when it reads one of those files; a person
+   opens it.
+4. **The page of the site describing what is being changed**, in `pages/foundations/` or
+   `pages/components/`, since a change to a component updates its page in the same commit.
+
+[Theming](design/theming.md) and [the site](design/site.md) are read before changing either.
+
 ## The two halves
 
 They come in two kinds, and the folder is which kind a document is. The two are read at different
@@ -20,7 +36,8 @@ about to break it — and each kind has a standard of its own saying how one is 
 that holds of both](standards/docs-standard.md).
 
 - **[How the system works](design/index.md)**, in `design/` — a document per part of the system:
-  what it does, what implements it, and why it was settled that way.
+  what it does, what implements it, and why it was settled that way. [Running
+  locally](design/running-locally.md) lives there too, held to the mechanics and to nothing else.
 - **[How the code is written](standards/index.md)**, in `standards/` — the rules a change is held
   to, one subject per document, each named `<subject>-standard.md`. A standard reaches an agent
   when a file it governs is read, through the symlink in `.claude/rules/`.

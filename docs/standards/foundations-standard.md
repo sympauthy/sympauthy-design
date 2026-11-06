@@ -112,7 +112,7 @@ page names each in its rules.
 **A changelog per page.** The history stays in git, as [the documentation
 standard](docs-standard.md) has it.
 
-**The other pages of the site.** [The components standard](components-standard.md) holds the
+**The other pages of the site.** [The component pages standard](component-pages-standard.md) holds the
 pages of Common components. The pages of components in other repositories, and the guides, have no
 standard yet.
 
