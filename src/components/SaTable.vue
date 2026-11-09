@@ -10,6 +10,8 @@ import { useSaAutoPageSize } from './useSaAutoPageSize'
  * across: the markup stays the table's own, so a column added to a screen reaches the phone with it.
  * A phone's card also ends with its rows, whatever it fills from `sm:`, since its list grows as it is
  * scrolled and a card stretched to the bottom of the screen would hold nothing but the space.
+ *
+ * A table handed no `header` is drawn without its header row, for rows whose values name themselves.
  */
 const props = withDefaults(
   defineProps<{
@@ -97,7 +99,7 @@ const showsTable = computed(() => !props.loading && !props.error && !props.empty
           fill ? 'sa-table-pinned-header' : ''
         ]"
       >
-        <thead class="bg-gray-50">
+        <thead v-if="$slots.header" class="bg-gray-50">
           <tr>
             <slot name="header" />
           </tr>

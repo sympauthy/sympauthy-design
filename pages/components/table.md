@@ -2,7 +2,7 @@
 
 <p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaTable</code>, <code>SaTableHeader</code>, <code>SaTableCell</code>, <code>SaTableActions</code> and <code>SaTableRecord</code></p>
 
-A list of records in one card: a header row and rows of cells, what it shows instead while it waits, fails or holds nothing, and what sits around them through its slots.
+A list of records in one card: a header row, when its columns need naming, and rows of cells, what it shows instead while it waits, fails or holds nothing, and what sits around them through its slots.
 
 <script setup>
 import { ref } from 'vue'
@@ -17,6 +17,7 @@ const actions = [
   { key: 'copy', label: 'Copy user ID' },
   { key: 'disable', label: 'Disable user…', danger: true }
 ]
+const redirectUris = ['https://billing.example.com/callback', 'https://billing.example.com/silent-renew', 'http://localhost:5173/callback']
 const fits = ref(1)
 const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name: `Client ${i + 1}` }))
 </script>
@@ -57,6 +58,15 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
       </tr>
     </template>
   </SaTable>
+  <SaDetailSection title="Redirect URIs">
+    <SaTable loading-label="Loading redirect URIs.">
+      <template #rows>
+        <tr v-for="uri in redirectUris" :key="uri">
+          <SaTableCell primary mono>{{ uri }}</SaTableCell>
+        </tr>
+      </template>
+    </SaTable>
+  </SaDetailSection>
   <div style="max-width: 24rem">
     <SaTable loading-label="Loading users.">
       <template #header>
@@ -94,6 +104,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
 
 - **A list of records with the same fields**, read across.
 - **`SaTableHeader` and `SaTableCell`**: every column and every cell. A screen writes no padding, text size or color of its own.
+- **No `#header`**: a list a title above it already names, such as the redirect URIs of a client under _Redirect URIs_ on its [record page](/components/record-page), is drawn without its header row. A second column would need a name of its own, so a table of more than one column keeps its header.
 - **`#toolbar`**: what narrows and re-reads the list, in one row that wraps. The search field takes what is left.
 - **`#filters`**: the band under the toolbar, for a [TableFilters](/components/table-filters). A table with no filters leaves it out, and nothing else changes.
 - **`SaTableRecord`**: the name of a record, linking to it, in the `primary` cell. Its `detail` is an identifier, from `sm:`. Under a `truncate` cell it takes `truncate` too, and its name is cut with an ellipsis rather than wrapped.
@@ -116,7 +127,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
 
 - **Box**: one flat card at every width: `surface` with an `ink-200` border and `radius-lg`. Its parts are split by `ink-200` rules.
 - **Toolbar**: `space-4` around it and `space-2` between its controls, `space-3` around it below `sm:`, where the search field takes the first line and the controls share the next in equal parts, cutting a label with an ellipsis where it does not fit. A control drawn as its mark alone stays square.
-- **Header row**: `ink-50`, its names in `.sa-field-label`, 10px by `space-4`.
+- **Header row**: `ink-50`, its names in `.sa-field-label`, 10px by `space-4`. A table without `#header` has none, and its rows start at the top of the card.
 - **Cell**: 14px in `ink-900`, `space-3` by `space-4`, with rows split by `ink-200`.
 - **The `primary` cell**: `panel-strong` in `ink-900`.
 - **Record**: a [RecordLink](/components/record-link). Its `detail` is `panel-mono` in `ink-500`, under it and cut with an ellipsis.
@@ -142,6 +153,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
 ## Accessibility
 
 - **It is a real table**, so its header cells are read with each value (WCAG 1.3.1). Below `sm:` it is displayed as blocks, and the `label` of each cell is what names its value.
+- **A table without `#header` names no column**, so what names its values is the title above it, which a screen reader reads first (WCAG 1.3.1).
 - **Pass `label` on every cell** but the one identifying the record, which names itself. The row's mark is named by its own label, as "Actions for ada@example.com". `labelHidden` keeps it for a screen reader alone.
 - **`filteredLabel` says what the funnel says, to a screen reader** (WCAG 1.1.1). A column without a visible name, such as the actions, takes one a screen reader alone reads.
 - **The record's link keeps to its line and its target reaches `control-height`** (see [Control height](/foundations/control-height)).
@@ -165,7 +177,7 @@ The consumer provides the controls of the toolbar, the header cells, the rows, t
 | `@pageSizeChange` | event               |          | The number of rows that fit.                                          |
 | `#toolbar`        | slot                |          | What narrows and re-reads the list, in a row that wraps.              |
 | `#filters`        | slot                |          | A [TableFilters](/components/table-filters).                          |
-| `#header`         | slot                |          | The header cells.                                                     |
+| `#header`         | slot                |          | The header cells. Without it, no header row is drawn.                 |
 | `#rows`           | slot                |          | The `tr` of each row, then a [TableEnd](/components/table-end).       |
 | `#empty`          | slot                |          | The sentence for an empty table.                                      |
 | `#footer`         | slot                |          | The foot of the card, usually a [Pagination](/components/pagination). |

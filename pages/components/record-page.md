@@ -42,6 +42,7 @@ const copied = { label: 'Copy client ID', copiedLabel: 'Client ID copied', faile
 - **`SaDefinitionList` and `SaDefinitionRow`**: the fields of a section.
 - **`SaRecordViews`**: the views of a record on a phone, under its summary, each opening a screen of its own. A wider screen draws them as [Tabs](/components/tabs).
 - **`mono`**: a value read character by character, such as an identifier, an address or a token.
+- **A list in a section**, such as the redirect URIs of a client: a [Table](/components/table) without its header row, which the section's title names.
 - **Not for** a list of records: use [Table](/components/table).
 - **Not for** values being filled in: use [Field](/components/field).
 
