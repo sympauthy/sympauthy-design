@@ -29,6 +29,11 @@
   align-items: center;
 }
 
+/* A demo showing its variants a row each, as the tags' fill and outline. */
+.demo .row + .row {
+  margin-top: 16px;
+}
+
 .demo .stack {
   display: flex;
   flex-direction: column;

@@ -115,7 +115,8 @@ const TAILWIND = [
   ['--color-warning-line', 'warning-line'],
   ...['green', 'red', 'yellow', 'blue', 'purple'].flatMap((c) => [
     [`--color-tag-${c}`, `tag-${c}`],
-    [`--color-tag-${c}-fill`, `tag-${c}-fill`]
+    [`--color-tag-${c}-fill`, `tag-${c}-fill`],
+    [`--color-tag-${c}-line`, `tag-${c}-line`]
   ]),
   ['--color-nav', 'nav-ground'],
   ['--color-nav-text', 'nav-text'],
