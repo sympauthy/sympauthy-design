@@ -13,7 +13,7 @@ documents them.
 ## Use it in an app
 
 ```sh
-npm install github:sympauthy/sympauthy-design#v0.10.0
+npm install github:sympauthy/sympauthy-design#v0.11.0
 ```
 
 ```css
