@@ -15,9 +15,10 @@ The demo has no server behind it, so it draws SympAuthy's logos.
 
 ## Usage
 
-- **The default**: on a light ground, in a page pinned light.
+- **The default**: on a light ground, in a page drawn light.
 - **`dark`**: on a ground that is dark whatever the theme, such as the sidebar.
 - **`followDevice`**: on a page that follows the device, which is a page whose `fetchBrand` answered `darkMode: 'auto'`. Under `off`, leave it unset, so that a dark device cannot draw the dark logo on a light page.
+- **`dark` from the theme the page applied**: on a page whose theme a person chooses, such as the admin's, since `followDevice` reads the device and not that choice.
 - **`size="md"`**: in a [Sidebar](/components/sidebar)'s head.
 - **`size="lg"`**: heading a screen outside an app's shell.
 - **Not for** the favicon: the server's `/branding/icon` is linked from `index.html` ([Using in the apps](/using-in-apps)).

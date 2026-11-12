@@ -33,12 +33,6 @@ In `sympauthy-flow/src/styles/style.css` and `sympauthy-admin/src/app/styles/sty
 
 The icon replaces the app's own `favicon.ico`. `vite-ignore` keeps Vite from bundling the links, which it would otherwise fail to resolve. A link in the page is in place before any script runs, so a deployment's colors never flash SympAuthy's first. A flow hosted on another origin links the server's full URLs.
 
-The admin stays light by pinning it, on the same page:
-
-```html
-<html lang="en" data-theme="light"></html>
-```
-
 In development, proxy `/branding` to the server next to `/api` in `vite.config.ts`. Without the stylesheet the page still draws, in SympAuthy's light colors, which `theme.css` carries as fallbacks; it has no dark theme until the link resolves.
 
 ## Fonts
@@ -88,6 +82,6 @@ const brand = await fetchBrand()
 
 The `await` needs a `<Suspense>` above the component; an app without one fetches the brand once at boot and hands it down. `fetchBrand` never rejects: after 3 seconds, or on any failure, it answers no name and `off`, and the page draws as SympAuthy's.
 
-This is the flow's logo, which follows the device. The dark mode is what keeps the dark logo off a light page: under `off`, the device's preference must not choose it. A page that pins a theme chooses by its ground instead, with no `<source>`: the admin draws `urls.logo` on `ground` and `surface`, and `urls.logoDark` on its sidebar, which stays on `nav-ground` in every theme.
+This is the flow's logo, which follows the device. The dark mode is what keeps the dark logo off a light page: under `off`, the device's preference must not choose it. A page whose theme a person chooses passes `dark` from the theme it applied instead, since `followDevice` reads the device and not that choice: the admin passes it on `ground` and `surface`, and `dark` on its sidebar, which stays on `nav-ground` in every theme.
 
 See [Branding a deployment](./branding) for what the server answers.

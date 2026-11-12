@@ -4,7 +4,7 @@
  * pages/branding.md). This is for what has no configuration yet, such as a theme still being built:
  *
  *   applyTheme(theme, { dark: true }) // flow
- *   applyTheme(theme, { dark: false }) // admin: the admin stays light
+ *   applyTheme(theme, { dark: true }) // admin
  *
  * It writes what the server writes after its tokens, so the page needs those tokens, linked from a
  * server or imported from `@sympauthy/design/tokens.css`. A role left out then keeps SympAuthy's
@@ -25,7 +25,7 @@ export interface UiTheme {
 }
 
 export interface ApplyThemeOptions {
-  /** Whether this app has a dark theme at all (the flow does, the admin does not). */
+  /** Whether this page has a dark theme at all; `false` keeps it light, pinning it. */
   dark: boolean
   /** The document to apply to; tests pass their own. */
   document?: Document
