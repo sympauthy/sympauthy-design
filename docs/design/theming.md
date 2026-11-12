@@ -46,7 +46,7 @@ both, or neither.
 **In production the stylesheet is linked, and no script writes a color.** Each app links the
 server's stylesheet from its `index.html`, so it is in place before any script runs and SympAuthy's
 colors never flash first. The page's theme is the stylesheet's to decide: it follows the device, and
-a page pins it with `data-theme`, as the admin pins light.
+a page pins it with `data-theme`, as the admin does with the theme its operator chose.
 
 **`applyTheme` is for a theme no server answers yet.** It writes the same rules as the server into a
 `<style>` at the end of `<head>`, for a theme still being built; nothing in production calls it,

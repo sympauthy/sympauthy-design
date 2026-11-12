@@ -35,7 +35,7 @@ each app's compiler reads through `src/index.ts` to generate the wrapper's runti
 so Vue hands an absent one down as `false`, over any other default.
 
 **A shipped component holds its contrast in light and dark, whatever the app drawing it pins.**
-Check it in both themes when it moves, since the admin is pinned light and never saw the other.
+Check it in both themes when it moves, since a person or their device can choose either.
 
 **An app deletes its copy when it installs the tag shipping the component.** Its screens import the
 package's from `@sympauthy/design`, under its `Sa` name, and a kit of the app's does not re-export
