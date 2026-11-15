@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { provide, ref } from 'vue'
+import { computed, provide, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Bars3Icon } from '@heroicons/vue/20/solid'
 import { APP_SHELL_MENU_REPLACED } from './appShellMenu'
@@ -16,6 +16,9 @@ const menuReplaced = ref(false)
 provide(APP_SHELL_MENU_REPLACED, menuReplaced)
 
 const { t } = useI18n()
+
+// Names the control opening the drawer, and is its title.
+const openMenu = computed(() => t('sa.appShell.openMenu'))
 </script>
 
 <template>
@@ -46,8 +49,8 @@ const { t } = useI18n()
                `relative` keeps the target on top of the bar's ground. -->
           <button
             type="button"
-            :aria-label="t('sa.appShell.openMenu')"
-            :title="t('sa.appShell.openMenu')"
+            :aria-label="openMenu"
+            :title="openMenu"
             class="relative -mr-2.5 ml-1.5 flex size-control shrink-0 items-center justify-center self-center text-gray-600 outline-primary -outline-offset-2 focus-visible:outline-2 lg:hidden"
             :class="{ 'max-sm:hidden': menuReplaced }"
             @click="sidebarOpen = true"

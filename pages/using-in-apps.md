@@ -67,7 +67,7 @@ A screen imports the package's components from `@sympauthy/design` itself, under
 
 A component says some words the same on every screen: "Copied", "No, cancel", "Previous", "Show password", "Nothing matches", the conditions of a table's filters. Those are the package's, and an app passes none of them. It passes only the words naming what is on its screen: a label, a placeholder, what a copy button copies, what a confirmation confirms.
 
-The package draws its words through the app's `vue-i18n`, a peer dependency like `reka-ui`, so the language the app renders in is the language of the components too. The package accepts `vue-i18n` 11, in the composition mode: `legacy: false`, or the default of `@intlify/unplugin-vue-i18n`. Install it before drawing a component that says one of the package's words; drawn without it, such a component fails as it mounts, with `vue-i18n`'s error that no instance is installed. A component saying none of them, as `SaButton` or `SaCard`, needs nothing.
+The package draws its words through the app's `vue-i18n`, a peer dependency like `reka-ui`, so the language the app renders in is the language of the components too. The package accepts `vue-i18n` 11, in the composition mode: `legacy: false`, or the default of `@intlify/unplugin-vue-i18n`. Install it before drawing a component that can say one of the package's words, in any of its states: drawn without it, such a component fails as it mounts, with `vue-i18n`'s error that no instance is installed. A `SaField` needs it with no optional mark, and a `SaTable` fails the first time it loads, as it mounts its `SaLoadingState`. A component that can say none of them, as `SaButton` or `SaCard`, needs nothing.
 
 The words sit under `sa.` in the app's messages, so that they never meet an app's own keys. Add them to each language the app holds, beside its own:
 
@@ -82,20 +82,21 @@ export const i18n = createI18n({ legacy: false, locale, fallbackLocale: 'en', me
 // English is in the first load, with no fetch, since it is the language both apps fall back to.
 i18n.global.mergeLocaleMessage('en', SA_MESSAGES_EN)
 
-// Every other language the app holds, as it loads it: here all of them, before the app mounts.
+// Every other language the app holds, as it loads it: here all of them at once, before it mounts.
 export async function addSaMessages(): Promise<void> {
-  for (const language of i18n.global.availableLocales) {
-    const words = await loadSaMessages(language)
-    if (words) {
-      i18n.global.mergeLocaleMessage(language, words)
+  const languages = i18n.global.availableLocales.filter((language) => language !== 'en')
+  const words = await Promise.all(languages.map(loadSaMessages))
+  languages.forEach((language, index) => {
+    if (words[index]) {
+      i18n.global.mergeLocaleMessage(language, words[index])
     }
-  }
+  })
 }
 ```
 
 `loadSaMessages(locale)` answers the package's words in a language, already under `sa`: English with no fetch, and any other language from a chunk of its own in the app's build. A regional tag is answered with its language, `fr-CA` with `fr`, and a language the package does not hold with `undefined`. `SA_LOCALES` lists the languages it holds; only English ships for now, as in both apps.
 
-- **Add the package's words only to a language the app holds itself.** Otherwise a language the package lacks would draw its words in English inside a translated screen. A new language is a release of the package, then of the app.
+- **Add the package's words only to a language the app holds itself.** Adding a language to `vue-i18n` makes it one of `availableLocales`, so an app reading those to choose or offer a language, as the admin does, would render the language its screens lack: the package's words in it, inside a screen of English. A new language is a release of the package, then of the app.
 - **An app loading its languages lazily loads the package's with each**, before switching to it. One loading every language up front, as both apps do today, loads the package's the same way.
 - **Keep `vue-i18n`'s message compiler.** It compiles a plain message the first time it is used, so the package's words need no step of the app's build and no path into `node_modules`. `@intlify/unplugin-vue-i18n` keeps it unless `dropMessageCompiler` is set.
 - **A word missing from the messages draws its key**, as `sa.copy.copied`. `vue-i18n` warns of one in development unless `missingWarn` is off, as both apps set it.

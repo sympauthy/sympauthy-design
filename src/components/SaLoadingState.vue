@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SaSpinner from './SaSpinner.vue'
 
@@ -20,6 +21,9 @@ withDefaults(
 )
 
 const { t } = useI18n()
+
+// Announced by the spinner, and read on the line beside it.
+const loading = computed(() => t('sa.loadingState.label'))
 </script>
 
 <template>
@@ -30,8 +34,8 @@ const { t } = useI18n()
       centered ? 'h-full justify-center' : ''
     ]"
   >
-    <SaSpinner :size="size" class="text-primary">{{ t('sa.loadingState.label') }}</SaSpinner>
+    <SaSpinner :size="size" class="text-primary">{{ loading }}</SaSpinner>
     <!-- The spinner announces the words, so the line a person reads is not announced twice. -->
-    <span aria-hidden="true">{{ t('sa.loadingState.label') }}</span>
+    <span aria-hidden="true">{{ loading }}</span>
   </div>
 </template>

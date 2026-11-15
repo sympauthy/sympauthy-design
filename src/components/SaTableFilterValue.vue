@@ -4,9 +4,9 @@ import { useI18n } from 'vue-i18n'
 import SaInput from './SaInput.vue'
 import SaListbox from './SaListbox.vue'
 import SaTagsInput from './SaTagsInput.vue'
+import { useFilterValues } from './filterValues'
 import {
   saFilterIsMultiValued,
-  saFilterValues,
   type SaFilterCriterion,
   type SaFilterField,
   type SaFilterPatch
@@ -35,10 +35,11 @@ const { t } = useI18n()
 
 const multiValued = computed(() => saFilterIsMultiValued(props.criterion.operator))
 
-const options = computed(() => {
-  const values = saFilterValues(props.field, t('sa.tableFilters.yes'), t('sa.tableFilters.no'))
-  return values?.map((value) => ({ value: value.value, label: value.name })) ?? null
-})
+const fieldValues = useFilterValues(() => props.field)
+
+const options = computed(
+  () => fieldValues.value?.map((value) => ({ value: value.value, label: value.name })) ?? null
+)
 
 // One value or several, the list is what the option list reads; which of the two the filter holds
 // is the operator's answer.

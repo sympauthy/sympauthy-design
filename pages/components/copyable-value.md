@@ -50,10 +50,12 @@ The consumer provides the value and what the control copies. The component draws
 
 ### SaCopyableValue
 
-| Name    | Type     | Default | Description                         |
-| ------- | -------- | ------- | ----------------------------------- |
-| `value` | `string` |         | What is shown and copied. Required. |
-| `label` | `string` |         | Names the control. Required.        |
+| Name      | Type     | Default | Description                          |
+| --------- | -------- | ------- | ------------------------------------ |
+| `value`   | `string` |         | What is shown and copied. Required.  |
+| `label`   | `string` |         | Names the control. Required.         |
+| `@copied` | event    |         | The value was copied.                |
+| `@failed` | event    |         | The browser refused, with its error. |
 
 ### SaCopyButton
 

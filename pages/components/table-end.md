@@ -68,6 +68,18 @@ function retry() {
       </template>
     </SaTable>
   </DemoFrame>
+  <DemoFrame mode="phone" label="Phone, whole, with no count">
+    <SaTable>
+      <template #header><SaTableHeader>Client</SaTableHeader><SaTableHeader fit>Granted</SaTableHeader></template>
+      <template #rows>
+        <tr>
+          <SaTableCell primary>Back office</SaTableCell>
+          <SaTableCell label="Granted" fit>02/11/2026</SaTableCell>
+        </tr>
+        <SaTableEnd :total="null" />
+      </template>
+    </SaTable>
+  </DemoFrame>
   <DemoFrame mode="phone" label="Phone, failed">
     <SaTable>
       <template #header><SaTableHeader>Claim</SaTableHeader><SaTableHeader fit>Collected at</SaTableHeader></template>

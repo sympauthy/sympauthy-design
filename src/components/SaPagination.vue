@@ -42,6 +42,10 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 
+// The words of the two steps, which name them too.
+const previous = computed(() => t('sa.pagination.previous'))
+const next = computed(() => t('sa.pagination.next'))
+
 /** Says which page a step leads to, as "Page 2 of 10". */
 const pageName = (page: number) => t('sa.pagination.page', { page, totalPages: props.totalPages })
 
@@ -97,10 +101,10 @@ const stepClasses =
       <PaginationPrev
         :class="stepClasses"
         class="disabled:cursor-not-allowed disabled:opacity-50"
-        :aria-label="t('sa.pagination.previous')"
+        :aria-label="previous"
       >
         <ChevronLeftIcon class="size-4 lg:mr-1" />
-        <span class="hidden lg:inline">{{ t('sa.pagination.previous') }}</span>
+        <span class="hidden lg:inline">{{ previous }}</span>
       </PaginationPrev>
 
       <span class="px-2 text-sm text-gray-500 sm:hidden">
@@ -130,9 +134,9 @@ const stepClasses =
       <PaginationNext
         :class="stepClasses"
         class="disabled:cursor-not-allowed disabled:opacity-50"
-        :aria-label="t('sa.pagination.next')"
+        :aria-label="next"
       >
-        <span class="hidden lg:inline">{{ t('sa.pagination.next') }}</span>
+        <span class="hidden lg:inline">{{ next }}</span>
         <ChevronRightIcon class="size-4 lg:ml-1" />
       </PaginationNext>
     </PaginationList>

@@ -56,8 +56,8 @@ second copy. npm installs the peer itself, and warns when an app's own version i
 
 **`vue-i18n` is a peer dependency too, and a component reads the app's global messages through
 `useI18n()`.** The language an app renders in is then the language of the package's words, with no
-second choice of language kept in step with it. A component calls it only where it draws one of the
-package's words, so one drawing none, as `SaButton`, needs no instance installed.
+second choice of language kept in step with it. A component that can draw one in any state calls
+it as it mounts, and one that never can, as `SaButton`, calls nothing and needs no instance.
 
 **An icon comes from `@heroicons/vue`, a plain dependency.** An icon holds no state, so a second
 copy costs bytes and breaks nothing. Which set and size is [the Iconography

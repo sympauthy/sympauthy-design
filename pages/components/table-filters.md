@@ -131,7 +131,7 @@ const lists = ['phone', 'tablet', 'desktop'].map((mode) => {
 
 - **A filter reads as a sentence**: the field's `name`, its condition, then the value under the name its field gave it, as "Status is Enabled". "Choose..." stands in until there is one.
 - **A condition reads for the type**: "is", "is not", "is less than", "is at most", "is more than", "is at least", "is one of", "contains", "starts with" and "is empty" over a quantity or a text. Over a `date` or a `date_time` the six comparisons read as a moment, "is on", "is not on", "is before", "is on or before", "is after" and "is on or after", and the other four as over a quantity.
-- **Every word but the fields', their values' and the summary is the package's**: "Add filter", "Search fields", "Condition", "Value", "Search values", "Add a value", "Remove", "Yes" and "No" for a boolean, "Clear filters", and "Active filters" naming the band.
+- **Every word but the fields', their values' and the summary is the package's**: "Add filter", "Search fields", "Condition", "Value", "Search values", "Add a value", "Remove" and the value on each value entered, "Yes" and "No" for a boolean, "Clear filters", and "Active filters" naming the band.
 - **The summary says how many records are left**, as "3 of 9 users match" (see [Content](/foundations/content)).
 
 ## Accessibility

@@ -104,7 +104,7 @@ export const SA_MESSAGES_EN = {
       descending: 'descending'
     },
     tagsInput: {
-      remove: 'Remove'
+      remove: 'Remove {value}'
     }
   }
 }

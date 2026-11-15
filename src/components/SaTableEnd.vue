@@ -23,7 +23,7 @@ const props = withDefaults(
     loading?: boolean
     /** Why the last page asked for could not be added, in place of the rows it waits for. */
     error?: string | null
-    /** The number of rows the list holds, `null` where the server does not say: no end is worded. */
+    /** The number of rows the list holds, `null` where the server does not say: no end is drawn. */
     total: number | null
   }>(),
   {
@@ -40,7 +40,7 @@ const emit = defineEmits<{
 const { t } = useI18n()
 
 const endName = computed(() =>
-  props.total === null ? '' : t('sa.tableEnd.end', { total: props.total }, props.total)
+  props.total == null ? '' : t('sa.tableEnd.end', { total: props.total }, props.total)
 )
 
 // The rows standing for the coming page: enough to fill what a thumb flicks into view while it loads,
@@ -119,7 +119,7 @@ onBeforeUnmount(() => {
   <!-- One region from the first page to the last, since a screen reader is only told of a region
        already there: it says a page is on its way, then that the list is whole. First of the rows it
        draws, so that the last of them is the one drawn without a rule under it. -->
-  <tr v-if="!error" class="sm:hidden" :class="{ 'sr-only': more }">
+  <tr v-if="!error && (more || endName)" class="sm:hidden" :class="{ 'sr-only': more }">
     <td class="w-full">
       <p role="status" class="text-center text-xs text-gray-500">
         <template v-if="!more">{{ endName }}</template>

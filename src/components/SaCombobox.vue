@@ -62,6 +62,9 @@ const model = defineModel<string>({ default: '' })
 defineOptions({ inheritAttrs: false })
 
 const { t } = useI18n()
+
+// Names the sheet's close button, and is its title.
+const closeName = computed(() => t('sa.combobox.close'))
 const description = useFieldDescription()
 const field = useFieldLabel()
 const portalBody = usePortalBody()
@@ -258,8 +261,8 @@ function onSheetCloseAutoFocus(event: Event) {
             {{ field?.text }}
           </DialogTitle>
           <DialogClose
-            :aria-label="t('sa.combobox.close')"
-            :title="t('sa.combobox.close')"
+            :aria-label="closeName"
+            :title="closeName"
             class="flex size-control shrink-0 items-center justify-center rounded-md text-gray-500 outline-primary -outline-offset-2 hover:text-gray-700 focus-visible:outline-2"
           >
             <XMarkIcon class="size-5" />

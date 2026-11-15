@@ -6,12 +6,12 @@ import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka
 import SaField from './SaField.vue'
 import SaSelect from './SaSelect.vue'
 import SaTableFilterValue from './SaTableFilterValue.vue'
+import { useFilterValues } from './filterValues'
 import { usePortalBody } from './portalBody'
 import {
   saFilterIsComplete,
   saFilterIsMultiValued,
   saFilterIsValueless,
-  saFilterValues,
   type SaFilterCriterion,
   type SaFilterField,
   type SaFilterOperator,
@@ -70,12 +70,17 @@ const valueless = computed(() => saFilterIsValueless(props.criterion.operator))
 
 const operatorName = computed(() => nameOf(props.criterion.operator))
 
+// Names the control removing the filter, and is its title: it names the field, so that a screen
+// reader tells two of them apart.
+const removeName = computed(() => t('sa.tableFilters.remove', { field: props.field.name }))
+
 // A value the field published is read under the name it published it with, and one a person typed
 // under what they typed.
+const fieldValues = useFilterValues(() => props.field)
+
 const valueName = computed(() => {
-  const values = saFilterValues(props.field, t('sa.tableFilters.yes'), t('sa.tableFilters.no'))
   const named = (candidate: string) =>
-    values?.find((known) => known.value === candidate)?.name ?? candidate
+    fieldValues.value?.find((known) => known.value === candidate)?.name ?? candidate
   if (saFilterIsMultiValued(props.criterion.operator)) {
     return props.criterion.values.map(named).join(', ')
   }
@@ -171,8 +176,8 @@ function onOpenAutoFocus(event: Event) {
       <button
         type="button"
         class="relative flex min-w-control shrink-0 items-center justify-center self-stretch rounded-r-md border-l border-primary/25 outline-none after:absolute after:inset-x-0 after:-inset-y-px hover:bg-primary/10 focus-visible:bg-primary/10"
-        :title="t('sa.tableFilters.remove', { field: props.field.name })"
-        :aria-label="t('sa.tableFilters.remove', { field: props.field.name })"
+        :title="removeName"
+        :aria-label="removeName"
         @click="emit('remove')"
       >
         <XMarkIcon class="size-3.5" />

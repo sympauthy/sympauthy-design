@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Component } from 'vue'
+import { computed, type Component } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { XMarkIcon } from '@heroicons/vue/20/solid'
 import SaTooltip from './SaTooltip.vue'
@@ -44,6 +44,9 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 
+// Names the control closing the drawer, and is its title.
+const closeMenu = computed(() => t('sa.sidebar.close'))
+
 // The focus ring is `primary` everywhere else, which a person could not make out on this ground.
 const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2'
 </script>
@@ -72,8 +75,8 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
            the target. -->
       <button
         type="button"
-        :aria-label="t('sa.sidebar.close')"
-        :title="t('sa.sidebar.close')"
+        :aria-label="closeMenu"
+        :title="closeMenu"
         class="relative shrink-0 rounded-md text-nav-muted after:absolute after:top-1/2 after:left-1/2 after:size-control after:-translate-x-1/2 after:-translate-y-1/2 hover:text-nav-text lg:hidden"
         :class="focusClasses"
         @click="emit('close')"
