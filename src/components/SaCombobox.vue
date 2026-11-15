@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, ref, useId, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ChevronUpDownIcon, XMarkIcon } from '@heroicons/vue/20/solid'
 import {
   DialogClose,
@@ -25,7 +26,8 @@ import { saListGrowsQuery } from './useSaListGrows'
  * of the screen, so that a phone's keyboard never covers the list it is searching.
  *
  * The field it is drawn in gives it its label, which heads the sheet and names the list, and says
- * whether it is optional, which is what offers a way back to empty.
+ * whether it is optional: an optional field with a value chosen leads its list with "Clear", the way
+ * back to empty.
  */
 export interface SaComboboxProps {
   options: SaListboxOption[]
@@ -33,10 +35,6 @@ export interface SaComboboxProps {
   placeholder: string
   /** Names what is being searched, where the list is long enough to be. */
   searchPlaceholder: string
-  /** Said in place of the options when the search matches none. */
-  noMatchLabel: string
-  /** Names the control closing the sheet, as "Close". */
-  closeLabel: string
   /**
    * The option the app suggests, as the time zone of the person's device. It leads the list under
    * [suggestedLabel], and is taken out of its own group. A value among none of the options does
@@ -45,8 +43,6 @@ export interface SaComboboxProps {
   suggestedValue?: string
   /** The heading of the suggested option, as "From your device". */
   suggestedLabel?: string
-  /** The option emptying the field, as "Clear". Required in a field marked optional. */
-  clearLabel?: string
   /** Draws the error border; pair it with SaField's `error`. */
   invalid?: boolean
   disabled?: boolean
@@ -55,7 +51,6 @@ export interface SaComboboxProps {
 const props = withDefaults(defineProps<SaComboboxProps>(), {
   suggestedValue: undefined,
   suggestedLabel: undefined,
-  clearLabel: undefined,
   invalid: false,
   disabled: false
 })
@@ -66,6 +61,7 @@ const model = defineModel<string>({ default: '' })
 // points at.
 defineOptions({ inheritAttrs: false })
 
+const { t } = useI18n()
 const description = useFieldDescription()
 const field = useFieldLabel()
 const portalBody = usePortalBody()
@@ -99,8 +95,8 @@ const CLEARED = ''
  */
 const listed = computed<SaListboxOption[]>(() => {
   const clear: SaListboxOption[] =
-    field?.value.optional && props.clearLabel && model.value !== ''
-      ? [{ value: CLEARED, label: props.clearLabel }]
+    field?.value.optional && model.value !== ''
+      ? [{ value: CLEARED, label: t('sa.combobox.clear') }]
       : []
   const suggested = props.options.find((option) => option.value === props.suggestedValue)
   if (search.value.trim() !== '' || !suggested) {
@@ -234,7 +230,6 @@ function onSheetCloseAutoFocus(event: Event) {
           :options="listed"
           :selected="model === '' ? [] : [model]"
           :search-placeholder="searchPlaceholder"
-          :no-match-label="noMatchLabel"
           @select="onSelect"
         />
       </PopoverContent>
@@ -263,8 +258,8 @@ function onSheetCloseAutoFocus(event: Event) {
             {{ field?.text }}
           </DialogTitle>
           <DialogClose
-            :aria-label="closeLabel"
-            :title="closeLabel"
+            :aria-label="t('sa.combobox.close')"
+            :title="t('sa.combobox.close')"
             class="flex size-control shrink-0 items-center justify-center rounded-md text-gray-500 outline-primary -outline-offset-2 hover:text-gray-700 focus-visible:outline-2"
           >
             <XMarkIcon class="size-5" />
@@ -277,7 +272,6 @@ function onSheetCloseAutoFocus(event: Event) {
           :options="listed"
           :selected="model === '' ? [] : [model]"
           :search-placeholder="searchPlaceholder"
-          :no-match-label="noMatchLabel"
           @select="onSelect"
         />
       </DialogContent>

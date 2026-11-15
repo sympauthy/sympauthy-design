@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, watchEffect, type Component } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid'
 import { useAppShellMenuReplaced } from './appShellMenu'
 import { SA_PAGE_ACTIONS_OUTLET } from './pageActionsOutlet'
@@ -15,34 +16,29 @@ export interface SaBreadcrumbItem {
 /**
  * The bar naming the screen: its ancestors as links, the screen itself as the page's heading, and at
  * its right end what `SaPageActions` draws. Below `sm:` a screen with ancestors links to the nearest
- * alone, in place of the shell's menu, and names it over its own name. The package knows no router,
- * so an app that has one derives the items from it and names its link in [linkAs].
+ * alone, in place of the shell's menu, as "Back to Users", and names it over its own name. The
+ * package knows no router, so an app that has one derives the items from it and names its link in
+ * [linkAs].
  */
 const props = withDefaults(
   defineProps<{
     items: SaBreadcrumbItem[]
-    /** Names the navigation holding the ancestors, as "Where you are". */
-    label: string
     /** What draws a link: an element's name, or a component such as a router's link. */
     linkAs?: string | Component
-    /**
-     * Names the mark standing in the bar for the link to [parent], as "Back to Ada Lovelace". Without
-     * it the link takes the parent's own name.
-     */
-    backLabel?: (parent: string) => string
   }>(),
   {
-    linkAs: 'a',
-    backLabel: undefined
+    linkAs: 'a'
   }
 )
+
+const { t } = useI18n()
 
 const ancestors = computed(() => props.items.slice(0, -1))
 const screen = computed(() => props.items[props.items.length - 1])
 const parent = computed(() => ancestors.value[ancestors.value.length - 1])
 
 const backName = computed(() =>
-  parent.value ? (props.backLabel?.(parent.value.label) ?? parent.value.label) : undefined
+  parent.value ? t('sa.breadcrumb.back', { parent: parent.value.label }) : undefined
 )
 
 const menuReplaced = useAppShellMenuReplaced()
@@ -66,7 +62,11 @@ onBeforeUnmount(() => {
     <div class="mx-auto flex w-full max-w-page items-center justify-between gap-4 px-4 lg:px-6">
       <div class="flex min-w-0 items-center gap-2">
         <!-- Where the shell's control would stand, so that the mark does not move between screens. -->
-        <nav v-if="parent?.link" :aria-label="label" class="-mr-0.5 -ml-2.5 shrink-0 sm:hidden">
+        <nav
+          v-if="parent?.link"
+          :aria-label="t('sa.breadcrumb.label')"
+          class="-mr-0.5 -ml-2.5 shrink-0 sm:hidden"
+        >
           <component
             :is="linkAs"
             v-bind="parent.link"
@@ -77,7 +77,11 @@ onBeforeUnmount(() => {
             <ChevronLeftIcon class="size-6" />
           </component>
         </nav>
-        <nav v-if="ancestors.length > 0" :aria-label="label" class="hidden shrink-0 sm:block">
+        <nav
+          v-if="ancestors.length > 0"
+          :aria-label="t('sa.breadcrumb.label')"
+          class="hidden shrink-0 sm:block"
+        >
           <ol class="flex items-center gap-2">
             <li v-for="item in ancestors" :key="item.key" class="flex items-center gap-2">
               <component

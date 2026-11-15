@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, useId } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ChevronDownIcon, XMarkIcon } from '@heroicons/vue/20/solid'
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 import SaField from './SaField.vue'
@@ -13,7 +14,6 @@ import {
   saFilterValues,
   type SaFilterCriterion,
   type SaFilterField,
-  type SaFilterLabels,
   type SaFilterOperator,
   type SaFilterPatch
 } from './saFilter'
@@ -30,7 +30,6 @@ const props = withDefaults(
   defineProps<{
     field: SaFilterField
     criterion: SaFilterCriterion
-    labels: SaFilterLabels
     /** Set on the filter just added, whose value is what a person opened the list to give. */
     openOnMount?: boolean
   }>(),
@@ -44,6 +43,19 @@ const emit = defineEmits<{
   remove: []
 }>()
 
+const { t } = useI18n()
+
+/** The operators reading as a moment over a date: "is on or after" rather than "is at least". */
+const COMPARISONS: SaFilterOperator[] = ['eq', 'ne', 'lt', 'lte', 'gt', 'gte']
+
+/** What an operator reads over the field's type. The others read the same over every type. */
+function nameOf(operator: SaFilterOperator): string {
+  const dated = props.field.type === 'date' || props.field.type === 'date_time'
+  return dated && COMPARISONS.includes(operator)
+    ? t(`sa.tableFilters.dateOperators.${operator}`)
+    : t(`sa.tableFilters.operators.${operator}`)
+}
+
 const operatorFieldId = useId()
 const valueFieldId = useId()
 const portalBody = usePortalBody()
@@ -56,14 +68,12 @@ const value = ref<InstanceType<typeof SaTableFilterValue> | null>(null)
 
 const valueless = computed(() => saFilterIsValueless(props.criterion.operator))
 
-const operatorName = computed(() =>
-  props.labels.operatorName(props.criterion.operator, props.field.type)
-)
+const operatorName = computed(() => nameOf(props.criterion.operator))
 
 // A value the field published is read under the name it published it with, and one a person typed
 // under what they typed.
 const valueName = computed(() => {
-  const values = saFilterValues(props.field, props.labels.yes, props.labels.no)
+  const values = saFilterValues(props.field, t('sa.tableFilters.yes'), t('sa.tableFilters.no'))
   const named = (candidate: string) =>
     values?.find((known) => known.value === candidate)?.name ?? candidate
   if (saFilterIsMultiValued(props.criterion.operator)) {
@@ -73,7 +83,7 @@ const valueName = computed(() => {
 })
 
 const shownValue = computed(() =>
-  valueName.value === '' ? props.labels.selectValue : valueName.value
+  valueName.value === '' ? t('sa.tableFilters.choose') : valueName.value
 )
 
 // What the trigger reads when it is too narrow to show it all, which has to be the same sentence: a
@@ -161,8 +171,8 @@ function onOpenAutoFocus(event: Event) {
       <button
         type="button"
         class="relative flex min-w-control shrink-0 items-center justify-center self-stretch rounded-r-md border-l border-primary/25 outline-none after:absolute after:inset-x-0 after:-inset-y-px hover:bg-primary/10 focus-visible:bg-primary/10"
-        :title="props.labels.removeFilter(props.field.name)"
-        :aria-label="props.labels.removeFilter(props.field.name)"
+        :title="t('sa.tableFilters.remove', { field: props.field.name })"
+        :aria-label="t('sa.tableFilters.remove', { field: props.field.name })"
         @click="emit('remove')"
       >
         <XMarkIcon class="size-3.5" />
@@ -177,27 +187,26 @@ function onOpenAutoFocus(event: Event) {
         class="sa-popover sa-overlay-animated z-50 w-72 max-w-[calc(100vw-2rem)] space-y-3 p-3"
         @open-auto-focus="onOpenAutoFocus"
       >
-        <SaField :for="operatorFieldId" :label="props.labels.operator">
+        <SaField :for="operatorFieldId" :label="t('sa.tableFilters.operator')">
           <SaSelect
             :id="operatorFieldId"
             :model-value="props.criterion.operator"
             @update:model-value="onOperatorChange"
           >
             <option v-for="operator in props.field.operators" :key="operator" :value="operator">
-              {{ props.labels.operatorName(operator, props.field.type) }}
+              {{ nameOf(operator) }}
             </option>
           </SaSelect>
         </SaField>
 
         <!-- `is_null` asks whether the row carries a value at all, so there is nothing to fill in. -->
         <div v-if="!valueless" ref="valueBox">
-          <SaField :for="valueFieldId" :label="props.labels.value">
+          <SaField :for="valueFieldId" :label="t('sa.tableFilters.value')">
             <SaTableFilterValue
               :id="valueFieldId"
               ref="value"
               :field="props.field"
               :criterion="props.criterion"
-              :labels="props.labels"
               @update="(patch) => emit('update', patch)"
               @submit="onOpenChange(false)"
             />

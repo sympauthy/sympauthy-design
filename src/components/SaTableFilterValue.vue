@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import SaInput from './SaInput.vue'
 import SaListbox from './SaListbox.vue'
 import SaTagsInput from './SaTagsInput.vue'
@@ -8,7 +9,6 @@ import {
   saFilterValues,
   type SaFilterCriterion,
   type SaFilterField,
-  type SaFilterLabels,
   type SaFilterPatch
 } from './saFilter'
 
@@ -23,7 +23,6 @@ const props = defineProps<{
   id: string
   field: SaFilterField
   criterion: SaFilterCriterion
-  labels: SaFilterLabels
 }>()
 
 const emit = defineEmits<{
@@ -32,10 +31,12 @@ const emit = defineEmits<{
   submit: []
 }>()
 
+const { t } = useI18n()
+
 const multiValued = computed(() => saFilterIsMultiValued(props.criterion.operator))
 
 const options = computed(() => {
-  const values = saFilterValues(props.field, props.labels.yes, props.labels.no)
+  const values = saFilterValues(props.field, t('sa.tableFilters.yes'), t('sa.tableFilters.no'))
   return values?.map((value) => ({ value: value.value, label: value.name })) ?? null
 })
 
@@ -117,8 +118,7 @@ function onValueKeydown(event: KeyboardEvent) {
     :options="options"
     :selected="selected"
     :multiple="multiValued"
-    :search-placeholder="props.labels.searchValues"
-    :no-match-label="props.labels.noMatch"
+    :search-placeholder="t('sa.tableFilters.searchValues')"
     :aria-label="props.field.name"
     @select="onSelect"
   />
@@ -129,8 +129,7 @@ function onValueKeydown(event: KeyboardEvent) {
     v-else-if="multiValued"
     ref="tags"
     v-model="typedValues"
-    :remove-label="props.labels.removeValue"
-    :placeholder="props.labels.addValue"
+    :placeholder="t('sa.tableFilters.addValue')"
     :aria-label="props.field.name"
   />
 

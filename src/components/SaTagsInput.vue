@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { XMarkIcon } from '@heroicons/vue/20/solid'
 import {
   TagsInputInput,
@@ -13,12 +14,10 @@ import { useFieldDescription } from './fieldDescription'
 /**
  * Several values entered one at a time, each becoming a tag as it is entered. A person need not know
  * the separator the list travels under, and a value already entered is removed by the control beside
- * it rather than by finding it inside a sentence.
+ * it, "Remove", rather than by finding it inside a sentence.
  */
 withDefaults(
   defineProps<{
-    /** Names the control that removes a value, as "Remove". */
-    removeLabel: string
     /** Named in the empty field, since the tags beside it say nothing about what goes in. */
     placeholder?: string
     /** Names the field, where the label beside it does not point at it. */
@@ -34,6 +33,7 @@ withDefaults(
 )
 
 const model = defineModel<string[]>({ default: () => [] })
+const { t } = useI18n()
 const description = useFieldDescription()
 
 // What has been typed and not yet entered. The primitive keeps it in the DOM and hands it over on
@@ -92,7 +92,7 @@ defineExpose({ flush })
       <!-- The icon stays small beside the word, and the pseudo-element around it is the target. -->
       <TagsInputItemDelete
         class="relative shrink-0 rounded-md text-gray-500 outline-primary after:absolute after:top-1/2 after:left-1/2 after:size-control after:-translate-x-1/2 after:-translate-y-1/2 hover:text-gray-700 focus-visible:outline-2"
-        :aria-label="removeLabel"
+        :aria-label="t('sa.tagsInput.remove')"
       >
         <XMarkIcon class="size-3" />
       </TagsInputItemDelete>

@@ -1,16 +1,18 @@
 ---
-description: Which components ship in the package, what they are built on, what they are named,
-  and what one owes the site.
+description: Which components ship in the package, what they are built on, which words they hold,
+  what they are named, and what one owes the site.
 paths:
   - 'src/components/**'
   - 'src/components.css'
+  - 'src/messages/**'
 ---
 
 # Components standard
 
-Which components ship in the package, what they are built on, and what they and everything else the
-package exports are named. How the page of one is written is [the component pages
-standard](component-pages-standard.md), and values are [the foundations'](foundations-standard.md).
+Which components ship in the package, what they are built on, which words they hold, and what they
+and everything else the package exports are named. How the page of one is written is [the component
+pages standard](component-pages-standard.md), and values are [the
+foundations'](foundations-standard.md).
 
 ## Which components ship
 
@@ -22,9 +24,9 @@ in its app, specified in `pages/components/` under that app's group.
 it.** `SaTag` qualifies and `OriginTag` does not, since a claim's origin is the admin's own
 term.
 
-**A shipped component knows no store, no router, no auth and no message bundle.** Hand it the words
-it draws and the links it follows as props or slots. An app that needs more wraps it, as the admin's
-button adds its scopes.
+**A shipped component knows no store, no router and no auth.** Hand it the words naming what is on
+the screen and the links it follows as props or slots. An app that needs more wraps it, as the
+admin's button adds its scopes.
 
 **A component an app wraps exports its props as `Sa…Props`, and the wrapper extends them.** The
 wrapper then states only what it adds, so a prop the package gains reaches the app's screens with no
@@ -52,6 +54,11 @@ management.
 it meet through a key made once per copy, so an app's `TooltipProvider` reaches no tooltip from a
 second copy. npm installs the peer itself, and warns when an app's own version is out of range.
 
+**`vue-i18n` is a peer dependency too, and a component reads the app's global messages through
+`useI18n()`.** The language an app renders in is then the language of the package's words, with no
+second choice of language kept in step with it. A component calls it only where it draws one of the
+package's words, so one drawing none, as `SaButton`, needs no instance installed.
+
 **An icon comes from `@heroicons/vue`, a plain dependency.** An icon holds no state, so a second
 copy costs bytes and breaks nothing. Which set and size is [the Iconography
 foundation](../../pages/foundations/iconography.md).
@@ -67,6 +74,35 @@ A class written elsewhere reaches no app's stylesheet, and the build reports not
 apply it.** Tailwind applies only utilities, and a class cannot reach a pseudo-element, so
 `sa-field-label` is declared with `@utility`. A template still writes it as a class, and a text
 utility beside it still wins.
+
+## Which words a component holds
+
+**A word a component says the same on every screen is the package's, and no prop carries it.**
+"Copied", "No, cancel", "Previous" and the conditions of a filter read the same wherever the
+component is drawn, so the word is the component's: an app holding it holds one more wording of one
+word. A screen never rewords one, so an app has one way to draw it.
+
+**A word naming what is on the screen stays a prop.** What an action does, what a field holds, what
+a search looks through, what a copy button copies and what an app suggests are the screen's, and so
+is every `ariaLabel`. An app's own sentences, as "Sign in", stay in the app, since they name it.
+
+**A prop is never a word and a switch at once.** A word left out would turn a behaviour off with
+nothing to say so, so a behaviour is a boolean, `false` by default, as `SaField`'s `optional`.
+
+**A word holding a count takes the count, and the package words it, plural included.** "Fix 3
+fields to continue" says what to do on every form, so the count is all a form gives it.
+
+**The package's words are written in `src/messages/`, under `sa.`, one module per language.**
+`sa.` keeps them from an app's keys, as everything the package names starts with `Sa`. The English
+is the shape every other language is typed against.
+
+**A language the package holds is a branch of `loadSaMessages`, importing its own module.** A
+bundler then splits each into a chunk of the app's build; an import whose path is built at runtime
+is not split out of a dependency by every bundler. English is answered with no import, since it is
+in an app's first load.
+
+**A message is plain `vue-i18n` syntax, compiled by the app's `vue-i18n` the first time it is
+drawn.** An app then writes no path into the package for its words, as for its classes.
 
 ## What a thing is named
 
@@ -106,7 +142,13 @@ and declaring it would mean listing the stylesheets an app imports for their eff
 through the `@source` of `src/components.css`, so its classes reach every app's stylesheet whichever
 components that app draws.
 
-**Checking.** Nothing verifies these rules; each is kept true by whoever edits the component.
+**A language past English.** The apps ship English alone, so the package does; the first app
+shipping another brings it, and with it who translates the package's words.
+
+**Checking.** Nothing verifies these rules; each is kept true by whoever edits the component. A
+language is typed against the English, which catches a key it lacks. A component drawing a key no
+language holds draws the key, caught by eye on its page; a key no component draws is caught by
+nobody.
 
 ---
 

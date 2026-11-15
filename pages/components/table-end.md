@@ -30,7 +30,7 @@ function retry() {
 
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <DemoFrame mode="phone" label="Phone, growing as it is scrolled" :height="520">
-    <SaTable loading-label="Loading claims.">
+    <SaTable>
       <template #header>
         <SaTableHeader>Claim</SaTableHeader>
         <SaTableHeader fit>Collected at</SaTableHeader>
@@ -40,43 +40,43 @@ function retry() {
           <SaTableCell primary>{{ claim.name }}</SaTableCell>
           <SaTableCell label="Collected at" fit>{{ claim.collected }}</SaTableCell>
         </tr>
-        <SaTableEnd :more="growing.shown < TOTAL" :loading="growing.loading" loading-label="Loading more claims." :end-label="`All ${TOTAL} claims shown`" retry-label="Retry" @more="more" />
+        <SaTableEnd :more="growing.shown < TOTAL" :loading="growing.loading" :total="TOTAL" @more="more" />
       </template>
     </SaTable>
   </DemoFrame>
   <DemoFrame mode="phone" label="Phone, a page on its way">
-    <SaTable loading-label="Loading claims.">
+    <SaTable>
       <template #header><SaTableHeader>Claim</SaTableHeader><SaTableHeader fit>Collected at</SaTableHeader></template>
       <template #rows>
         <tr v-for="claim in claims.slice(0, 3)" :key="claim.name">
           <SaTableCell primary>{{ claim.name }}</SaTableCell>
           <SaTableCell label="Collected at" fit>{{ claim.collected }}</SaTableCell>
         </tr>
-        <SaTableEnd more loading loading-label="Loading more claims." :end-label="`All ${TOTAL} claims shown`" retry-label="Retry" />
+        <SaTableEnd more loading :total="TOTAL" />
       </template>
     </SaTable>
   </DemoFrame>
   <DemoFrame mode="phone" label="Phone, whole">
-    <SaTable loading-label="Loading consents.">
+    <SaTable>
       <template #header><SaTableHeader>Client</SaTableHeader><SaTableHeader fit>Granted</SaTableHeader></template>
       <template #rows>
         <tr>
           <SaTableCell primary>Back office</SaTableCell>
           <SaTableCell label="Granted" fit>02/11/2026</SaTableCell>
         </tr>
-        <SaTableEnd loading-label="Loading more consents." end-label="1 consent" retry-label="Retry" />
+        <SaTableEnd :total="1" />
       </template>
     </SaTable>
   </DemoFrame>
   <DemoFrame mode="phone" label="Phone, failed">
-    <SaTable loading-label="Loading claims.">
+    <SaTable>
       <template #header><SaTableHeader>Claim</SaTableHeader><SaTableHeader fit>Collected at</SaTableHeader></template>
       <template #rows>
         <tr v-for="claim in claims.slice(0, failing.shown)" :key="claim.name">
           <SaTableCell primary>{{ claim.name }}</SaTableCell>
           <SaTableCell label="Collected at" fit>{{ claim.collected }}</SaTableCell>
         </tr>
-        <SaTableEnd more :loading="failing.loading" :error="failing.error" loading-label="Loading more claims." :end-label="`All ${TOTAL} claims shown`" retry-label="Retry" @more="retry" />
+        <SaTableEnd more :loading="failing.loading" :error="failing.error" :total="TOTAL" @more="retry" />
       </template>
     </SaTable>
   </DemoFrame>
@@ -94,7 +94,7 @@ function retry() {
 
 - **Rows**: the table's own, so a part of it takes the padding of a row and the `ink-200` rule between two.
 - **Placeholders**: two rows, each a [Skeleton](/components/skeleton) for the record's name over a shorter one for its values, while the server holds more.
-- **End**: one line, 12px in `ink-500` and centred, once the list is whole.
+- **End**: one line, 12px in `ink-500` and centred, once the list is whole. A list whose `total` is `null` draws none.
 - **Failed**: a `danger` [Alert](/components/alert) holding the sentence, and a `secondary` [Button](/components/button) for the retry at its end.
 - **From `sm:`**: nothing.
 
@@ -108,7 +108,8 @@ function retry() {
 
 ## Content
 
-- **`endLabel` says how many rows the list holds**, as "All 23 claims shown", or "1 consent" for a list that fits one page. **`loadingLabel` says what is on its way**, and the error what could not be added (see [Content](/foundations/content)).
+- **The end says how many rows the list holds, worded from `total`**: "All 23 records shown", or "1 record" for a list of one. "Loading more records..." says what is on its way, and "Retry" asks again. All are the package's, the same under every list.
+- **The error says what could not be added** (see [Content](/foundations/content)).
 
 ## Accessibility
 
@@ -118,19 +119,17 @@ function retry() {
 
 ## API
 
-The consumer provides whether more rows remain, the state of the page asked for and the words, since the component reads no message bundle. It holds no rows: the caller adds each page to its own, and keeps them for a person coming back.
+The consumer provides whether more rows remain, how many the list holds, the state of the page asked for and its error. The component draws its other words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)). It holds no rows: the caller adds each page to its own, and keeps them for a person coming back.
 
 ### SaTableEnd
 
-| Name           | Type             | Default | Description                                               |
-| -------------- | ---------------- | ------- | --------------------------------------------------------- |
-| `more`         | `boolean`        | `false` | The server holds rows past the last one drawn.            |
-| `loading`      | `boolean`        | `false` | True from `@more` until its page is added.                |
-| `error`        | `string \| null` | `null`  | Why the last page could not be added.                     |
-| `loadingLabel` | `string`         |         | Required. Says what is on its way, to a screen reader.    |
-| `endLabel`     | `string`         |         | Required. Says the list is whole.                         |
-| `retryLabel`   | `string`         |         | Required. The retry after `error`.                        |
-| `@more`        | event            |         | The next page is wanted: once in reach, and on the retry. |
+| Name      | Type             | Default | Description                                                          |
+| --------- | ---------------- | ------- | -------------------------------------------------------------------- |
+| `more`    | `boolean`        | `false` | The server holds rows past the last one drawn.                       |
+| `loading` | `boolean`        | `false` | True from `@more` until its page is added.                           |
+| `error`   | `string \| null` | `null`  | Why the last page could not be added.                                |
+| `total`   | `number \| null` |         | Required. The rows the list holds; `null` where the server says not. |
+| `@more`   | event            |         | The next page is wanted: once in reach, and on the retry.            |
 
 ### useSaListGrows
 

@@ -22,14 +22,14 @@ const frames = reactive([
 
 <div class="demo vp-raw"><div class="grid grid-cols-2 gap-4">
   <DemoFrame v-for="frame in frames" :key="frame.label" :mode="frame.mode" :label="frame.label" :class="frame.class" :height="480" flush>
-    <SaAppShell v-model:sidebar-open="frame.open" open-menu-label="Open the menu">
+    <SaAppShell v-model:sidebar-open="frame.open">
       <template #sidebar>
-        <SaSidebar :sections="framedSections" label="Main" close-label="Close the menu" @close="frame.open = false">
+        <SaSidebar :sections="framedSections" @close="frame.open = false">
           <template #head><span class="truncate text-lg font-semibold">SympAuthy</span></template>
-          <template #foot><SaSidebarAccount name="Ada Lovelace" detail="ada@example.com" sign-out-label="Sign out" /></template>
+          <template #foot><SaSidebarAccount name="Ada Lovelace" detail="ada@example.com" /></template>
         </SaSidebar>
       </template>
-      <template #bar><SaBreadcrumb :items="frame.items" label="Where you are" /></template>
+      <template #bar><SaBreadcrumb :items="frame.items" /></template>
       <DemoPageActions><SaMenu label="Actions" :items="actions" :collapsed-icon="EllipsisHorizontalIcon" /></DemoPageActions>
       <SaCard>The page.</SaCard>
     </SaAppShell>
@@ -62,16 +62,15 @@ const frames = reactive([
 ## Accessibility
 
 - **`main` is named by the [Breadcrumb](/components/breadcrumb)'s heading**, set by the component (WCAG 1.3.1).
-- **`openMenuLabel` names the control opening the drawer**, which draws no words (WCAG 4.1.2). Its target is `control-height` square.
+- **"Open menu" names the control opening the drawer**, which draws no words (WCAG 4.1.2). Its target is `control-height` square.
 - **The drawer does not trap focus**, so the keyboard can leave it for the page under the scrim. It closes on Escape while focus is inside.
 
 ## API
 
-The consumer provides the sidebar, the bar, the page and the words, and closes the drawer when it navigates.
+The consumer provides the sidebar, the bar and the page, and closes the drawer when it navigates. The shell draws its words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)).
 
 | Name                  | Type      | Default | Description                             |
 | --------------------- | --------- | ------- | --------------------------------------- |
-| `openMenuLabel`       | `string`  |         | Required. Names the control opening it. |
 | `v-model:sidebarOpen` | `boolean` | `false` | Whether the drawer is open below `lg:`. |
 | `#sidebar`            | slot      |         | The sidebar.                            |
 | `#bar`                | slot      |         | The bar naming the screen.              |

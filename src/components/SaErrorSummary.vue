@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { getCurrentInstance, nextTick, onBeforeUnmount, onMounted, ref, useId } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
 
 /** One invalid field: the `id` of its control, and the words of its own error line. */
@@ -11,16 +12,15 @@ export interface SaErrorSummaryError {
 /**
  * Every invalid field of a form, at its top, linking to each. It takes the focus each time its form
  * is submitted and errors remain, so that a long form never fails out of sight, and draws nothing
- * while there are none.
+ * while there are none. Its title is worded from their number, as "Fix 3 fields to continue".
  */
 export interface SaErrorSummaryProps {
-  /** Written whole, the count included, as "Fix 3 fields to continue". */
-  title: string
   errors: SaErrorSummaryError[]
 }
 
 const props = defineProps<SaErrorSummaryProps>()
 
+const { t } = useI18n()
 const titleId = useId()
 const box = ref<HTMLElement>()
 
@@ -96,7 +96,9 @@ function follow(event: MouseEvent, id: string) {
   >
     <ExclamationCircleIcon class="mt-0.5 size-4 shrink-0" />
     <div class="min-w-0">
-      <p :id="titleId" class="font-semibold">{{ title }}</p>
+      <p :id="titleId" class="font-semibold">
+        {{ t('sa.errorSummary.title', { count: errors.length }, errors.length) }}
+      </p>
       <!-- Each entry on a 24px line, so that two links' targets never overlap. -->
       <ul class="leading-6">
         <li v-for="error in errors" :key="error.for">

@@ -18,19 +18,18 @@ const modes = [
   { frame: { mode: 'tablet', label: 'Tablet and desktop, a collection' }, items: top, single: true },
   { frame: { mode: 'tablet', label: 'Tablet and desktop, a part of a record' }, items: part }
 ]
-const backLabel = (parent) => `Back to ${parent}`
 </script>
 
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <ClientOnly>
-    <SaBreadcrumb :items="items" label="Where you are" />
+    <SaBreadcrumb :items="items" />
     <SaPageActions><SaButton label="Create user" /></SaPageActions>
   </ClientOnly>
 </div></div>
 
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <DemoFrame v-for="demo in modes" :key="demo.frame.label" v-bind="demo.frame" flush>
-    <SaBreadcrumb :items="demo.items" label="Where you are" :back-label="backLabel" />
+    <SaBreadcrumb :items="demo.items" />
     <DemoPageActions>
       <SaMenu v-if="demo.single" label="Actions" :items="one" :collapsed-icon="EllipsisHorizontalIcon">
         <template #expanded><SaButton label="Create user" /></template>
@@ -69,24 +68,22 @@ const backLabel = (parent) => `Back to ${parent}`
 
 ## Accessibility
 
-- **`label` names the `nav` holding the ancestors.** A screen with no ancestors draws no `nav`.
+- **"Where you are" names the `nav` holding the ancestors.** A screen with no ancestors draws no `nav`.
 - **The last item is the page's `h1`**, set by the component, so that a screen writes no heading of its own (WCAG 1.3.1). It is last on the row and beside the `nav` rather than in it, so that skipping the navigation does not skip it, and the [AppShell](/components/app-shell) names its `main` with it. It takes the focus from script and not from Tab, so that the app can focus it as a screen opens ([Focus management](/foundations/focus-management)), and draws no ring, being no control.
-- **Below `sm:` only the nearest ancestor is in reach of the keyboard and of a screen reader.** It is the way back, in a `nav` named by `label`. The ones before it are one step further back.
-- **`backLabel` names the link back**, which draws no words (WCAG 4.1.2). Without it the link takes the ancestor's name.
+- **Below `sm:` only the nearest ancestor is in reach of the keyboard and of a screen reader.** It is the way back, in a `nav` named "Where you are". The ones before it are one step further back.
+- **"Back to Users" names the link back**, the ancestor's name after the package's words, since the link draws none (WCAG 4.1.2).
 - **The chevrons draw no words.**
 
 ## API
 
-The consumer provides the items and what draws their links, since the component knows no router. With one, derive the items from it, pass its link as `linkAs` and each item's `{ to }` as its `link`. Where a phone opens a view that a wider screen draws as a tab, the consumer adds that view as the last item below `sm:` only.
+The consumer provides the items and what draws their links, since the component knows no router. It draws its other words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)). With one, derive the items from it, pass its link as `linkAs` and each item's `{ to }` as its `link`. Where a phone opens a view that a wider screen draws as a tab, the consumer adds that view as the last item below `sm:` only.
 
 ### SaBreadcrumb
 
-| Name        | Type                         | Default     | Description                                                       |
-| ----------- | ---------------------------- | ----------- | ----------------------------------------------------------------- |
-| `items`     | `SaBreadcrumbItem[]`         |             | Required. Each a `key`, a `label` and a `link`, but for the last. |
-| `label`     | `string`                     |             | Required. Names the `nav` holding the ancestors.                  |
-| `linkAs`    | `string \| Component`        | `'a'`       | What draws a link.                                                |
-| `backLabel` | `(parent: string) => string` | `undefined` | Names the link back below `sm:`.                                  |
+| Name     | Type                  | Default | Description                                                       |
+| -------- | --------------------- | ------- | ----------------------------------------------------------------- |
+| `items`  | `SaBreadcrumbItem[]`  |         | Required. Each a `key`, a `label` and a `link`, but for the last. |
+| `linkAs` | `string \| Component` | `'a'`   | What draws a link.                                                |
 
 ### SaPageActions
 

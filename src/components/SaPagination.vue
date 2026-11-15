@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid'
 import {
   PaginationEllipsis,
@@ -14,8 +15,9 @@ import {
  * Which page of a list is on screen, and the way to the others. A phone is told which page of how
  * many, since page numbers do not fit it, and every step is a control a thumb can hit.
  *
- * A list of one page is told its range alone: a disabled pair of arrows around a lone "1" says
- * nothing the range does not. The bar keeps the height of a step either way, so that a filter taking
+ * The range, as "Showing 1-20 of 200", is said whenever [size] and [total] are given. A list of one
+ * page is told its range alone: a disabled pair of arrows around a lone "1" says nothing the range
+ * does not. The bar keeps the height of a step either way, so that a filter taking
  * a list down to one page moves nothing but the steps, and a table sizing its pages from the height
  * left to its rows is not handed a different one.
  */
@@ -24,22 +26,13 @@ const props = withDefaults(
     /** The current page, counted from 0. */
     page: number
     totalPages: number
-    /** Names the pager, as "Pages of users". */
-    label: string
-    previousLabel: string
-    nextLabel: string
-    /** Says which page a step leads to, as "Page 2 of 10". */
-    pageLabel: (page: number, totalPages: number) => string
     /** The number of rows on a page, which with [total] gives the range. */
     size?: number
     total?: number
-    /** Says which rows are on screen, as "Showing 1-20 of 200". */
-    rangeLabel?: (range: { from: number; to: number; total: number }) => string
   }>(),
   {
     size: 0,
-    total: 0,
-    rangeLabel: undefined
+    total: 0
   }
 )
 
@@ -47,15 +40,21 @@ const emit = defineEmits<{
   pageChange: [page: number]
 }>()
 
+const { t } = useI18n()
+
+/** Says which page a step leads to, as "Page 2 of 10". */
+const pageName = (page: number) => t('sa.pagination.page', { page, totalPages: props.totalPages })
+
+/** Says which rows are on screen, as "Showing 1-20 of 200", where [size] and [total] are given. */
 const range = computed(() => {
   if (props.size <= 0 || props.total <= 0) {
-    return null
+    return ''
   }
-  return {
+  return t('sa.pagination.range', {
     from: props.page * props.size + 1,
     to: Math.min((props.page + 1) * props.size, props.total),
     total: props.total
-  }
+  })
 })
 
 // reka-ui derives the page count from the item counts. A caller that only knows how many pages it
@@ -70,7 +69,7 @@ const stepClasses =
 <template>
   <!-- Not a navigation: there is nowhere to go. -->
   <p v-if="totalPages <= 1" class="flex min-h-control items-center text-sm text-gray-500">
-    <template v-if="range && rangeLabel">{{ rangeLabel(range) }}</template>
+    {{ range }}
   </p>
 
   <PaginationRoot
@@ -80,14 +79,14 @@ const stepClasses =
     :total="totalItems"
     :sibling-count="1"
     show-edges
-    :aria-label="label"
+    :aria-label="t('sa.pagination.label')"
     class="flex items-center gap-2 sm:justify-between"
     @update:page="(value: number) => emit('pageChange', value - 1)"
   >
     <!-- A phone is told which page of how many by the indicator inside the pager, so the range it
          also reads would cost the list a record to say the same thing twice. -->
     <span class="hidden text-sm text-gray-500 sm:inline">
-      <template v-if="range && rangeLabel">{{ rangeLabel(range) }}</template>
+      {{ range }}
     </span>
 
     <PaginationList
@@ -98,14 +97,14 @@ const stepClasses =
       <PaginationPrev
         :class="stepClasses"
         class="disabled:cursor-not-allowed disabled:opacity-50"
-        :aria-label="previousLabel"
+        :aria-label="t('sa.pagination.previous')"
       >
         <ChevronLeftIcon class="size-4 lg:mr-1" />
-        <span class="hidden lg:inline">{{ previousLabel }}</span>
+        <span class="hidden lg:inline">{{ t('sa.pagination.previous') }}</span>
       </PaginationPrev>
 
       <span class="px-2 text-sm text-gray-500 sm:hidden">
-        {{ pageLabel(page + 1, totalPages) }}
+        {{ pageName(page + 1) }}
       </span>
 
       <div class="hidden items-center gap-2 sm:flex">
@@ -114,7 +113,7 @@ const stepClasses =
             v-if="item.type === 'page'"
             :key="`page-${item.value}`"
             :value="item.value"
-            :aria-label="pageLabel(item.value, totalPages)"
+            :aria-label="pageName(item.value)"
             :class="stepClasses"
             class="data-[selected]:border-transparent data-[selected]:bg-primary data-[selected]:text-on-primary"
           />
@@ -131,9 +130,9 @@ const stepClasses =
       <PaginationNext
         :class="stepClasses"
         class="disabled:cursor-not-allowed disabled:opacity-50"
-        :aria-label="nextLabel"
+        :aria-label="t('sa.pagination.next')"
       >
-        <span class="hidden lg:inline">{{ nextLabel }}</span>
+        <span class="hidden lg:inline">{{ t('sa.pagination.next') }}</span>
         <ChevronRightIcon class="size-4 lg:ml-1" />
       </PaginationNext>
     </PaginationList>

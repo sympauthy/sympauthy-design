@@ -14,7 +14,6 @@ const users = [
   { email: 'katherine.johnson@example.com', status: 'Invited', color: 'yellow', created: '2026-10-03' },
   { email: 'alan@example.com', status: 'Disabled', color: 'red', created: '2026-08-20' }
 ]
-const labels = { sort: 'Sort', search: 'Search orders', noMatch: 'Nothing matches', ascending: 'ascending', descending: 'descending' }
 const sort = useSaSort({
   fields: () => [{ field: 'email', name: 'Email' }, { field: 'created', name: 'Created' }],
   defaultKeys: () => [{ field: 'created', descending: true }]
@@ -28,10 +27,10 @@ const rows = computed(() => {
 
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <DemoFrame v-for="mode in ['phone', 'tablet', 'desktop']" :key="mode" :mode="mode">
-    <SaTable loading-label="Loading users.">
+    <SaTable>
       <template #toolbar>
         <SaInput class="min-w-0 flex-1 basis-60" :icon="SearchIcon" placeholder="Search by email" aria-label="Search users" />
-        <SaTableSort :sort="sort" :labels="labels" />
+        <SaTableSort :sort="sort" />
       </template>
       <template #header>
         <SaTableHeader :sorting="sort" field="email">User</SaTableHeader>
@@ -77,23 +76,22 @@ const rows = computed(() => {
 ## Content
 
 - **An order is a field's `name` and an arrow, in every mode**, so that an app chooses no words for it (see [Content](/foundations/content)).
-- **`sort` is said only where the list is in no order the control can name**, as "Sort".
+- **"Sort" is said only where the list is in no order the control can name.** It, "Search orders", "ascending" and "descending" are the package's.
 
 ## Accessibility
 
 - **A column that orders the list holds a real button, so it reaches the keyboard, and the cell takes `aria-sort`** (WCAG 2.1.1, 4.1.2).
-- **An arrow says nothing to a screen reader, so `ascending` and `descending` say it**: in the control's name, which starts with what it shows (WCAG 2.5.3), and in each choice of the list. The list is named by `labels.sort`, and the primitive holds the popover's focus and its Escape. Closing it returns the focus to the control.
+- **An arrow says nothing to a screen reader, so "ascending" and "descending" say it**: in the control's name, which starts with what it shows (WCAG 2.5.3), and in each choice of the list. The list is named "Sort", and the primitive holds the popover's focus and its Escape. Closing it returns the focus to the control.
 
 ## API
 
-The consumer provides the fields, the words and the toolbar around the control, since the component reads no message bundle, and turns what `asked` holds into its own request.
+The consumer provides the fields and the toolbar around the control, and turns what `asked` holds into its own request. The control draws its words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)).
 
 ### SaTableSort
 
-| Name     | Type           | Default | Description                                                               |
-| -------- | -------------- | ------- | ------------------------------------------------------------------------- |
-| `sort`   | `SaSort`       |         | Required. What `useSaSort` holds.                                         |
-| `labels` | `SaSortLabels` |         | Required. Its words, with `ascending` and `descending` saying the arrows. |
+| Name   | Type     | Default | Description                       |
+| ------ | -------- | ------- | --------------------------------- |
+| `sort` | `SaSort` |         | Required. What `useSaSort` holds. |
 
 ### useSaSort
 

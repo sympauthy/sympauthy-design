@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { XMarkIcon } from '@heroicons/vue/20/solid'
 import SaTooltip from './SaTooltip.vue'
 
@@ -26,12 +27,8 @@ export interface SaSidebarSection {
 withDefaults(
   defineProps<{
     sections: SaSidebarSection[]
-    /** Names the navigation, as "Main". */
-    label: string
     /** What the head's link is given, as an entry's. Without it the head is not a link. */
     homeLink?: Record<string, unknown>
-    /** Names the control closing the drawer below `lg:`. */
-    closeLabel: string
     /** What draws a link: an element's name, or a component such as a router's link. */
     linkAs?: string | Component
   }>(),
@@ -45,12 +42,14 @@ const emit = defineEmits<{
   close: []
 }>()
 
+const { t } = useI18n()
+
 // The focus ring is `primary` everywhere else, which a person could not make out on this ground.
 const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2'
 </script>
 
 <template>
-  <nav :aria-label="label" class="flex h-full flex-col bg-nav text-nav-text">
+  <nav :aria-label="t('sa.sidebar.label')" class="flex h-full flex-col bg-nav text-nav-text">
     <div
       class="flex h-14 items-center justify-between gap-1 border-b border-nav-divider px-4 max-lg:pr-3"
     >
@@ -73,8 +72,8 @@ const focusClasses = 'outline-nav-text -outline-offset-2 focus-visible:outline-2
            the target. -->
       <button
         type="button"
-        :aria-label="closeLabel"
-        :title="closeLabel"
+        :aria-label="t('sa.sidebar.close')"
+        :title="t('sa.sidebar.close')"
         class="relative shrink-0 rounded-md text-nav-muted after:absolute after:top-1/2 after:left-1/2 after:size-control after:-translate-x-1/2 after:-translate-y-1/2 hover:text-nav-text lg:hidden"
         :class="focusClasses"
         @click="emit('close')"

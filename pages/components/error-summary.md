@@ -28,7 +28,6 @@ const errors = computed(() =>
         .map(([id, message]) => ({ for: id, message }))
     : []
 )
-const title = computed(() => (errors.value.length === 1 ? 'Fix 1 field to continue' : `Fix ${errors.value.length} fields to continue`))
 const shownError = (id) => (submitted.value ? fieldErrors.value[id] : undefined)
 // The server answers after a while, and refuses the nickname "admin": its error arrives after the
 // submit, so the summary is told to take the focus.
@@ -49,11 +48,11 @@ async function onSubmit() {
 </script>
 
 <div class="demo vp-raw"><form class="stack" novalidate @submit.prevent="onSubmit">
-  <SaErrorSummary ref="summary" :title="title" :errors="errors" />
+  <SaErrorSummary ref="summary" :errors="errors" />
   <SaField label="Last name" for="demo-summary-family" :error="shownError('demo-summary-family')"><SaInput id="demo-summary-family" v-model="familyName" autocomplete="family-name" :invalid="!!shownError('demo-summary-family')" /></SaField>
-  <SaField label="Nickname" for="demo-summary-nickname" optional-label="(optional)" :error="shownError('demo-summary-nickname')"><SaInput id="demo-summary-nickname" v-model="nickname" autocomplete="nickname" :invalid="!!shownError('demo-summary-nickname')" /></SaField>
+  <SaField label="Nickname" for="demo-summary-nickname" optional :error="shownError('demo-summary-nickname')"><SaInput id="demo-summary-nickname" v-model="nickname" autocomplete="nickname" :invalid="!!shownError('demo-summary-nickname')" /></SaField>
   <SaField label="Website" for="demo-summary-website" :error="shownError('demo-summary-website')"><SaInput id="demo-summary-website" v-model="website" type="url" autocomplete="url" :invalid="!!shownError('demo-summary-website')" /></SaField>
-  <SaField label="Birthdate" for="demo-summary-birthdate" optional-label="(optional)"><SaInput id="demo-summary-birthdate" v-model="birthdate" autocomplete="bday" /></SaField>
+  <SaField label="Birthdate" for="demo-summary-birthdate" optional><SaInput id="demo-summary-birthdate" v-model="birthdate" autocomplete="bday" /></SaField>
   <div class="row"><SaButton type="submit" label="Continue" :submitting="sending" /></div>
 </form></div>
 
@@ -83,7 +82,7 @@ async function onSubmit() {
 
 ## Content
 
-- **`title` is written whole, the count included**, and says what to do: "Fix 3 fields to continue".
+- **The title is worded from the number of errors** and says what to do: "Fix 1 field to continue", "Fix 3 fields to continue". It is the package's, since it says the same on every form, so the count is all a form gives it.
 - **An entry repeats its field's own error line word for word**, which says what to do next (see [Content](/foundations/content)).
 
 ## Accessibility
@@ -94,11 +93,10 @@ async function onSubmit() {
 
 ## API
 
-The consumer provides the title and the errors, each the `id` of its field's control and that field's message, since the component reads no message bundle, and calls `focus()` for errors set after the submit. `SaErrorSummaryProps` and `SaErrorSummaryError` are exported for an app wrapping it.
+The consumer provides the errors, each the `id` of its field's control and that field's message, and calls `focus()` for errors set after the submit. The summary words its title from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)). `SaErrorSummaryProps` and `SaErrorSummaryError` are exported for an app wrapping it.
 
 | Name      | Type                    | Default | Description                                                                 |
 | --------- | ----------------------- | ------- | --------------------------------------------------------------------------- |
-| `title`   | `string`                |         | Required. The title, count included.                                        |
 | `errors`  | `SaErrorSummaryError[]` |         | Required. Each a `for`, the `id` of the control, and a `message`.           |
 | `focus()` | method                  |         | Takes the focus once the errors are drawn, for errors set after the submit. |
 

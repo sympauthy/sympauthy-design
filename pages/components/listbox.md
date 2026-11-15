@@ -27,10 +27,10 @@ const narrowZone = ref(['America/Sao_Paulo'])
 </script>
 
 <div class="demo"><div class="stack">
-  <SaListbox :options="short" :selected="one" search-placeholder="Search claims" no-match-label="No claim matches this search." aria-label="Claim" @select="one = $event" />
-  <SaListbox :options="long" :selected="several" multiple search-placeholder="Search claims" no-match-label="No claim matches this search." aria-label="Claims" @select="several = $event" />
-  <SaField label="Time zone"><SaListbox :options="zones" :selected="zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." @select="zone = $event" /></SaField>
-  <div style="max-width: 15rem"><SaListbox :options="zones" :selected="narrowZone" search-placeholder="Search time zones" no-match-label="No time zone matches this search." aria-label="Time zone" @select="narrowZone = $event" /></div>
+  <SaListbox :options="short" :selected="one" search-placeholder="Search claims" aria-label="Claim" @select="one = $event" />
+  <SaListbox :options="long" :selected="several" multiple search-placeholder="Search claims" aria-label="Claims" @select="several = $event" />
+  <SaField label="Time zone"><SaListbox :options="zones" :selected="zone" search-placeholder="Search a city, region or offset" @select="zone = $event" /></SaField>
+  <div style="max-width: 15rem"><SaListbox :options="zones" :selected="narrowZone" search-placeholder="Search time zones" aria-label="Time zone" @select="narrowZone = $event" /></div>
 </div></div>
 
 ## Usage
@@ -63,11 +63,11 @@ const narrowZone = ref(['America/Sao_Paulo'])
 - **Search**: appears once the list holds 8 options, an option of empty value, which stands for nothing chosen, not counted. Under that, the answer is already in sight. It matches the label, the secondary text and the meta, so "+01:00" finds Paris and "new york" finds New York. It clears when the set of options changes, and not when the same options come in another order.
 - **Order**: the options are shown in the order they are passed. While a search is typed the headings go, and the matches keep that order.
 - **Hover and keyboard**: the highlighted option is `ink-100`. The arrow keys move through the options, and Enter or Space chooses one.
-- **Empty**: when the search matches nothing, `noMatchLabel` takes the options' place.
+- **Empty**: when the search matches nothing, "Nothing matches" takes the options' place.
 
 ## Content
 
-- **`noMatchLabel` says that the search found nothing**, not that something failed (see [Content](/foundations/content)).
+- **"Nothing matches" says that the search found nothing**, not that something failed, in every list the package draws (see [Content](/foundations/content)).
 
 ## Accessibility
 
@@ -78,14 +78,13 @@ const narrowZone = ref(['America/Sao_Paulo'])
 
 ## API
 
-The consumer provides the options, what is chosen and the words, since the component reads no message bundle.
+The consumer provides the options, what is chosen and what is searched. The list draws its other words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)).
 
 | Name                | Type                | Default     | Description                                                                                                                                                           |
 | ------------------- | ------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `options`           | `SaListboxOption[]` |             | Required. Each a `value` and a `label`, and optionally a `secondary` text, a `meta`, a `groupLabel`, and an `icon` with the `iconLabel` saying it to a screen reader. |
 | `selected`          | `string[]`          |             | Required. What is chosen: at most one, unless `multiple`.                                                                                                             |
 | `searchPlaceholder` | `string`            |             | Required. Names what is searched.                                                                                                                                     |
-| `noMatchLabel`      | `string`            |             | Required. Said when the search matches nothing.                                                                                                                       |
 | `multiple`          | `boolean`           | `false`     | Lets several be chosen.                                                                                                                                               |
 | `ariaLabel`         | `string`            | `undefined` | Names the list, outside a `SaField`.                                                                                                                                  |
 | `fill`              | `boolean`           | `false`     | Fills the height of what holds it, with no box of its own.                                                                                                            |

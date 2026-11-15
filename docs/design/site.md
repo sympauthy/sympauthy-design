@@ -27,6 +27,11 @@ a merge and its release the site describes what no tag ships yet.
 writes `<SaButton>` without importing it, so a component exported from `src/index.ts` is drawn by
 no page until it is registered there too.
 
+**The site installs `vue-i18n` with the package's English, as an app does.** A demo then draws the
+words a component says on every screen, and a key standing in one's place is a word missing from
+the package. The feature flags an app's build plugin defines are defined in
+`pages/.vitepress/config.ts`.
+
 **A demo is drawn with the apps' styles alone.** The site's Vite compiles Tailwind, so the demos
 use the utilities and the shared classes the apps use. Inside `.vp-raw`, VitePress's own prose
 styles are kept out, since they would draw a table of records as prose.
@@ -54,7 +59,7 @@ says what that costs). GitHub Pages answers its folder with it; in development a
 
 - **`pages/.vitepress/config.ts`** — the sidebar, the navigation, Tailwind and the isolation of the
   demos' styles.
-- **`pages/.vitepress/theme/`** — the registration of the components, `TokenTable`, `DemoFrame`,
+- **`pages/.vitepress/theme/`** — the registration of the components and of `vue-i18n`, `TokenTable`, `DemoFrame`,
   `DemoPageActions`, and the site's own styles.
 - **`.github/workflows/pages.yml`** — the deployment, on every push to `main`. CI builds the site on
   every pull request too, so a page that fails to compile fails the pull request.

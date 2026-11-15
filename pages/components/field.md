@@ -26,10 +26,10 @@ const claims = ref('{"email": true}')
   <SaField label="Redirect URI" for="demo-uri" hint="Must match the URI the client sends exactly."><SaInput id="demo-uri" v-model="uri" mono /></SaField>
   <SaField label="Search" for="demo-search"><SaInput id="demo-search" v-model="search" :icon="SearchIcon" placeholder="Name or email" /></SaField>
   <SaField label="Email" for="demo-email"><SaInput id="demo-email" v-model="email" type="email" autocomplete="email" /></SaField>
-  <SaField label="Middle name" for="demo-middle" optional-label="(optional)"><SaInput id="demo-middle" v-model="middleName" autocomplete="additional-name" /></SaField>
-  <SaField label="Password" for="demo-new-pass" hint="At least 12 characters."><SaPasswordInput id="demo-new-pass" v-model="newPassword" show-label="Show password" autocomplete="new-password" /></SaField>
-  <SaField label="Password" for="demo-pass" error="The password must contain at least 12 characters."><SaPasswordInput id="demo-pass" v-model="password" show-label="Show password" autocomplete="new-password" invalid /></SaField>
-  <SaField label="Password" for="demo-pass-off"><SaPasswordInput id="demo-pass-off" v-model="password" show-label="Show password" disabled /></SaField>
+  <SaField label="Middle name" for="demo-middle" optional><SaInput id="demo-middle" v-model="middleName" autocomplete="additional-name" /></SaField>
+  <SaField label="Password" for="demo-new-pass" hint="At least 12 characters."><SaPasswordInput id="demo-new-pass" v-model="newPassword" autocomplete="new-password" /></SaField>
+  <SaField label="Password" for="demo-pass" error="The password must contain at least 12 characters."><SaPasswordInput id="demo-pass" v-model="password" autocomplete="new-password" invalid /></SaField>
+  <SaField label="Password" for="demo-pass-off"><SaPasswordInput id="demo-pass-off" v-model="password" disabled /></SaField>
   <SaField label="Client ID" for="demo-id"><SaInput id="demo-id" v-model="clientId" mono disabled /></SaField>
   <SaField label="Theme" for="demo-theme" hint="Which theme a person sees first."><SaSelect id="demo-theme" v-model="theme"><option value="auto">Follow the device</option><option value="light">Light</option><option value="dark">Dark</option></SaSelect></SaField>
   <SaField label="Theme" for="demo-theme-bad" error="Choose a theme to continue."><SaSelect id="demo-theme-bad" v-model="theme" invalid><option value="auto">Follow the device</option></SaSelect></SaField>
@@ -42,7 +42,7 @@ Submitting this form hides the password again, as a form of the flow does.
 
 <div class="demo"><form class="stack" @submit.prevent>
   <SaField label="Email" for="demo-sign-up-email"><SaInput id="demo-sign-up-email" v-model="email" type="email" autocomplete="email" /></SaField>
-  <SaField label="Password" for="demo-sign-up-pass"><SaPasswordInput id="demo-sign-up-pass" v-model="signUpPassword" show-label="Show password" autocomplete="new-password" /></SaField>
+  <SaField label="Password" for="demo-sign-up-pass"><SaPasswordInput id="demo-sign-up-pass" v-model="signUpPassword" autocomplete="new-password" /></SaField>
   <div class="row"><SaButton type="submit" label="Create account" /></div>
 </form></div>
 
@@ -52,7 +52,7 @@ Submitting this form hides the password again, as a form of the flow does.
 - **`mono`**: anything read character by character, such as a URI, a token or a JSON document.
 - **`icon`**: a field whose purpose the icon names.
 - **`autocomplete`**: set it on every field of the flow (`email`, `current-password`, `new-password`, `one-time-code`).
-- **`optionalLabel`**: a field a person may leave empty, as "(optional)". A form marks the fewer kind, so a required field is never starred.
+- **`optional`**: a field a person may leave empty, marked "(optional)". A form marks the fewer kind, so a required field is never starred.
 - **`SaPasswordInput`**: every password, new or current. A person who can check what they typed is not asked to type it twice, so a form never asks to confirm a password.
 - **`#trailing`**: one mark on `SaInput`'s trailing edge, the size of an icon, such as `SaPasswordInput`'s toggle.
 - **`SaSelect`**: a choice among a list the build knows the length of. A list the deployment sizes is a [Listbox](/components/listbox).
@@ -64,7 +64,7 @@ Submitting this form hides the password again, as a form of the flow does.
 ## Look
 
 - **Label**: above the control, in `flow-label`.
-- **Optional mark**: `optionalLabel` after the label, in the label's size at 400 and `ink-500`.
+- **Optional mark**: "(optional)" after the label, in the label's size at 400 and `ink-500`.
 - **Control**: `.sa-control`, so `control-height` tall (see [Control height](/foundations/control-height)), with `surface`, an `ink-400` border and `radius-md`. Its text is 16px in `ink-900`: below that, iOS zooms the page when the field takes focus.
 - **Placeholder**: `ink-500`.
 - **Icon**: 16px in `ink-400`, on the control's leading edge.
@@ -85,35 +85,34 @@ Submitting this form hides the password again, as a form of the flow does.
 
 - **An error says what went wrong and what to do next** (see [Content](/foundations/content)).
 - **A hint says what the label cannot**: a format or a consequence.
-- **`optionalLabel` is the one word in brackets**, as "(optional)".
-- **`showLabel` names what the toggle does when it is not pressed**, as "Show password". It never changes.
+- **"(optional)" and "Show password" are the package's**, the same on every form. The toggle's name says what it does when it is not pressed, and never changes.
 
 ## Accessibility
 
 - **The label names the control** (WCAG 1.3.1). Pass the control's `id` as `SaField`'s `for`, which also lets a click on the label focus it.
 - **`invalid` sets `aria-invalid`** (WCAG 3.3.1).
 - **The line under a control is linked to it with `aria-describedby`** (WCAG 1.3.1). `SaField` gives the line an `id` and the control reads it, so a screen reader reads an error or a hint with the field. A caller's own `aria-describedby` replaces it on `SaInput` and `SaSelect`.
-- **`optionalLabel` is inside the `<label>`**, so a screen reader reads it with the label: "Middle name (optional)" (WCAG 3.3.2).
+- **The optional mark is inside the `<label>`**, so a screen reader reads it with the label: "Middle name (optional)" (WCAG 3.3.2).
 - **The error line's icon draws no words**: the message says what went wrong, and the icon is what sets it apart from a hint by more than its color (WCAG 1.4.1).
-- **The password's toggle has one name, `showLabel`, and `aria-pressed` says whether the password is shown**, so a screen reader hears "Show password, pressed" rather than a name changing under it (WCAG 4.1.2). Browsers drawing a reveal button of their own in a password field have it hidden, so the field holds one toggle.
+- **The password's toggle has one name, "Show password", and `aria-pressed` says whether the password is shown**, so a screen reader hears "Show password, pressed" rather than a name changing under it (WCAG 4.1.2). Browsers drawing a reveal button of their own in a password field have it hidden, so the field holds one toggle.
 - **`SaField` tells the control it holds its label and whether it is optional**, as it tells it the `id` of the line under it. A [Combobox](/components/combobox) heads its sheet with the label and offers to clear an optional field; a [Listbox](/components/listbox) is named by it.
 - **The border's contrast** is held on [Color](/foundations/color#accessibility).
 
 ## API
 
-The consumer provides the label text, the value binding, the control's `id`, and the error message from validation.
+The consumer provides the label text, the value binding, the control's `id`, and the error message from validation. The field and the password's toggle draw their other words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)).
 
 ### SaField
 
-| Name            | Type     | Default | Description                                              |
-| --------------- | -------- | ------- | -------------------------------------------------------- |
-| `label`         | `string` |         | Required. What is being filled in.                       |
-| `for`           | `string` |         | The `id` of the control.                                 |
-| `hint`          | `string` |         | A line under the control, for what the label cannot say. |
-| `error`         | `string` |         | Replaces the hint while set, in `danger`.                |
-| `optionalLabel` | `string` |         | Marks the field optional, drawn after the label.         |
-| `#default`      | slot     |         | The control.                                             |
-| `#help`         | slot     |         | Drawn beside the label, for a help tooltip.              |
+| Name       | Type      | Default | Description                                              |
+| ---------- | --------- | ------- | -------------------------------------------------------- |
+| `label`    | `string`  |         | Required. What is being filled in.                       |
+| `for`      | `string`  |         | The `id` of the control.                                 |
+| `hint`     | `string`  |         | A line under the control, for what the label cannot say. |
+| `error`    | `string`  |         | Replaces the hint while set, in `danger`.                |
+| `optional` | `boolean` | `false` | Marks the field optional, after the label.               |
+| `#default` | slot      |         | The control.                                             |
+| `#help`    | slot      |         | Drawn beside the label, for a help tooltip.              |
 
 ### SaInput
 
@@ -132,12 +131,11 @@ Everything else reaches the `<input>`, such as `id`, `placeholder`, `autocomplet
 
 Everything else reaches the `<input>`, as on `SaInput`, `autocomplete` included. `SaPasswordInputProps` is exported for an app wrapping it.
 
-| Name        | Type      | Default | Description                                     |
-| ----------- | --------- | ------- | ----------------------------------------------- |
-| `showLabel` | `string`  |         | Required. Names the toggle, as "Show password". |
-| `invalid`   | `boolean` | `false` | Draws the error border; pair it with `error`.   |
-| `disabled`  | `boolean` | `false` | Disables the input and its toggle.              |
-| `v-model`   | `string`  | `''`    | The password.                                   |
+| Name       | Type      | Default | Description                                   |
+| ---------- | --------- | ------- | --------------------------------------------- |
+| `invalid`  | `boolean` | `false` | Draws the error border; pair it with `error`. |
+| `disabled` | `boolean` | `false` | Disables the input and its toggle.            |
+| `v-model`  | `string`  | `''`    | The password.                                 |
 
 ### SaSelect
 

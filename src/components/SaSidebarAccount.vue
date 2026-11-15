@@ -1,16 +1,16 @@
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
 import { ArrowRightStartOnRectangleIcon } from '@heroicons/vue/20/solid'
 
 /**
  * Who is signed in, and signing out, for a sidebar's foot. The package knows no auth, so an app hands
- * it the words and signs out when told to.
+ * it who is signed in and signs out when told to.
  */
 withDefaults(
   defineProps<{
     name: string
     /** What tells them apart, such as their email. */
     detail?: string
-    signOutLabel: string
   }>(),
   {
     detail: undefined
@@ -20,6 +20,8 @@ withDefaults(
 const emit = defineEmits<{
   signOut: []
 }>()
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -36,7 +38,7 @@ const emit = defineEmits<{
       @click="emit('signOut')"
     >
       <ArrowRightStartOnRectangleIcon class="size-4" />
-      {{ signOutLabel }}
+      {{ t('sa.sidebarAccount.signOut') }}
     </button>
   </div>
 </template>

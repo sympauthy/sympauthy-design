@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { provide, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { Bars3Icon } from '@heroicons/vue/20/solid'
 import { APP_SHELL_MENU_REPLACED } from './appShellMenu'
 import { SA_PAGE_HEADING } from './pageHeading'
@@ -9,15 +10,12 @@ import { SA_PAGE_HEADING } from './pageHeading'
  * a column holding the bar and the page. Below `lg:` the bar also holds the control opening the
  * drawer. The package knows no router, so the app closes the drawer when it navigates.
  */
-defineProps<{
-  /** Names the control opening the drawer below `lg:`. */
-  openMenuLabel: string
-}>()
-
 const sidebarOpen = defineModel<boolean>('sidebarOpen', { default: false })
 
 const menuReplaced = ref(false)
 provide(APP_SHELL_MENU_REPLACED, menuReplaced)
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -48,8 +46,8 @@ provide(APP_SHELL_MENU_REPLACED, menuReplaced)
                `relative` keeps the target on top of the bar's ground. -->
           <button
             type="button"
-            :aria-label="openMenuLabel"
-            :title="openMenuLabel"
+            :aria-label="t('sa.appShell.openMenu')"
+            :title="t('sa.appShell.openMenu')"
             class="relative -mr-2.5 ml-1.5 flex size-control shrink-0 items-center justify-center self-center text-gray-600 outline-primary -outline-offset-2 focus-visible:outline-2 lg:hidden"
             :class="{ 'max-sm:hidden': menuReplaced }"
             @click="sidebarOpen = true"

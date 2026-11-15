@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, provide, useId } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ExclamationCircleIcon } from '@heroicons/vue/20/solid'
 import { FIELD_DESCRIPTION } from './fieldDescription'
 import { FIELD_LABEL } from './fieldLabel'
@@ -21,19 +22,21 @@ const props = withDefaults(
     /** Replaces the hint while set, in `danger`. */
     error?: string
     /**
-     * Marks the field optional, as "(optional)", drawn after the label and inside it so that a
+     * Marks the field optional with "(optional)", drawn after the label and inside it so that a
      * screen reader reads the two together. A form marks the fewer kind, so a required field is
      * never starred.
      */
-    optionalLabel?: string
+    optional?: boolean
   }>(),
   {
     for: undefined,
     hint: undefined,
     error: undefined,
-    optionalLabel: undefined
+    optional: false
   }
 )
+
+const { t } = useI18n()
 
 const labelId = useId()
 const descriptionId = useId()
@@ -45,7 +48,7 @@ provide(
 
 provide(
   FIELD_LABEL,
-  computed(() => ({ id: labelId, text: props.label, optional: !!props.optionalLabel }))
+  computed(() => ({ id: labelId, text: props.label, optional: props.optional }))
 )
 </script>
 
@@ -55,8 +58,8 @@ provide(
       <!-- The words a control names itself with, which the help beside them is not. -->
       <span :id="labelId"
         >{{ label
-        }}<span v-if="optionalLabel" class="font-normal text-gray-500">{{
-          ` ${optionalLabel}`
+        }}<span v-if="optional" class="font-normal text-gray-500">{{
+          ` ${t('sa.field.optional')}`
         }}</span></span
       >
       <slot name="help" />

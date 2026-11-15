@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import SaAlert from './SaAlert.vue'
 import SaButton from './SaButton.vue'
 import SaSkeleton from './SaSkeleton.vue'
@@ -11,6 +12,8 @@ import SaSkeleton from './SaSkeleton.vue'
  * meanwhile is shaped like the rows it waits for, so the rows that arrive take its place and nothing
  * moves. Rows of the table's own body, so that the rules and the padding of a row are what it draws
  * with; from `sm:` a list pages, and it draws nothing.
+ *
+ * The whole list is worded from [total], as "All 23 records shown", or "1 record".
  */
 const props = withDefaults(
   defineProps<{
@@ -20,12 +23,8 @@ const props = withDefaults(
     loading?: boolean
     /** Why the last page asked for could not be added, in place of the rows it waits for. */
     error?: string | null
-    /** Says what is on its way, as "Loading more claims", to a screen reader. */
-    loadingLabel: string
-    /** Says the list is whole, as "All 23 claims shown". */
-    endLabel: string
-    /** The retry after [error]. */
-    retryLabel: string
+    /** The number of rows the list holds, `null` where the server does not say: no end is worded. */
+    total: number | null
   }>(),
   {
     more: false,
@@ -37,6 +36,12 @@ const props = withDefaults(
 const emit = defineEmits<{
   more: []
 }>()
+
+const { t } = useI18n()
+
+const endName = computed(() =>
+  props.total === null ? '' : t('sa.tableEnd.end', { total: props.total }, props.total)
+)
 
 // The rows standing for the coming page: enough to fill what a thumb flicks into view while it loads,
 // few enough to leave the end of a short list near the last row.
@@ -117,8 +122,8 @@ onBeforeUnmount(() => {
   <tr v-if="!error" class="sm:hidden" :class="{ 'sr-only': more }">
     <td class="w-full">
       <p role="status" class="text-center text-xs text-gray-500">
-        <template v-if="!more">{{ endLabel }}</template>
-        <template v-else-if="loading">{{ loadingLabel }}</template>
+        <template v-if="!more">{{ endName }}</template>
+        <template v-else-if="loading">{{ t('sa.tableEnd.loading') }}</template>
       </p>
     </td>
   </tr>
@@ -144,7 +149,12 @@ onBeforeUnmount(() => {
     <td class="w-full">
       <SaAlert color="danger" class="flex items-center justify-between gap-3 py-1 pr-1">
         <span>{{ error }}</span>
-        <SaButton class="shrink-0" variant="secondary" :label="retryLabel" @click="emit('more')" />
+        <SaButton
+          class="shrink-0"
+          variant="secondary"
+          :label="t('sa.tableEnd.retry')"
+          @click="emit('more')"
+        />
       </SaAlert>
     </td>
   </tr>
