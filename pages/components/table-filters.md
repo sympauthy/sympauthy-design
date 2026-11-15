@@ -61,27 +61,24 @@ const inOrder = (rows, keys) => {
   return key ? [...rows].sort((a, b) => a[key.field].localeCompare(b[key.field]) * (key.descending ? -1 : 1)) : rows
 }
 const PAGE_SIZE = 3
-// One list per frame, each holding its own filters: a filter just added opens its popover and takes
-// the focus, which only one frame can do.
-const lists = ['phone', 'tablet', 'desktop'].map((mode) => {
-  const list = reactive({ mode, page: 0 })
-  list.filters = useSaFilters({
-    fields: () => fields,
-    initial: [{ field: 'status', operator: 'eq', value: 'enabled' }],
-    onChange: () => { list.page = 0 }
-  })
-  list.matching = computed(() => users.filter((user) => list.filters.complete.every((c) => answers[c.operator](user[c.field], c))))
-  list.sort = useSaSort({ fields: () => sortFields, defaultKeys, onChange: () => { list.page = 0 } })
-  list.rows = computed(() => inOrder(list.matching, list.sort.keys).slice(list.page * PAGE_SIZE, (list.page + 1) * PAGE_SIZE))
-  list.pages = computed(() => Math.max(1, Math.ceil(list.matching.length / PAGE_SIZE)))
-  return list
+const list = reactive({ page: 0 })
+list.filters = useSaFilters({
+  fields: () => fields,
+  initial: [{ field: 'status', operator: 'eq', value: 'enabled' }],
+  onChange: () => { list.page = 0 }
 })
+list.matching = computed(() => users.filter((user) => list.filters.complete.every((c) => answers[c.operator](user[c.field], c))))
+list.sort = useSaSort({ fields: () => sortFields, defaultKeys, onChange: () => { list.page = 0 } })
+list.rows = computed(() => inOrder(list.matching, list.sort.keys).slice(list.page * PAGE_SIZE, (list.page + 1) * PAGE_SIZE))
+list.pages = computed(() => Math.max(1, Math.ceil(list.matching.length / PAGE_SIZE)))
 const pageLabel = (p, total) => `Page ${p} of ${total}`
 const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 </script>
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <DemoFrame v-for="list in lists" :key="list.mode" :mode="list.mode">
+## Demo
+
+<div class="demo vp-raw">
+  <DemoModes :modes="['phone', 'tablet', 'desktop']">
     <SaTable loading-label="Loading users." :empty="list.matching.length === 0">
       <template #toolbar>
         <SaInput class="min-w-0 flex-1 basis-60" :icon="SearchIcon" placeholder="Search by email or user ID" aria-label="Search users" />
@@ -115,8 +112,8 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
         <SaPagination :page="list.page" :total-pages="list.pages" :size="PAGE_SIZE" :total="list.matching.length" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="list.page = $event" />
       </template>
     </SaTable>
-  </DemoFrame>
-</div></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

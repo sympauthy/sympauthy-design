@@ -4,6 +4,8 @@
 
 A link, `primary` and underlined at rest: `.sa-link` inside a sentence, and `SaLink` standing on its own, as easy to press as a button.
 
+## Demo
+
 <div class="demo"><div class="stack">
   <p>Already have an account? <a class="sa-link" href="#">Sign in</a>.</p>
   <SaButton label="Sign in" size="large" />

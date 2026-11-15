@@ -32,8 +32,10 @@ use the utilities and the shared classes the apps use. Inside `.vp-raw`, VitePre
 styles are kept out, since they would draw a table of records as prose.
 
 **A breakpoint is shown in a frame.** `DemoFrame` teleports the component into an iframe as wide as
-a device, since a breakpoint reads the viewport and a narrower box does not change it. What it
-cannot draw — an overlay that opens on the page rather than in the frame — is [the component pages
+a device, since a breakpoint reads the viewport and a narrower box does not change it. `DemoModes`
+draws a page's demo as tabs, the first on the page and one per mode over a single frame, whose width
+changes with the tab while the demo keeps its state, so a page does not grow by a frame per mode. What
+it cannot draw — an overlay that opens on the page rather than in the frame — is [the component pages
 standard](../standards/component-pages-standard.md#the-opening)'s to list.
 
 **A token table reads `tokens.json`.** `TokenTable` draws a group of tokens with their usage, their
@@ -55,7 +57,7 @@ says what that costs). GitHub Pages answers its folder with it; in development a
 - **`pages/.vitepress/config.ts`** — the sidebar, the navigation, Tailwind and the isolation of the
   demos' styles.
 - **`pages/.vitepress/theme/`** — the registration of the components, `TokenTable`, `DemoFrame`,
-  `DemoPageActions`, and the site's own styles.
+  `DemoModes`, `DemoPageActions`, and the site's own styles.
 - **`.github/workflows/pages.yml`** — the deployment, on every push to `main`. CI builds the site on
   every pull request too, so a page that fails to compile fails the pull request.
 
@@ -65,7 +67,7 @@ says what that costs). GitHub Pages answers its folder with it; in development a
 it describes.
 
 **Automated checks of the demos.** Nothing tests a demo visually or for accessibility; a component
-is checked by looking at its page in both themes and in each frame.
+is checked by looking at its page in both themes and in each mode.
 
 ---
 

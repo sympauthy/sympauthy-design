@@ -22,21 +22,24 @@ const grouped = [
 ]
 </script>
 
-<div class="demo"><div class="row" style="justify-content: flex-end">
-  <span class="text-gray-500">{{ chosen ? `Chose ${chosen}` : '' }}</span>
-  <SaMenu label="Actions" :items="items" @select="chosen = $event" />
-</div></div>
+## Demo
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <DemoFrame v-for="frame in modes" :key="frame.mode" :mode="frame.mode" :label="frame.label" :height="240">
+<div class="demo vp-raw">
+  <DemoModes :modes="modes" :height="240">
+    <template #inline>
+    <div class="row" style="justify-content: flex-end">
+      <span class="text-gray-500">{{ chosen ? `Chose ${chosen}` : '' }}</span>
+      <SaMenu label="Actions" :items="items" @select="chosen = $event" />
+    </div>
+    </template>
     <div class="flex justify-end gap-2">
       <SaMenu label="Actions" :items="one" :collapsed-icon="EllipsisHorizontalIcon">
         <template #expanded><SaButton label="Create invitation" :icon="PlusIcon" /></template>
       </SaMenu>
       <SaMenu label="Actions" :items="grouped" :collapsed-icon="EllipsisHorizontalIcon" />
     </div>
-  </DemoFrame>
-</div></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

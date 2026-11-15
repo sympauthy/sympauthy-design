@@ -10,6 +10,8 @@ const uris = ref(['https://billing.example.com/callback'])
 const none = ref([])
 </script>
 
+## Demo
+
 <div class="demo"><div class="stack">
   <SaField label="Redirect URIs" hint="Press Enter after each one."><SaTagsInput v-model="uris" remove-label="Remove" placeholder="Add a URI" aria-label="Redirect URIs" /></SaField>
   <SaField label="Redirect URIs" error="Add at least one URI."><SaTagsInput v-model="none" remove-label="Remove" placeholder="Add a URI" aria-label="Redirect URIs" invalid /></SaField>

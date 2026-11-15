@@ -26,8 +26,10 @@ const rows = computed(() => {
 })
 </script>
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <DemoFrame v-for="mode in ['phone', 'tablet', 'desktop']" :key="mode" :mode="mode">
+## Demo
+
+<div class="demo vp-raw">
+  <DemoModes :modes="['phone', 'tablet', 'desktop']">
     <SaTable loading-label="Loading users.">
       <template #toolbar>
         <SaInput class="min-w-0 flex-1 basis-60" :icon="SearchIcon" placeholder="Search by email" aria-label="Search users" />
@@ -46,8 +48,8 @@ const rows = computed(() => {
         </tr>
       </template>
     </SaTable>
-  </DemoFrame>
-</div></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

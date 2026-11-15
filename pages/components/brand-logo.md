@@ -4,6 +4,8 @@
 
 The deployment's logo, as the server answers it, and SympAuthy's where it answers none.
 
+## Demo
+
 <div class="demo"><ClientOnly><div class="row">
   <SaBrandLogo />
   <SaBrandLogo size="lg" />

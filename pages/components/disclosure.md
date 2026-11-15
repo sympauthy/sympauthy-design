@@ -9,6 +9,8 @@ import { ref } from 'vue'
 const open = ref(true)
 </script>
 
+## Demo
+
 <div class="demo"><div class="stack">
   <SaDisclosure label="Technical details">
     <p>Error: <code>auth.interactive_flow_session.concurrent_modification</code></p>

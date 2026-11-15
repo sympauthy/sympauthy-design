@@ -28,6 +28,8 @@ function retry() {
 }
 </script>
 
+## Demo
+
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <DemoFrame mode="phone" label="Phone, growing as it is scrolled" :height="520">
     <SaTable loading-label="Loading claims.">

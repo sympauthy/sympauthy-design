@@ -10,6 +10,8 @@ const open = ref(false)
 const failing = ref(false)
 </script>
 
+## Demo
+
 <div class="demo"><div class="row">
   <SaButton label="Revoke grant" @click="open = true" />
   <SaButton label="Revoke grant, with an error" @click="failing = true" />

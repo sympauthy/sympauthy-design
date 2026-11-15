@@ -4,6 +4,8 @@
 
 What a screen shows while it waits: a spinner and a line saying what is being waited for.
 
+## Demo
+
 <div class="demo"><div class="stack">
   <SaLoadingState label="Loading users." />
   <SaCard><SaLoadingState label="Waiting for a response from the server." size="lg" /></SaCard>

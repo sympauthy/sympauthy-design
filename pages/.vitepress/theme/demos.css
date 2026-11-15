@@ -9,13 +9,9 @@
 @import '../../../src/components.css';
 @source '../../components';
 
-/* The box a demo is drawn in: the apps' ground, the apps' text. */
+/* A demo, under its page's heading: the apps' text, on the page's ground, which is the apps'. */
 .demo {
   margin: 16px 0 24px;
-  padding: 24px;
-  border: 1px solid var(--ink-200);
-  border-radius: var(--radius-lg);
-  background: var(--ground);
   color: var(--ink-900);
   font-family: var(--font-sans);
   font-size: 14px;
@@ -72,6 +68,43 @@
   border: 0;
   transform-origin: top left;
   pointer-events: auto;
+}
+
+/* The modes of one demo, a tab each (DemoModes.vue), drawn as SaTabs draws its strip. */
+.demo-modes-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--ink-200);
+}
+
+.demo-modes-tab {
+  flex-shrink: 0;
+  min-height: var(--control-height);
+  padding: 0 16px;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+  color: var(--ink-500);
+}
+
+.demo-modes-tab:hover {
+  border-bottom-color: var(--ink-300);
+  color: var(--ink-800);
+}
+
+.demo-modes-tab[aria-selected='true'] {
+  border-bottom-color: var(--primary);
+  color: var(--primary);
+}
+
+.demo-modes-tab:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -2px;
+  border-radius: var(--radius-md);
 }
 
 /* VitePress holds its body at the viewport's height, which a frame fitting its demo cannot have. */

@@ -4,6 +4,8 @@
 
 The one card of both apps: a flat box that every other boxed component is built on.
 
+## Demo
+
 <div class="demo"><div class="stack">
   <SaCard><p>Padded, the default: the card owns the room around its content.</p></SaCard>
   <SaCard :padded="false">

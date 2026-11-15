@@ -28,23 +28,28 @@ const zone = ref('')
 const language = ref('fr')
 const optionalZone = ref('Asia/Tokyo')
 const invalidZone = ref('')
-const frames = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' }]
+const frames = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop', crop: 420 }]
 const framedZone = ref({ phone: '', tablet: '' })
 </script>
 
-<div class="demo"><div class="stack">
-  <SaField label="Time zone" for="demo-zone"><SaCombobox id="demo-zone" v-model="zone" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" suggested-value="Europe/Paris" suggested-label="From your device" /></SaField>
-  <SaField label="Language" for="demo-language"><SaCombobox id="demo-language" v-model="language" :options="languages" placeholder="Choose a language" search-placeholder="Search a language" no-match-label="No language matches this search." close-label="Close" /></SaField>
-  <SaField label="Time zone" for="demo-zone-optional" optional-label="(optional)"><SaCombobox id="demo-zone-optional" v-model="optionalZone" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" clear-label="Clear" /></SaField>
-  <SaField label="Time zone" for="demo-zone-invalid" error="Choose your time zone."><SaCombobox id="demo-zone-invalid" v-model="invalidZone" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" invalid /></SaField>
-  <SaField label="Time zone" for="demo-zone-disabled"><SaCombobox id="demo-zone-disabled" model-value="Europe/Paris" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" disabled /></SaField>
-</div></div>
+## Demo
 
-<div class="demo vp-raw"><div class="flex flex-wrap gap-4">
-  <DemoFrame v-for="frame in frames" :key="frame.mode" v-bind="frame" :height="560" :crop="frame.mode === 'tablet' ? 420 : undefined">
+<div class="demo vp-raw">
+  <DemoModes :modes="frames" :height="560">
+    <template #inline>
+    <div class="stack">
+      <SaField label="Time zone" for="demo-zone"><SaCombobox id="demo-zone" v-model="zone" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" suggested-value="Europe/Paris" suggested-label="From your device" /></SaField>
+      <SaField label="Language" for="demo-language"><SaCombobox id="demo-language" v-model="language" :options="languages" placeholder="Choose a language" search-placeholder="Search a language" no-match-label="No language matches this search." close-label="Close" /></SaField>
+      <SaField label="Time zone" for="demo-zone-optional" optional-label="(optional)"><SaCombobox id="demo-zone-optional" v-model="optionalZone" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" clear-label="Clear" /></SaField>
+      <SaField label="Time zone" for="demo-zone-invalid" error="Choose your time zone."><SaCombobox id="demo-zone-invalid" v-model="invalidZone" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" invalid /></SaField>
+      <SaField label="Time zone" for="demo-zone-disabled"><SaCombobox id="demo-zone-disabled" model-value="Europe/Paris" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" disabled /></SaField>
+    </div>
+    </template>
+    <template #default="{ frame }">
     <SaField label="Time zone" :for="`demo-zone-${frame.mode}`"><SaCombobox :id="`demo-zone-${frame.mode}`" v-model="framedZone[frame.mode]" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" suggested-value="Europe/Paris" suggested-label="From your device" /></SaField>
-  </DemoFrame>
-</div></div>
+    </template>
+  </DemoModes>
+</div>
 
 ## Usage
 

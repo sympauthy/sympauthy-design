@@ -4,6 +4,8 @@
 
 A sentence beside a control, shown while the pointer rests on it, the keyboard focuses it or a finger taps it.
 
+## Demo
+
 <div class="demo"><SaTooltipProvider><div class="row">
   <SaTooltip text="Your role does not allow deleting users."><SaButton label="Delete user" refused /></SaTooltip>
   <SaTooltip text="Your role does not allow deleting users." side="right"><SaButton label="To its right" refused /></SaTooltip>

@@ -19,7 +19,8 @@ names them.
 each.
 
 **One component is one page.** Keep its variants, its specification and its API together, with no
-tabs and no subpages.
+tabs and no subpages. The tabs of a demo with modes, below, switch the demo and nothing else on the
+page.
 
 **A page's title is the component's name without `Sa`, and its file is that name in kebab-case.** The
 sidebar label is the same name, word for word.
@@ -43,7 +44,7 @@ the last column does not hold of the page.
 | ------------------ | ---------------------------------------------------------- | ------------------- |
 | Status line        | What it ships as                                           | Always              |
 | Opening sentence   | What the component is                                      | Always              |
-| Demo               | The real component, in each variant, state and mode        | Always              |
+| `## Demo`          | The real component, in each variant, state and mode        | Always              |
 | `## Usage`         | When to use it, each variant's purpose, and what not to    | Always              |
 | `## Look`          | Its parts, their order, and the tokens they take           | Always              |
 | `## Behavior`      | Its states and interactions                                | Where it has any    |
@@ -67,8 +68,9 @@ Markdown is not read inside the paragraph.
 <p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaAlert</code></p>
 ```
 
-**A demo draws the real component in a `.demo`, in every variant and state its props offer.** Import
-what it needs; never redraw a shipped component in markup.
+**A demo draws the real component in a `.demo` under `## Demo`, in every variant and state its props
+offer.** A `.demo` draws no box, since the page's ground is the apps'; import what it needs, and
+never redraw a shipped component in markup.
 
 **A component whose parts or layout change at a breakpoint shows each mode in its demo, labelled.**
 A padding that steps is not a mode. Only the frame below changes one, since a breakpoint reads the
@@ -77,9 +79,13 @@ viewport and a narrower box does not.
 **A mode is drawn in a `DemoFrame`, naming its `mode`.** It draws the real component in an iframe of
 that width, with the page's state.
 
+**A page with modes draws one demo, a `DemoModes`, with a tab for the page and one per mode.** Its
+`#inline` slot is the first tab, the states and variants drawn on the page, and its default slot is
+drawn in one frame whose state holds as the mode's tab changes.
+
 **A frame leaves out what opens an overlay through reka-ui's portal.** The portal opens it on the
 page and not in the frame; an overlay opening through `usePortalBody`, as a table's filters do,
-stays, and each frame then takes its own state where opening takes the focus.
+stays, and frames drawn at once take a state each where opening takes the focus.
 
 **A frame draws `DemoPageActions` in place of `SaPageActions`.** `SaPageActions` looks for its bar on
 the page and not in the frame.

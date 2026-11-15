@@ -21,6 +21,8 @@ const notes = ref('')
 const claims = ref('{"email": true}')
 </script>
 
+## Demo
+
 <div class="demo"><div class="stack">
   <SaField label="Client name" for="demo-name"><SaInput id="demo-name" v-model="name" /></SaField>
   <SaField label="Redirect URI" for="demo-uri" hint="Must match the URI the client sends exactly."><SaInput id="demo-uri" v-model="uri" mono /></SaField>

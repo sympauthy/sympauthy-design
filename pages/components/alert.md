@@ -4,6 +4,8 @@
 
 A message box that stays on screen: `danger` for a failure, `warning` for what a reader should know.
 
+## Demo
+
 <div class="demo"><div class="stack" style="max-width: 560px">
   <SaAlert>An unexpected error occurred. Please go back to your application and retry to sign in.</SaAlert>
   <SaAlert color="warning" urgent>This secret is shown once. Copy it before you close this dialog.</SaAlert>

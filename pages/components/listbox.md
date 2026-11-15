@@ -26,6 +26,8 @@ const zone = ref(['Europe/Paris'])
 const narrowZone = ref(['America/Sao_Paulo'])
 </script>
 
+## Demo
+
 <div class="demo"><div class="stack">
   <SaListbox :options="short" :selected="one" search-placeholder="Search claims" no-match-label="No claim matches this search." aria-label="Claim" @select="one = $event" />
   <SaListbox :options="long" :selected="several" multiple search-placeholder="Search claims" no-match-label="No claim matches this search." aria-label="Claims" @select="several = $event" />
