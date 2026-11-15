@@ -16,8 +16,13 @@ How tall a control is, and how large anything a person presses is.
 | Button, every style | `SaButton`                                                 | `control-height`                             | its label, at least `control-height`; full width in the auth card |
 | Icon-only button    | `SaButton` with `iconOnly`, or `collapseLabel` below `sm:` | `control-height`                             | `control-height`                                                  |
 | Dropdown trigger    | `SaMenu`'s button                                          | `control-height`                             | its label                                                         |
+| Text button         | `SaButton` with `variant="text"`                           | `control-height`                             | its label, at least `control-height`                              |
+| Link standing alone | `SaLink`                                                   | its line, with a `control-height` target     | its label, at least `control-height`                              |
 | Text field          | `SaInput`                                                  | `control-height`                             | its container                                                     |
 | Select              | `SaSelect`                                                 | `control-height`                             | its container                                                     |
+| Combobox            | `SaCombobox`'s button                                      | `control-height`                             | its container                                                     |
+| Password toggle     | `SaPasswordInput`'s eye                                    | its icon, with a `control-height` target     | its icon, with a `control-height` target                          |
+| Disclosure head     | `SaDisclosure`'s button                                    | `control-height`                             | its container                                                     |
 | Text area           | `SaTextarea`                                               | at least `control-height`; set by its `rows` | its container                                                     |
 | Radio option        | `SaRadioGroup`                                             | at least `control-height`, the whole row     | its container                                                     |
 | Code digit box      | `CodeInput`                                                | 64px: larger, never smaller                  | shares the row                                                    |
@@ -33,6 +38,9 @@ How tall a control is, and how large anything a person presses is.
 ## Related
 
 - [Button](/components/button): every style, and the icon-only square.
-- [Field](/components/field): the text field and the select.
+- [Field](/components/field): the text field, the password toggle and the select.
+- [Combobox](/components/combobox): its button.
+- [Disclosure](/components/disclosure): its head.
+- [Link](/components/link): `SaLink`'s target.
 - [Menu](/components/menu): its trigger.
 - [CodeInput](/components/code-input): the one control taller than the rest.

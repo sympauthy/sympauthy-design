@@ -14,6 +14,7 @@ import {
   SaBreadcrumb,
   SaButton,
   SaCard,
+  SaCombobox,
   SaConfirmDialog,
   SaCopyableValue,
   SaCopyButton,
@@ -21,14 +22,18 @@ import {
   SaDefinitionRow,
   SaDetailSection,
   SaDialog,
+  SaDisclosure,
   SaEmptyValue,
+  SaErrorSummary,
   SaField,
   SaInput,
+  SaLink,
   SaListbox,
   SaLoadingState,
   SaMenu,
   SaPageActions,
   SaPagination,
+  SaPasswordInput,
   SaPopover,
   SaRadioGroup,
   SaRecordLink,
@@ -67,6 +72,7 @@ export default {
     app.component('SaBreadcrumb', SaBreadcrumb)
     app.component('SaButton', SaButton)
     app.component('SaCard', SaCard)
+    app.component('SaCombobox', SaCombobox)
     app.component('SaConfirmDialog', SaConfirmDialog)
     app.component('SaCopyableValue', SaCopyableValue)
     app.component('SaCopyButton', SaCopyButton)
@@ -74,14 +80,18 @@ export default {
     app.component('SaDefinitionRow', SaDefinitionRow)
     app.component('SaDetailSection', SaDetailSection)
     app.component('SaDialog', SaDialog)
+    app.component('SaDisclosure', SaDisclosure)
     app.component('SaEmptyValue', SaEmptyValue)
+    app.component('SaErrorSummary', SaErrorSummary)
     app.component('SaField', SaField)
     app.component('SaInput', SaInput)
+    app.component('SaLink', SaLink)
     app.component('SaListbox', SaListbox)
     app.component('SaLoadingState', SaLoadingState)
     app.component('SaMenu', SaMenu)
     app.component('SaPageActions', SaPageActions)
     app.component('SaPagination', SaPagination)
+    app.component('SaPasswordInput', SaPasswordInput)
     app.component('SaPopover', SaPopover)
     app.component('SaRadioGroup', SaRadioGroup)
     app.component('SaRecordLink', SaRecordLink)

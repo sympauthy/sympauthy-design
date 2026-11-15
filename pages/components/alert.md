@@ -16,6 +16,7 @@ A message box that stays on screen: `danger` for a failure, `warning` for what a
 - **`warning`**: a screen that is still usable with something to say about it, such as filters that could not be read.
 - **`urgent`**: a `warning` that must be read before moving on, such as a one-time secret, or a chosen client with no redirect URI. Leave it off a notice that stops nobody doing anything, since it interrupts what the reader is hearing.
 - **Not for** success: neither app reports success out of band; a screen shows the result it asked for.
+- **Not for** the errors of a form's fields: use [ErrorSummary](/components/error-summary), which lists them and links to each.
 - **Not for** a caution inside a sentence of the flow: [ConfirmRequest](/components/confirm-request)'s warning is text, not an alert.
 
 ## Look
@@ -47,3 +48,4 @@ The consumer provides the sentence: what went wrong and what to do next.
 
 - [Color](/foundations/color): the `danger` and `warning` families.
 - [AuthCard](/components/auth-card): a `danger` alert above the form.
+- [ErrorSummary](/components/error-summary): a form's errors, drawn as a `danger` alert.

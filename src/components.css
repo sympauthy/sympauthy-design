@@ -257,6 +257,32 @@
   animation: sympauthy-dialog-out 200ms ease-in;
 }
 
+/** A sheet's slide, up from the bottom of the screen as a phone's sheets arrive, and back down. */
+.sa-sheet-animated[data-state='open'] {
+  animation: sympauthy-sheet-in 300ms ease-out;
+}
+.sa-sheet-animated[data-state='closed'] {
+  animation: sympauthy-sheet-out 300ms ease-in;
+}
+
+@keyframes sympauthy-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sympauthy-sheet-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
 @keyframes sympauthy-dialog-in {
   from {
     opacity: 0;
@@ -297,7 +323,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sa-overlay-animated,
-  .sa-dialog-animated {
+  .sa-dialog-animated,
+  .sa-sheet-animated {
     animation: none !important;
   }
 }

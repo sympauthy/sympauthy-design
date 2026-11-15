@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { computed, useAttrs, type Component } from 'vue'
+import { computed, useAttrs, useSlots, type Component } from 'vue'
 import { useFieldDescription } from './fieldDescription'
 
 /**
  * A single line of text, drawn the same in both apps: the box every control shares, with 16px
- * text, below which iOS zooms the page on focus.
+ * text, below which iOS zooms the page on focus. Its `#trailing` slot holds one mark the size of an
+ * icon on the edge [icon] does not take, and what is typed keeps room for it.
  */
 const props = withDefaults(
   defineProps<{
@@ -33,6 +34,7 @@ const description = useFieldDescription()
 defineOptions({ inheritAttrs: false })
 
 const attrs = useAttrs()
+const slots = useSlots()
 const fieldAttrs = computed(() => {
   const rest = { ...attrs }
   delete rest.class
@@ -44,6 +46,7 @@ const classes = computed(() => [
   'sa-control sa-control-focus sa-control-field block w-full',
   props.invalid ? 'border-danger' : '',
   props.icon ? 'pl-9' : '',
+  slots.trailing ? 'pr-9' : '',
   props.mono ? 'font-mono' : ''
 ])
 </script>
@@ -63,5 +66,8 @@ const classes = computed(() => [
       :aria-invalid="props.invalid || undefined"
       :class="classes"
     />
+    <div v-if="$slots.trailing" class="absolute inset-y-0 right-3 flex items-center">
+      <slot name="trailing" />
+    </div>
   </div>
 </template>
