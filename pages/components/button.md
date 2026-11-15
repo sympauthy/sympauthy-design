@@ -33,6 +33,11 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
     <SaButton label="Revoking..." variant="danger" submitting />
   </div>
   <div class="row">
+    <SaButton label="Resend code" variant="text" />
+    <SaButton label="Resend code" variant="text" disabled />
+    <SaButton label="Sending a new code..." variant="text" submitting />
+  </div>
+  <div class="row">
     <SaButton label="Create client" :icon="PlusIcon" />
     <SaButton label="Actions" variant="secondary" :trailing-icon="ChevronDownIcon" />
   </div>
@@ -57,6 +62,7 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
 - **`variant="secondary"`** (admin): everything beside it, such as Refresh or Cancel.
 - **`variant="outline"`** (flow): the alternative path inside an auth card, such as "No, cancel" or an identity provider.
 - **`variant="danger"`**: what destroys or revokes, inside a `SaConfirmDialog` only.
+- **`variant="text"`** (flow): an action that reads as a link, beside or under the card's other buttons, such as "Resend code" or "Cancel and return to Acme Notes". A link is not for an action that changes something on the screen, and a link standing alone is a [Link](/components/link)'s `SaLink`.
 - **`size="control"`**, the default (admin): as wide as its label.
 - **`size="large"`** (flow): full width, in an auth card.
 - **`collapseLabel`**: a control of a toolbar, which keeps only its icon below `sm:`.
@@ -71,6 +77,7 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
 - **`variant="secondary"`**: `ink-100` fill, `ink-200` border, `ink-700` label, `ink-200` on hover.
 - **`variant="outline"`**: transparent, `primary` border and label, `primary-subtle` on hover.
 - **`variant="danger"`**: `danger-subtle` fill, `danger-line` border, `danger` label, `danger-hover` on hover.
+- **`variant="text"`**: no fill and no border, the label underlined in `primary`, `primary-hover` on hover: the look of a [Link](/components/link), in the box every button has.
 - **Label**: `panel-strong` at `size="control"`; 16px/600 at `size="large"`.
 - **Icons**: 16px and `space-1.5` from the label, `icon` before it and `trailingIcon` after it.
 
@@ -78,7 +85,7 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
 
 - **Hover**: the fill each style names above.
 - **Focus**: the 2px `focus-ring` outline of [Focus, states and motion](/foundations/focus), through `.sa-button-focus`, for the keyboard alone. A `refused` button takes it too.
-- **Disabled** (`disabled`): `variant="primary"` and `variant="danger"` take `disabled` with `on-disabled`; `variant="secondary"` takes an `ink-50` fill, `ink-200` border and `ink-400` label; `variant="outline"` stays transparent, with an `ink-200` border and `ink-400` label. The cursor is `not-allowed`, and the button keeps its place.
+- **Disabled** (`disabled`): `variant="primary"` and `variant="danger"` take `disabled` with `on-disabled`; `variant="secondary"` takes an `ink-50` fill, `ink-200` border and `ink-400` label; `variant="outline"` stays transparent, with an `ink-200` border and `ink-400` label; `variant="text"` keeps its underline, in `on-disabled`. The cursor is `not-allowed`, and the button keeps its place.
 - **In flight** (`loading` or `submitting`): the style's colors stay, a small [Spinner](/components/spinner) replaces `icon`, the label stays, the cursor is `wait`, and the button cannot be pressed.
 - **Refused** (`refused`): drawn as disabled, but it stays focusable and takes the pointer so that an app's tooltip can open on it. Its click is dropped, and inside a form it does not submit.
 
@@ -97,23 +104,23 @@ const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' 
 
 The consumer provides a `label`, optionally an icon, and `submitting` or `loading` while waiting. An app that refuses a button for a reason passes `refused` and wraps the button in its own tooltip saying why. A wrapper extends the exported `SaButtonProps`, and hands down everything but what it adds. Every other attribute reaches the `<button>`.
 
-| Name            | Type                                                | Default     | Description                                                       |
-| --------------- | --------------------------------------------------- | ----------- | ----------------------------------------------------------------- |
-| `variant`       | `'primary' \| 'secondary' \| 'outline' \| 'danger'` | `'primary'` | What the button is for.                                           |
-| `label`         | `string`                                            |             | What the button does, kept while in flight.                       |
-| `icon`          | `Component`                                         |             | Drawn before the label.                                           |
-| `trailingIcon`  | `Component`                                         |             | Drawn after the label, for a button that opens something.         |
-| `collapseLabel` | `boolean`                                           | `false`     | Drops the label below `sm:`, keeping it as the title.             |
-| `collapsedIcon` | `Component`                                         | `undefined` | Stands for the label below `sm:`, and drops `trailingIcon` there. |
-| `iconOnly`      | `boolean`                                           | `false`     | Draws the icon alone at every width.                              |
-| `size`          | `'control' \| 'large'`                              | `'control'` | The label's type and the width. The height does not change.       |
-| `loading`       | `boolean`                                           | `false`     | Waiting for something to arrive.                                  |
-| `submitting`    | `boolean`                                           | `false`     | Waiting for what it sent.                                         |
-| `disabled`      | `boolean`                                           | `false`     | Unavailable, and needing no explanation.                          |
-| `refused`       | `boolean`                                           | `false`     | Drawn disabled but kept focusable, its click dropped.             |
-| `#default`      | slot                                                | `label`     | The words, when idle.                                             |
-| `#loading`      | slot                                                | `label`     | The words, while `loading`.                                       |
-| `#submitting`   | slot                                                | `label`     | The words, while `submitting`.                                    |
+| Name            | Type                                                          | Default     | Description                                                       |
+| --------------- | ------------------------------------------------------------- | ----------- | ----------------------------------------------------------------- |
+| `variant`       | `'primary' \| 'secondary' \| 'outline' \| 'danger' \| 'text'` | `'primary'` | What the button is for.                                           |
+| `label`         | `string`                                                      |             | What the button does, kept while in flight.                       |
+| `icon`          | `Component`                                                   |             | Drawn before the label.                                           |
+| `trailingIcon`  | `Component`                                                   |             | Drawn after the label, for a button that opens something.         |
+| `collapseLabel` | `boolean`                                                     | `false`     | Drops the label below `sm:`, keeping it as the title.             |
+| `collapsedIcon` | `Component`                                                   | `undefined` | Stands for the label below `sm:`, and drops `trailingIcon` there. |
+| `iconOnly`      | `boolean`                                                     | `false`     | Draws the icon alone at every width.                              |
+| `size`          | `'control' \| 'large'`                                        | `'control'` | The label's type and the width. The height does not change.       |
+| `loading`       | `boolean`                                                     | `false`     | Waiting for something to arrive.                                  |
+| `submitting`    | `boolean`                                                     | `false`     | Waiting for what it sent.                                         |
+| `disabled`      | `boolean`                                                     | `false`     | Unavailable, and needing no explanation.                          |
+| `refused`       | `boolean`                                                     | `false`     | Drawn disabled but kept focusable, its click dropped.             |
+| `#default`      | slot                                                          | `label`     | The words, when idle.                                             |
+| `#loading`      | slot                                                          | `label`     | The words, while `loading`.                                       |
+| `#submitting`   | slot                                                          | `label`     | The words, while `submitting`.                                    |
 
 ## Related
 
@@ -124,3 +131,4 @@ The consumer provides a `label`, optionally an icon, and `submitting` or `loadin
 - [ConfirmDialog](/components/confirm-dialog): where `variant="danger"` appears.
 - [Menu](/components/menu): a `variant="secondary"` with a `trailingIcon`.
 - [AuthCard](/components/auth-card): where `size="large"` and `variant="outline"` appear.
+- [Link](/components/link): the look `variant="text"` shares, for what navigates.

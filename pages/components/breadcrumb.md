@@ -70,7 +70,7 @@ const backLabel = (parent) => `Back to ${parent}`
 ## Accessibility
 
 - **`label` names the `nav` holding the ancestors.** A screen with no ancestors draws no `nav`.
-- **The last item is the page's `h1`**, set by the component, so that a screen writes no heading of its own (WCAG 1.3.1). It is last on the row and beside the `nav` rather than in it, so that skipping the navigation does not skip it, and the [AppShell](/components/app-shell) names its `main` with it.
+- **The last item is the page's `h1`**, set by the component, so that a screen writes no heading of its own (WCAG 1.3.1). It is last on the row and beside the `nav` rather than in it, so that skipping the navigation does not skip it, and the [AppShell](/components/app-shell) names its `main` with it. It takes the focus from script and not from Tab, so that the app can focus it as a screen opens ([Focus management](/foundations/focus-management)), and draws no ring, being no control.
 - **Below `sm:` only the nearest ancestor is in reach of the keyboard and of a screen reader.** It is the way back, in a `nav` named by `label`. The ones before it are one step further back.
 - **`backLabel` names the link back**, which draws no words (WCAG 4.1.2). Without it the link takes the ancestor's name.
 - **The chevrons draw no words.**
@@ -94,7 +94,7 @@ The consumer provides the items and what draws their links, since the component 
 | ---------- | ---- | ------- | --------------------------------- |
 | `#default` | slot |         | What the screen lets a person do. |
 
-`SA_PAGE_ACTIONS_OUTLET` is exported as well: the `id` of the element it draws into.
+`SA_PAGE_ACTIONS_OUTLET` is exported as well: the `id` of the element it draws into. So is `SA_PAGE_HEADING`, the `id` of the `h1`, which the app focuses as a screen opens.
 
 ## Related
 

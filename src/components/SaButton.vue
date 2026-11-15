@@ -2,7 +2,7 @@
 import { computed, useAttrs, type Component } from 'vue'
 import SaSpinner from './SaSpinner.vue'
 
-export type SaButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger'
+export type SaButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger' | 'text'
 
 /**
  * Every button of both apps. Ported from sympauthy-admin's button, without its knowledge of
@@ -13,7 +13,8 @@ export interface SaButtonProps {
   /**
    * `primary` for what the screen is for, and the only filled button. `secondary` for everything
    * beside it. `outline` for the alternative path inside an auth card. `danger` for what destroys or
-   * revokes, inside a confirmation only.
+   * revokes, inside a confirmation only. `text` for an action that reads as a link, as "Resend code",
+   * still pressed in a `control-height` box.
    */
   variant?: SaButtonVariant
   /**
@@ -114,6 +115,12 @@ const variantClasses: Record<
     active: 'border-danger-line bg-danger-subtle text-danger hover:bg-danger-hover',
     waiting: 'border-danger-line bg-danger-subtle text-danger cursor-wait',
     disabled: 'border-transparent bg-disabled text-on-disabled cursor-not-allowed'
+  },
+  // `.sa-link`'s look, in the box every button has.
+  text: {
+    active: 'border-transparent bg-transparent text-primary underline hover:text-primary-hover',
+    waiting: 'border-transparent bg-transparent text-primary underline cursor-wait',
+    disabled: 'border-transparent bg-transparent text-on-disabled underline cursor-not-allowed'
   }
 }
 

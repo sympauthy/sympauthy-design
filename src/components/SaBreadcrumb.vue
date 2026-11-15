@@ -97,7 +97,13 @@ onBeforeUnmount(() => {
           <span v-if="parent" class="truncate text-xs text-gray-500 sm:hidden">
             {{ parent.label }}
           </span>
-          <h1 :id="SA_PAGE_HEADING" class="truncate text-lg font-semibold text-gray-900 sm:text-sm">
+          <!-- Focused by the app as a screen opens, so that a screen reader says where the person
+               arrived; out of the reach of Tab, being no control. -->
+          <h1
+            :id="SA_PAGE_HEADING"
+            tabindex="-1"
+            class="truncate text-lg font-semibold text-gray-900 outline-none sm:text-sm"
+          >
             {{ screen.label }}
           </h1>
         </div>

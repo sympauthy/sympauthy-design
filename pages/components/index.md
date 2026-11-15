@@ -10,12 +10,15 @@ Components are grouped by where they are drawn. **Common** components ship in `@
 - [Breadcrumb](./breadcrumb) — the bar naming the screen, its ancestors, and what can be done there.
 - [Button](./button) — the one button: filled for what the screen is for, quieter beside it.
 - [Card](./card) — the one flat box every other boxed component is built on.
+- [Combobox](./combobox) — one value among many, picked from a field that opens a searchable list.
 - [ConfirmDialog](./confirm-dialog) — the question a destructive action asks before it reaches the server.
 - [CopyableValue](./copyable-value) — a value to paste elsewhere, with the control copying it.
 - [Dialog](./dialog) — a flat card on a scrim, with a title and a footer for its buttons.
+- [Disclosure](./disclosure) — a section a person opens on purpose.
 - [EmptyValue](./empty-value) — the dash where a record carries no value.
-- [Field](./field) — a labelled input, select or text area.
-- [Link](./link) — a link inside a sentence.
+- [ErrorSummary](./error-summary) — every invalid field of a long form, taking focus when a submit fails.
+- [Field](./field) — a labelled input, password, select or text area.
+- [Link](./link) — a link inside a sentence, or `SaLink` standing on its own.
 - [Listbox](./listbox) — a choice among options whose number the build does not know.
 - [LoadingState](./loading-state) — a spinner and a line saying what is being waited for.
 - [Menu](./menu) — the actions of one record or page, behind a button.

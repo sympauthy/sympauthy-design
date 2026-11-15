@@ -1,5 +1,6 @@
 // Components of the Common group: any app can draw them, from this one source.
 export { SA_PAGE_ACTIONS_OUTLET } from './components/pageActionsOutlet'
+export { SA_PAGE_HEADING } from './components/pageHeading'
 export { default as SaAlert } from './components/SaAlert.vue'
 export { default as SaAppShell } from './components/SaAppShell.vue'
 export { default as SaBrandLogo } from './components/SaBrandLogo.vue'
@@ -10,6 +11,7 @@ export {
   type SaButtonVariant
 } from './components/SaButton.vue'
 export { default as SaCard } from './components/SaCard.vue'
+export { default as SaCombobox, type SaComboboxProps } from './components/SaCombobox.vue'
 export { default as SaConfirmDialog } from './components/SaConfirmDialog.vue'
 export { default as SaCopyableValue } from './components/SaCopyableValue.vue'
 export { default as SaCopyButton } from './components/SaCopyButton.vue'
@@ -17,14 +19,25 @@ export { default as SaDefinitionList } from './components/SaDefinitionList.vue'
 export { default as SaDefinitionRow } from './components/SaDefinitionRow.vue'
 export { default as SaDetailSection } from './components/SaDetailSection.vue'
 export { default as SaDialog } from './components/SaDialog.vue'
+export { default as SaDisclosure, type SaDisclosureProps } from './components/SaDisclosure.vue'
 export { default as SaEmptyValue } from './components/SaEmptyValue.vue'
+export {
+  default as SaErrorSummary,
+  type SaErrorSummaryError,
+  type SaErrorSummaryProps
+} from './components/SaErrorSummary.vue'
 export { default as SaField } from './components/SaField.vue'
 export { default as SaInput } from './components/SaInput.vue'
+export { default as SaLink, type SaLinkProps } from './components/SaLink.vue'
 export { default as SaListbox, type SaListboxOption } from './components/SaListbox.vue'
 export { default as SaLoadingState } from './components/SaLoadingState.vue'
 export { default as SaMenu, type SaMenuItem } from './components/SaMenu.vue'
 export { default as SaPageActions } from './components/SaPageActions.vue'
 export { default as SaPagination } from './components/SaPagination.vue'
+export {
+  default as SaPasswordInput,
+  type SaPasswordInputProps
+} from './components/SaPasswordInput.vue'
 export { default as SaPopover } from './components/SaPopover.vue'
 export { default as SaRadioGroup } from './components/SaRadioGroup.vue'
 export { default as SaSelect } from './components/SaSelect.vue'

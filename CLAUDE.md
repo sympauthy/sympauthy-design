@@ -46,10 +46,10 @@ npm run format
 - **Everything the package names starts with `Sa`**: `SaButton`, `SaMenuItem`, `.sa-control`. A
   variant is a prop holding a word, as `variant="danger"`. A token's name takes no prefix.
 - **Flat.** No shadows; one card (`SaCard`); `primary` is the only filled button.
-- **Everything a person presses is at least `control-height` (44px)**, in both apps, so that it can be
-  touched: a control through `.sa-control` (`min-h-control`), anything else through `min-h-control`, and
-  a small icon through a target around it. A link inside a sentence is the one exception. Never write
-  a height on a control.
+- **Everything a person presses but a link is at least `control-height` (44px)**, in both apps, so
+  that it can be touched: a control through `.sa-control` (`min-h-control`), anything else through
+  `min-h-control`, and a small icon through a target around it. A link keeps the height of its
+  text, its targets 24px apart. Never write a height on a control.
 - **Every text pair holds 4.5:1** (3:1 for borders and focus rings) in light and dark. The theme
   builder and `derivePalette` enforce it for deployments' colors.
 - **`src/theme/derive.ts` and `pages/public/theme-builder/index.html` carry the same derivation.**
