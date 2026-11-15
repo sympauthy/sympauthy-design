@@ -25,7 +25,7 @@ const grouped = [
 ## Demo
 
 <div class="demo vp-raw">
-  <DemoModes :modes="modes" :height="240">
+  <DemoModes surface :modes="modes" :height="240">
     <template #inline>
     <div class="row" style="justify-content: flex-end">
       <span class="text-gray-500">{{ chosen ? `Chose ${chosen}` : '' }}</span>

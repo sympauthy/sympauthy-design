@@ -22,6 +22,8 @@ const props = withDefaults(
     height?: number
     crop?: number
     flush?: boolean
+    /** Draws the demo over `surface`, for what the apps draw inside a card, a table or a dialog. */
+    surface?: boolean
   }>(),
   {
     label: 'Views of this demo',
@@ -51,7 +53,8 @@ const shown = computed(() =>
         label: nameOf(current.value),
         height: current.value.height ?? props.height,
         crop: current.value.crop ?? props.crop,
-        flush: current.value.flush ?? props.flush
+        flush: current.value.flush ?? props.flush,
+        surface: props.surface
       }
     : null
 )
@@ -99,7 +102,9 @@ function onKeydown(event: KeyboardEvent) {
       <DemoFrame v-if="shown" v-bind="shown" label-hidden>
         <slot :frame="current" />
       </DemoFrame>
-      <slot v-else name="inline" />
+      <div v-else :class="{ 'demo-surface demo-surface-padded': surface }">
+        <slot name="inline" />
+      </div>
     </div>
   </div>
 </template>

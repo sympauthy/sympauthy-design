@@ -12,7 +12,7 @@ const modes = [{ mode: 'phone', crop: 280 }, { mode: 'tablet', label: 'Tablet an
 ## Demo
 
 <div class="demo vp-raw">
-  <DemoModes :modes="modes">
+  <DemoModes surface :modes="modes">
     <template #inline>
     <div class="stack" style="max-width: none">
       <div class="row">

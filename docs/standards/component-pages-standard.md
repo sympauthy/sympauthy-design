@@ -72,6 +72,10 @@ Markdown is not read inside the paragraph.
 offer.** A `.demo` draws no box, since the page's ground is the apps'; import what it needs, and
 never redraw a shipped component in markup.
 
+**A demo is drawn over what the apps draw the component over.** What sits inside a card, a table, a
+bar or a dialog, as a field or a tag, takes `.demo-surface`, or `surface` on a `DemoModes`; what
+draws its own container, or sits on the page, stays on `ground`.
+
 **A component whose parts or layout change at a breakpoint shows each mode in its demo, labelled.**
 A padding that steps is not a mode. Only the frame below changes one, since a breakpoint reads the
 viewport and a narrower box does not.

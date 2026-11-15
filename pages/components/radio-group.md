@@ -20,7 +20,7 @@ const other = ref('all')
 
 ## Demo
 
-<div class="demo vp-raw"><div class="stack">
+<div class="demo demo-surface vp-raw"><div class="stack">
   <SaField label="Sign out of"><SaRadioGroup v-model="mode" :options="options" aria-label="Sign out of" /></SaField>
   <SaField label="Sign out of" hint="This cannot be undone."><SaRadioGroup v-model="other" :options="withDisabled" aria-label="Sign out of" /></SaField>
 </div></div>

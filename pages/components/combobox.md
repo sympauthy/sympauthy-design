@@ -35,7 +35,7 @@ const framedZone = ref({ phone: '', tablet: '' })
 ## Demo
 
 <div class="demo vp-raw">
-  <DemoModes :modes="frames" :height="560">
+  <DemoModes surface :modes="frames" :height="560">
     <template #inline>
     <div class="stack">
       <SaField label="Time zone" for="demo-zone"><SaCombobox id="demo-zone" v-model="zone" :options="zones" placeholder="Choose a time zone" search-placeholder="Search a city, region or offset" no-match-label="No time zone matches this search." close-label="Close" suggested-value="Europe/Paris" suggested-label="From your device" /></SaField>

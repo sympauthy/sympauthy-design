@@ -14,7 +14,7 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 ## Demo
 
 <div class="demo vp-raw">
-  <DemoModes :modes="['phone', 'tablet', 'desktop']">
+  <DemoModes surface :modes="['phone', 'tablet', 'desktop']">
     <div class="flex flex-col gap-4">
     <SaPagination :page="page" :total-pages="10" :size="20" :total="200" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
     <SaPagination :page="0" :total-pages="1" :size="20" :total="3" label="Pages of clients" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" />

@@ -26,6 +26,8 @@ const props = defineProps<{
   crop?: number
   /** Draws the demo against the frame's edges. */
   flush?: boolean
+  /** Draws the demo over `surface`, for what the apps draw inside a card, a table or a dialog. */
+  surface?: boolean
 }>()
 
 const frameWidth = computed(() => MODES[props.mode].width)
@@ -99,11 +101,17 @@ function onLoad() {
   }
   copyStyles(doc)
   copyTheme(doc)
-  const flush = () => {
-    doc.body.className = props.flush ? 'demo-frame-body demo-frame-flush' : 'demo-frame-body'
+  const classes = () => {
+    doc.body.className = [
+      'demo-frame-body',
+      props.flush && 'demo-frame-flush',
+      props.surface && 'demo-surface'
+    ]
+      .filter(Boolean)
+      .join(' ')
   }
-  flush()
-  stop.push(watch(() => props.flush, flush))
+  classes()
+  stop.push(watch(() => [props.flush, props.surface], classes))
 
   const observer = new view.ResizeObserver(() => {
     fittedHeight.value = Math.ceil(doc.body.getBoundingClientRect().height)

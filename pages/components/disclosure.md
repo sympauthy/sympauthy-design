@@ -11,7 +11,7 @@ const open = ref(true)
 
 ## Demo
 
-<div class="demo"><div class="stack">
+<div class="demo demo-surface"><div class="stack">
   <SaDisclosure label="Technical details">
     <p>Error: <code>auth.interactive_flow_session.concurrent_modification</code></p>
   </SaDisclosure>

@@ -6,7 +6,7 @@ A link, `primary` and underlined at rest: `.sa-link` inside a sentence, and `SaL
 
 ## Demo
 
-<div class="demo"><div class="stack">
+<div class="demo demo-surface"><div class="stack">
   <p>Already have an account? <a class="sa-link" href="#">Sign in</a>.</p>
   <SaButton label="Sign in" size="large" />
   <div><SaLink label="Forgot password?" :link="{ href: '#' }" /></div>

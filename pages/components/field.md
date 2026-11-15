@@ -23,7 +23,7 @@ const claims = ref('{"email": true}')
 
 ## Demo
 
-<div class="demo"><div class="stack">
+<div class="demo demo-surface"><div class="stack">
   <SaField label="Client name" for="demo-name"><SaInput id="demo-name" v-model="name" /></SaField>
   <SaField label="Redirect URI" for="demo-uri" hint="Must match the URI the client sends exactly."><SaInput id="demo-uri" v-model="uri" mono /></SaField>
   <SaField label="Search" for="demo-search"><SaInput id="demo-search" v-model="search" :icon="SearchIcon" placeholder="Name or email" /></SaField>
@@ -42,7 +42,7 @@ const claims = ref('{"email": true}')
 
 Submitting this form hides the password again, as a form of the flow does.
 
-<div class="demo"><form class="stack" @submit.prevent>
+<div class="demo demo-surface"><form class="stack" @submit.prevent>
   <SaField label="Email" for="demo-sign-up-email"><SaInput id="demo-sign-up-email" v-model="email" type="email" autocomplete="email" /></SaField>
   <SaField label="Password" for="demo-sign-up-pass"><SaPasswordInput id="demo-sign-up-pass" v-model="signUpPassword" show-label="Show password" autocomplete="new-password" /></SaField>
   <div class="row"><SaButton type="submit" label="Create account" /></div>

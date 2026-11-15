@@ -50,7 +50,7 @@ async function onSubmit() {
 
 ## Demo
 
-<div class="demo vp-raw"><form class="stack" novalidate @submit.prevent="onSubmit">
+<div class="demo demo-surface vp-raw"><form class="stack" novalidate @submit.prevent="onSubmit">
   <SaErrorSummary ref="summary" :title="title" :errors="errors" />
   <SaField label="Last name" for="demo-summary-family" :error="shownError('demo-summary-family')"><SaInput id="demo-summary-family" v-model="familyName" autocomplete="family-name" :invalid="!!shownError('demo-summary-family')" /></SaField>
   <SaField label="Nickname" for="demo-summary-nickname" optional-label="(optional)" :error="shownError('demo-summary-nickname')"><SaInput id="demo-summary-nickname" v-model="nickname" autocomplete="nickname" :invalid="!!shownError('demo-summary-nickname')" /></SaField>

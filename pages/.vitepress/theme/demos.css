@@ -123,6 +123,18 @@
   padding: 0;
 }
 
+/* A demo of what the apps draw inside a card, a table or a dialog, over `surface` as there. On the
+   page it takes a padding, or its edge would run along the component's. */
+.demo-surface {
+  background: var(--surface);
+}
+
+.demo.demo-surface,
+.demo-surface-padded {
+  padding: 24px;
+  border-radius: var(--radius-lg);
+}
+
 .vp-doc .demo p {
   margin: 0;
   line-height: 20px;
