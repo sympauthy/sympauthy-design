@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import tokens from '../../../tokens.json'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { MODES, type DemoMode } from './demo-modes'
 
 /**
  * A demo drawn at the width of a device, for a component that changes at a breakpoint. A breakpoint
@@ -10,30 +10,24 @@ import tokens from '../../../tokens.json'
  * reka-ui's portals open on the page and not in the frame, so a framed demo opens no overlay.
  * `SaPageActions` looks for its bar on the page too, so a framed demo draws `DemoPageActions`.
  */
-const breakpoint = (name: string) =>
-  parseFloat(tokens.breakpoint.tokens.find((token) => token.name === name)!.value) * 16
-
-// Well past their breakpoints: a frame exactly at one drops below it at some display scales, by
-// rounding.
-const MODES = {
-  phone: { width: 390, label: 'Phone' },
-  tablet: { width: breakpoint('breakpoint-sm') + 128, label: 'Tablet' },
-  desktop: { width: breakpoint('breakpoint-lg') + 64, label: 'Desktop' }
-}
 
 const EMPTY_DOCUMENT =
   '<!doctype html><html><head><meta charset="utf-8"></head><body></body></html>'
 
 const props = defineProps<{
-  mode: keyof typeof MODES
+  mode: DemoMode
   /** Says which widths it stands for, where that is more than its mode, as "Tablet and desktop". */
   label?: string
+  /** Draws no caption, for a frame whose tab names it (DemoModes.vue). */
+  labelHidden?: boolean
   /** The frame's height, for a demo filling the viewport. Without it the frame fits its demo. */
   height?: number
   /** Shows only this much of the frame's width, at full size, for a demo narrower than the frame. */
   crop?: number
   /** Draws the demo against the frame's edges. */
   flush?: boolean
+  /** Draws the demo over `surface`, for what the apps draw inside a card, a table or a dialog. */
+  surface?: boolean
 }>()
 
 const frameWidth = computed(() => MODES[props.mode].width)
@@ -107,7 +101,17 @@ function onLoad() {
   }
   copyStyles(doc)
   copyTheme(doc)
-  doc.body.className = props.flush ? 'demo-frame-body demo-frame-flush' : 'demo-frame-body'
+  const classes = () => {
+    doc.body.className = [
+      'demo-frame-body',
+      props.flush && 'demo-frame-flush',
+      props.surface && 'demo-surface'
+    ]
+      .filter(Boolean)
+      .join(' ')
+  }
+  classes()
+  stop.push(watch(() => [props.flush, props.surface], classes))
 
   const observer = new view.ResizeObserver(() => {
     fittedHeight.value = Math.ceil(doc.body.getBoundingClientRect().height)
@@ -142,7 +146,7 @@ onBeforeUnmount(() => stop.forEach((stopOne) => stopOne()))
 <template>
   <!-- 2px wider, for the box's border. -->
   <figure class="demo-frame" :style="{ width: `${shownWidth + 2}px` }">
-    <figcaption class="demo-frame-label">{{ caption }}</figcaption>
+    <figcaption v-if="!labelHidden" class="demo-frame-label">{{ caption }}</figcaption>
     <div ref="box" class="demo-frame-box" :style="{ height: `${frameHeight * scale}px` }">
       <iframe
         v-if="mounted"

@@ -9,6 +9,8 @@ import { ref } from 'vue'
 const open = ref(false)
 </script>
 
+## Demo
+
 <div class="demo"><div class="row">
   <SaButton label="Create invitation" @click="open = true" />
   <SaDialog :open="open" title="Create invitation" @close="open = false">

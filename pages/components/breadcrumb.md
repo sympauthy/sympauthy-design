@@ -12,23 +12,27 @@ const actions = [{ key: 'refresh', label: 'Refresh' }, { key: 'logout', label: '
 const part = [{ key: 'users', label: 'Users', link: { href: '#users' } }, { key: 'ada', label: 'Ada Lovelace', link: { href: '#ada' } }, { key: 'claims', label: 'Claims' }]
 const top = [{ key: 'users', label: 'Users' }]
 const modes = [
-  { frame: { mode: 'phone', label: 'Phone, a collection' }, items: top, single: true },
-  { frame: { mode: 'phone', label: 'Phone, a record' }, items },
-  { frame: { mode: 'phone', label: 'Phone, a part of a record' }, items: part },
-  { frame: { mode: 'tablet', label: 'Tablet and desktop, a collection' }, items: top, single: true },
-  { frame: { mode: 'tablet', label: 'Tablet and desktop, a part of a record' }, items: part }
+  { mode: 'phone', label: 'Phone, a collection', items: top, single: true },
+  { mode: 'phone', label: 'Phone, a record', items },
+  { mode: 'phone', label: 'Phone, a part of a record', items: part },
+  { mode: 'tablet', label: 'Tablet and desktop, a collection', items: top, single: true },
+  { mode: 'tablet', label: 'Tablet and desktop, a part of a record', items: part }
 ]
 </script>
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <ClientOnly>
-    <SaBreadcrumb :items="items" />
-    <SaPageActions><SaButton label="Create user" /></SaPageActions>
-  </ClientOnly>
-</div></div>
+## Demo
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <DemoFrame v-for="demo in modes" :key="demo.frame.label" v-bind="demo.frame" flush>
+<div class="demo vp-raw">
+  <DemoModes :modes="modes" flush>
+    <template #inline>
+    <div class="flex flex-col gap-4">
+      <ClientOnly>
+        <SaBreadcrumb :items="items" />
+        <SaPageActions><SaButton label="Create user" /></SaPageActions>
+      </ClientOnly>
+    </div>
+    </template>
+    <template #default="{ frame: demo }">
     <SaBreadcrumb :items="demo.items" />
     <DemoPageActions>
       <SaMenu v-if="demo.single" label="Actions" :items="one" :collapsed-icon="EllipsisHorizontalIcon">
@@ -36,8 +40,9 @@ const modes = [
       </SaMenu>
       <SaMenu v-else label="Actions" :items="actions" :collapsed-icon="EllipsisHorizontalIcon" />
     </DemoPageActions>
-  </DemoFrame>
-</div></div>
+    </template>
+  </DemoModes>
+</div>
 
 ## Usage
 

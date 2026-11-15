@@ -4,7 +4,9 @@
 
 A request in flight, drawn in the color of the text around it.
 
-<div class="demo"><div class="stack text-primary">
+## Demo
+
+<div class="demo demo-surface"><div class="stack text-primary">
   <div class="row"><SaSpinner size="sm">Loading</SaSpinner><SaSpinner>Loading</SaSpinner><SaSpinner size="lg">Loading</SaSpinner></div>
   <div class="row"><SaSpinner>Waiting for a response from the server.</SaSpinner><span class="text-gray-500">Waiting for a response from the server.</span></div>
 </div></div>

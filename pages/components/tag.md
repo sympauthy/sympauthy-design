@@ -4,7 +4,9 @@
 
 A short status or label, in a color that comes from what the word means.
 
-<div class="demo"><div class="row">
+## Demo
+
+<div class="demo demo-surface"><div class="row">
   <SaTag color="green">Active</SaTag>
   <SaTag color="red">Revoked</SaTag>
   <SaTag color="yellow">Pending</SaTag>

@@ -11,22 +11,25 @@ const sessions = [
 ]
 </script>
 
-<div class="demo"><div class="stack">
-  <SaSummaryCard>
-    <SaSummaryField label="User"><SaRecordLink name="katherine.johnson@example.com" :link="{ href: '#' }" /></SaSummaryField>
-    <SaSummaryField label="Client"><SaRecordLink name="admin" :link="{ href: '#' }" mono /></SaSummaryField>
-    <SaSummaryField label="Acting client's grant"><SaRecordLink name="16332984-3d12-4c34-9fb7-34da951b4ea4" :link="{ href: '#' }" mono truncate /></SaSummaryField>
-  </SaSummaryCard>
-  <div style="max-width: 14rem">
-    <SaRecordLink name="katherine.johnson@example.com" :link="{ href: '#' }" />
-  </div>
-  <div style="max-width: 14rem">
-    <SaRecordLink name="katherine.johnson@example.com" :link="{ href: '#' }" truncate />
-  </div>
-</div></div>
+## Demo
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <DemoFrame v-for="mode in ['phone', 'desktop']" :key="mode" :mode="mode">
+<div class="demo vp-raw">
+  <DemoModes :modes="['phone', 'desktop']">
+    <template #inline>
+    <div class="stack">
+      <SaSummaryCard>
+        <SaSummaryField label="User"><SaRecordLink name="katherine.johnson@example.com" :link="{ href: '#' }" /></SaSummaryField>
+        <SaSummaryField label="Client"><SaRecordLink name="admin" :link="{ href: '#' }" mono /></SaSummaryField>
+        <SaSummaryField label="Acting client's grant"><SaRecordLink name="16332984-3d12-4c34-9fb7-34da951b4ea4" :link="{ href: '#' }" mono truncate /></SaSummaryField>
+      </SaSummaryCard>
+      <div style="max-width: 14rem">
+        <SaRecordLink name="katherine.johnson@example.com" :link="{ href: '#' }" />
+      </div>
+      <div style="max-width: 14rem">
+        <SaRecordLink name="katherine.johnson@example.com" :link="{ href: '#' }" truncate />
+      </div>
+    </div>
+    </template>
     <SaTable>
       <template #header>
         <SaTableHeader>Started</SaTableHeader>
@@ -41,8 +44,8 @@ const sessions = [
         </tr>
       </template>
     </SaTable>
-  </DemoFrame>
-</div></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

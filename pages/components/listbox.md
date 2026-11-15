@@ -26,7 +26,9 @@ const zone = ref(['Europe/Paris'])
 const narrowZone = ref(['America/Sao_Paulo'])
 </script>
 
-<div class="demo"><div class="stack">
+## Demo
+
+<div class="demo demo-surface"><div class="stack">
   <SaListbox :options="short" :selected="one" search-placeholder="Search claims" aria-label="Claim" @select="one = $event" />
   <SaListbox :options="long" :selected="several" multiple search-placeholder="Search claims" aria-label="Claims" @select="several = $event" />
   <SaField label="Time zone"><SaListbox :options="zones" :selected="zone" search-placeholder="Search a city, region or offset" @select="zone = $event" /></SaField>

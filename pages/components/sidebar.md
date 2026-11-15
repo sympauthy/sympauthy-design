@@ -9,25 +9,28 @@ import { demoSections, framedSections } from '../.vitepress/theme/demo-shell'
 const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }]
 </script>
 
-<div class="demo vp-raw"><ClientOnly><SaTooltipProvider>
-  <div style="width: 256px; height: 560px">
-    <SaSidebar :sections="demoSections" :home-link="{ href: '#users' }">
-      <template #head><SaBrandLogo dark size="md" /><span class="truncate text-lg tracking-tight"><span class="font-medium">Symp</span><span class="font-extrabold">Authy</span></span><span class="text-xs font-medium tracking-wider text-nav-muted uppercase">Admin</span></template>
-      <template #foot><SaSidebarAccount name="Ada Lovelace" detail="ada@example.com" /></template>
-    </SaSidebar>
-  </div>
-</SaTooltipProvider></ClientOnly></div>
+## Demo
 
-<div class="demo vp-raw"><div class="flex flex-wrap gap-4">
-  <DemoFrame v-for="frame in modes" :key="frame.mode" v-bind="frame" :crop="256" :height="420" flush>
+<div class="demo vp-raw">
+  <DemoModes :modes="modes" :crop="256" :height="420" flush>
+    <template #inline>
+    <ClientOnly><SaTooltipProvider>
+      <div style="width: 256px; height: 560px">
+        <SaSidebar :sections="demoSections" :home-link="{ href: '#users' }">
+          <template #head><SaBrandLogo dark size="md" /><span class="truncate text-lg tracking-tight"><span class="font-medium">Symp</span><span class="font-extrabold">Authy</span></span><span class="text-xs font-medium tracking-wider text-nav-muted uppercase">Admin</span></template>
+          <template #foot><SaSidebarAccount name="Ada Lovelace" detail="ada@example.com" /></template>
+        </SaSidebar>
+      </div>
+    </SaTooltipProvider></ClientOnly>
+    </template>
     <div class="h-screen w-sidebar">
       <SaSidebar :sections="framedSections" :home-link="{ href: '#users' }">
         <template #head><SaBrandLogo dark size="md" /><span class="truncate text-lg tracking-tight"><span class="font-medium">Symp</span><span class="font-extrabold">Authy</span></span><span class="text-xs font-medium tracking-wider text-nav-muted uppercase">Admin</span></template>
         <template #foot><SaSidebarAccount name="Ada Lovelace" /></template>
       </SaSidebar>
     </div>
-  </DemoFrame>
-</div></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

@@ -6,55 +6,58 @@ The one button of both apps: filled Bordeaux for what the screen is for, and qui
 
 <script setup>
 import { ChevronDownIcon, PlusIcon, SearchIcon } from '../.vitepress/theme/demo-icons'
-const modes = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' }]
+const modes = [{ mode: 'phone', crop: 280 }, { mode: 'tablet', label: 'Tablet and desktop', crop: 280 }]
 </script>
 
-<div class="demo"><div class="stack" style="max-width: none">
-  <div class="row">
-    <SaButton label="Create client" />
-    <SaButton label="Create client" disabled />
-    <SaButton label="Creating..." submitting />
-    <SaButton label="Create client" loading />
-  </div>
-  <div class="row">
-    <SaButton label="Refresh" variant="secondary" />
-    <SaButton label="Refresh" variant="secondary" disabled />
-    <SaButton label="Refreshing..." variant="secondary" submitting />
-    <SaButton label="Delete user" variant="secondary" refused />
-  </div>
-  <div class="row">
-    <SaButton label="No, cancel" variant="outline" />
-    <SaButton label="No, cancel" variant="outline" disabled />
-    <SaButton label="Cancelling..." variant="outline" submitting />
-  </div>
-  <div class="row">
-    <SaButton label="Revoke grant" variant="danger" />
-    <SaButton label="Revoke grant" variant="danger" disabled />
-    <SaButton label="Revoking..." variant="danger" submitting />
-  </div>
-  <div class="row">
-    <SaButton label="Resend code" variant="text" />
-    <SaButton label="Resend code" variant="text" disabled />
-    <SaButton label="Sending a new code..." variant="text" submitting />
-  </div>
-  <div class="row">
-    <SaButton label="Create client" :icon="PlusIcon" />
-    <SaButton label="Actions" variant="secondary" :trailing-icon="ChevronDownIcon" />
-  </div>
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 520px">
-    <SaButton label="Yes, continue" size="large" />
-    <SaButton label="No, cancel" size="large" variant="outline" />
-  </div>
-</div></div>
+## Demo
 
-<div class="demo vp-raw"><div class="flex flex-wrap gap-4">
-  <DemoFrame v-for="frame in modes" :key="frame.mode" v-bind="frame" :crop="280">
+<div class="demo vp-raw">
+  <DemoModes surface :modes="modes">
+    <template #inline>
+    <div class="stack" style="max-width: none">
+      <div class="row">
+        <SaButton label="Create client" />
+        <SaButton label="Create client" disabled />
+        <SaButton label="Creating..." submitting />
+        <SaButton label="Create client" loading />
+      </div>
+      <div class="row">
+        <SaButton label="Refresh" variant="secondary" />
+        <SaButton label="Refresh" variant="secondary" disabled />
+        <SaButton label="Refreshing..." variant="secondary" submitting />
+        <SaButton label="Delete user" variant="secondary" refused />
+      </div>
+      <div class="row">
+        <SaButton label="No, cancel" variant="outline" />
+        <SaButton label="No, cancel" variant="outline" disabled />
+        <SaButton label="Cancelling..." variant="outline" submitting />
+      </div>
+      <div class="row">
+        <SaButton label="Revoke grant" variant="danger" />
+        <SaButton label="Revoke grant" variant="danger" disabled />
+        <SaButton label="Revoking..." variant="danger" submitting />
+      </div>
+      <div class="row">
+        <SaButton label="Resend code" variant="text" />
+        <SaButton label="Resend code" variant="text" disabled />
+        <SaButton label="Sending a new code..." variant="text" submitting />
+      </div>
+      <div class="row">
+        <SaButton label="Create client" :icon="PlusIcon" />
+        <SaButton label="Actions" variant="secondary" :trailing-icon="ChevronDownIcon" />
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 520px">
+        <SaButton label="Yes, continue" size="large" />
+        <SaButton label="No, cancel" size="large" variant="outline" />
+      </div>
+    </div>
+    </template>
     <div class="flex gap-2">
       <SaButton label="Search" variant="secondary" :icon="SearchIcon" collapse-label />
       <SaButton label="Create client" :icon="PlusIcon" collapse-label />
     </div>
-  </DemoFrame>
-</div></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

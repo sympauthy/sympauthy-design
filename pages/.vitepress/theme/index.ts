@@ -7,6 +7,7 @@ import './brand.css'
 import './demos.css'
 import TokenTable from './TokenTable.vue'
 import DemoFrame from './DemoFrame.vue'
+import DemoModes from './DemoModes.vue'
 import DemoPageActions from './DemoPageActions.vue'
 import {
   SaAlert,
@@ -131,8 +132,9 @@ export default {
     app.component('SaTooltipProvider', SaTooltipProvider)
     // The token tables of pages/foundations/*.md, read from tokens.json.
     app.component('TokenTable', TokenTable)
-    // The frames drawing a demo at the width of a device.
+    // The frames drawing a demo at the width of a device, alone or a tab per mode.
     app.component('DemoFrame', DemoFrame)
+    app.component('DemoModes', DemoModes)
     app.component('DemoPageActions', DemoPageActions)
   }
 } satisfies Theme

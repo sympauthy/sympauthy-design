@@ -14,14 +14,16 @@ const top = [{ key: 'users', label: 'Users' }]
 const frames = reactive([
   { mode: 'phone', label: 'Phone, no ancestors', open: false, items: top },
   { mode: 'phone', label: 'Phone, with ancestors', open: false, items },
-  { mode: 'phone', label: 'Phone, drawer open', open: true, items: top, class: 'col-span-2' },
-  { mode: 'tablet', label: 'Tablet', open: false, items, class: 'col-span-2' },
-  { mode: 'desktop', label: 'Desktop', open: false, items, class: 'col-span-2' }
+  { mode: 'phone', label: 'Phone, drawer open', open: true, items: top },
+  { mode: 'tablet', label: 'Tablet', open: false, items },
+  { mode: 'desktop', label: 'Desktop', open: false, items }
 ])
 </script>
 
-<div class="demo vp-raw"><div class="grid grid-cols-2 gap-4">
-  <DemoFrame v-for="frame in frames" :key="frame.label" :mode="frame.mode" :label="frame.label" :class="frame.class" :height="480" flush>
+## Demo
+
+<div class="demo vp-raw">
+  <DemoModes :modes="frames" :height="480" flush v-slot="{ frame }">
     <SaAppShell v-model:sidebar-open="frame.open">
       <template #sidebar>
         <SaSidebar :sections="framedSections" @close="frame.open = false">
@@ -33,8 +35,8 @@ const frames = reactive([
       <DemoPageActions><SaMenu label="Actions" :items="actions" :collapsed-icon="EllipsisHorizontalIcon" /></DemoPageActions>
       <SaCard>The page.</SaCard>
     </SaAppShell>
-  </DemoFrame>
-</div></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

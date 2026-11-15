@@ -7,6 +7,8 @@ An explanation pressed open, which may hold a link: what a term means, beside th
 <script setup>
 </script>
 
+## Demo
+
 <div class="demo"><div class="stack">
   <p class="sa-field-label">Grant<SaPopover label="What is a grant?">A grant is what a person allowed a client to do on their behalf. <a class="sa-link" href="#">Read more</a>.</SaPopover></p>
   <SaPopover><template #trigger><SaButton label="Show the filter" variant="secondary" class="self-start" /></template>A box of fields, pressed open from a control of the caller's.</SaPopover>

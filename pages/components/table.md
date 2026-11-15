@@ -22,8 +22,66 @@ const fits = ref(1)
 const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name: `Client ${i + 1}` }))
 </script>
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <DemoFrame v-for="mode in ['phone', 'tablet', 'desktop']" :key="mode" :mode="mode">
+## Demo
+
+<div class="demo vp-raw">
+  <DemoModes :modes="['phone', 'tablet', 'desktop']">
+    <template #inline>
+    <div class="flex flex-col gap-6">
+      <SaTable>
+        <template #header>
+          <SaTableHeader>User</SaTableHeader>
+          <SaTableHeader fit><span class="sr-only">Actions</span></SaTableHeader>
+        </template>
+        <template #rows>
+          <tr>
+            <SaTableCell primary><SaTableRecord :name="users[0].email" :link="{ href: '#' }" /></SaTableCell>
+            <SaTableActions><SaMenu :label="`Actions for ${users[0].email}`" :items="actions" :icon="EllipsisHorizontalIcon" /></SaTableActions>
+          </tr>
+        </template>
+      </SaTable>
+      <SaDetailSection title="Redirect URIs">
+        <SaTable>
+          <template #rows>
+            <tr v-for="uri in redirectUris" :key="uri">
+              <SaTableCell primary mono>{{ uri }}</SaTableCell>
+            </tr>
+          </template>
+        </SaTable>
+      </SaDetailSection>
+      <div style="max-width: 24rem">
+        <SaTable>
+          <template #header>
+            <SaTableHeader>User</SaTableHeader>
+            <SaTableHeader fit>Created</SaTableHeader>
+          </template>
+          <template #rows>
+            <tr>
+              <SaTableCell primary truncate><SaTableRecord :name="users[1].email" :detail="users[1].id" :link="{ href: '#' }" truncate /></SaTableCell>
+              <SaTableCell label="Created" fit>{{ users[1].created }}</SaTableCell>
+            </tr>
+          </template>
+        </SaTable>
+      </div>
+      <div style="height: 300px">
+        <SaTable fill auto-page-size @page-size-change="fits = $event">
+          <template #header><SaTableHeader>Name</SaTableHeader><SaTableHeader fit>Identifier</SaTableHeader></template>
+          <template #rows>
+            <tr v-for="client in many.slice(0, fits)" :key="client.id">
+              <SaTableCell primary>{{ client.name }}</SaTableCell>
+              <SaTableCell label="Identifier" mono fit>{{ client.id }}</SaTableCell>
+            </tr>
+          </template>
+          <template #footer><p class="text-sm text-gray-500">{{ fits }} rows fit this height.</p></template>
+        </SaTable>
+      </div>
+      <SaTable loading />
+      <SaTable error="The users could not be loaded. Try again in a moment." />
+      <SaTable empty>
+        <template #empty><p class="text-sm text-gray-500">No user matches this search.</p></template>
+      </SaTable>
+    </div>
+    </template>
     <SaTable>
       <template #header>
         <SaTableHeader>User</SaTableHeader>
@@ -42,63 +100,8 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
         </tr>
       </template>
     </SaTable>
-  </DemoFrame>
-</div></div>
-
-<div class="demo vp-raw"><div class="flex flex-col gap-6">
-  <SaTable>
-    <template #header>
-      <SaTableHeader>User</SaTableHeader>
-      <SaTableHeader fit><span class="sr-only">Actions</span></SaTableHeader>
-    </template>
-    <template #rows>
-      <tr>
-        <SaTableCell primary><SaTableRecord :name="users[0].email" :link="{ href: '#' }" /></SaTableCell>
-        <SaTableActions><SaMenu :label="`Actions for ${users[0].email}`" :items="actions" :icon="EllipsisHorizontalIcon" /></SaTableActions>
-      </tr>
-    </template>
-  </SaTable>
-  <SaDetailSection title="Redirect URIs">
-    <SaTable>
-      <template #rows>
-        <tr v-for="uri in redirectUris" :key="uri">
-          <SaTableCell primary mono>{{ uri }}</SaTableCell>
-        </tr>
-      </template>
-    </SaTable>
-  </SaDetailSection>
-  <div style="max-width: 24rem">
-    <SaTable>
-      <template #header>
-        <SaTableHeader>User</SaTableHeader>
-        <SaTableHeader fit>Created</SaTableHeader>
-      </template>
-      <template #rows>
-        <tr>
-          <SaTableCell primary truncate><SaTableRecord :name="users[1].email" :detail="users[1].id" :link="{ href: '#' }" truncate /></SaTableCell>
-          <SaTableCell label="Created" fit>{{ users[1].created }}</SaTableCell>
-        </tr>
-      </template>
-    </SaTable>
-  </div>
-  <div style="height: 300px">
-    <SaTable fill auto-page-size @page-size-change="fits = $event">
-      <template #header><SaTableHeader>Name</SaTableHeader><SaTableHeader fit>Identifier</SaTableHeader></template>
-      <template #rows>
-        <tr v-for="client in many.slice(0, fits)" :key="client.id">
-          <SaTableCell primary>{{ client.name }}</SaTableCell>
-          <SaTableCell label="Identifier" mono fit>{{ client.id }}</SaTableCell>
-        </tr>
-      </template>
-      <template #footer><p class="text-sm text-gray-500">{{ fits }} rows fit this height.</p></template>
-    </SaTable>
-  </div>
-  <SaTable loading />
-  <SaTable error="The users could not be loaded. Try again in a moment." />
-  <SaTable empty>
-    <template #empty><p class="text-sm text-gray-500">No user matches this search.</p></template>
-  </SaTable>
-</div></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

@@ -13,8 +13,13 @@ const views = [
 ]
 </script>
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <DemoFrame v-for="frame in modes" :key="frame.mode" v-bind="frame">
+## Demo
+
+<div class="demo vp-raw">
+  <DemoModes :modes="modes">
+    <template #inline>
+    <SaRecordViews :views="views" label="Views of this user" />
+    </template>
     <div class="flex flex-col gap-6">
     <SaSummaryCard>
       <SaSummaryField label="Client ID" mono><SaCopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" label="Copy client ID" /></SaSummaryField>
@@ -29,10 +34,8 @@ const views = [
       </SaDefinitionList>
     </SaDetailSection>
     </div>
-  </DemoFrame>
-</div></div>
-
-<div class="demo vp-raw"><SaRecordViews :views="views" label="Views of this user" /></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

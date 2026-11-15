@@ -4,6 +4,8 @@
 
 What a screen shows while it waits: a spinner and a line saying "Loading...".
 
+## Demo
+
 <div class="demo"><div class="stack">
   <SaLoadingState />
   <SaCard><SaLoadingState size="lg" /></SaCard>

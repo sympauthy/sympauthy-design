@@ -14,6 +14,8 @@ const tabs = [
 const many = ['Claims', 'Consents', 'Second factors', 'Providers', 'Sessions', 'Grants', 'Invitations', 'Security contexts'].map((label, i) => ({ key: label, label, link: { href: `#${i}` }, current: i === 0 }))
 </script>
 
+## Demo
+
 <div class="demo vp-raw"><div class="flex flex-col gap-6">
   <SaTabs :tabs="tabs" label="Views of this user" />
   <SaTabs :tabs="many" label="More views of this user">

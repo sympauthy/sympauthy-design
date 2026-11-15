@@ -9,14 +9,16 @@ import { ref } from 'vue'
 const page = ref(4)
 </script>
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <DemoFrame v-for="mode in ['phone', 'tablet', 'desktop']" :key="mode" :mode="mode">
+## Demo
+
+<div class="demo vp-raw">
+  <DemoModes surface :modes="['phone', 'tablet', 'desktop']">
     <div class="flex flex-col gap-4">
     <SaPagination :page="page" :total-pages="10" :size="20" :total="200" @page-change="page = $event" />
     <SaPagination :page="0" :total-pages="1" :size="20" :total="3" />
     </div>
-  </DemoFrame>
-</div></div>
+  </DemoModes>
+</div>
 
 ## Usage
 

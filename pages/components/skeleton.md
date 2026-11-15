@@ -4,6 +4,8 @@
 
 The place of a value that has not arrived, the size of what will replace it.
 
+## Demo
+
 <div class="demo"><div class="stack">
   <SaCard>
     <div class="flex flex-col gap-3">
