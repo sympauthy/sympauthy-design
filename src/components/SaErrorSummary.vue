@@ -65,11 +65,12 @@ function follow(event: MouseEvent, id: string) {
     <ExclamationCircleIcon class="mt-0.5 size-4 shrink-0" />
     <div class="min-w-0">
       <p :id="titleId" class="font-semibold">{{ title }}</p>
-      <ul>
+      <!-- Each entry on a 24px line, so that two links' targets never overlap. -->
+      <ul class="leading-6">
         <li v-for="error in errors" :key="error.for">
           <a
             :href="`#${error.for}`"
-            class="inline-flex min-h-control items-center underline outline-primary hover:no-underline focus-visible:outline-2"
+            class="underline outline-primary hover:no-underline focus-visible:outline-2"
             @click="follow($event, error.for)"
             >{{ error.message }}</a
           >

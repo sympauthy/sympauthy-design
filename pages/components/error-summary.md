@@ -49,7 +49,7 @@ function onSubmit() {
 - **Box**: an [Alert](/components/alert) of `danger`: full width, `space-3` padding, a 1px `danger-line` border, `radius-md`, on `danger-subtle`.
 - **Icon**: a 16px exclamation mark in `danger`, before the title, as on a [Field](/components/field)'s error line.
 - **Title**: 14px/600 in `danger`.
-- **Entries**: one link per error under the title, 14px in `danger`, underlined at rest, each `control-height` tall so that it can be pressed.
+- **Entries**: one link per error under the title, 14px in `danger`, underlined at rest, each on a 24px line so that two links' targets never overlap (see [Control height](/foundations/control-height)).
 - **Empty**: with no errors it draws nothing.
 
 ## Behavior

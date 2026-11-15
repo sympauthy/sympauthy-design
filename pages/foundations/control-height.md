@@ -5,9 +5,9 @@ How tall a control is, and how large anything a person presses is.
 ## Usage
 
 - **Every control is `control-height` tall, in both apps.** The flow chose it so a thumb hits a control on a phone; the admin follows, since it is used on tablets and phones too.
-- **Everything a person presses is at least `control-height`**, so that it can be touched: a control, a menu item, a list option, a tab, a sidebar entry, a breadcrumb link, a radio's row.
+- **Everything a person presses but a link is at least `control-height`**, so that it can be touched: a control, a menu item, a list option, a tab, a sidebar entry, a radio's row.
 - **A mark too small to draw at that size keeps its size and takes the target around it.** An icon beside a value or a word draws a pseudo-element `control-height` square, without opening up the line it sits on. A target may overlap what does nothing when pressed, such as the word beside it.
-- **A link inside a sentence is the one exception**, since a target that size would cover the lines above and below it. Its height is the sentence's (WCAG 2.5.8 exempts it).
+- **A link keeps the height of its text**, inside a sentence or in a list of links, since a target that size would cover the lines above and below it or space a list out of the layout it sits in. Links stacked one under another are set at least 24px apart, so that two targets never overlap (WCAG 2.5.8). A component may still give a link a `control-height` target where it stands alone, as `SaLink` and `SaRecordLink` do.
 - **`.sa-control` carries it** (`min-h-control min-w-control`), so a control is never shorter, nor narrower: an icon-only button is a square. The apps never write a height on a control.
 - **What differs between the apps is the text inside**, not the box: the admin's buttons are `panel-strong` and as wide as their label; the flow's are 16px/600 and full width. Every text field is 16px in both.
 
@@ -34,6 +34,7 @@ How tall a control is, and how large anything a person presses is.
 ## Accessibility
 
 - **`control-height` meets the touch targets a thumb needs**: Apple's minimum and WCAG's enhanced target size (2.5.5), both 44px.
+- **A link meets the minimum target size by its spacing** (WCAG 2.5.8): inside a sentence it is exempt, and links in a list are 24px apart.
 
 ## Related
 

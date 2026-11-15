@@ -12,7 +12,7 @@ A link, `primary` and underlined at rest: `.sa-link` inside a sentence, and `SaL
 
 ## Usage
 
-- **`.sa-link`**: a link inside a sentence. Its target is the sentence's height, since one `control-height` tall would cover the lines above and below it.
+- **`.sa-link`**: a link inside a sentence, or in a list of links. Its target is its text's height, as every link's may be (see [Control height](/foundations/control-height)).
 - **`SaLink`**: a link standing on its own, such as "Forgot password?" under a form.
 - **Not for** an action that changes something on the screen: use [Button](/components/button), with `variant="text"` where it reads as a link, such as "Resend code".
 - **Not for** the name of another record, in a field or a cell: use [RecordLink](/components/record-link).
@@ -32,7 +32,8 @@ A link, `primary` and underlined at rest: `.sa-link` inside a sentence, and `SaL
 
 - **It is underlined at rest, so color is not its only signal inside a sentence** (WCAG 1.4.1).
 - **The consumer draws an `a` with an `href`, or hands `SaLink` its `link`**, which is what makes it reach the keyboard.
-- **`SaLink`'s target reaches `control-height`, and `.sa-link`'s is the sentence's**, which WCAG 2.5.8 exempts (see [Control height](/foundations/control-height)).
+- **`.sa-link`'s target is its text's, which WCAG 2.5.8 exempts inside a sentence**; links in a list are set 24px apart (see [Control height](/foundations/control-height)).
+- **`SaLink`'s target reaches `control-height`**, which no link is held to: a link standing alone under a form is pressed as often as the button beside it.
 
 ## API
 
