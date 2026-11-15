@@ -9,6 +9,12 @@ import { reactive } from 'vue'
 const names = ['address', 'birthdate', 'email', 'email_verified', 'family_name', 'gender', 'given_name', 'locale', 'middle_name', 'name', 'nickname', 'phone_number', 'phone_number_verified', 'picture', 'preferred_username', 'profile', 'updated_at', 'website', 'zoneinfo', 'country', 'department', 'employee_id', 'is_sympauthy_admin']
 const claims = names.map((name, i) => ({ name, collected: `0${(i % 9) + 1}/11/2026` }))
 const TOTAL = claims.length
+const states = [
+  { mode: 'phone', key: 'growing', label: 'Growing as it is scrolled', height: 520 },
+  { mode: 'phone', key: 'loading', label: 'A page on its way' },
+  { mode: 'phone', key: 'whole', label: 'Whole' },
+  { mode: 'phone', key: 'failed', label: 'Failed' }
+]
 const growing = reactive({ shown: 8, loading: false })
 function more() {
   growing.loading = true
@@ -30,59 +36,55 @@ function retry() {
 
 ## Demo
 
-<div class="demo vp-raw"><div class="flex flex-col gap-4">
-  <DemoFrame mode="phone" label="Phone, growing as it is scrolled" :height="520">
-    <SaTable loading-label="Loading claims.">
-      <template #header>
-        <SaTableHeader>Claim</SaTableHeader>
-        <SaTableHeader fit>Collected at</SaTableHeader>
-      </template>
-      <template #rows>
-        <tr v-for="claim in claims.slice(0, growing.shown)" :key="claim.name">
-          <SaTableCell primary>{{ claim.name }}</SaTableCell>
-          <SaTableCell label="Collected at" fit>{{ claim.collected }}</SaTableCell>
-        </tr>
-        <SaTableEnd :more="growing.shown < TOTAL" :loading="growing.loading" loading-label="Loading more claims." :end-label="`All ${TOTAL} claims shown`" retry-label="Retry" @more="more" />
-      </template>
-    </SaTable>
-  </DemoFrame>
-  <DemoFrame mode="phone" label="Phone, a page on its way">
-    <SaTable loading-label="Loading claims.">
-      <template #header><SaTableHeader>Claim</SaTableHeader><SaTableHeader fit>Collected at</SaTableHeader></template>
-      <template #rows>
-        <tr v-for="claim in claims.slice(0, 3)" :key="claim.name">
-          <SaTableCell primary>{{ claim.name }}</SaTableCell>
-          <SaTableCell label="Collected at" fit>{{ claim.collected }}</SaTableCell>
-        </tr>
-        <SaTableEnd more loading loading-label="Loading more claims." :end-label="`All ${TOTAL} claims shown`" retry-label="Retry" />
-      </template>
-    </SaTable>
-  </DemoFrame>
-  <DemoFrame mode="phone" label="Phone, whole">
-    <SaTable loading-label="Loading consents.">
-      <template #header><SaTableHeader>Client</SaTableHeader><SaTableHeader fit>Granted</SaTableHeader></template>
-      <template #rows>
-        <tr>
-          <SaTableCell primary>Back office</SaTableCell>
-          <SaTableCell label="Granted" fit>02/11/2026</SaTableCell>
-        </tr>
-        <SaTableEnd loading-label="Loading more consents." end-label="1 consent" retry-label="Retry" />
-      </template>
-    </SaTable>
-  </DemoFrame>
-  <DemoFrame mode="phone" label="Phone, failed">
-    <SaTable loading-label="Loading claims.">
-      <template #header><SaTableHeader>Claim</SaTableHeader><SaTableHeader fit>Collected at</SaTableHeader></template>
-      <template #rows>
-        <tr v-for="claim in claims.slice(0, failing.shown)" :key="claim.name">
-          <SaTableCell primary>{{ claim.name }}</SaTableCell>
-          <SaTableCell label="Collected at" fit>{{ claim.collected }}</SaTableCell>
-        </tr>
-        <SaTableEnd more :loading="failing.loading" :error="failing.error" loading-label="Loading more claims." :end-label="`All ${TOTAL} claims shown`" retry-label="Retry" @more="retry" />
-      </template>
-    </SaTable>
-  </DemoFrame>
-</div></div>
+<div class="demo vp-raw">
+  <DemoModes :modes="states">
+    <template #default="{ frame }">
+      <SaTable v-if="frame.key === 'growing'" loading-label="Loading claims.">
+        <template #header>
+          <SaTableHeader>Claim</SaTableHeader>
+          <SaTableHeader fit>Collected at</SaTableHeader>
+        </template>
+        <template #rows>
+          <tr v-for="claim in claims.slice(0, growing.shown)" :key="claim.name">
+            <SaTableCell primary>{{ claim.name }}</SaTableCell>
+            <SaTableCell label="Collected at" fit>{{ claim.collected }}</SaTableCell>
+          </tr>
+          <SaTableEnd :more="growing.shown < TOTAL" :loading="growing.loading" loading-label="Loading more claims." :end-label="`All ${TOTAL} claims shown`" retry-label="Retry" @more="more" />
+        </template>
+      </SaTable>
+      <SaTable v-else-if="frame.key === 'loading'" loading-label="Loading claims.">
+        <template #header><SaTableHeader>Claim</SaTableHeader><SaTableHeader fit>Collected at</SaTableHeader></template>
+        <template #rows>
+          <tr v-for="claim in claims.slice(0, 3)" :key="claim.name">
+            <SaTableCell primary>{{ claim.name }}</SaTableCell>
+            <SaTableCell label="Collected at" fit>{{ claim.collected }}</SaTableCell>
+          </tr>
+          <SaTableEnd more loading loading-label="Loading more claims." :end-label="`All ${TOTAL} claims shown`" retry-label="Retry" />
+        </template>
+      </SaTable>
+      <SaTable v-else-if="frame.key === 'whole'" loading-label="Loading consents.">
+        <template #header><SaTableHeader>Client</SaTableHeader><SaTableHeader fit>Granted</SaTableHeader></template>
+        <template #rows>
+          <tr>
+            <SaTableCell primary>Back office</SaTableCell>
+            <SaTableCell label="Granted" fit>02/11/2026</SaTableCell>
+          </tr>
+          <SaTableEnd loading-label="Loading more consents." end-label="1 consent" retry-label="Retry" />
+        </template>
+      </SaTable>
+      <SaTable v-else loading-label="Loading claims.">
+        <template #header><SaTableHeader>Claim</SaTableHeader><SaTableHeader fit>Collected at</SaTableHeader></template>
+        <template #rows>
+          <tr v-for="claim in claims.slice(0, failing.shown)" :key="claim.name">
+            <SaTableCell primary>{{ claim.name }}</SaTableCell>
+            <SaTableCell label="Collected at" fit>{{ claim.collected }}</SaTableCell>
+          </tr>
+          <SaTableEnd more :loading="failing.loading" :error="failing.error" loading-label="Loading more claims." :end-label="`All ${TOTAL} claims shown`" retry-label="Retry" @more="retry" />
+        </template>
+      </SaTable>
+    </template>
+  </DemoModes>
+</div>
 
 ## Usage
 

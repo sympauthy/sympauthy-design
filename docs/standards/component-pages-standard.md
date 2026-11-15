@@ -87,6 +87,9 @@ that width, with the page's state.
 `#inline` slot is the first tab, the states and variants drawn on the page, and its default slot is
 drawn in one frame whose state holds as the mode's tab changes.
 
+**States drawn only in a frame are tabs of the same `DemoModes`, an entry each.** Name each tab by
+its state, give it a `key`, and draw the demo its slot's `frame.key` names, as TableEnd does.
+
 **A frame leaves out what opens an overlay through reka-ui's portal.** The portal opens it on the
 page and not in the frame; an overlay opening through `usePortalBody`, as a table's filters do,
 stays, and frames drawn at once take a state each where opening takes the focus.
