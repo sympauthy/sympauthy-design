@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, useId } from 'vue'
+import { computed, onBeforeUnmount, ref, useId, watch } from 'vue'
 import { ChevronUpDownIcon, XMarkIcon } from '@heroicons/vue/20/solid'
 import {
   DialogClose,
@@ -89,24 +89,68 @@ const chosen = computed(() => props.options.find((option) => option.value === mo
 const CLEARED = ''
 
 /**
- * The options in the order the list draws them. While nothing is typed, the way back to empty
- * leads, then the suggestion under its heading, then the rest under their own. A search reads the
- * options in the order the app passed them, the suggestion among them.
+ * The options in the order the list draws them: the way back to empty first, then the suggestion
+ * under its heading, then the rest under their own. A search reads the options in the order the app
+ * passed them, the suggestion among them, and the list's own matching drops "Clear" unless it is
+ * what is typed.
+ *
+ * The set stays the same while a search is typed, only its order changing, since the list clears a
+ * search whose set changes under it.
  */
 const listed = computed<SaListboxOption[]>(() => {
-  if (search.value.trim() !== '') {
-    return props.options
-  }
-  const lead: SaListboxOption[] = []
-  if (field?.value.optional && props.clearLabel && model.value !== '') {
-    lead.push({ value: CLEARED, label: props.clearLabel })
-  }
+  const clear: SaListboxOption[] =
+    field?.value.optional && props.clearLabel && model.value !== ''
+      ? [{ value: CLEARED, label: props.clearLabel }]
+      : []
   const suggested = props.options.find((option) => option.value === props.suggestedValue)
-  if (suggested) {
-    lead.push({ ...suggested, groupLabel: props.suggestedLabel })
+  if (search.value.trim() !== '' || !suggested) {
+    return [...clear, ...props.options]
   }
-  return [...lead, ...props.options.filter((option) => option !== suggested)]
+  return [
+    ...clear,
+    { ...suggested, groupLabel: props.suggestedLabel },
+    ...props.options.filter((option) => option !== suggested)
+  ]
 })
+
+/**
+ * The part of the screen the sheet fills: the visual viewport, which a phone's keyboard shrinks where
+ * it leaves the layout viewport whole, as iOS Safari and Chrome on Android do. Filling the layout
+ * viewport would leave the end of the list under the keyboard.
+ */
+const visible = ref<{ top: number; height: number }>()
+let stopFollowing: (() => void) | undefined
+
+function followVisibleViewport() {
+  const viewport = button.value?.ownerDocument.defaultView?.visualViewport
+  if (!viewport) {
+    return
+  }
+  const update = () => {
+    visible.value = { top: viewport.offsetTop, height: viewport.height }
+  }
+  update()
+  viewport.addEventListener('resize', update)
+  viewport.addEventListener('scroll', update)
+  stopFollowing = () => {
+    viewport.removeEventListener('resize', update)
+    viewport.removeEventListener('scroll', update)
+    visible.value = undefined
+  }
+}
+
+watch(
+  () => open.value && sheet.value,
+  (shown) => {
+    stopFollowing?.()
+    stopFollowing = undefined
+    if (shown) {
+      followVisibleViewport()
+    }
+  }
+)
+
+onBeforeUnmount(() => stopFollowing?.())
 
 function show() {
   const view = button.value?.ownerDocument.defaultView
@@ -158,12 +202,14 @@ function onSheetCloseAutoFocus(event: Event) {
         v-bind="$attrs"
         :disabled="disabled"
         :aria-invalid="invalid || undefined"
-        class="sa-control sa-control-focus sa-control-field flex w-full cursor-pointer items-center gap-2 text-left"
+        class="sa-control sa-control-focus sa-control-field flex w-full items-center gap-2 text-left enabled:cursor-pointer"
         :class="invalid ? 'border-danger' : ''"
       >
         <span :id="valueId" class="flex min-w-0 flex-1 items-center gap-2">
           <template v-if="chosen">
             <span class="truncate">{{ chosen.label }}</span>
+            <!-- Read between the label and the meta, and dropped from the layout. -->
+            {{ ' ' }}
             <span v-if="chosen.meta" class="shrink-0 font-mono text-sm text-gray-500">{{
               chosen.meta
             }}</span>
@@ -200,6 +246,11 @@ function onSheetCloseAutoFocus(event: Event) {
       <DialogOverlay class="sa-dialog-animated fixed inset-0 z-50 bg-nav/50" />
       <DialogContent
         class="sa-sheet-animated fixed inset-0 z-50 flex flex-col bg-white text-gray-700"
+        :style="
+          visible
+            ? { top: `${visible.top}px`, bottom: 'auto', height: `${visible.height}px` }
+            : undefined
+        "
         :aria-describedby="undefined"
         @open-auto-focus="onOpenAutoFocus"
         @close-auto-focus="onSheetCloseAutoFocus"

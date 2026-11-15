@@ -82,7 +82,11 @@ const name = computed(() => props.ariaLabel ?? field?.value.text)
  */
 const SEARCHED_FROM = 8
 
-const searchable = computed(() => props.options.length >= SEARCHED_FROM)
+// An option of empty value stands for nothing chosen, as a combobox's "Clear", and is not one of the
+// values a person looks for.
+const searchable = computed(
+  () => props.options.filter((option) => option.value !== '').length >= SEARCHED_FROM
+)
 
 // The set can change under the control, and a search written for the old set hides most of the new
 // one without saying why. The same set in another order is not a new one: a caller ordering the
@@ -212,6 +216,8 @@ defineExpose({ focus })
               <component :is="option.icon" v-if="option.icon" class="size-3 shrink-0" />
               <span v-if="option.iconLabel" class="sr-only">{{ option.iconLabel }}</span>
             </span>
+            <!-- Read between the label and the meta, and dropped from the layout. -->
+            {{ ' ' }}
             <span v-if="option.meta" class="shrink-0 font-mono text-gray-500">{{
               option.meta
             }}</span>

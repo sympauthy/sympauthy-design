@@ -51,9 +51,14 @@ provide(
 
 <template>
   <div class="flex flex-col gap-1.5">
-    <label :id="labelId" :for="$props.for" class="block text-sm font-medium text-gray-700">
-      {{ label }}
-      <span v-if="optionalLabel" class="font-normal text-gray-500">{{ optionalLabel }}</span>
+    <label :for="$props.for" class="block text-sm font-medium text-gray-700">
+      <!-- The words a control names itself with, which the help beside them is not. -->
+      <span :id="labelId"
+        >{{ label
+        }}<span v-if="optionalLabel" class="font-normal text-gray-500">{{
+          ` ${optionalLabel}`
+        }}</span></span
+      >
       <slot name="help" />
     </label>
     <slot />

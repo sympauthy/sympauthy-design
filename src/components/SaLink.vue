@@ -25,7 +25,7 @@ withDefaults(defineProps<SaLinkProps>(), {
   <component
     :is="linkAs"
     v-bind="link"
-    class="sa-link relative inline-flex min-w-control justify-center text-sm font-medium after:absolute after:inset-x-0 after:top-1/2 after:h-control after:-translate-y-1/2"
+    class="sa-link relative inline-flex w-fit max-w-full min-w-control justify-center text-sm font-medium after:absolute after:inset-x-0 after:top-1/2 after:h-control after:-translate-y-1/2"
   >
     {{ label }}
   </component>

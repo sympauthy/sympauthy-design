@@ -59,7 +59,7 @@ const framedZone = ref({ phone: '', tablet: '' })
 - **Field**: `.sa-control`, so `control-height` tall, with the box, the border and the text of every [Field](/components/field) control. It shows the chosen option's label and its meta in the mono face and `ink-500`, or `placeholder` in `ink-500` while nothing is chosen, and a 16px up-and-down chevron in `ink-500` on its trailing edge. The label is cut with an ellipsis where it does not fit; the meta never is.
 - **List**: a [Listbox](/components/listbox), with its options, its search and its headings.
 - **Popover**, from `sm:`: under the field, as wide as it, `space-1` from it.
-- **Sheet**, below `sm:`: the full height and width of the screen, on `surface` over the scrim a [Dialog](/components/dialog) has. Its head is the field's label in 16px/600 `ink-900`, beside a close button: a 20px cross in `ink-500` in a `control-height` square, over an `ink-200` rule. The list fills the height under the search rather than stopping at 224px.
+- **Sheet**, below `sm:`: the full width of the screen and the height a phone's keyboard leaves of it, on `surface` over the scrim a [Dialog](/components/dialog) has. Its head is the field's label in 16px/600 `ink-900`, beside a close button: a 20px cross in `ink-500` in a `control-height` square, over an `ink-200` rule. The list fills the height under the search rather than stopping at 224px.
 - **Suggestion**: the suggested option under its own heading, at the top, and not again in its group.
 - **Clear**: an option at the very top, worded by `clearLabel`, once a value is chosen in an optional field.
 
@@ -70,7 +70,7 @@ const framedZone = ref({ phone: '', tablet: '' })
 - **Choosing**: an option closes the list, writes `v-model` and returns focus to the field. "Clear" empties `v-model`, and the field shows its `placeholder` again.
 - **Closing**: Escape, a press outside the popover, or the sheet's close button closes the list without changing the value, and focus returns to the field.
 - **Sheet's slide**: it slides up from the bottom over 300ms, and back down as it closes. Under `prefers-reduced-motion` it appears in place.
-- **Searching**: the headings go, the suggestion and "Clear" with them, and the matches follow the order the app passed the options in. When the search matches nothing, `noMatchLabel` takes the options' place.
+- **Searching**: the headings go, the suggestion's with them, and the matches follow the order the app passed the options in. "Clear" is matched as any option is, so it goes unless its word is typed. When the search matches nothing, `noMatchLabel` takes the options' place.
 - **Mode**: whether the list opens as a popover or a sheet is read as it opens, from the width of the window.
 - **Invalid** (`invalid`): a `danger` border.
 - **Disabled** (`disabled`): the field's disabled look, and it does not open.
@@ -83,11 +83,11 @@ const framedZone = ref({ phone: '', tablet: '' })
 
 ## Accessibility
 
-- **The field is a button, named by the field's label and then what it shows**, as "Time zone Paris +01:00", so a screen reader hears the choice and a person speaking to their device can say the label (WCAG 2.5.3). `SaField`'s `for` points at it, so pass the same `id` to both.
+- **The field is a button, named by the field's label and then what it shows**, the label's words and its optional mark without the help beside them, as "Time zone Paris +01:00", so a screen reader hears the choice and a person speaking to their device can say the label (WCAG 2.5.3). `SaField`'s `for` points at it, so pass the same `id` to both.
 - **The list is named by the field's label**, which `SaField` tells it. The line under the field is linked to the button with `aria-describedby`.
 - **The sheet is a dialog**, titled by the field's label: it holds the focus while it is open, and the page under it is out of reach, as for a [Dialog](/components/dialog) (WCAG 2.4.3).
 - **`closeLabel` names the sheet's close button**, whose cross draws no words (WCAG 4.1.2).
-- **The sheet keeps the list above a phone's keyboard**, since it fills the screen rather than opening under the field.
+- **The sheet keeps the list above a phone's keyboard**: it fills what the keyboard leaves of the screen, and follows it as the keyboard opens and closes, rather than opening under the field.
 
 ## API
 

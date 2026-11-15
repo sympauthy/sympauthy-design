@@ -45,10 +45,42 @@ onMounted(() => {
 
 onBeforeUnmount(() => form?.removeEventListener('submit', onSubmit))
 
-/** Moves the focus to the field, leaving the URL as it was: the link points at a place on the page. */
+/**
+ * Takes the focus, for errors that arrive after the submit, such as the server's: the app calls it
+ * once it has set them. Waits for them to be drawn.
+ */
+async function focus() {
+  await nextTick()
+  box.value?.focus()
+}
+
+defineExpose({ focus })
+
+/** What can take the focus inside a field whose `id` is on a part that cannot, as a radio group. */
+const FOCUSABLE =
+  'input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
+/**
+ * Moves the focus to the field, leaving the URL as it was: the link points at a place on the page.
+ * An `id` on a part that takes no focus hands it to the first part inside that does, and a field with
+ * none is at least scrolled into sight.
+ */
 function follow(event: MouseEvent, id: string) {
   event.preventDefault()
-  box.value?.ownerDocument.getElementById(id)?.focus()
+  const doc = box.value?.ownerDocument
+  const field = doc?.getElementById(id)
+  if (!doc || !field) {
+    return
+  }
+  field.focus()
+  if (doc.activeElement === field) {
+    return
+  }
+  const inner = field.querySelector<HTMLElement>(FOCUSABLE)
+  inner?.focus()
+  if (!inner || doc.activeElement !== inner) {
+    field.scrollIntoView({ block: 'center' })
+  }
 }
 </script>
 

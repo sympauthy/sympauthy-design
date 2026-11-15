@@ -60,7 +60,7 @@ const narrowZone = ref(['America/Sao_Paulo'])
 
 ## Behavior
 
-- **Search**: appears once the list holds 8 options. Under that, the answer is already in sight. It matches the label, the secondary text and the meta, so "+01:00" finds Paris and "new york" finds New York. It clears when the set of options changes, and not when the same options come in another order.
+- **Search**: appears once the list holds 8 options, an option of empty value, which stands for nothing chosen, not counted. Under that, the answer is already in sight. It matches the label, the secondary text and the meta, so "+01:00" finds Paris and "new york" finds New York. It clears when the set of options changes, and not when the same options come in another order.
 - **Order**: the options are shown in the order they are passed. While a search is typed the headings go, and the matches keep that order.
 - **Hover and keyboard**: the highlighted option is `ink-100`. The arrow keys move through the options, and Enter or Space chooses one.
 - **Empty**: when the search matches nothing, `noMatchLabel` takes the options' place.

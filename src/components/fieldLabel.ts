@@ -2,7 +2,10 @@ import { inject, type ComputedRef, type InjectionKey } from 'vue'
 
 /** What `SaField` tells the control it holds of its label. */
 export interface FieldLabel {
-  /** The `id` of the `<label>`, for a control naming itself with it and with what it shows. */
+  /**
+   * The `id` of the label's words and its optional mark, without the help beside them, for a control
+   * naming itself with them and with what it shows.
+   */
   id: string
   /** The words of the label, for a control drawing them again or naming a part of itself. */
   text: string

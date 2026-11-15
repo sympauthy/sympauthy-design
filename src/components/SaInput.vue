@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, useAttrs, useSlots, type Component } from 'vue'
+import { computed, useAttrs, type Component } from 'vue'
 import { useFieldDescription } from './fieldDescription'
 
 /**
@@ -34,7 +34,6 @@ const description = useFieldDescription()
 defineOptions({ inheritAttrs: false })
 
 const attrs = useAttrs()
-const slots = useSlots()
 const fieldAttrs = computed(() => {
   const rest = { ...attrs }
   delete rest.class
@@ -46,7 +45,6 @@ const classes = computed(() => [
   'sa-control sa-control-focus sa-control-field block w-full',
   props.invalid ? 'border-danger' : '',
   props.icon ? 'pl-9' : '',
-  slots.trailing ? 'pr-9' : '',
   props.mono ? 'font-mono' : ''
 ])
 </script>
@@ -64,7 +62,7 @@ const classes = computed(() => [
       v-model="model"
       :type="props.type"
       :aria-invalid="props.invalid || undefined"
-      :class="classes"
+      :class="[classes, $slots.trailing ? 'pr-9' : '']"
     />
     <div v-if="$slots.trailing" class="absolute inset-y-0 right-3 flex items-center">
       <slot name="trailing" />

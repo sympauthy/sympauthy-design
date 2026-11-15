@@ -120,7 +120,7 @@ const variantClasses: Record<
   text: {
     active: 'border-transparent bg-transparent text-primary underline hover:text-primary-hover',
     waiting: 'border-transparent bg-transparent text-primary underline cursor-wait',
-    disabled: 'border-transparent bg-transparent text-gray-400 underline cursor-not-allowed'
+    disabled: 'border-transparent bg-transparent text-on-disabled underline cursor-not-allowed'
   }
 }
 
