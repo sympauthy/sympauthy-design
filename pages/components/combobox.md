@@ -28,7 +28,7 @@ const zone = ref('')
 const language = ref('fr')
 const optionalZone = ref('Asia/Tokyo')
 const invalidZone = ref('')
-const frames = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop', crop: 420 }]
+const frames = [{ mode: 'phone' }, { mode: 'tablet', label: 'Tablet and desktop' }]
 const framedZone = ref({ phone: '', tablet: '' })
 </script>
 
