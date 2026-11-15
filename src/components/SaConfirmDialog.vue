@@ -1,18 +1,18 @@
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
 import SaAlert from './SaAlert.vue'
 import SaButton, { type SaButtonVariant } from './SaButton.vue'
 import SaDialog from './SaDialog.vue'
 
 /**
- * The question a destructive action asks before it reaches the server. Cancel comes first, so focus
- * starts on it and Enter never destroys by accident.
+ * The question a destructive action asks before it reaches the server. Its no, "No, cancel", comes
+ * first, so focus starts on it and Enter never destroys by accident.
  */
 withDefaults(
   defineProps<{
     open: boolean
     /** Repeats the verb of the title, as "Revoke grant", never "OK" or "Yes". */
     confirmLabel: string
-    cancelLabel: string
     confirmVariant?: SaButtonVariant
     /** Holds the confirmation back while what it would act on is not yet chosen. */
     confirmDisabled?: boolean
@@ -33,6 +33,8 @@ const emit = defineEmits<{
   confirm: []
   cancel: []
 }>()
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -50,7 +52,7 @@ const emit = defineEmits<{
     <template #actions>
       <SaButton
         variant="secondary"
-        :label="cancelLabel"
+        :label="t('sa.confirmDialog.cancel')"
         :disabled="loading"
         @click="emit('cancel')"
       />

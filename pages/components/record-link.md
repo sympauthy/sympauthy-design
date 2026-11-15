@@ -27,7 +27,7 @@ const sessions = [
 
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <DemoFrame v-for="mode in ['phone', 'desktop']" :key="mode" :mode="mode">
-    <SaTable loading-label="Loading sessions.">
+    <SaTable>
       <template #header>
         <SaTableHeader>Started</SaTableHeader>
         <SaTableHeader>User</SaTableHeader>

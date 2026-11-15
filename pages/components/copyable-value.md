@@ -8,10 +8,10 @@ A value a person reads and then pastes elsewhere, with the control that copies i
   <SaCard>
     <p class="sa-field-label">Client ID</p>
     <p class="mt-1 font-mono text-gray-900">
-      <SaCopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" label="Copy client ID" copied-label="Client ID copied" failed-label="Your browser refused to copy the client ID" />
+      <SaCopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" label="Copy client ID" />
     </p>
   </SaCard>
-  <div class="row"><SaCopyButton value="c3f1e0a2" label="Copy token" copied-label="Token copied" failed-label="Your browser refused to copy the token" /></div>
+  <div class="row"><SaCopyButton value="c3f1e0a2" label="Copy token" /></div>
 </div></div>
 
 ## Usage
@@ -30,43 +30,41 @@ A value a person reads and then pastes elsewhere, with the control that copies i
 
 - **Hover**: `primary` icon on `primary-subtle`.
 - **Focus**: the 2px `focus-ring` outline of [Focus, states and motion](/foundations/focus).
-- **Copied**: a check in `tag-green` for 2 seconds, with `copiedLabel` as its title.
-- **Refused**: a browser may refuse the clipboard. A cross in `danger` for 2 seconds, with `failedLabel` as its title, and `failed` is emitted so that a screen can say more.
+- **Copied**: a check in `tag-green` for 2 seconds, with "Copied" as its title.
+- **Refused**: a browser may refuse the clipboard. A cross in `danger` for 2 seconds, with "Could not copy" as its title, and `failed` is emitted so that a screen can say more, since what is copied may be shown only once.
 
 ## Content
 
-- **`label` names what is copied**, as "Copy client ID": a screen has more than one copy control on it.
-- **`failedLabel` says what went wrong**, since what is copied may be shown only once (see [Content](/foundations/content)).
+- **`label` names what is copied**, as "Copy client ID": a screen has more than one copy control on it (see [Content](/foundations/content)).
+- **"Copied" and "Could not copy" are the package's**, the same on every screen.
 
 ## Accessibility
 
 - **The control is named by `label`**, set by the component as `aria-label`, since it draws no words (WCAG 4.1.2).
-- **`copiedLabel` and `failedLabel` are announced through a `role="status"`** (WCAG 4.1.3).
+- **"Copied" and "Could not copy" are announced through a `role="status"`** (WCAG 4.1.3).
 - **The target is `control-height` square** (WCAG 2.5.8).
 
 ## API
 
-The consumer provides the value and the words, since the component reads no message bundle.
+The consumer provides the value and what the control copies. The component draws its other words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)).
 
 ### SaCopyableValue
 
-| Name          | Type     | Default | Description                              |
-| ------------- | -------- | ------- | ---------------------------------------- |
-| `value`       | `string` |         | What is shown and copied. Required.      |
-| `label`       | `string` |         | Names the control. Required.             |
-| `copiedLabel` | `string` |         | Said once the value is copied. Required. |
-| `failedLabel` | `string` |         | Said when the browser refuses. Required. |
+| Name      | Type     | Default | Description                          |
+| --------- | -------- | ------- | ------------------------------------ |
+| `value`   | `string` |         | What is shown and copied. Required.  |
+| `label`   | `string` |         | Names the control. Required.         |
+| `@copied` | event    |         | The value was copied.                |
+| `@failed` | event    |         | The browser refused, with its error. |
 
 ### SaCopyButton
 
-| Name          | Type     | Default | Description                              |
-| ------------- | -------- | ------- | ---------------------------------------- |
-| `value`       | `string` |         | What is copied. Required.                |
-| `label`       | `string` |         | Names the control. Required.             |
-| `copiedLabel` | `string` |         | Said once the value is copied. Required. |
-| `failedLabel` | `string` |         | Said when the browser refuses. Required. |
-| `@copied`     | event    |         | The value was copied.                    |
-| `@failed`     | event    |         | The browser refused, with its error.     |
+| Name      | Type     | Default | Description                          |
+| --------- | -------- | ------- | ------------------------------------ |
+| `value`   | `string` |         | What is copied. Required.            |
+| `label`   | `string` |         | Names the control. Required.         |
+| `@copied` | event    |         | The value was copied.                |
+| `@failed` | event    |         | The browser refused, with its error. |
 
 ## Related
 

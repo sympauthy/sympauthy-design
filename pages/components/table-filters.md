@@ -34,26 +34,6 @@ const answers = {
   lte: (held, c) => held <= c.value,
   is_null: (held) => held == null
 }
-const operatorNames = { eq: 'is', ne: 'is not', in: 'is one of', contains: 'contains', starts_with: 'starts with', gte: 'is at least', lte: 'is at most', is_null: 'is empty' }
-const dateNames = { gte: 'is on or after', lte: 'is on or before' }
-const labels = {
-  list: 'Active filters',
-  clear: 'Clear filters',
-  add: 'Add filter',
-  searchFields: 'Search fields',
-  searchValues: 'Search values',
-  noMatch: 'Nothing matches',
-  operator: 'Condition',
-  value: 'Value',
-  selectValue: 'Choose…',
-  addValue: 'Add a value',
-  removeValue: 'Remove',
-  yes: 'Yes',
-  no: 'No',
-  removeFilter: (name) => `Remove the ${name} filter`,
-  operatorName: (operator, type) => (type === 'date' ? dateNames[operator] : null) ?? operatorNames[operator]
-}
-const sortLabels = { sort: 'Sort', search: 'Search orders', noMatch: 'Nothing matches', ascending: 'ascending', descending: 'descending' }
 const sortFields = [{ field: 'email', name: 'Email' }, { field: 'created', name: 'Created' }]
 const defaultKeys = () => [{ field: 'created', descending: true }]
 const inOrder = (rows, keys) => {
@@ -76,29 +56,27 @@ const lists = ['phone', 'tablet', 'desktop'].map((mode) => {
   list.pages = computed(() => Math.max(1, Math.ceil(list.matching.length / PAGE_SIZE)))
   return list
 })
-const pageLabel = (p, total) => `Page ${p} of ${total}`
-const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 </script>
 
 <div class="demo vp-raw"><div class="flex flex-col gap-4">
   <DemoFrame v-for="list in lists" :key="list.mode" :mode="list.mode">
-    <SaTable loading-label="Loading users." :empty="list.matching.length === 0">
+    <SaTable :empty="list.matching.length === 0">
       <template #toolbar>
         <SaInput class="min-w-0 flex-1 basis-60" :icon="SearchIcon" placeholder="Search by email or user ID" aria-label="Search users" />
-        <SaTableFilterPicker :filters="list.filters" :labels="labels" />
-        <SaTableSort :sort="list.sort" :labels="sortLabels" />
+        <SaTableFilterPicker :filters="list.filters" />
+        <SaTableSort :sort="list.sort" />
         <SaButton variant="secondary" label="Refresh" :icon="ArrowPathIcon" icon-only />
       </template>
       <template #filters>
-        <SaTableFilters :filters="list.filters" :labels="labels">
+        <SaTableFilters :filters="list.filters">
           <template #summary><strong class="font-semibold text-gray-900">{{ list.matching.length }} of {{ users.length }} users</strong> match</template>
         </SaTableFilters>
       </template>
       <template #header>
         <SaTableHeader :sorting="list.sort" field="email">User</SaTableHeader>
-        <SaTableHeader fit :filtered-label="list.filters.isFiltered('status') ? 'Filtered' : undefined">Status</SaTableHeader>
+        <SaTableHeader fit :filtered="list.filters.isFiltered('status')">Status</SaTableHeader>
         <SaTableHeader fit>Last sign-in</SaTableHeader>
-        <SaTableHeader fit :sorting="list.sort" field="created" :filtered-label="list.filters.isFiltered('created') ? 'Filtered' : undefined">Created</SaTableHeader>
+        <SaTableHeader fit :sorting="list.sort" field="created" :filtered="list.filters.isFiltered('created')">Created</SaTableHeader>
         <SaTableHeader fit><span class="sr-only">Actions</span></SaTableHeader>
       </template>
       <template #rows>
@@ -112,7 +90,7 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
       </template>
       <template #empty><p class="text-sm text-gray-500">No user matches these filters.</p></template>
       <template #footer>
-        <SaPagination :page="list.page" :total-pages="list.pages" :size="PAGE_SIZE" :total="list.matching.length" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="list.page = $event" />
+        <SaPagination :page="list.page" :total-pages="list.pages" :size="PAGE_SIZE" :total="list.matching.length" @page-change="list.page = $event" />
       </template>
     </SaTable>
   </DemoFrame>
@@ -124,7 +102,7 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 - **`useSaFilters`**: what plugs a list into its filters. Whoever holds the records holds one, says which fields exist, and asks again on `onChange` with what `complete` holds. What a request looks like stays theirs.
 - **`SaTableFilterPicker`** in the table's `#toolbar`: adds a filter, from the fields searched rather than read down. A field is offered again once filtered, since two filters over one field is how a range is asked for.
 - **`SaTableFilters`** in the table's `#filters`: draws each filter, with the popover choosing its condition and value. It draws nothing while none is applied.
-- **`filteredLabel`** on a [Table](/components/table)'s header: marks the column a filter narrows, read from `isFiltered`.
+- **`filtered`** on a [Table](/components/table)'s header: marks the column a filter narrows, read from `isFiltered`.
 - **`initial`**: a filter the list starts with, such as one a link asked for.
 - **Not for** a free text search: that is a field in the table's `#toolbar`.
 
@@ -151,34 +129,33 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 
 ## Content
 
-- **A filter reads as a sentence**: the field's `name`, `operatorName`, then the value under the name its field gave it, as "Status is Enabled". `selectValue` stands in until there is one.
-- **`operatorName` reads for the type**: "is on or after" over a date, not "is at least".
+- **A filter reads as a sentence**: the field's `name`, its condition, then the value under the name its field gave it, as "Status is Enabled". "Choose..." stands in until there is one.
+- **A condition reads for the type**: "is", "is not", "is less than", "is at most", "is more than", "is at least", "is one of", "contains", "starts with" and "is empty" over a quantity or a text. Over a `date` or a `date_time` the six comparisons read as a moment, "is on", "is not on", "is before", "is on or before", "is after" and "is on or after", and the other four as over a quantity.
+- **Every word but the fields', their values' and the summary is the package's**: "Add filter", "Search fields", "Condition", "Value", "Search values", "Add a value", "Remove" and the value on each value entered, "Yes" and "No" for a boolean, "Clear filters", and "Active filters" naming the band.
 - **The summary says how many records are left**, as "3 of 9 users match" (see [Content](/foundations/content)).
 
 ## Accessibility
 
-- **The filters are a list named by `labels.list`**, and each control in one has a name: its sentence, and `labels.removeFilter` (WCAG 4.1.2).
+- **The filters are a list named "Active filters"**, and each control in one has a name: its sentence, and "Remove the Status filter", naming its field, so that a screen reader tells two remove controls apart (WCAG 4.1.2).
 - **A summary is a `status`**, so that the new count is announced (WCAG 4.1.3).
 - **The primitive holds the popover's focus and its Escape**, and closing it returns the focus to its filter. A list of values is named by the field's `name`, which `SaField`'s label cannot point at.
 
 ## API
 
-The consumer provides the fields, the words and the summary, since the component reads no message bundle, and turns what `complete` holds into its own request.
+The consumer provides the fields and the summary, and turns what `complete` holds into its own request. The components draw their other words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)).
 
 ### SaTableFilters
 
-| Name       | Type             | Default | Description                          |
-| ---------- | ---------------- | ------- | ------------------------------------ |
-| `filters`  | `SaFilters`      |         | Required. What `useSaFilters` holds. |
-| `labels`   | `SaFilterLabels` |         | Required. Its words.                 |
-| `#summary` | slot             |         | How many records are left.           |
+| Name       | Type        | Default | Description                          |
+| ---------- | ----------- | ------- | ------------------------------------ |
+| `filters`  | `SaFilters` |         | Required. What `useSaFilters` holds. |
+| `#summary` | slot        |         | How many records are left.           |
 
 ### SaTableFilterPicker
 
-| Name      | Type             | Default | Description                          |
-| --------- | ---------------- | ------- | ------------------------------------ |
-| `filters` | `SaFilters`      |         | Required. What `useSaFilters` holds. |
-| `labels`  | `SaFilterLabels` |         | Required. Its words.                 |
+| Name      | Type        | Default | Description                          |
+| --------- | ----------- | ------- | ------------------------------------ |
+| `filters` | `SaFilters` |         | Required. What `useSaFilters` holds. |
 
 ### useSaFilters
 
@@ -200,15 +177,14 @@ The consumer provides the fields, the words and the summary, since the component
 | `update`     | `(id, patch) => void` | Changes one.                                               |
 | `remove`     | `(id) => void`        | Removes one.                                               |
 | `clear`      | `() => void`          | Removes them all.                                          |
-| `isFiltered` | `(field) => boolean`  | Whether a filter narrows a field, for `filteredLabel`.     |
+| `isFiltered` | `(field) => boolean`  | Whether a filter narrows a field, for `filtered`.          |
 
 ### What a filter is made of
 
 - **`SaFilterField`**: a `field`, its `name`, a `SaFilterType`, the `SaFilterOperator`s it admits, and its `values` where the set is closed.
 - **`SaFilterCriterion`**: an `id`, a `field`, an `operator`, a `value`, and `values` under `in`.
-- **`SaFilterLabels`**: every word, once, with `operatorName` answering what an operator reads over a type.
 - **`saFilterKnownFields`**: the fields of an untyped description that can be drawn, for a source that may be newer than the package.
-- **`saFilterIsComplete`, `saFilterIsValueless`, `saFilterIsMultiValued`, `saFilterDefaultOperator` and `saFilterValues`**: the rules the components follow, for a source writing its request.
+- **`saFilterIsComplete`, `saFilterIsValueless`, `saFilterIsMultiValued`, `saFilterDefaultOperator` and `saFilterValues`**: the rules the components follow, for a source writing its request. `saFilterValues` still takes the words of a boolean's two values, since no component is there to draw them.
 - **`SA_FILTER_OPERATORS` and `SA_FILTER_TYPES`**: the two closed sets.
 
 ## Related

@@ -52,9 +52,9 @@ npm install github:sympauthy/sympauthy-design#<branch>
 npm builds `dist/` through `prepare`, as for a tag. The lockfile holds the branch's commit, so run
 the same command again after each push. Put the app's tag back before its own change is merged.
 
-Prefer this to a symlink, `npm link` or a `file:` path: the app would then resolve `vue` and
-`reka-ui` from this repository's own `node_modules`, a second copy of each, and a provider of the
-app's would reach no component of the package.
+Prefer this to a symlink, `npm link` or a `file:` path: the app would then resolve `vue`, `reka-ui`
+and `vue-i18n` from this repository's own `node_modules`, a second copy of each, and a provider of
+the app's, or its `vue-i18n` instance, would reach no component of the package.
 
 ## What a change touches
 
@@ -66,6 +66,10 @@ app's would reach no component of the package.
 - **A component's props, slots or events** — the component, and the API table of its page, in the
   same commit.
 - **A shared class** — `src/components.css`.
+- **A word a component says the same on every screen** — the component, every language in
+  `src/messages/`, and the component's page, whose demos then pass it no longer.
+- **A language of the package's words** — its module in `src/messages/`, `SA_LOCALES`, and a branch
+  of `loadSaMessages`.
 - **A role a deployment may set** — `src/theme/roles.ts`, `tokens.json`, `src/theme/derive.ts`, the
   theme builder, and the server's role lists
   ([theming](theming.md#a-new-role-is-a-change-on-the-server-too)).

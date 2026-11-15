@@ -1,25 +1,12 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ArrowDownIcon, ArrowsUpDownIcon, ArrowUpIcon } from '@heroicons/vue/20/solid'
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 import SaButton from './SaButton.vue'
 import SaListbox from './SaListbox.vue'
 import { usePortalBody } from './portalBody'
 import type { SaSort } from './useSaSort'
-
-/** The words `SaTableSort` draws, since the package reads no message bundle. */
-export interface SaSortLabels {
-  /** Said by the control where the list is in no order it can name, as "Sort". */
-  sort: string
-  /** Names what is searched, where the orders are many, as "Search orders". */
-  search: string
-  /** Said when a search matches nothing, as "Nothing matches". */
-  noMatch: string
-  /** What an upward arrow says to a screen reader, as "ascending". */
-  ascending: string
-  /** What a downward arrow says to a screen reader, as "descending". */
-  descending: string
-}
 
 /**
  * The order of a table on a phone, where the header row holding it is not drawn. It goes in the
@@ -28,13 +15,14 @@ export interface SaSortLabels {
  *
  * It says an order the way a header does, as a field's name and an arrow after it, on the control
  * and in the list alike. A person moving between widths then reads one order, and the words an order
- * would otherwise need cannot push the rest of the toolbar off its line.
+ * would otherwise need cannot push the rest of the toolbar off its line. Where the list is in no
+ * order it can name, the control says "Sort".
  */
 const props = defineProps<{
   sort: SaSort
-  labels: SaSortLabels
 }>()
 
+const { t } = useI18n()
 const portalBody = usePortalBody()
 
 const open = ref(false)
@@ -47,7 +35,7 @@ const options = computed(() =>
       value: orderOf(field.field, descending),
       label: field.name,
       icon: descending ? ArrowDownIcon : ArrowUpIcon,
-      iconLabel: descending ? props.labels.descending : props.labels.ascending,
+      iconLabel: descending ? t('sa.tableSort.descending') : t('sa.tableSort.ascending'),
       field: field.field,
       descending
     }))
@@ -65,7 +53,7 @@ const chosen = computed(() => options.value.find((option) => option.value === cu
 // starts with what the control shows, so that a person speaking to their device can name it
 // (WCAG 2.5.3).
 const accessibleName = computed(() =>
-  chosen.value ? `${chosen.value.label}, ${chosen.value.iconLabel}` : props.labels.sort
+  chosen.value ? `${chosen.value.label}, ${chosen.value.iconLabel}` : t('sa.tableSort.sort')
 )
 
 // The list answers a pick whether or not it changed anything. Picking the order already chosen asks
@@ -91,7 +79,7 @@ function onSelect(values: string[]) {
         :aria-label="accessibleName"
         :trailing-icon="chosen?.icon ?? ArrowsUpDownIcon"
       >
-        {{ chosen?.label ?? props.labels.sort }}
+        {{ chosen?.label ?? t('sa.tableSort.sort') }}
       </SaButton>
     </PopoverTrigger>
 
@@ -105,9 +93,8 @@ function onSelect(values: string[]) {
         <SaListbox
           :options="options"
           :selected="current ? [current] : []"
-          :search-placeholder="props.labels.search"
-          :no-match-label="props.labels.noMatch"
-          :aria-label="props.labels.sort"
+          :search-placeholder="t('sa.tableSort.search')"
+          :aria-label="t('sa.tableSort.sort')"
           @select="onSelect"
         />
       </PopoverContent>

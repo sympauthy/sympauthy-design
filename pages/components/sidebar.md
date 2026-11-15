@@ -11,9 +11,9 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 
 <div class="demo vp-raw"><ClientOnly><SaTooltipProvider>
   <div style="width: 256px; height: 560px">
-    <SaSidebar :sections="demoSections" label="Main" close-label="Close the menu" :home-link="{ href: '#users' }">
+    <SaSidebar :sections="demoSections" :home-link="{ href: '#users' }">
       <template #head><SaBrandLogo dark size="md" /><span class="truncate text-lg tracking-tight"><span class="font-medium">Symp</span><span class="font-extrabold">Authy</span></span><span class="text-xs font-medium tracking-wider text-nav-muted uppercase">Admin</span></template>
-      <template #foot><SaSidebarAccount name="Ada Lovelace" detail="ada@example.com" sign-out-label="Sign out" /></template>
+      <template #foot><SaSidebarAccount name="Ada Lovelace" detail="ada@example.com" /></template>
     </SaSidebar>
   </div>
 </SaTooltipProvider></ClientOnly></div>
@@ -21,9 +21,9 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 <div class="demo vp-raw"><div class="flex flex-wrap gap-4">
   <DemoFrame v-for="frame in modes" :key="frame.mode" v-bind="frame" :crop="256" :height="420" flush>
     <div class="h-screen w-sidebar">
-      <SaSidebar :sections="framedSections" label="Main" close-label="Close the menu" :home-link="{ href: '#users' }">
+      <SaSidebar :sections="framedSections" :home-link="{ href: '#users' }">
         <template #head><SaBrandLogo dark size="md" /><span class="truncate text-lg tracking-tight"><span class="font-medium">Symp</span><span class="font-extrabold">Authy</span></span><span class="text-xs font-medium tracking-wider text-nav-muted uppercase">Admin</span></template>
-        <template #foot><SaSidebarAccount name="Ada Lovelace" sign-out-label="Sign out" /></template>
+        <template #foot><SaSidebarAccount name="Ada Lovelace" /></template>
       </SaSidebar>
     </div>
   </DemoFrame>
@@ -60,38 +60,35 @@ const modes = [{ mode: 'phone', label: 'Phone and tablet' }, { mode: 'desktop' }
 
 ## Accessibility
 
-- **`label` names the `nav`, and the current entry takes `aria-current="page"`** (WCAG 2.4.8).
+- **"Main" names the `nav`, and the current entry takes `aria-current="page"`** (WCAG 2.4.8). "Close menu" names the control closing the drawer, which draws no words (WCAG 4.1.2).
 - **A disabled entry is `role="link"` with `aria-disabled`**, set by the component, so that it stays reachable and its reason can be read.
 - **`nav-text` holds 13.5:1 on `nav-ground`.**
 - **An entry and the sign-out control are at least `control-height` tall, and the target of the control closing the drawer is `control-height` square**, so that they can be touched (WCAG 2.5.5). The head's link stops short of that target.
 
 ## API
 
-The consumer provides the sections, what draws their links, the head and the foot, and the words, since the component knows no router, no scopes and no message bundle. An app decides from its own scopes what is disabled, and from its route what is current. With a router, pass its link as `linkAs` and each entry's `{ to }` as its `link`.
+The consumer provides the sections, what draws their links, the head and the foot, since the component knows no router and no scopes. It draws its other words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)). An app decides from its own scopes what is disabled, and from its route what is current. With a router, pass its link as `linkAs` and each entry's `{ to }` as its `link`.
 
-| Name         | Type                  | Default | Description                                                       |
-| ------------ | --------------------- | ------- | ----------------------------------------------------------------- |
-| `sections`   | `SaSidebarSection[]`  |         | Required. Each a `label` and `entries`.                           |
-| `label`      | `string`              |         | Required. Names the navigation.                                   |
-| `homeLink`   | `object`              |         | What the head's link is given. Without it the head is not a link. |
-| `closeLabel` | `string`              |         | Required. Names the control closing the drawer.                   |
-| `linkAs`     | `string \| Component` | `'a'`   | What draws a link.                                                |
-| `@close`     | event                 |         | The control closing the drawer was pressed.                       |
-| `#head`      | slot                  |         | The logo and the name.                                            |
-| `#foot`      | slot                  |         | Who is signed in, and signing out.                                |
+| Name       | Type                  | Default | Description                                                       |
+| ---------- | --------------------- | ------- | ----------------------------------------------------------------- |
+| `sections` | `SaSidebarSection[]`  |         | Required. Each a `label` and `entries`.                           |
+| `homeLink` | `object`              |         | What the head's link is given. Without it the head is not a link. |
+| `linkAs`   | `string \| Component` | `'a'`   | What draws a link.                                                |
+| `@close`   | event                 |         | The control closing the drawer was pressed.                       |
+| `#head`    | slot                  |         | The logo and the name.                                            |
+| `#foot`    | slot                  |         | Who is signed in, and signing out.                                |
 
 An entry is a `key`, a `label`, a `link`, and optionally `current` and `disabledReason`.
 
 ### SaSidebarAccount
 
-The consumer provides who is signed in and the words, and signs out when told to.
+The consumer provides who is signed in, and signs out when told to. The control says "Sign out", the package's.
 
-| Name           | Type     | Default | Description                                 |
-| -------------- | -------- | ------- | ------------------------------------------- |
-| `name`         | `string` |         | Required. Who is signed in.                 |
-| `detail`       | `string` |         | What tells them apart, such as their email. |
-| `signOutLabel` | `string` |         | Required. What the sign-out control says.   |
-| `@sign-out`    | event    |         | The sign-out control was pressed.           |
+| Name        | Type     | Default | Description                                 |
+| ----------- | -------- | ------- | ------------------------------------------- |
+| `name`      | `string` |         | Required. Who is signed in.                 |
+| `detail`    | `string` |         | What tells them apart, such as their email. |
+| `@sign-out` | event    |         | The sign-out control was pressed.           |
 
 ## Related
 

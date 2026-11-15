@@ -62,7 +62,15 @@ export default defineConfig({
     // table of records as prose.
     css: { postcss: { plugins: [postcssIsolateStyles({ includeFiles: [/vp-doc\.css/] })] } },
     // Tailwind compiles the live component demos; the pages themselves use VitePress's theme.
-    plugins: [tailwindcss(), publicFolderIndex()]
+    plugins: [tailwindcss(), publicFolderIndex()],
+    // vue-i18n's bundler build reads these flags, as the apps' build plugin sets them: the
+    // composition mode alone, and the message compiler kept for the package's plain messages.
+    define: {
+      __VUE_I18N_LEGACY_API__: false,
+      __VUE_I18N_FULL_INSTALL__: true,
+      __INTLIFY_DROP_MESSAGE_COMPILER__: false,
+      __INTLIFY_PROD_DEVTOOLS__: false
+    }
   },
   themeConfig: {
     logo: { src: '/logo.svg', alt: '' },

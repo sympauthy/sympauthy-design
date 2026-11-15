@@ -61,7 +61,7 @@ export { default as SaTableFilterPicker } from './components/SaTableFilterPicker
 export { default as SaTableFilters } from './components/SaTableFilters.vue'
 export { default as SaTableHeader } from './components/SaTableHeader.vue'
 export { default as SaTableRecord } from './components/SaTableRecord.vue'
-export { default as SaTableSort, type SaSortLabels } from './components/SaTableSort.vue'
+export { default as SaTableSort } from './components/SaTableSort.vue'
 export { default as SaTabs, type Tab } from './components/SaTabs.vue'
 export { default as SaTag, type SaTagVariant } from './components/SaTag.vue'
 export { default as SaTagsInput } from './components/SaTagsInput.vue'
@@ -95,12 +95,20 @@ export {
   type SaFilterCriterion,
   type SaFilterField,
   type SaFilterFieldDescription,
-  type SaFilterLabels,
   type SaFilterOperator,
   type SaFilterPatch,
   type SaFilterType,
   type SaFilterValue
 } from './components/saFilter'
+
+// The words the components say the same on every screen, for an app's vue-i18n, a language at a time.
+export {
+  loadSaMessages,
+  SA_LOCALES,
+  SA_MESSAGES_EN,
+  type SaLocale,
+  type SaMessages
+} from './messages'
 
 // Branding: what the server answers under /branding, and a theme tried in the page before it is.
 export { brandingUrls, fetchBrand, type Brand, type BrandingUrls } from './theme/brand'

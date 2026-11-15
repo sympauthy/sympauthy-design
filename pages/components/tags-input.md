@@ -11,8 +11,8 @@ const none = ref([])
 </script>
 
 <div class="demo"><div class="stack">
-  <SaField label="Redirect URIs" hint="Press Enter after each one."><SaTagsInput v-model="uris" remove-label="Remove" placeholder="Add a URI" aria-label="Redirect URIs" /></SaField>
-  <SaField label="Redirect URIs" error="Add at least one URI."><SaTagsInput v-model="none" remove-label="Remove" placeholder="Add a URI" aria-label="Redirect URIs" invalid /></SaField>
+  <SaField label="Redirect URIs" hint="Press Enter after each one."><SaTagsInput v-model="uris" placeholder="Add a URI" aria-label="Redirect URIs" /></SaField>
+  <SaField label="Redirect URIs" error="Add at least one URI."><SaTagsInput v-model="none" placeholder="Add a URI" aria-label="Redirect URIs" invalid /></SaField>
 </div></div>
 
 ## Usage
@@ -37,17 +37,16 @@ const none = ref([])
 
 ## Accessibility
 
-- **`removeLabel` names each cross**, and the primitive handles the keyboard (WCAG 4.1.2).
+- **Each cross is named for the value it removes**, as "Remove https://a.example", so that a screen reader tells two apart, and the primitive handles the keyboard (WCAG 4.1.2). The primitive's own name, the value alone, is replaced, since it says nothing of what the cross does.
 - **Pass `ariaLabel`**, since `SaField`'s label points at no single control here. A line under it in `SaField` is linked with `aria-describedby`.
 - **The target of a cross is `control-height` square**, while the icon stays 12px (WCAG 2.5.5). It may overlap the word beside it, which does nothing when pressed.
 
 ## API
 
-The consumer provides the words, since the component reads no message bundle. Other attributes reach the box.
+The consumer provides the placeholder and the name of the field. The control removing a value is named "Remove" and the value, from the package's words in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)). Other attributes reach the box.
 
 | Name          | Type       | Default     | Description                                   |
 | ------------- | ---------- | ----------- | --------------------------------------------- |
-| `removeLabel` | `string`   |             | Required. Names the control removing a value. |
 | `placeholder` | `string`   | `undefined` | Named in the empty field.                     |
 | `ariaLabel`   | `string`   | `undefined` | Names the field.                              |
 | `invalid`     | `boolean`  | `false`     | Draws the error border; pair it with `error`. |
