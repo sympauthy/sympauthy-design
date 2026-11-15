@@ -63,11 +63,15 @@
   box-sizing: content-box;
 }
 
+/* A modal opened in a frame locks the page's body, which is the document reka-ui's scroll lock
+   knows, and the frame would inherit its `pointer-events: none`: the modal could not be pressed.
+   The frame takes the pointer whatever the page around it says. */
 .demo-frame-box iframe {
   display: block;
   max-width: none;
   border: 0;
   transform-origin: top left;
+  pointer-events: auto;
 }
 
 /* VitePress holds its body at the viewport's height, which a frame fitting its demo cannot have. */
