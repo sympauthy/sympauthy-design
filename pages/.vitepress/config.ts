@@ -98,6 +98,7 @@ export default defineConfig({
           { text: 'Control height', link: '/foundations/control-height' },
           { text: 'Shape', link: '/foundations/shape' },
           { text: 'Focus, states and motion', link: '/foundations/focus' },
+          { text: 'Focus management', link: '/foundations/focus-management' },
           { text: 'Layout', link: '/foundations/layout' },
           { text: 'Navigation', link: '/foundations/navigation' },
           { text: 'Iconography', link: '/foundations/iconography' },

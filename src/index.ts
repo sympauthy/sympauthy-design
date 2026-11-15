@@ -1,5 +1,6 @@
 // Components of the Common group: any app can draw them, from this one source.
 export { SA_PAGE_ACTIONS_OUTLET } from './components/pageActionsOutlet'
+export { SA_PAGE_HEADING } from './components/pageHeading'
 export { default as SaAlert } from './components/SaAlert.vue'
 export { default as SaAppShell } from './components/SaAppShell.vue'
 export { default as SaBrandLogo } from './components/SaBrandLogo.vue'
