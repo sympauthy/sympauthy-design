@@ -37,8 +37,11 @@ npm run format
 - **`tokens.json` is the one source of every value.** Change a color, a size or a radius there and
   rebuild; never edit `dist/`, and never write a hex value in a component.
 - **Components use Tailwind utilities and the shared rules of `src/components.css`**, so the apps'
-  Tailwind compiles them. They know nothing of any app: no store, no router, no auth, no message
-  bundle. An app that needs more (the admin's scopes) wraps the component.
+  Tailwind compiles them. They know nothing of any app: no store, no router, no auth. An app that
+  needs more (the admin's scopes) wraps the component.
+- **A word a component says the same on every screen is the package's**, under `sa.` in
+  `src/messages/`, drawn through the app's `vue-i18n` (a peer); no prop carries it. A word naming
+  what is on the screen stays a prop, and a behaviour is a boolean, never a word.
 - **A component joins `src/components/` when more than one app draws it, or when it names nothing
   of the one app drawing it and any app built like the admin would draw it** (the Common group;
   [the components standard](docs/standards/components-standard.md) owns the rule). Any other
@@ -63,7 +66,7 @@ npm run format
 ## Releases
 
 - **Never published to npm.** The package is internal to SympAuthy: `private` stays `true`, and the
-  apps install it by tag (`github:sympauthy/sympauthy-design#v0.10.0`). A release is a version bump
+  apps install it by tag (`github:sympauthy/sympauthy-design#v0.12.0`). A release is a version bump
   merged to `main`, then the tag.
 
 ## Pull requests

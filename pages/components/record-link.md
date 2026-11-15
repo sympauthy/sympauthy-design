@@ -30,7 +30,7 @@ const sessions = [
       </div>
     </div>
     </template>
-    <SaTable loading-label="Loading sessions.">
+    <SaTable>
       <template #header>
         <SaTableHeader>Started</SaTableHeader>
         <SaTableHeader>User</SaTableHeader>

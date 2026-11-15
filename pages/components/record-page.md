@@ -11,7 +11,6 @@ const views = [
   { key: 'mfa', label: 'MFA methods', description: 'Second factors the user set up to sign in.', link: { href: '#mfa' } },
   { key: 'audit', label: 'Audit', link: { href: '#audit' } }
 ]
-const copied = { label: 'Copy client ID', copiedLabel: 'Client ID copied', failedLabel: 'Your browser refused to copy the client ID' }
 </script>
 
 ## Demo
@@ -23,7 +22,7 @@ const copied = { label: 'Copy client ID', copiedLabel: 'Client ID copied', faile
     </template>
     <div class="flex flex-col gap-6">
     <SaSummaryCard>
-      <SaSummaryField label="Client ID" mono><SaCopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" v-bind="copied" /></SaSummaryField>
+      <SaSummaryField label="Client ID" mono><SaCopyableValue value="c3f1e0a2-7b4d-4e8a-9f21-5d0c8a7e6b13" label="Copy client ID" /></SaSummaryField>
       <SaSummaryField label="Type">Confidential</SaSummaryField>
       <SaSummaryField label="Status"><SaTag color="green">Active</SaTag></SaSummaryField>
     </SaSummaryCard>

@@ -7,8 +7,6 @@ Which page of a list is on screen, and the way to the others.
 <script setup>
 import { ref } from 'vue'
 const page = ref(4)
-const pageLabel = (p, total) => `Page ${p} of ${total}`
-const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 </script>
 
 ## Demo
@@ -16,8 +14,8 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 <div class="demo vp-raw">
   <DemoModes surface :modes="['phone', 'tablet', 'desktop']">
     <div class="flex flex-col gap-4">
-    <SaPagination :page="page" :total-pages="10" :size="20" :total="200" label="Pages of users" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" @page-change="page = $event" />
-    <SaPagination :page="0" :total-pages="1" :size="20" :total="3" label="Pages of clients" previous-label="Previous" next-label="Next" :page-label="pageLabel" :range-label="rangeLabel" />
+    <SaPagination :page="page" :total-pages="10" :size="20" :total="200" @page-change="page = $event" />
+    <SaPagination :page="0" :total-pages="1" :size="20" :total="3" />
     </div>
   </DemoModes>
 </div>
@@ -32,7 +30,7 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 
 - **Step**: `.sa-control`, so `control-height` square at least, with `surface` and `panel-strong` `ink-700` text, `space-2` apart.
 - **Current page**: `primary` with `on-primary` digits, and no border.
-- **Range**: 14px in `ink-500`, on the left from `sm:`, with the pager on the right. On one page it is there at every width, alone.
+- **Range**: 14px in `ink-500`, on the left from `sm:`, with the pager on the right, whenever `size` and `total` are given. On one page it is there at every width, alone.
 - **Bar**: `control-height` at least, with its steps or without, so that the foot holding it keeps its height.
 - **Below `sm:`**: no page numbers and no range. The two arrows take the ends of the row, and the page indicator sits between them.
 - **Previous and next**: arrows alone until `lg:`, then with their words. Seven steps and the range take all of the width at `sm:`.
@@ -47,29 +45,24 @@ const rangeLabel = ({ from, to, total }) => `Showing ${from}-${to} of ${total}`
 
 ## Content
 
-- **`pageLabel` says which page of how many**, as "Page 2 of 10". **`rangeLabel` says which rows**, as "Showing 1-20 of 200" (see [Content](/foundations/content)).
+- **Every word is the package's**: "Previous" and "Next", "Page 2 of 10" for which page of how many, and "Showing 1-20 of 200" for which rows. A pager says the same under every list, so it names the rows rather than what they are.
 
 ## Accessibility
 
-- **`label` names the pager, and every step has a name**: `previousLabel`, `nextLabel`, and `pageLabel` for each number (WCAG 4.1.2).
+- **"Pages" names the pager, and every step has a name**: "Previous", "Next", and "Page 2 of 10" for each number (WCAG 4.1.2).
 - **The current page takes `aria-current="page"`**, set by the primitive.
 
 ## API
 
-The consumer provides the page, what it counts, and the words, since the component reads no message bundle.
+The consumer provides the page and what it counts. The component draws its words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)).
 
-| Name            | Type                              | Default     | Description                                        |
-| --------------- | --------------------------------- | ----------- | -------------------------------------------------- |
-| `page`          | `number`                          |             | Required. The current page, counted from 0.        |
-| `totalPages`    | `number`                          |             | Required.                                          |
-| `label`         | `string`                          |             | Required. Names the pager.                         |
-| `previousLabel` | `string`                          |             | Required.                                          |
-| `nextLabel`     | `string`                          |             | Required.                                          |
-| `pageLabel`     | `(page, totalPages) => string`    |             | Required. Says which page a step leads to.         |
-| `size`          | `number`                          | `0`         | The rows on a page, which with `total` is a range. |
-| `total`         | `number`                          | `0`         | The rows in the list.                              |
-| `rangeLabel`    | `({ from, to, total }) => string` | `undefined` | Says which rows are on screen.                     |
-| `@pageChange`   | event                             |             | The page asked for, counted from 0.                |
+| Name          | Type     | Default | Description                                        |
+| ------------- | -------- | ------- | -------------------------------------------------- |
+| `page`        | `number` |         | Required. The current page, counted from 0.        |
+| `totalPages`  | `number` |         | Required.                                          |
+| `size`        | `number` | `0`     | The rows on a page, which with `total` is a range. |
+| `total`       | `number` | `0`     | The rows in the list.                              |
+| `@pageChange` | event    |         | The page asked for, counted from 0.                |
 
 ## Related
 

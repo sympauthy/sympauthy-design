@@ -9,10 +9,12 @@ defineProps<{
   value: string
   /** Names the control: what it copies, as "Copy client ID". */
   label: string
-  /** Announced, and shown as the title, once the value is copied. */
-  copiedLabel: string
-  /** Announced, and shown as the title, when the browser refuses. */
-  failedLabel: string
+}>()
+
+// Handed on from the control, so that a screen can say more of a refusal than "Could not copy".
+const emit = defineEmits<{
+  copied: []
+  failed: [error: unknown]
 }>()
 </script>
 
@@ -22,8 +24,8 @@ defineProps<{
     <SaCopyButton
       :value="value"
       :label="label"
-      :copied-label="copiedLabel"
-      :failed-label="failedLabel"
+      @copied="emit('copied')"
+      @failed="(error) => emit('failed', error)"
     />
   </span>
 </template>

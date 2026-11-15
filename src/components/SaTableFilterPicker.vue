@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { PlusIcon } from '@heroicons/vue/20/solid'
 import { PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger } from 'reka-ui'
 import SaButton from './SaButton.vue'
 import SaListbox from './SaListbox.vue'
 import { usePortalBody } from './portalBody'
-import type { SaFilterLabels } from './saFilter'
 import type { SaFilters } from './useSaFilters'
 
 /**
@@ -18,9 +18,9 @@ import type { SaFilters } from './useSaFilters'
  */
 const props = defineProps<{
   filters: SaFilters
-  labels: SaFilterLabels
 }>()
 
+const { t } = useI18n()
 const portalBody = usePortalBody()
 
 const open = ref(false)
@@ -78,7 +78,7 @@ function onCloseAutoFocus(event: Event) {
 <template>
   <PopoverRoot v-if="options.length > 0" :open="open" @update:open="onOpenChange">
     <PopoverTrigger as-child>
-      <SaButton variant="secondary" :label="props.labels.add" :icon="PlusIcon" />
+      <SaButton variant="secondary" :label="t('sa.tableFilters.add')" :icon="PlusIcon" />
     </PopoverTrigger>
 
     <PopoverPortal :to="portalBody">
@@ -92,9 +92,8 @@ function onCloseAutoFocus(event: Event) {
         <SaListbox
           :options="options"
           :selected="[]"
-          :search-placeholder="props.labels.searchFields"
-          :no-match-label="props.labels.noMatch"
-          :aria-label="props.labels.add"
+          :search-placeholder="t('sa.tableFilters.searchFields')"
+          :aria-label="t('sa.tableFilters.add')"
           @select="onSelect"
         />
       </PopoverContent>

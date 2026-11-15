@@ -2,13 +2,13 @@
 
 <p class="caps-note">Common · shipped in <code>@sympauthy/design</code> as <code>SaLoadingState</code></p>
 
-What a screen shows while it waits: a spinner and a line saying what is being waited for.
+What a screen shows while it waits: a spinner and a line saying "Loading...".
 
 ## Demo
 
 <div class="demo"><div class="stack">
-  <SaLoadingState label="Loading users." />
-  <SaCard><SaLoadingState label="Waiting for a response from the server." size="lg" /></SaCard>
+  <SaLoadingState />
+  <SaCard><SaLoadingState size="lg" /></SaCard>
 </div></div>
 
 ## Usage
@@ -32,19 +32,18 @@ What a screen shows while it waits: a spinner and a line saying what is being wa
 
 ## Content
 
-- **The line says what is being waited for** (see [Content](/foundations/content)).
+- **The line says "Loading..."**, the package's, the same on every screen. What is being waited for is what the screen around it names.
 
 ## Accessibility
 
-- **The spinner announces `label` through its `role="status"`, and the line a person reads is hidden from a screen reader**, so the label is announced once (WCAG 4.1.3).
+- **The spinner announces "Loading..." through its `role="status"`, and the line a person reads is hidden from a screen reader**, so it is announced once (WCAG 4.1.3).
 
 ## API
 
-The consumer provides the words, since the component reads no message bundle.
+The consumer provides its size and where it stands. The component draws its words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)).
 
 | Name       | Type           | Default | Description                              |
 | ---------- | -------------- | ------- | ---------------------------------------- |
-| `label`    | `string`       |         | What is being waited for. Required.      |
 | `size`     | `'md' \| 'lg'` | `'md'`  | Whether it heads a part or stands alone. |
 | `centered` | `boolean`      | `false` | Centres it in the height it is given.    |
 

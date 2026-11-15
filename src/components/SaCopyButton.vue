@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { onBeforeUnmount, ref } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { CheckIcon, ClipboardDocumentIcon, XMarkIcon } from '@heroicons/vue/20/solid'
 
 /**
@@ -10,10 +11,6 @@ const props = defineProps<{
   value: string
   /** Names the control: what it copies, as "Copy client ID". */
   label: string
-  /** Announced, and shown as the title, once the value is copied. */
-  copiedLabel: string
-  /** Announced, and shown as the title, when the browser refuses. */
-  failedLabel: string
 }>()
 
 const emit = defineEmits<{
@@ -21,7 +18,18 @@ const emit = defineEmits<{
   failed: [error: unknown]
 }>()
 
+const { t } = useI18n()
+
 const state = ref<'idle' | 'copied' | 'failed'>('idle')
+
+// Announced, and shown as the title, once the value is copied or when the browser refuses.
+const outcome = computed(() =>
+  state.value === 'copied'
+    ? t('sa.copy.copied')
+    : state.value === 'failed'
+      ? t('sa.copy.failed')
+      : ''
+)
 let timer: ReturnType<typeof setTimeout> | undefined
 
 function show(next: 'copied' | 'failed') {
@@ -54,7 +62,7 @@ onBeforeUnmount(() => clearTimeout(timer))
       type="button"
       class="relative -m-1 cursor-pointer rounded-md p-1 text-gray-500 outline-primary after:absolute after:top-1/2 after:left-1/2 after:size-control after:-translate-x-1/2 after:-translate-y-1/2 hover:bg-primary-subtle hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2"
       :aria-label="label"
-      :title="state === 'copied' ? copiedLabel : state === 'failed' ? failedLabel : label"
+      :title="outcome || label"
       @click="copy"
     >
       <CheckIcon v-if="state === 'copied'" class="size-4 text-tag-green" />
@@ -62,7 +70,7 @@ onBeforeUnmount(() => clearTimeout(timer))
       <ClipboardDocumentIcon v-else class="size-4" />
     </button>
     <span class="sr-only" role="status">
-      {{ state === 'copied' ? copiedLabel : state === 'failed' ? failedLabel : '' }}
+      {{ outcome }}
     </span>
   </span>
 </template>

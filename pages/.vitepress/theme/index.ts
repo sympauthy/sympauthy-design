@@ -1,5 +1,6 @@
 import DefaultTheme from 'vitepress/theme-without-fonts'
 import type { Theme } from 'vitepress'
+import { createI18n } from 'vue-i18n'
 import '../../../src/fonts.css'
 import '../../../dist/tokens.css'
 import './brand.css'
@@ -60,12 +61,22 @@ import {
   SaTagsInput,
   SaTextarea,
   SaTooltip,
-  SaTooltipProvider
+  SaTooltipProvider,
+  SA_MESSAGES_EN
 } from '../../../src/index'
 
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
+    // The package's words, in English, as an app adds them beside its own.
+    app.use(
+      createI18n({
+        legacy: false,
+        locale: 'en',
+        fallbackLocale: 'en',
+        messages: { en: SA_MESSAGES_EN }
+      })
+    )
     // The Common components, registered for the live demos in pages/components/*.md.
     app.component('SaAlert', SaAlert)
     app.component('SaAppShell', SaAppShell)

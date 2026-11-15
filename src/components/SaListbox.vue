@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, watch, type Component } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { CheckIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 import {
   ListboxContent,
@@ -43,8 +44,6 @@ const props = withDefaults(
     selected: string[]
     /** Names what is being searched, where the list is long enough to be. */
     searchPlaceholder: string
-    /** Said in place of the options when the search matches none. */
-    noMatchLabel: string
     multiple?: boolean
     /**
      * Names the list itself, outside a `SaField`: the label beside it points at nothing. In a field,
@@ -71,6 +70,7 @@ const emit = defineEmits<{
 /** What is typed in the search, for a caller ordering the options by whether one is typed. */
 const search = defineModel<string>('search', { default: '' })
 
+const { t } = useI18n()
 const description = useFieldDescription()
 const field = useFieldLabel()
 
@@ -233,7 +233,7 @@ defineExpose({ focus })
 
       <!-- Nothing the search matches, which is a list and not a failure. -->
       <p v-if="matches.length === 0" class="px-4 py-2 text-sm text-gray-500">
-        {{ props.noMatchLabel }}
+        {{ t('sa.listbox.noMatch') }}
       </p>
     </ListboxContent>
   </ListboxRoot>

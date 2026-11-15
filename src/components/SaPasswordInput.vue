@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/vue/20/solid'
 import SaInput from './SaInput.vue'
 
@@ -7,13 +8,11 @@ import SaInput from './SaInput.vue'
  * A password a person can check before sending it: an `SaInput` of type `password` whose trailing
  * slot holds the toggle showing what was typed. A person who can read what they typed is not asked
  * to type it twice.
+ *
+ * The toggle's one name is "Show password", and `aria-pressed` says whether the password is shown,
+ * so that a screen reader never hears the name change under it.
  */
 export interface SaPasswordInputProps {
-  /**
-   * Names the toggle, as "Show password". It is its one name, and `aria-pressed` says whether the
-   * password is shown, so that a screen reader never hears the name change under it.
-   */
-  showLabel: string
   /** Draws the error border; pair it with SaField's `error`. */
   invalid?: boolean
   /** Disables the input and its toggle with it. */
@@ -26,6 +25,8 @@ withDefaults(defineProps<SaPasswordInputProps>(), {
 })
 
 const model = defineModel<string>({ default: '' })
+
+const { t } = useI18n()
 
 // Everything a caller says is said to the input, as on SaInput.
 defineOptions({ inheritAttrs: false })
@@ -65,7 +66,7 @@ onBeforeUnmount(() => form?.removeEventListener('submit', hide))
       <button
         ref="toggle"
         type="button"
-        :aria-label="showLabel"
+        :aria-label="t('sa.passwordInput.show')"
         :aria-pressed="shown"
         :disabled="disabled"
         class="relative flex rounded-md text-gray-500 outline-primary after:absolute after:top-1/2 after:left-1/2 after:size-control after:-translate-x-1/2 after:-translate-y-1/2 hover:text-gray-700 focus-visible:outline-2 disabled:cursor-not-allowed disabled:text-gray-400"

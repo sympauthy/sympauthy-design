@@ -15,8 +15,6 @@ import { useSaAutoPageSize } from './useSaAutoPageSize'
  */
 const props = withDefaults(
   defineProps<{
-    /** Says what is being waited for while [loading]. */
-    loadingLabel: string
     loading?: boolean
     error?: string | null
     empty?: boolean
@@ -75,7 +73,7 @@ const showsTable = computed(() => !props.loading && !props.error && !props.empty
       ref="viewport"
       :class="fill ? 'overflow-x-auto sm:min-h-0 sm:flex-1 sm:overflow-y-auto' : 'overflow-x-auto'"
     >
-      <SaLoadingState v-if="loading" class="p-4" :label="loadingLabel" :centered="fill" />
+      <SaLoadingState v-if="loading" class="p-4" :centered="fill" />
 
       <div v-else-if="error" class="p-4">
         <SaAlert color="danger">

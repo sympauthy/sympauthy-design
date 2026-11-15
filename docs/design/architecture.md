@@ -9,9 +9,10 @@ is [the site](site.md).
 
 ## What each consumer takes
 
-**An app takes the theme, the shared rules and the Common components, and compiles them itself.**
-It imports a Tailwind theme, a stylesheet of shared classes, the fonts and Vue components, all as
-source, and its own build turns them into its pages. Nothing here is compiled for it, so what a
+**An app takes the theme, the shared rules, the Common components and their words, and compiles
+them itself.** It imports a Tailwind theme, a stylesheet of shared classes, the fonts, Vue
+components and the words they say the same on every screen, all as source, and its own build turns
+them into its pages. Nothing here is compiled for it, so what a
 contributor edits is what an app runs.
 
 **The server takes `tokens.json` and the files of `logos/`.** From them it writes the stylesheet and
@@ -78,9 +79,25 @@ app holds one copy and a provider reaches every component under it; `@heroicons/
 dependency, since an icon holds no state. The fonts come from `@fontsource-variable` and are served
 by the app itself, since a sign-in page must not tell a font host who is signing in.
 
+## How a component's words reach a page
+
+**A word a component says the same on every screen is drawn through the app's `vue-i18n`.** The
+package holds it under `sa.`, and the component reads it from the app's global messages, so the
+language the app renders in is the language of the components with no second choice of language to
+keep in step. `vue-i18n` is a peer dependency for the reason `reka-ui` is: one instance, which every
+component reaches. A word naming what is on the screen is a prop, as before.
+
+**The package hands its words out a language at a time, and the app adds them beside its own.**
+English is a constant in the app's first load, since it is the language every app falls back to;
+every other language is a chunk of the app's build that a loader imports, and that the app asks for
+only in a language it holds itself. The app's `vue-i18n` compiles the plain messages as it first
+draws them, so nothing of the app's build names a path into the package. [Using in the
+apps](../../pages/using-in-apps.md#the-package-s-words) says what an app writes.
+
 ## Where a change starts
 
-**Values start in `tokens.json`, components in `src/components/`, branding in `src/theme/`.** The
+**Values start in `tokens.json`, components in `src/components/`, their words in `src/messages/`,
+branding in `src/theme/`.** The
 rest of the tree is the site and what the server and the apps read as files. [Running
 locally](running-locally.md#what-a-change-touches) lists the files each common change touches.
 
@@ -92,6 +109,7 @@ src/
   components/            the Common components, Sa… each, and their composables
   components.css         the shared classes (.sa-control, .sa-menu…) and the @source of the components
   fonts.css              self-hosted Plus Jakarta Sans and JetBrains Mono
+  messages/              the components' own words, under sa., a module per language, and their loader
   theme/                 the roles, the derivation, applyTheme and fetchBrand
 logos/                   the mark: SVG, favicons, app icons
 pages/                   the VitePress site

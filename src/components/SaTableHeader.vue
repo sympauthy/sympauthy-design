@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ArrowDownIcon, ArrowsUpDownIcon, ArrowUpIcon, FunnelIcon } from '@heroicons/vue/20/solid'
 import type { SaSort } from './useSaSort'
 
@@ -20,17 +21,19 @@ const props = withDefaults(
     sorting?: SaSort
     /** The field this column shows, which [sorting] is asked about. */
     field?: string
-    /** Says that a filter narrows this column, as "Filtered", and marks the column with it. */
-    filteredLabel?: string
+    /** A filter narrows this column: it is marked, and says "Filtered" to a screen reader. */
+    filtered?: boolean
   }>(),
   {
     fit: false,
     hiddenBelow: undefined,
     sorting: undefined,
     field: undefined,
-    filteredLabel: undefined
+    filtered: false
   }
 )
+
+const { t } = useI18n()
 
 const sortable = computed(
   () => !!props.sorting && !!props.field && props.sorting.sortsOn(props.field)
@@ -40,11 +43,11 @@ const direction = computed(() =>
   props.sorting && props.field ? props.sorting.directionOf(props.field) : undefined
 )
 
-const marked = computed(() => !!direction.value || !!props.filteredLabel)
+const marked = computed(() => !!direction.value || props.filtered)
 
 const classes = computed(() => [
   'sa-field-label px-4 py-2.5 text-left',
-  props.filteredLabel ? 'text-primary' : direction.value ? 'text-gray-700' : '',
+  props.filtered ? 'text-primary' : direction.value ? 'text-gray-700' : '',
   // Tall enough that the button's target stays inside the header, since the box around it clips. The
   // cell is the button's target, and it is what shows the button under the pointer.
   sortable.value ? 'relative h-control has-[button:hover]:bg-gray-100' : '',
@@ -80,9 +83,9 @@ function onSort() {
         <ArrowUpIcon v-if="direction === 'ascending'" class="size-3" />
         <ArrowDownIcon v-else-if="direction === 'descending'" class="size-3" />
       </template>
-      <template v-if="props.filteredLabel">
+      <template v-if="props.filtered">
         <FunnelIcon class="size-3" />
-        <span class="sr-only">{{ props.filteredLabel }}</span>
+        <span class="sr-only">{{ t('sa.tableHeader.filtered') }}</span>
       </template>
       <!-- Above the button's target, since asking what a column means is not asking for an order. -->
       <span v-if="$slots.help" class="relative z-10 normal-case">

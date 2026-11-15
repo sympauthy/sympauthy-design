@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import SaTableFilter from './SaTableFilter.vue'
-import type { SaFilterCriterion, SaFilterField, SaFilterLabels } from './saFilter'
+import type { SaFilterCriterion, SaFilterField } from './saFilter'
 import type { SaFilters } from './useSaFilters'
 
 /**
@@ -11,8 +12,9 @@ import type { SaFilters } from './useSaFilters'
  */
 const props = defineProps<{
   filters: SaFilters
-  labels: SaFilterLabels
 }>()
+
+const { t } = useI18n()
 
 /**
  * Each filter beside the field it names, paired once.
@@ -40,7 +42,7 @@ const shown = computed(() =>
     class="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-2 border-b border-gray-200 bg-gray-50 px-3 py-2.5 sm:px-4"
   >
     <ul
-      :aria-label="props.labels.list"
+      :aria-label="t('sa.tableFilters.list')"
       class="flex max-w-full min-w-0 basis-full flex-wrap items-center gap-2 sm:flex-1 sm:basis-60"
     >
       <SaTableFilter
@@ -48,7 +50,6 @@ const shown = computed(() =>
         :key="criterion.id"
         :field="field"
         :criterion="criterion"
-        :labels="props.labels"
         :open-on-mount="criterion.id === props.filters.added"
         @update="(patch) => props.filters.update(criterion.id, patch)"
         @remove="props.filters.remove(criterion.id)"
@@ -67,7 +68,7 @@ const shown = computed(() =>
       class="sa-link inline-flex min-h-control min-w-control items-center justify-center px-2 text-sm font-medium"
       @click="props.filters.clear()"
     >
-      {{ props.labels.clear }}
+      {{ t('sa.tableFilters.clear') }}
     </button>
   </div>
 </template>

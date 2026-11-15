@@ -1,6 +1,6 @@
 /**
  * What a filter asks of the field it names. The set is closed: a source of filters says which of
- * these a field admits, and leaves the words to whatever draws them.
+ * these a field admits, and `SaTableFilters` words each.
  */
 export const SA_FILTER_OPERATORS = [
   'eq',
@@ -134,8 +134,9 @@ export function saFilterIsComplete(criterion: SaFilterCriterion): boolean {
 
 /**
  * The set a filter over [field] picks its value from, or `null` where the field takes any value it
- * is given. A boolean has a set of two without publishing one, and [yes] and [no] are the words the
- * app draws it with.
+ * is given. A boolean has a set of two without publishing one, and [yes] and [no] are the words it
+ * is drawn with: the filters pass the package's own, and an app writing its request outside any
+ * component passes whichever it reads them by.
  */
 export function saFilterValues(
   field: SaFilterField,
@@ -176,40 +177,4 @@ export function saFilterKnownFields(descriptions: SaFilterFieldDescription[]): S
     fields.push({ ...description, type, operators })
   }
   return fields
-}
-
-/**
- * The words the filters of a table draw, since the package reads no message bundle. An app builds
- * this once, and the same object reaches `SaTableFilters` and `SaTableFilterPicker`.
- */
-export interface SaFilterLabels {
-  /** Names the list of filters, as "Active filters". */
-  list: string
-  /** The control removing them all, as "Clear filters". */
-  clear: string
-  /** The control adding one, as "Add filter". */
-  add: string
-  /** Names what is searched among the fields, as "Search fields". */
-  searchFields: string
-  /** Names what is searched among a field's values, as "Search values". */
-  searchValues: string
-  /** Said when a search matches nothing, as "Nothing matches". */
-  noMatch: string
-  /** The field choosing the operator, as "Condition". */
-  operator: string
-  /** The field holding the value, as "Value". */
-  value: string
-  /** Read where a filter has no value yet, as "Choose…". */
-  selectValue: string
-  /** The field entering several values, as "Add a value". */
-  addValue: string
-  /** The control removing one of those values, as "Remove". */
-  removeValue: string
-  /** The two values of a boolean. */
-  yes: string
-  no: string
-  /** Names the control removing a filter, as "Remove the Status filter". */
-  removeFilter: (fieldName: string) => string
-  /** What an operator reads, which can differ by type: "is before" over a date, not "is less than". */
-  operatorName: (operator: SaFilterOperator, type: SaFilterType) => string
 }

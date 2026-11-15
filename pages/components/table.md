@@ -28,7 +28,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
   <DemoModes :modes="['phone', 'tablet', 'desktop']">
     <template #inline>
     <div class="flex flex-col gap-6">
-      <SaTable loading-label="Loading users.">
+      <SaTable>
         <template #header>
           <SaTableHeader>User</SaTableHeader>
           <SaTableHeader fit><span class="sr-only">Actions</span></SaTableHeader>
@@ -41,7 +41,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
         </template>
       </SaTable>
       <SaDetailSection title="Redirect URIs">
-        <SaTable loading-label="Loading redirect URIs.">
+        <SaTable>
           <template #rows>
             <tr v-for="uri in redirectUris" :key="uri">
               <SaTableCell primary mono>{{ uri }}</SaTableCell>
@@ -50,7 +50,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
         </SaTable>
       </SaDetailSection>
       <div style="max-width: 24rem">
-        <SaTable loading-label="Loading users.">
+        <SaTable>
           <template #header>
             <SaTableHeader>User</SaTableHeader>
             <SaTableHeader fit>Created</SaTableHeader>
@@ -64,7 +64,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
         </SaTable>
       </div>
       <div style="height: 300px">
-        <SaTable fill auto-page-size loading-label="Loading clients." @page-size-change="fits = $event">
+        <SaTable fill auto-page-size @page-size-change="fits = $event">
           <template #header><SaTableHeader>Name</SaTableHeader><SaTableHeader fit>Identifier</SaTableHeader></template>
           <template #rows>
             <tr v-for="client in many.slice(0, fits)" :key="client.id">
@@ -75,14 +75,14 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
           <template #footer><p class="text-sm text-gray-500">{{ fits }} rows fit this height.</p></template>
         </SaTable>
       </div>
-      <SaTable loading-label="Loading users." loading />
-      <SaTable loading-label="Loading users." error="The users could not be loaded. Try again in a moment." />
-      <SaTable loading-label="Loading users." empty>
+      <SaTable loading />
+      <SaTable error="The users could not be loaded. Try again in a moment." />
+      <SaTable empty>
         <template #empty><p class="text-sm text-gray-500">No user matches this search.</p></template>
       </SaTable>
     </div>
     </template>
-    <SaTable loading-label="Loading users.">
+    <SaTable>
       <template #header>
         <SaTableHeader>User</SaTableHeader>
         <SaTableHeader fit>Status</SaTableHeader>
@@ -113,7 +113,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
 - **`SaTableRecord`**: the name of a record, linking to it, in the `primary` cell. Its `detail` is an identifier, from `sm:`. Under a `truncate` cell it takes `truncate` too, and its name is cut with an ellipsis rather than wrapped.
 - **Another record named in a cell**, as the client a session signed in at: a [RecordLink](/components/record-link). Under a `truncate` column it takes `truncate` too.
 - **`sorting`** and **`field`**: a column that orders the list, as [TableSort](/components/table-sort) shows.
-- **`filteredLabel`**: says that a filter narrows a column, as [TableFilters](/components/table-filters) shows.
+- **`filtered`**: marks a column a filter narrows, as [TableFilters](/components/table-filters) shows.
 - **`SaTableActions`**: the cell holding what can be done to a row, one [Menu](/components/menu) drawn as its mark alone. The name of a record already leads to it, so no second control does. A row with nothing to do keeps the cell and leaves it empty.
 - **Not for** labelled buttons in a row: they repeat down the column, and a phone has no corner to hold them. Put them in the row's menu.
 - **`labelHidden`**: a value read without the column's name on a phone, such as a status.
@@ -143,7 +143,7 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
 ## Behavior
 
 - **Hover**: a row is `ink-50`, from `sm:`.
-- **Loading** (`loading`): a [LoadingState](/components/loading-state) in place of the rows. What sits around the rows stays.
+- **Loading** (`loading`): a [LoadingState](/components/loading-state), "Loading...", in place of the rows. What sits around the rows stays.
 - **Failed** (`error`): a `danger` [Alert](/components/alert) in place of the rows.
 - **Empty** (`empty`): the `#empty` slot in place of the rows, centred.
 - **Long values**: the table scrolls sideways inside its box, rather than the page.
@@ -158,18 +158,17 @@ const many = Array.from({ length: 40 }, (_, i) => ({ id: `client-${i + 1}`, name
 - **It is a real table**, so its header cells are read with each value (WCAG 1.3.1). Below `sm:` it is displayed as blocks, and the `label` of each cell is what names its value.
 - **A table without `#header` names no column**, so what names its values is the title above it, which a screen reader reads first (WCAG 1.3.1).
 - **Pass `label` on every cell** but the one identifying the record, which names itself. The row's mark is named by its own label, as "Actions for ada@example.com". `labelHidden` keeps it for a screen reader alone.
-- **`filteredLabel` says what the funnel says, to a screen reader** (WCAG 1.1.1). A column without a visible name, such as the actions, takes one a screen reader alone reads.
+- **A `filtered` column's funnel says "Filtered" to a screen reader** (WCAG 1.1.1). A column without a visible name, such as the actions, takes one a screen reader alone reads.
 - **The record's link keeps to its line and its target reaches `control-height`** (see [Control height](/foundations/control-height)).
 
 ## API
 
-The consumer provides the controls of the toolbar, the header cells, the rows, the sentence for an empty table and the words, since the component reads no message bundle. The rows and the empty sentence stay the consumer's, so that an app's own sort header can sit among the `SaTableHeader`s.
+The consumer provides the controls of the toolbar, the header cells, the rows and the sentence for an empty table. The table draws its other words from the package's, in the app's language (see [Using in the apps](/using-in-apps#the-package-s-words)). The rows and the empty sentence stay the consumer's, so that an app's own sort header can sit among the `SaTableHeader`s.
 
 ### SaTable
 
 | Name              | Type                | Default  | Description                                                           |
 | ----------------- | ------------------- | -------- | --------------------------------------------------------------------- |
-| `loadingLabel`    | `string`            |          | Required. What is being waited for.                                   |
 | `loading`         | `boolean`           | `false`  | Draws the wait in place of the table.                                 |
 | `error`           | `string \| null`    | `null`   | Draws the failure in place of the table.                              |
 | `empty`           | `boolean`           | `false`  | Draws `#empty` in place of the table.                                 |
@@ -187,15 +186,15 @@ The consumer provides the controls of the toolbar, the header cells, the rows, t
 
 ### SaTableHeader
 
-| Name            | Type           | Default     | Description                                |
-| --------------- | -------------- | ----------- | ------------------------------------------ |
-| `fit`           | `boolean`      | `false`     | Takes only the width it needs.             |
-| `hiddenBelow`   | `'sm' \| 'lg'` | `undefined` | Dropped below this width.                  |
-| `sorting`       | `SaSort`       | `undefined` | The order of the list.                     |
-| `field`         | `string`       | `undefined` | The field this column shows.               |
-| `filteredLabel` | `string`       | `undefined` | Says a filter narrows it, and marks it.    |
-| `#default`      | slot           |             | The column's name.                         |
-| `#help`         | slot           |             | What explains the column, beside its name. |
+| Name          | Type           | Default     | Description                                |
+| ------------- | -------------- | ----------- | ------------------------------------------ |
+| `fit`         | `boolean`      | `false`     | Takes only the width it needs.             |
+| `hiddenBelow` | `'sm' \| 'lg'` | `undefined` | Dropped below this width.                  |
+| `sorting`     | `SaSort`       | `undefined` | The order of the list.                     |
+| `field`       | `string`       | `undefined` | The field this column shows.               |
+| `filtered`    | `boolean`      | `false`     | A filter narrows it: marks it.             |
+| `#default`    | slot           |             | The column's name.                         |
+| `#help`       | slot           |             | What explains the column, beside its name. |
 
 ### SaTableCell
 
