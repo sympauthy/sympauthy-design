@@ -11,7 +11,7 @@ Every page is an [AuthCard](/components/auth-card): the brand header, one card, 
 ## Inside the card
 
 - **One primary action per card**, a full-width [Button](/components/button), and the last control of the form.
-- **A secondary path is a link or an outline button**, never a second filled button: "Forgot password?" is a `primary` link under the password field; "No, cancel" on the confirm page is an outline button under "Yes, continue".
+- **A secondary path is a link or an outline button**, never a second filled button: "Forgot password?" is a [Link](/components/link)'s `SaLink` under the form's primary action; "No, cancel" on the confirm page is an outline button under "Yes, continue".
 - **Identity providers come first, then a divider, then the password form.** Each provider is an outline button carrying the provider's name ("Continue with Google"); the divider reads "or". One card keeps a single h1, and reads top to bottom on a phone.
 - **A field** is the [Field](/components/field) both apps share. Its error line sits under it, and the field takes `aria-invalid`.
 - **A code** (claims validation, TOTP) is a [CodeInput](/components/code-input). Pasting a whole code fills every box.
@@ -21,17 +21,17 @@ Every page is an [AuthCard](/components/auth-card): the brand header, one card, 
 
 ## Page by page
 
-| Page            | Card    | Primary action | Notes                                                                                                               |
-| --------------- | ------- | -------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Sign in         | default | Continue       | Providers, divider, email/password, "Forgot password?", then "Don't have an account? Sign up" under the card        |
-| Sign up         | default | Continue       | Same shape; "Already have an account? Sign in"                                                                      |
-| Collect claims  | large   | Continue       | Title "Before you continue"; claim groups (identity, address) as fieldsets with a `flow-label` legend               |
-| Validate claims | default | Verify         | Explains where the code was sent ("by email"); code input; resend link with its countdown                           |
-| MFA selection   | default | (choice)       | Each method a full-width outline button with its icon; "Skip" as a link when enrollment is optional                 |
-| TOTP enroll     | default | Confirm        | QR code on `surface` with an `ink-200` frame; the manual key in `font-mono` with a copy button; then the code input |
-| TOTP challenge  | default | Verify         | Code input only                                                                                                     |
-| Confirm         | default | Yes, continue  | Request summary box, re-authentication notice, warning sentence; "No, cancel" outline under it                      |
-| Error           | default | none           | `danger` alert with the description; details in `flow-small`                                                        |
+| Page            | Card    | Primary action | Notes                                                                                                                       |
+| --------------- | ------- | -------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Sign in         | default | Continue       | Providers, divider, email/password; "Forgot password?" under Continue, then "Don't have an account? Sign up" under the card |
+| Sign up         | default | Continue       | Same shape; "Already have an account? Sign in"                                                                              |
+| Collect claims  | large   | Continue       | Title "Before you continue"; claim groups (identity, address) as fieldsets with a `flow-label` legend                       |
+| Validate claims | default | Verify         | Explains where the code was sent ("by email"); code input; resend link with its countdown                                   |
+| MFA selection   | default | (choice)       | Each method a full-width outline button with its icon; "Skip" as a link when enrollment is optional                         |
+| TOTP enroll     | default | Confirm        | QR code on `surface` with an `ink-200` frame; the manual key in `font-mono` with a copy button; then the code input         |
+| TOTP challenge  | default | Verify         | Code input only                                                                                                             |
+| Confirm         | default | Yes, continue  | Request summary box, re-authentication notice, warning sentence; "No, cancel" outline under it                              |
+| Error           | default | none           | `danger` alert with the description; details in `flow-small`                                                                |
 
 ## Themes
 
