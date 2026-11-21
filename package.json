@@ -53,7 +53,7 @@
     "prettier": "^3.0.3",
     "reka-ui": "^2.10.4",
     "tailwindcss": "^4.2.1",
-    "typescript": "~6.0.0",
+    "typescript": "~7.0.0",
     "vitepress": "^2.0.0-alpha.15",
     "vue": "^3.5.0",
     "vue-i18n": "^11.4.20",
